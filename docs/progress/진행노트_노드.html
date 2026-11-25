@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Revit On-Site 진행 노드</title>
+<style>
+:root{--bg:#1d1e21;--grid:#26282c;--node:#2c2e33;--line:#4a4e57;--text:#e6e6e6;--muted:#9a9ea6;
+--learn:#4b3f72;--make:#2f5d4a;--fix:#6b3a32;--write:#2f4f6f;--out:#34373e;--warn:#e0a030;--goal:#4ea1ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 "Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+#canvas{position:relative;width:1400px;height:1290px;
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+ background-size:24px 24px}
+svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.band{position:absolute;left:24px;width:1352px;border-top:1px solid #33363d}
+.band b{position:absolute;left:0;top:10px;font-size:15px;color:#cfd3da}
+.band span{position:absolute;left:0;top:32px;font-size:12px;color:var(--muted)}
+.node{position:absolute;width:218px;background:var(--node);border:1px solid var(--line);border-radius:8px;overflow:visible}
+.node .hd{display:flex;justify-content:space-between;padding:5px 10px;border-radius:7px 7px 0 0;font-size:12px;font-weight:700}
+.node .bd{padding:8px 10px 10px}
+.node .tt{font-size:15px;font-weight:700;margin-bottom:3px}
+.node .pt{font-size:12.5px;color:#c9ccd2}
+.k-learn .hd{background:var(--learn)}.k-make .hd{background:var(--make)}.k-fix .hd{background:var(--fix)}.k-write .hd{background:var(--write)}
+.out{width:190px;border-style:dashed;background:#26282c}
+.out .hd{background:var(--out);color:var(--muted)}
+.goal{width:170px;border:2px solid var(--goal);background:#16304f;text-align:center}
+.goal .bd{padding:14px 10px}.goal .tt{font-size:18px}
+.idea{width:200px;border:1px dashed var(--warn);background:#2a2720}
+.idea .hd{background:transparent;color:var(--warn);padding-bottom:0}
+.note{position:absolute;left:24px;top:20px;width:1352px;border:1px solid var(--warn);background:#2a2720;border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.4fr;gap:18px}
+.note h4{margin:0 0 4px;font-size:12px;color:var(--warn)}
+.note p{margin:0;font-size:13px}
+.port{position:absolute;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:#8a8f99;border:2px solid var(--bg)}
+.port.in{left:-6px}.port.out{right:-6px}
+.lbl{position:absolute;font-size:12px;color:var(--warn);background:var(--bg);padding:0 4px}
+</style>
+</head>
+<body>
+<div id="canvas">
+  <div class="note">
+    <div><h4>목표</h4><p>슬래브·동바리 위치에 타설일, 기온, 공시체 강도, 센서 값을 붙여 어느 구역 동바리를 언제 빼도 되는지 판정하고, 감리 검측요청서까지 Revit 안에서 만든다.</p></div>
+    <div><h4>지금 (11/20)</h4><p>11/9 기능 동결 뒤 발표 리허설 중. 마지막 빌드 11/19 92차, 자동 검사 40/40 통과.</p></div>
+    <div><h4>다음</h4><p>11/25 발표. 발표 뒤 첫 수정은 판정표에 없는 구역을 미판정으로 되돌리기.</p></div>
+    <div><h4>유의할 점</h4><p>프로그램 결론은 '해체 승인 요청 가능'과 '존치'까지. 승인은 감리 몫. 동바리 본수 표기(1,248본 / 1,632본)는 아직 미정.</p></div>
+  </div>
+  <svg id="wires"></svg>
+</div>
+<script>
+// 노드: [id, 종류, x, y, 머리 오른쪽, 제목, 내용]
+const N = [
+  ["P1","learn",200,190,"10/17","조사 설계","현장 고충에서 출발, 탐색 축 7개"],
+  ["P2","learn",460,190,"10/17","1차 조사","철근 지시와 검측을 잇는 안이 1위"],
+  ["P3","learn",720,190,"10/17","2차 조사","이전 과제 앱에 붙일 후보 S1: 동바리 존치 경고"],
+  ["O3","out",990,200,"","후보 S1","동바리 존치·강도 경고"],
+
+  ["P4","learn",200,400,"10/19","SA 앱 재설계","확률 공정 모델로 다시 설계"],
+  ["P5","make",460,400,"10/20","구현","단계 A~F"],
+  ["P6","learn",720,400,"10/20","제품화 방향","고객은 신탁사·대주단"],
+  ["P7","make",980,400,"10/21","R0 반영","교차검증 P80 적중률 0.85, Revit 연동 버튼"],
+
+  ["P8","learn",200,640,"10/21","Revit·검측 사례","검측 결과를 공정에 되돌리는 단계는 국내 사례 없음"],
+  ["P9","learn",460,640,"11/4","부실시공 근거","191세대 중 60% 층간소음 기준 미달, 화정 17개 층 중 15개 층 강도 미달"],
+  ["P10","make",720,640,"11/4","주제 확정","동바리 타설·해체 검측 Revit On-Site"],
+  ["O10","out",990,650,"","판정 엔진","강도 계산과 해체 기준"],
+
+  ["P11","make",200,870,"11/5~11/9","기능 개발 54~87차","Revit 애드인 리본 7패널, 휴대폰 입력, 검측요청서"],
+  ["P12","fix",460,870,"11/11~11/12","실용성 점검 90~91차","서류 인쇄, 기록 취소, 대시보드 첫 화면"],
+  ["O11","out",720,880,"","11/9 기능 동결","회귀 점검 87차 통과"],
+
+  ["P13","fix",200,1090,"11/19","서버 통일 92차","휴대폰 입력을 Vercel 서버 하나로"],
+  ["P14","write",460,1090,"11/20","시연 영상 v9","2분 7초, 입력부터 감리 승인까지 한 흐름"],
+  ["G","goal",720,1100,"","11/25 발표",""],
+  ["I1","idea",960,1040,"발표 뒤","미판정 되돌리기","판정표에 없는 구역"],
+  ["I2","idea",960,1130,"발표 뒤","리본 메뉴 묶기",""],
+  ["I3","idea",1180,1085,"발표 뒤","기상청 자동 수집",""],
+];
+const E = [["P1","P2"],["P2","P3"],["P3","O3"],["P3","P4"],["P4","P5"],["P5","P6"],["P6","P7"],
+  ["P7","P8"],["P8","P9"],["P9","P10"],["P10","O10"],["P10","P11"],["P11","P12"],["P12","O11"],
+  ["P12","P13"],["P13","P14"],["P14","G"],["G","I1"],["G","I2"],["G","I3"]];
+const BANDS = [[170,"1. 주제 찾기","10/17~10/21"],[380,"2. 곁가지: SA 공정 앱","10/19~10/21"],[620,"3. 주제 확정","10/21~11/4"],
+  [850,"4. 개발","11/5~11/12"],[1070,"5. 발표 준비","11/19~11/25"]];
+const KIND = {learn:"알아보기",make:"만들기",fix:"고치기",write:"정리하기",out:"결과물",idea:"",goal:""};
+const cv = document.getElementById("canvas");
+for (const [y,t,d] of BANDS) cv.insertAdjacentHTML("beforeend", `<div class="band" style="top:${y}px"><b>${t}</b><span>${d}</span></div>`);
+for (const [id,k,x,y,r,t,p] of N) {
+  const cls = k==="out"||k==="idea"||k==="goal" ? k : "k-"+k;
+  const hd = k==="goal" ? "" : `<div class="hd"><span>${k==="idea"?r:KIND[k]}</span><span>${k==="idea"?"":(id.startsWith("P")?id+" · ":"")+r}</span></div>`;
+  cv.insertAdjacentHTML("beforeend", `<div class="node ${cls}" id="${id}" style="left:${x}px;top:${y}px">${hd}<div class="bd"><div class="tt">${t}</div>${p?`<div class="pt">${p}</div>`:""}</div><i class="port in"></i><i class="port out"></i></div>`);
+}
+const svg = document.getElementById("wires"), box = cv.getBoundingClientRect();
+const at = (el, side) => { const r = el.getBoundingClientRect(); return [side ? r.right - box.left : r.left - box.left, r.top - box.top + r.height/2]; };
+// 후보 S1 → 주제 확정: 오른쪽 가장자리로 돌아 들어가는 강조선
+{ const o=document.getElementById("O3").getBoundingClientRect(), t=document.getElementById("P10").getBoundingClientRect();
+  const x1=o.right-box.left, y1=o.top-box.top+o.height/2, tx=t.left-box.left+t.width/2, ty=t.top-box.top, yy=606;
+  svg.insertAdjacentHTML("beforeend", `<path d="M${x1},${y1} H1360 Q1376,${y1} 1376,${y1+16} V${yy-16} Q1376,${yy} 1360,${yy} H${tx+16} Q${tx},${yy} ${tx},${yy+16} V${ty}" fill="none" stroke="#e0a030" stroke-width="2.5"/>`);
+  cv.insertAdjacentHTML("beforeend", `<div class="lbl" style="left:1215px;top:${yy-22}px">후보 S1이 주제가 됨</div>`); }
+for (const [a,b,label] of E) {
+  const [x1,y1] = at(document.getElementById(a), 1), [x2,y2] = at(document.getElementById(b), 0);
+  const dash = b.startsWith("O") || b.startsWith("I") ? ' stroke-dasharray="5 4"' : "";
+  let d;
+  if (x2 > x1) { const c = Math.max(40,(x2-x1)/2); d = `M${x1},${y1} C${x1+c},${y1} ${x2-c},${y2} ${x2},${y2}`; }
+  else { const my = (y1 + y2) / 2 + 10; d = `M${x1},${y1} C${x1+60},${y1} ${x1+60},${my} ${(x1+x2)/2},${my} S${x2-60},${y2} ${x2},${y2}`; }
+  svg.insertAdjacentHTML("beforeend", `<path d="${d}" fill="none" stroke="${label?"#e0a030":"#7d8590"}" stroke-width="2"${dash}/>`);
+  if (label) cv.insertAdjacentHTML("beforeend", `<div class="lbl" style="left:${(x1+x2)/2+40}px;top:${(y1+y2)/2-30}px">${label}</div>`);
+}
+</script>
+</body>
+</html>

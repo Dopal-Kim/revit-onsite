@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 실제 화면: [판정] 뒤 검측 3D 뷰 + 대시보드, 기준일 2026-12-31 (시연 자료)</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">12 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">03 · Revit On-Site · 대시보드</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">모든 구역의 상태가 한 화면에 보입니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">[판정] 한 번이면 모델 색 · 할 일 · 구역 수가 함께 바뀝니다</text>
+  </g>
+  <g id="dashboard-shot" data-pptx-bounds="56 178 916 456">
+    <rect x="56" y="178" width="916" height="454" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5"/>
+    <image href="../images/shot_14_view.png" x="64" y="186" width="900" height="438" preserveAspectRatio="xMidYMid meet"/>
+    <g fill="#1F5FA8" stroke="#FFFFFF" stroke-width="3"><circle cx="395" cy="443" r="16"/><circle cx="770" cy="210" r="16"/><circle cx="838" cy="381" r="16"/><circle cx="838" cy="521" r="16"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle"><text x="395" y="448">1</text><text x="770" y="215">2</text><text x="838" y="386">3</text><text x="838" y="526">4</text></g>
+  </g>
+  <g id="dashboard-notes" data-pptx-bounds="992 178 224 456">
+    <g fill="#1F5FA8"><circle cx="1004" cy="204" r="12"/><circle cx="1004" cy="300" r="12"/><circle cx="1004" cy="408" r="12"/><circle cx="1004" cy="500" r="12"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle"><text x="1004" y="209">1</text><text x="1004" y="305">2</text><text x="1004" y="413">3</text><text x="1004" y="505">4</text></g>
+    <g font-size="15" font-weight="bold" fill="#1B2A41"><text x="1024" y="209">구역 색 = 판정 상태</text><text x="1024" y="305">오늘 할 일</text><text x="1024" y="413">강도 예측 곡선</text><text x="1024" y="505">상태별 구역 수</text></g>
+    <g font-size="13" fill="#5E6B7A">
+      <text x="1024" y="231">검측 3D 뷰에서 층 · 구역별</text>
+      <text x="1024" y="327">① 판정 ② 오늘 볼 것<tspan x="1024" dy="20">③ 요청서 ④ 층 표지</tspan></text>
+      <text x="1024" y="435">참고용이고 판정에는 쓰지 않음</text>
+      <text x="1024" y="527">요청 가능 9 · 존치 35<tspan x="1024" dy="20">시험 필요 3 · 감리 승인 1</tspan><tspan x="1024" dy="20">해체 완료 24 (구역)</tspan></text>
+    </g>
+  </g>
+  <g id="status-legend" data-pptx-bounds="56 640 916 34">
+    <rect x="64" y="648" width="14" height="14" rx="3" fill="#5FA83A"/><text x="84" y="660" font-size="13" fill="#1E2633">해체 승인 요청 가능</text>
+    <rect x="224" y="648" width="14" height="14" rx="3" fill="#E8613C"/><text x="244" y="660" font-size="13" fill="#1E2633">존치</text>
+    <rect x="296" y="648" width="14" height="14" rx="3" fill="#E9B93A"/><text x="316" y="660" font-size="13" fill="#1E2633">공시체 시험 필요</text>
+    <rect x="444" y="648" width="14" height="14" rx="3" fill="#5E6B7A"/><text x="464" y="660" font-size="13" fill="#1E2633">해체 완료</text>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">II. 문제인식 · 사고 사례 2</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-09/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">II · 문제인식 · 설치 단계</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">II. 사고 사례: 설치 단계</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">네 건 모두 콘크리트를 타설하는 도중에 일어났습니다</text>
+  </g>
+  <g id="pour-band" data-pptx-bounds="56 164 1168 48" fill="#E07A1F">
+    <rect x="56" y="172" width="1168" height="36" rx="4" fill-opacity="0.12" />
+    <rect x="56" y="172" width="6" height="36" />
+    <text x="78" y="197" font-size="18" font-weight="bold">공통점 — 타설 중 붕괴: 젖은 콘크리트 무게가 실린 순간 설치 결함이 드러남</text>
+  </g>
+  <g id="accident-timeline" data-pptx-bounds="56 222 1168 420">
+    <line x1="96" y1="270" x2="1184" y2="270" stroke="#1D3557" stroke-width="2" />
+    <g fill="#1D3557"><circle cx="198" cy="270" r="9" /><circle cx="494" cy="270" r="9" /><circle cx="790" cy="270" r="9" /><circle cx="1086" cy="270" r="9" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4" text-anchor="middle"><text x="198" y="250">2015.2</text><text x="494" y="250">2015.3</text><text x="790" y="250">2022.10</text><text x="1086" y="250">2023.8</text></g>
+    <g fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1"><rect x="56" y="292" width="284" height="344" rx="4" /><rect x="352" y="292" width="284" height="344" rx="4" /><rect x="648" y="292" width="284" height="344" rx="4" /><rect x="944" y="292" width="280" height="344" rx="4" /></g>
+    <g stroke="#C5CDD6" stroke-width="1"><line x1="198" y1="279" x2="198" y2="292" /><line x1="494" y1="279" x2="494" y2="292" /><line x1="790" y1="279" x2="790" y2="292" /><line x1="1086" y1="279" x2="1086" y2="292" /></g>
+    <g font-size="20" font-weight="bold" fill="#1D3557" text-anchor="middle"><text x="198" y="332">서울 사당종합체육관</text><text x="494" y="332">용인 냉수물천교</text><text x="790" y="332">안성 저온물류창고</text><text x="1084" y="332">안성 근린생활시설</text></g>
+    <g font-size="18" font-weight="bold" fill="#B23A2E" text-anchor="middle"><text x="198" y="366">11명 매몰 · 부상</text><text x="494" y="366">1명 사망 · 8명 부상</text><text x="790" y="366">3명 사망 · 2명 중상</text><text x="1084" y="366">2명 사망 · 4명 부상</text></g>
+    <g stroke="#C5CDD6" stroke-width="1"><line x1="80" y1="390" x2="316" y2="390" /><line x1="376" y1="390" x2="612" y2="390" /><line x1="672" y1="390" x2="908" y2="390" /><line x1="968" y1="390" x2="1200" y2="390" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="middle"><text x="198" y="418">원인</text><text x="494" y="418">원인</text><text x="790" y="418">원인</text><text x="1084" y="418">원인 (추정)</text></g>
+    <g font-size="18" fill="#1E2329" text-anchor="middle">
+      <text x="198" y="452">동바리 지지 가설재 없이</text><text x="198" y="480">타설 강행</text><text x="494" y="452">설계보다 넓은 120 cm</text><text x="494" y="480">간격 수평재,</text><text x="494" y="508">옹벽 · 상판 동시 타설</text><text x="790" y="452">조립도 미작성,</text><text x="790" y="480">층고 12.8 m에</text><text x="790" y="508">10 m · 3 m 잭서포트</text><text x="790" y="536">볼트 연결</text><text x="1084" y="452">거푸집 · 동바리 붕괴</text>
+    </g>
+  </g>
+  <g id="source-note" data-pptx-bounds="56 650 500 18">
+    <text x="56" y="663" font-size="12" fill="#5B6673">출처: 참고문헌 [13]–[19]</text>
+  </g>
+</svg>

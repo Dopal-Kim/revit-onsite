@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">VI. 보완방안</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-22/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">VI · 기술의 보완방안</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">VI. 현재 한계와 보완 계획</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">한계마다 보완 계획을 짝지었습니다</text>
+  </g>
+  <g id="limits" data-pptx-bounds="56 164 508 440">
+    <text x="56" y="188" font-size="18" font-weight="bold" fill="#5B6673">현재 한계</text>
+    <g fill="#E8EDF2"><rect x="56" y="200" width="508" height="72" rx="4" /><rect x="56" y="282" width="508" height="72" rx="4" /><rect x="56" y="364" width="508" height="72" rx="4" /><rect x="56" y="446" width="508" height="72" rx="4" /><rect x="56" y="528" width="508" height="72" rx="4" /></g>
+    <g font-size="20" fill="#1E2329"><text x="80" y="243">효과 수치가 해외 단일 사례 기반</text><text x="80" y="325">하중 비교는 아래층 동바리를 둔 경우만</text><text x="80" y="407">센서 강도 추정의 신뢰성 한계</text><text x="80" y="489">가상 데이터로만 검증</text><text x="80" y="571">판정에 법적 효력 없음</text></g>
+  </g>
+  <g id="p22-a1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="578 222 40 28" fill="#C5CDD6" stroke="none">
+<path d="M 578 229 L 604 229 L 604 222 L 618 236 L 604 250 L 604 243 L 578 243 Z" />
+</g>
+  <g id="p22-a2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="578 304 40 28" fill="#C5CDD6" stroke="none">
+<path d="M 578 311 L 604 311 L 604 304 L 618 318 L 604 332 L 604 325 L 578 325 Z" />
+</g>
+  <g id="p22-a3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="578 386 40 28" fill="#C5CDD6" stroke="none">
+<path d="M 578 393 L 604 393 L 604 386 L 618 400 L 604 414 L 604 407 L 578 407 Z" />
+</g>
+  <g id="p22-a4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="578 468 40 28" fill="#C5CDD6" stroke="none">
+<path d="M 578 475 L 604 475 L 604 468 L 618 482 L 604 496 L 604 489 L 578 489 Z" />
+</g>
+  <g id="p22-a5" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="578 550 40 28" fill="#C5CDD6" stroke="none">
+<path d="M 578 557 L 604 557 L 604 550 L 618 564 L 604 578 L 604 571 L 578 571 Z" />
+</g>
+  <g id="plans" data-pptx-bounds="632 164 592 492">
+    <text x="632" y="188" font-size="18" font-weight="bold" fill="#2E6DB4">보완 계획</text>
+    <g fill="#FFFFFF" stroke="#2E6DB4" stroke-width="1.5"><rect x="632" y="200" width="592" height="72" rx="4" /><rect x="632" y="282" width="592" height="72" rx="4" /><rect x="632" y="364" width="592" height="72" rx="4" /><rect x="632" y="446" width="592" height="72" rx="4" /><rect x="632" y="528" width="592" height="72" rx="4" /></g>
+    <g font-size="20" fill="#1D3557"><text x="656" y="243">국내 현장에서 존치 기간 · 수량 · 비용 기록</text><text x="656" y="325">제거 · 재설치 구역 → <tspan font-weight="bold">'상세 구조 계산 필요'</tspan> 분류</text><text x="656" y="407">법정 근거는 현장양생 공시체, 센서는 보조</text><text x="656" y="489">실측 공시체 결과로 재검증</text><text x="656" y="571"><tspan font-weight="bold">'해체 승인 요청 가능'</tspan>까지만 표시 · 결정은 감리</text></g>
+    <rect x="632" y="612" width="592" height="40" rx="4" fill="#2E6DB4" fill-opacity="0.12" />
+    <text x="656" y="638" font-size="18" fill="#2E6DB4"><tspan font-weight="bold">추가 계획</tspan> · 승인 요청 검토서 자동 출력 기능</text>
+  </g>
+</svg>

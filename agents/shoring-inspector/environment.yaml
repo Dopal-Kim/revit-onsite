@@ -1,0 +1,2 @@
+# 계산은 표준 라이브러리 Python, 서류는 docx 스킬. 외부 호스트 접속 없음 (기상 자료는 실행 스크립트가 로컬에서 받아 올림)
+config: {type: cloud, networking: {type: limited, allow_package_managers: true}}

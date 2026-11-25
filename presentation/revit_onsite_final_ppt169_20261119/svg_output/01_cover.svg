@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="cover" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#1D3557" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#C5CDD6" stroke-width="1.5" stroke-opacity="0.6" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#2E6DB4" stroke-width="1" />
+  </g>
+  <g id="logos" data-pptx-bounds="56 44 212 88">
+    <rect x="56" y="48" width="208" height="80" rx="4" fill="#F6F7F5" />
+    <image href="../images/khu_crest.png" x="66" y="54" width="90" height="68" preserveAspectRatio="xMidYMid meet" />
+    <image href="../images/dept_logo.png" x="190" y="58" width="54" height="61" preserveAspectRatio="xMidYMid meet" />
+  </g>
+  <g id="hook" data-pptx-bounds="56 176 620 90">
+    <text x="56" y="208" font-size="24" fill="#E07A1F" font-weight="bold">이 구역 동바리,<tspan x="56" dy="36">오늘 해체 승인을 요청해도 될까요?</tspan></text>
+  </g>
+  <g id="cover-title" data-pptx-bounds="56 290 620 144">
+    <text x="56" y="362" font-size="72" font-weight="bold" fill="#FFFFFF">Revit On-Site</text>
+    <text x="56" y="416" font-size="24" fill="#E8EDF2">동바리 설치·해체 판정을 위한 Revit 애드인</text>
+  </g>
+  <g id="course-info" data-pptx-bounds="56 456 620 180">
+    <line x1="56" y1="464" x2="620" y2="464" stroke="#2E6DB4" stroke-width="1" />
+    <text x="56" y="492" font-size="15" fill="#C5CDD6">과목</text>
+    <text x="176" y="492" font-size="18" fill="#FFFFFF">건축공학시스템설계</text>
+    <text x="56" y="524" font-size="15" fill="#C5CDD6">담당 교수</text>
+    <text x="176" y="524" font-size="18" fill="#FFFFFF">백장운 교수님</text>
+    <text x="56" y="556" font-size="15" fill="#C5CDD6">학과</text>
+    <text x="176" y="556" font-size="18" fill="#FFFFFF">건축공학과</text>
+    <text x="56" y="588" font-size="15" fill="#C5CDD6">팀명</text>
+    <text x="176" y="588" font-size="18" fill="#FFFFFF" font-weight="bold">Build Up</text>
+    <text x="56" y="620" font-size="15" fill="#C5CDD6">팀원</text>
+    <text x="176" y="620" font-size="18" fill="#FFFFFF">김도영, 이영준, 최예준, 최영윤</text>
+  </g>
+  <g id="section-drawing" data-pptx-bounds="700 48 524 600">
+    <rect x="700" y="48" width="524" height="596" rx="4" fill="#F6F7F5" />
+    <text x="724" y="90" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">DWG · 동바리 존치 단면</text>
+    <text x="724" y="128" font-family="Consolas, Malgun Gothic, monospace" font-size="15" font-weight="bold" fill="#1D3557">타설층 포함 3개 층 존치</text>
+    <g stroke="#2E6DB4" stroke-width="4">
+      <line x1="778" y1="222" x2="778" y2="318" /><line x1="836" y1="222" x2="836" y2="318" /><line x1="894" y1="222" x2="894" y2="318" /><line x1="952" y1="222" x2="952" y2="318" /><line x1="1010" y1="222" x2="1010" y2="318" /><line x1="1068" y1="222" x2="1068" y2="318" />
+      <line x1="778" y1="330" x2="778" y2="426" /><line x1="836" y1="330" x2="836" y2="426" /><line x1="894" y1="330" x2="894" y2="426" /><line x1="952" y1="330" x2="952" y2="426" /><line x1="1010" y1="330" x2="1010" y2="426" /><line x1="1068" y1="330" x2="1068" y2="426" />
+      <line x1="778" y1="438" x2="778" y2="534" /><line x1="836" y1="438" x2="836" y2="534" /><line x1="894" y1="438" x2="894" y2="534" /><line x1="952" y1="438" x2="952" y2="534" /><line x1="1010" y1="438" x2="1010" y2="534" /><line x1="1068" y1="438" x2="1068" y2="534" />
+    </g>
+    <rect x="756" y="210" width="334" height="12" fill="#E07A1F" />
+    <rect x="756" y="318" width="334" height="12" fill="#1D3557" />
+    <rect x="756" y="426" width="334" height="12" fill="#1D3557" />
+    <rect x="756" y="534" width="334" height="12" fill="#5B6673" />
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#1D3557">
+      <text x="1104" y="221" fill="#E07A1F" font-weight="bold">타설층</text>
+      <text x="1104" y="275">받침 1</text>
+      <text x="1104" y="383">받침 2</text>
+      <text x="1104" y="491">받침 3</text>
+    </g>
+    <line x1="736" y1="216" x2="736" y2="540" stroke="#5B6673" stroke-width="1" stroke-dasharray="8,4,2,4" />
+    <line x1="728" y1="216" x2="744" y2="216" stroke="#5B6673" stroke-width="1" />
+    <line x1="728" y1="540" x2="744" y2="540" stroke="#5B6673" stroke-width="1" />
+    <text x="724" y="618" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">S-01/26 · BUILD UP</text>
+  </g>
+</svg>

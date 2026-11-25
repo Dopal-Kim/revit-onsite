@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>Revit On-Site 저장소 안내</title>
+<style>
+:root{--ink:#1B2A41;--sub:#5E6B7A;--line:#D5DCE4;--blue:#1F5FA8;--pale:#EEF3F9;--green:#3E7D2B;--gpale:#EAF4E2;--amber:#8A5A00;--apale:#FFF4D6;--red:#B23A1E;--rpale:#FDECE7}
+*{box-sizing:border-box}body{margin:0;background:#F6F8FB;font-family:"Malgun Gothic","Segoe UI",sans-serif;color:var(--ink)}
+.wrap{width:1360px;margin:0 auto;padding:28px 20px 32px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;background:var(--ink);color:#fff;border-radius:12px;padding:24px 28px}
+.head h1{margin:0;font-size:34px}.head p{margin:6px 0 0;color:#D5DCE4;font-size:16px}
+.repo{background:#fff;color:var(--ink);border-radius:8px;padding:10px 14px;font:bold 16px "Segoe UI",sans-serif}
+.repo small{display:block;color:var(--sub);font:12px "Malgun Gothic",sans-serif;margin-bottom:2px}
+h2{font-size:17px;margin:22px 0 10px;color:var(--blue)}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.st{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;position:relative}
+.st b{display:block;font-size:15px}.st span{font-size:13px;color:var(--sub)}
+.st i{font-style:normal;font:bold 12px "Segoe UI";color:#fff;background:var(--blue);border-radius:10px;padding:1px 8px;display:inline-block;margin-bottom:6px}
+.st.end{background:var(--gpale);border-color:#B9D9A5}.st.end i{background:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px;border-top:4px solid var(--blue)}
+.card.doc{border-top-color:#7A5AA8}.card.data{border-top-color:#2E8A84}.card.pres{border-top-color:#C0661F}
+.card .p{font:bold 14px Consolas,"Segoe UI",monospace;color:var(--ink)}
+.card .n{float:right;font:12px "Segoe UI";color:var(--sub);background:var(--pale);border-radius:8px;padding:1px 7px}
+.card .t{font-size:15px;font-weight:bold;margin:6px 0 4px}.card ul{margin:0;padding-left:16px;font-size:13px;color:#33414F;line-height:1.55}
+.row{display:grid;grid-template-columns:1.25fr 1fr;gap:12px}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.k{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.k b{font:bold 30px "Segoe UI";color:var(--green)}.k span{display:block;font-size:13px;color:var(--sub)}
+table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--pale);font-size:12px;color:var(--sub)}
+td.f{font-family:Consolas,monospace;font-size:12px;color:var(--blue)}
+.note{display:flex;gap:10px;margin-top:12px}.nb{flex:1;border-radius:10px;padding:10px 14px;font-size:13px;line-height:1.55}
+.nb.a{background:var(--apale);border:1px solid #F0D58A}.nb.r{background:var(--rpale);border:1px solid #F2C2B4}.nb b{display:block;margin-bottom:2px}
+</style></head><body><div class="wrap">
+
+<div class="head"><div><h1>Revit On-Site</h1><p>동바리 설치·해체 판정 Revit 애드인 · 경희대 건축공학시스템설계 · 팀 Build Up (김도영 · 이영준 · 최예준 · 최영윤) · 백장운 교수님</p></div>
+<div class="repo"><small>GitHub 저장소 (비공개)</small>github.com/Dopal-Kim/revit-onsite</div></div>
+
+<h2>① 쓰는 흐름 — 프로그램은 승인하지 않고 근거를 남깁니다</h2>
+<div class="flow">
+<div class="st"><i>1</i><b>동바리 입력</b><span>층 입력 뷰 · 6가지 놓기 · 3개층 확인</span></div>
+<div class="st"><i>2</i><b>휴대폰 공시체 입력</b><span>QR로 열고 강도 3개 · 같이 친 구역 공통</span></div>
+<div class="st"><i>3</i><b>판정</b><span>Revit이 5분마다 가져가 구역마다 판정</span></div>
+<div class="st"><i>4</i><b>요청 제출</b><span>해체 검측요청서 A4 · 서명란 비움</span></div>
+<div class="st"><i>5</i><b>감리 승인 기록</b><span>감리가 휴대폰에서 체크 · '감리 직접'</span></div>
+<div class="st end"><i>6</i><b>층 표지</b><span>층 입구 표지 · 인쇄 시각</span></div>
+</div>
+
+<h2>② 폴더 지도 — 무엇이 어디에 있나</h2>
+<div class="grid">
+<div class="card"><span class="n">C# · .NET 8</span><div class="p">revit/RevitOnSite/</div><div class="t">Revit 애드인 본체</div><ul><li>리본 탭 'Revit On-Site' 명령</li><li>Engine: 판정·기준(Standards.cs)·요청서</li><li>*.Check: 자동 시험 프로젝트 4개</li></ul></div>
+<div class="card"><span class="n">Python</span><div class="p">shoring/</div><div class="t">판정 계산 원본</div><ul><li>engine.py · evaluate.py (계산은 한 곳)</li><li>scenarios.py 시나리오 검증</li><li>sample/ 가상 데이터 9–12층</li></ul></div>
+<div class="card"><span class="n">Node · Vercel</span><div class="p">server/vercel/</div><div class="t">현장 입력 서버</div><ul><li>api/handler.js 입력·조회 API</li><li>pages/ 휴대폰·감리·타임라인 화면</li><li>오프라인 재전송 · 푸시 알림</li></ul></div>
+<div class="card"><span class="n">HTML</span><div class="p">web/</div><div class="t">웹 4D 공유판</div><ul><li>onsite_4d.html 판정 결과 4D</li><li>field/ 현장 입력 화면 원본</li></ul></div>
+<div class="card data"><span class="n">모델·데이터</span><div class="p">revit/ (모델)</div><div class="t">시연 모델·패밀리</div><ul><li>shoring_demo(.rvt) · onsite 판</li><li>families/ 동바리·센서 패밀리</li><li>onsite_data_demo · kbim 시연 데이터</li></ul></div>
+<div class="card doc"><span class="n">문서 168개</span><div class="p">docs/</div><div class="t">설계·검증·도움말</div><ul><li>scenario_validation · regression_check</li><li>field_input_spec · impact_map</li><li>help/ 명령별 도움말 · audit/ 점검</li></ul></div>
+<div class="card pres"><span class="n">PPT 30장</span><div class="p">presentation/</div><div class="t">발표 자료 원본</div><ul><li>v2/exports 발표_최종.pptx</li><li>svg_final 슬라이드 · notes 대본</li><li>final/ 이전 판 · sources 검토판</li></ul></div>
+<div class="card"><span class="n">도구</span><div class="p">tools/ · dynamo/ · agents/</div><div class="t">보조 도구</div><ul><li>tools/ 점검·서버 동기 시험 스크립트</li><li>dynamo/ 초기 Dynamo 노드 코드</li><li>agents/ 검측 에이전트 설정</li></ul></div>
+</div>
+
+<div class="row">
+<div>
+<h2>③ 발표 자료 바로가기</h2>
+<table>
+<tr><th>자료</th><th>파일</th><th>내용</th></tr>
+<tr><td><b>발표 PPT (최종)</b></td><td class="f">presentation/revit_onsite_v2…/exports/Revit_On-Site_발표_최종.pptx</td><td>30장 · 시연 영상 포함</td></tr>
+<tr><td><b>시연 영상</b></td><td class="f">docs/presentation/video/RevitOnSite_시연_v9.mp4</td><td>2분 7초 · H.264 호환판</td></tr>
+<tr><td><b>영상 대본</b></td><td class="f">docs/presentation/video/대본_v9.md</td><td>시간별 화면·읽는 말</td></tr>
+<tr><td><b>예상 질문 답변</b></td><td class="f">docs/presentation/RevitOnSite_예상질문_답변.pdf</td><td>22문항 · 8쪽 카드</td></tr>
+<tr><td><b>진행 보고서</b></td><td class="f">docs/RevitOnSite_진행보고서_20261104.pdf</td><td>11-04 중간 보고</td></tr>
+<tr><td><b>따라하기 가이드</b></td><td class="f">docs/simulation/따라하기_가이드.pdf</td><td>사용 순서 안내</td></tr>
+</table>
+</div>
+<div>
+<h2>④ 확인한 것</h2>
+<div class="kpi">
+<div class="k"><b>10/10</b><span>위험 시나리오가 모두 기대대로 판정 (발표 27장)</span></div>
+<div class="k"><b>54 · 36</b><span>실제 10층 IFC: 요청 가능 · 존치 구역 (Python 엔진과 같음)</span></div>
+<div class="k"><b>40/40</b><span>회귀 점검 항목 통과</span></div>
+</div>
+<div class="note">
+<div class="nb a"><b>결론은 두 가지뿐</b>'해체 승인 요청 가능' / '존치'. 승인은 감리가, 서명란은 비워 둡니다.</div>
+<div class="nb r"><b>올리지 않은 것</b>접속 토큰 · 배포 연결 정보 · 실제 QR 화면 · 100 MB 넘는 외부 시험 모델 · 빌드 산출물 · 점검 사본</div>
+</div>
+</div>
+</div>
+
+</div></body></html>

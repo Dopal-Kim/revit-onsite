@@ -1,0 +1,1908 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "21bf4119d7c906af66112cd10d8360391df38d34f0e607b40d461b996176a5dc",
+    "file_count": 26,
+    "files": [
+      {
+        "file": "01_cover.svg",
+        "sha256": "17b61b5394a104fde2991647f4ebc3e242216771956c52426a6db84907676144"
+      },
+      {
+        "file": "02_contents.svg",
+        "sha256": "98abb5561e1fc0a516f945a1372e59ecead4135e96b42923eaece998417967c1"
+      },
+      {
+        "file": "03_overview.svg",
+        "sha256": "60ffb6daf165f602b6ef8ee812f19394db7b7236181f6832703e680f00a180b4"
+      },
+      {
+        "file": "04_system.svg",
+        "sha256": "0de361364a533beb15c64657e667fdb7ae09b734ff534f766999db5bb808d6c1"
+      },
+      {
+        "file": "05_process.svg",
+        "sha256": "1a26b9b2890b52c5bbe5935bf618b248c91e463e0d666f44d3ec4776ab68baa3"
+      },
+      {
+        "file": "06_criteria.svg",
+        "sha256": "762af3521c70e903a6ea952ccfddebaaa898ce9fe2f83e01dc8bcd95cf776db6"
+      },
+      {
+        "file": "07_problem.svg",
+        "sha256": "bf4b6fba06ba9c644148f05b7126f081189191954e42fad12fe10fcde7c18f4f"
+      },
+      {
+        "file": "08_hwajeong.svg",
+        "sha256": "36f78678a875a1d8b4553127c10ee656f320dc378e671b8980de80ba34868421"
+      },
+      {
+        "file": "09_install_accidents.svg",
+        "sha256": "a95be4fcd02b1471cf2cc416055097331d2ebcef84c9a82d8c55d0cc86218d87"
+      },
+      {
+        "file": "10_prior_research.svg",
+        "sha256": "f9e24fc8a14a3af4ffb295cff88c4b92186f9baa2514cc20f8664ae29ddcd856"
+      },
+      {
+        "file": "11_shore_floors.svg",
+        "sha256": "19dd1ca7704226389e0510989ecae90266ac6371a48f36a18c96f4b88de2338c"
+      },
+      {
+        "file": "12_spain_study.svg",
+        "sha256": "77a02a29cc0638adc525b6d51774eb57110e2af4ae8a0264364f6d466cd58e33"
+      },
+      {
+        "file": "13_beta_result.svg",
+        "sha256": "16cf7d955dd43047efcf8a7c9515bd73d6c3e596e8937bb6257f61596329113f"
+      },
+      {
+        "file": "14_applicability.svg",
+        "sha256": "5226b358015b37b095b6b2b29cd50f8a172ce004dfe66743b5c21c5d44354cc7"
+      },
+      {
+        "file": "15_demo.svg",
+        "sha256": "ca02390d98680aaf570c474b1962cd2a5297130c6eafc6ed3bf4ee90dfa9a4b8"
+      },
+      {
+        "file": "16_effects.svg",
+        "sha256": "43289e1d9e057218c6bbbe416aed6aa357b43a924cfbd8b0bbfca2086cf5e77a"
+      },
+      {
+        "file": "17_safety.svg",
+        "sha256": "c9044df991b0c0a313852a310c47d8c1e98075bf14bbc037966f2f4880ea826f"
+      },
+      {
+        "file": "18_records.svg",
+        "sha256": "e78a5e48a367d95d4de1c7c3d18fb6a0d4d3567bd56438096271442d12454712"
+      },
+      {
+        "file": "19_cost_principle.svg",
+        "sha256": "0b4457fa80896ade6f7473acec1372f1a5c34cf0abe7378ae33346982a61fb17"
+      },
+      {
+        "file": "20_cost_numbers.svg",
+        "sha256": "ec60a3a940268575ee3f3d0a2ed65a87df2a5f9d6d0860efa900a943d08307a1"
+      },
+      {
+        "file": "21_stakeholders.svg",
+        "sha256": "9c7dfadd2e3d67a5983d8e59eb18c3cd1f83ec20dbf89b6d79419f7a7a85e130"
+      },
+      {
+        "file": "22_limits.svg",
+        "sha256": "7c3deb40012a7a8015f9d79fbd841f4e4a2eb2e66ddd4bce4118d2a88fa2503a"
+      },
+      {
+        "file": "23_conclusion.svg",
+        "sha256": "bb8021a73b9b382cca205417afe152e3e202f1ebfee7c5e52f48aff918579ec5"
+      },
+      {
+        "file": "24_references_1.svg",
+        "sha256": "9bfe5eea051158aef62f8bbec33aacb86405d1e690f7e25595251568d1bcee60"
+      },
+      {
+        "file": "25_references_2.svg",
+        "sha256": "072695cec1f7b16ce3c66c38881d53c95238b4c4df0994e45b3eb119ed59870b"
+      },
+      {
+        "file": "26_qa.svg",
+        "sha256": "6573c9e7f419c7cda838b3e6006ec1c1cc70c8b2cb6b66142e7cca551845909c"
+      }
+    ]
+  },
+  "summary": {
+    "total": 26,
+    "passed": 25,
+    "warnings": 1,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 1,
+      "issues": [
+        {
+          "file": "25_references_2.svg",
+          "message": "Detected 2 paragraph-like line run(s) split across sibling <text> elements (<g id=\"refs\"> x=56.0, y=186.0..246.0, 3 lines; <g id=\"refs\"> x=56.0, y=336.0..366.0, 2 lines). If each run is one prose paragraph, combine it into one <text>: keep its first line as direct text and use direct <tspan> children with the parent x and positive relative dy values for later lines. An all-<tspan> form may start with dy=\"0\". Keep semantically independent text frames separate."
+        }
+      ]
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {
+      "#FFFFFF": [
+        "01_cover.svg",
+        "03_overview.svg",
+        "04_system.svg",
+        "05_process.svg",
+        "06_criteria.svg",
+        "07_problem.svg",
+        "09_install_accidents.svg",
+        "10_prior_research.svg",
+        "11_shore_floors.svg",
+        "12_spain_study.svg",
+        "13_beta_result.svg",
+        "14_applicability.svg",
+        "15_demo.svg",
+        "16_effects.svg",
+        "18_records.svg",
+        "21_stakeholders.svg",
+        "22_limits.svg",
+        "23_conclusion.svg",
+        "26_qa.svg"
+      ]
+    },
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 26,
+    "totals": {
+      "text_elements": 660,
+      "image_placements": 6,
+      "icons": 29,
+      "svg_geometry_elements": 512,
+      "preset_shapes": 28,
+      "page_frame_elements": 78,
+      "marker_uses": 2,
+      "inline_emphasis_runs": 8,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 4,
+      "icons": 7,
+      "presets": 7,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 6,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": 21,
+    "geometry_elements": {
+      "circle": 40,
+      "ellipse": 0,
+      "line": 217,
+      "path": 0,
+      "polygon": 0,
+      "polyline": 0,
+      "rect": 255
+    },
+    "preset_names": {
+      "chevron": 7,
+      "cloud": 1,
+      "downArrow": 4,
+      "leftArrow": 2,
+      "rightArrow": 10,
+      "triangle": 1,
+      "upArrow": 1,
+      "upDownArrow": 1,
+      "wedgeRoundRectCallout": 1
+    },
+    "native_objects": {
+      "chart": 0,
+      "formula_block": 0,
+      "formula_inline": 0,
+      "other": 0,
+      "table": 0
+    },
+    "image_page_max_frame_share_range": [
+      0.0066,
+      0.4829
+    ]
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "01_cover.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\01_cover.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 2,
+            "files": [
+              "dept_logo.png",
+              "khu_crest.png"
+            ],
+            "max_frame_share": 0.0066
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 9,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 22,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 1,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "17b61b5394a104fde2991647f4ebc3e242216771956c52426a6db84907676144"
+    },
+    {
+      "file": "02_contents.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\02_contents.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 59,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 9,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 59,
+        "tspan_elements": 0
+      },
+      "passed": true,
+      "source_sha256": "98abb5561e1fc0a516f945a1372e59ecead4135e96b42923eaece998417967c1"
+    },
+    {
+      "file": "03_overview.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\03_overview.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 4,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 8,
+              "circle": 8,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 4,
+            "preset_names": {
+              "downArrow": 1,
+              "rightArrow": 2,
+              "wedgeRoundRectCallout": 1
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 2,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "60ffb6daf165f602b6ef8ee812f19394db7b7236181f6832703e680f00a180b4"
+    },
+    {
+      "file": "04_system.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\04_system.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 39,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 8,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 8,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 12,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 9,
+            "preset_names": {
+              "chevron": 7,
+              "cloud": 1,
+              "upDownArrow": 1
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 2
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 39,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "0de361364a533beb15c64657e667fdb7ae09b734ff534f766999db5bb808d6c1"
+    },
+    {
+      "file": "05_process.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\05_process.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 35,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 11,
+              "circle": 6,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 7,
+            "preset_names": {
+              "downArrow": 2,
+              "leftArrow": 2,
+              "rightArrow": 2,
+              "upArrow": 1
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 35,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "1a26b9b2890b52c5bbe5935bf618b248c91e463e0d666f44d3ec4776ab68baa3"
+    },
+    {
+      "file": "06_criteria.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\06_criteria.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 29,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 12,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 8,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 29,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "762af3521c70e903a6ea952ccfddebaaa898ce9fe2f83e01dc8bcd95cf776db6"
+    },
+    {
+      "file": "07_problem.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\07_problem.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 17,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 10,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 1,
+            "preset_names": {
+              "triangle": 1
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 17,
+        "tspan_elements": 6,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "bf4b6fba06ba9c644148f05b7126f081189191954e42fad12fe10fcde7c18f4f"
+    },
+    {
+      "file": "08_hwajeong.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\08_hwajeong.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 22,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 12,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 21,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 22,
+        "tspan_elements": 1
+      },
+      "passed": true,
+      "source_sha256": "36f78678a875a1d8b4553127c10ee656f320dc378e671b8980de80ba34868421"
+    },
+    {
+      "file": "09_install_accidents.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\09_install_accidents.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 28,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 10,
+              "circle": 4,
+              "ellipse": 0,
+              "line": 11,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 28,
+        "tspan_elements": 6,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "a95be4fcd02b1471cf2cc416055097331d2ebcef84c9a82d8c55d0cc86218d87"
+    },
+    {
+      "file": "10_prior_research.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\10_prior_research.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 31,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 11,
+              "circle": 5,
+              "ellipse": 0,
+              "line": 8,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 1,
+            "preset_names": {
+              "rightArrow": 1
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 31,
+        "tspan_elements": 10,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "f9e24fc8a14a3af4ffb295cff88c4b92186f9baa2514cc20f8664ae29ddcd856"
+    },
+    {
+      "file": "11_shore_floors.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\11_shore_floors.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 28,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 1,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 10,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 6,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 1,
+            "preset_names": {
+              "downArrow": 1
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 28,
+        "tspan_elements": 1,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "19dd1ca7704226389e0510989ecae90266ac6371a48f36a18c96f4b88de2338c"
+    },
+    {
+      "file": "12_spain_study.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\12_spain_study.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 40,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 20,
+              "circle": 3,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 40,
+        "tspan_elements": 1,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "77a02a29cc0638adc525b6d51774eb57110e2af4ae8a0264364f6d466cd58e33"
+    },
+    {
+      "file": "13_beta_result.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\13_beta_result.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 45,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 10,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 6,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 45,
+        "tspan_elements": 1,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "16cf7d955dd43047efcf8a7c9515bd73d6c3e596e8937bb6257f61596329113f"
+    },
+    {
+      "file": "14_applicability.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\14_applicability.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 24,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 14,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 24,
+        "tspan_elements": 5,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "5226b358015b37b095b6b2b29cd50f8a172ce004dfe66743b5c21c5d44354cc7"
+    },
+    {
+      "file": "15_demo.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\15_demo.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 7,
+          "images": {
+            "placements": 1,
+            "files": [
+              "demo_revit_screen.jpg"
+            ],
+            "max_frame_share": 0.4829
+          },
+          "icons": 1,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 1,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 7,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "ca02390d98680aaf570c474b1962cd2a5297130c6eafc6ed3bf4ee90dfa9a4b8"
+    },
+    {
+      "file": "16_effects.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\16_effects.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 19,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 4,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 12,
+              "circle": 12,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 19,
+        "tspan_elements": 2,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "43289e1d9e057218c6bbbe416aed6aa357b43a924cfbd8b0bbfca2086cf5e77a"
+    },
+    {
+      "file": "17_safety.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\17_safety.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 14,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 38,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "c9044df991b0c0a313852a310c47d8c1e98075bf14bbc037966f2f4880ea826f"
+    },
+    {
+      "file": "18_records.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\18_records.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 26,
+          "images": {
+            "placements": 1,
+            "files": [
+              "inspection_request.jpg"
+            ],
+            "max_frame_share": 0.1178
+          },
+          "icons": 6,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 11,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 26,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "e78a5e48a367d95d4de1c7c3d18fb6a0d4d3567bd56438096271442d12454712"
+    },
+    {
+      "file": "19_cost_principle.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\19_cost_principle.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 10,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 22,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 3
+      },
+      "passed": true,
+      "source_sha256": "0b4457fa80896ade6f7473acec1372f1a5c34cf0abe7378ae33346982a61fb17"
+    },
+    {
+      "file": "20_cost_numbers.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\20_cost_numbers.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 29,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 7,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 7,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 29,
+        "tspan_elements": 2
+      },
+      "passed": true,
+      "source_sha256": "ec60a3a940268575ee3f3d0a2ed65a87df2a5f9d6d0860efa900a943d08307a1"
+    },
+    {
+      "file": "21_stakeholders.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\21_stakeholders.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 24,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 5,
+          "effects": {
+            "inline_emphasis_runs": 1,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 9,
+              "circle": 1,
+              "ellipse": 0,
+              "line": 7,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 24,
+        "tspan_elements": 9,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "9c7dfadd2e3d67a5983d8e59eb18c3cd1f83ec20dbf89b6d79419f7a7a85e130"
+    },
+    {
+      "file": "22_limits.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\22_limits.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 19,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 3,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 15,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 5,
+            "preset_names": {
+              "rightArrow": 5
+            },
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 19,
+        "tspan_elements": 3,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "7c3deb40012a7a8015f9d79fbd841f4e4a2eb2e66ddd4bce4118d2a88fa2503a"
+    },
+    {
+      "file": "23_conclusion.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\23_conclusion.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 18,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 11,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 12,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 18,
+        "tspan_elements": 6,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "bb8021a73b9b382cca205417afe152e3e202f1ebfee7c5e52f48aff918579ec5"
+    },
+    {
+      "file": "24_references_1.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\24_references_1.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 7
+      },
+      "passed": true,
+      "source_sha256": "9bfe5eea051158aef62f8bbec33aacb86405d1e690f7e25595251568d1bcee60"
+    },
+    {
+      "file": "25_references_2.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\25_references_2.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Detected 2 paragraph-like line run(s) split across sibling <text> elements (<g id=\"refs\"> x=56.0, y=186.0..246.0, 3 lines; <g id=\"refs\"> x=56.0, y=336.0..366.0, 2 lines). If each run is one prose paragraph, combine it into one <text>: keep its first line as direct text and use direct <tspan> children with the parent x and positive relative dy values for later lines. An all-<tspan> form may start with dy=\"0\". Keep semantically independent text frames separate."
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 1
+      },
+      "passed": true,
+      "source_sha256": "072695cec1f7b16ce3c66c38881d53c95238b4c4df0994e45b3eb119ed59870b"
+    },
+    {
+      "file": "26_qa.svg",
+      "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\svg_output\\26_qa.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 4,
+          "images": {
+            "placements": 2,
+            "files": [
+              "dept_logo.png",
+              "khu_crest.png"
+            ],
+            "max_frame_share": 0.0066
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 1,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 3,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, Malgun Gothic, monospace",
+          "Malgun Gothic, Segoe UI, sans-serif"
+        ],
+        "text_elements": 4,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#FFFFFF"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "6573c9e7f419c7cda838b3e6006ec1c1cc70c8b2cb6b66142e7cca551845909c"
+    }
+  ]
+}

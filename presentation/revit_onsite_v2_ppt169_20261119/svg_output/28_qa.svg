@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="ending" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#1B2A41"/>
+  <g id="affiliation" data-pptx-bounds="64 48 600 28">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#8FB4E3">경희대학교 건축공학과 · 건축공학시스템설계</text>
+  </g>
+  <g id="qa-title" data-pptx-bounds="64 220 1152 220">
+    <text x="64" y="350" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="80" font-weight="bold" fill="#FFFFFF">Q&amp;A</text>
+    <text x="64" y="414" font-size="24" fill="#D5DCE4">들어 주셔서 감사합니다</text>
+  </g>
+  <g id="qa-message" data-pptx-bounds="64 480 1152 150">
+    <rect x="64" y="488" width="48" height="6" fill="#1F5FA8"/>
+    <text x="64" y="540" font-size="24" font-weight="bold" fill="#FFFFFF">질문을 받겠습니다</text>
+    <text x="64" y="580" font-size="15" fill="#D5DCE4">Revit On-Site · Team Build Up · 건축공학시스템설계 · 백장운 교수님</text>
+    <text x="64" y="608" font-size="15" fill="#8FB4E3">참고문헌은 이 뒤 부록 두 장에 있습니다</text>
+  </g>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <defs>
+    <marker id="arrowRisk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><polygon points="0,0 10,5 0,10" fill="#E8613C"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 기능 · 결과물 지도(impact_map) #1 · #2 · #3 · #22, 시나리오 검증표 S3 · S4 (20장)</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">22 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">05 · 기대효과 ① 안전 · 확실</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">화정형 붕괴 경로를 단계마다 끊습니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">아래층을 먼저 빼고, 그 위에 붓고, 강도가 모자란 판이 무게를 받는 순서</text>
+  </g>
+  <g id="collapse-path" data-pptx-bounds="64 184 1152 70">
+    <g fill="#E8613C" fill-opacity="0.12"><rect x="64" y="188" width="352" height="60" rx="6"/><rect x="464" y="188" width="352" height="60" rx="6"/><rect x="864" y="188" width="352" height="60" rx="6"/></g>
+    <g stroke="#E8613C" stroke-width="2.5"><line x1="420" y1="218" x2="458" y2="218" marker-end="url(#arrowRisk)"/><line x1="820" y1="218" x2="858" y2="218" marker-end="url(#arrowRisk)"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="15" font-weight="bold" fill="#E8613C"><text x="84" y="214">경로 1</text><text x="484" y="214">경로 2</text><text x="884" y="214">경로 3</text></g>
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="84" y="238">아래층 동바리를 먼저 뺌</text><text x="484" y="238">그 위층에 콘크리트 타설</text><text x="884" y="238">강도 미달 슬래브가 하중을 받음</text></g>
+  </g>
+  <g id="gate-removal" data-pptx-bounds="64 264 352 300">
+    <rect x="64" y="268" width="352" height="292" rx="6" fill="#EEF3F9"/>
+    <text x="84" y="300" font-size="15" font-weight="bold" fill="#1F5FA8">해체 판정 게이트</text>
+    <text x="84" y="330" font-size="18" fill="#1E2633">3개 층 · 지지층 14 MPa ·<tspan x="84" dy="26">하중비 중 하나라도 미달이면</tspan><tspan x="84" dy="26" font-weight="bold">'존치', 요청이 나가지 않음</tspan></text>
+    <line x1="84" y1="418" x2="396" y2="418" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="84" y="446" font-size="15" font-weight="bold" fill="#1F5FA8">무단 해체 의심</text>
+    <text x="84" y="474" font-size="18" fill="#1E2633">승인 기록 없이 '뺐음' 신고나<tspan x="84" dy="26">'없음' 관측이 들어오면</tspan><tspan x="84" dy="26" font-weight="bold" fill="#E8613C">즉시 빨강</tspan></text>
+  </g>
+  <g id="gate-pour" data-pptx-bounds="464 264 352 300">
+    <rect x="464" y="268" width="352" height="292" rx="6" fill="#EEF3F9"/>
+    <text x="484" y="300" font-size="15" font-weight="bold" fill="#1F5FA8">타설 전 게이트</text>
+    <text x="484" y="330" font-size="18" fill="#1E2633">아래 3개 층 동바리가<tspan x="484" dy="26">최근 24시간 안에 확인돼야</tspan><tspan x="484" dy="26"><tspan font-weight="bold">'타설 요청 가능'</tspan></tspan></text>
+    <line x1="484" y1="418" x2="796" y2="418" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="484" y="446" font-size="15" font-weight="bold" fill="#1F5FA8">바뀌는 관행</text>
+    <text x="484" y="474" font-size="18" fill="#1E2633">지금은 뺐다는 말이 없으면<tspan x="484" dy="26">있다고 보고 붓지만, 이제는</tspan><tspan x="484" dy="26">확인이 없으면 <tspan font-weight="bold" fill="#E8613C">'타설 보류'</tspan></tspan></text>
+  </g>
+  <g id="gate-strength" data-pptx-bounds="864 264 352 300">
+    <rect x="864" y="268" width="352" height="292" rx="6" fill="#EEF3F9"/>
+    <text x="884" y="300" font-size="15" font-weight="bold" fill="#1F5FA8">강도는 공시체로</text>
+    <text x="884" y="330" font-size="18" fill="#1E2633">센서 추정이 기준을 넘어도<tspan x="884" dy="26">현장양생 공시체가 미달이면</tspan><tspan x="884" dy="26" font-weight="bold">'존치 (공시체 미달)'</tspan></text>
+    <line x1="884" y1="418" x2="1196" y2="418" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="884" y="446" font-size="15" font-weight="bold" fill="#1F5FA8">겨울에는 더 많은 층을</text>
+    <text x="884" y="474" font-size="18" fill="#1E2633">12월 첫 타설이면 필요한<tspan x="884" dy="26">존치 층수가 <tspan font-weight="bold" fill="#E8613C">5개 층</tspan>, 최소</tspan><tspan x="884" dy="26">3개 층만 두면 위반으로 표시</tspan></text>
+  </g>
+  <g id="safety-metrics" data-pptx-bounds="64 576 1152 84">
+    <rect x="64" y="580" width="1152" height="76" rx="6" fill="#1B2A41"/>
+    <text x="88" y="612" font-size="15" font-weight="bold" fill="#D5DCE4">현장에서 효과를 재는 법</text>
+    <text x="88" y="640" font-size="18" fill="#FFFFFF">기준 미달인데 해체된 구역 <tspan font-weight="bold" fill="#8FC46A">0</tspan> · 타설 전 24시간 확인 비율 · 무단 해체 경고가 풀리기까지 걸린 시간</text>
+  </g>
+</svg>

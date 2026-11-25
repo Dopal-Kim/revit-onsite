@@ -1,0 +1,131 @@
+{
+  "roles": {
+    "body": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 20.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.7,
+      "latin_chars_per_100px": 9.7,
+      "caps_chars_per_100px": 9.0,
+      "digits_chars_per_100px": 8.6,
+      "citation_chars_per_100px": 9.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": {
+        "px": 1681.8,
+        "slide": "P19",
+        "text": "선행 연구 5편(천성철 2014 −40%·Alvarado 2016 3개…"
+      }
+    },
+    "title": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 36.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 2.6,
+      "latin_chars_per_100px": 5.4,
+      "caps_chars_per_100px": 5.0,
+      "digits_chars_per_100px": 4.8,
+      "citation_chars_per_100px": 5.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": {
+        "px": 858.6,
+        "slide": "P05",
+        "text": "다섯 건 모두 콘크리트를 타설하는 도중이었습니다"
+      }
+    },
+    "subtitle": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 22.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.3,
+      "latin_chars_per_100px": 8.8,
+      "caps_chars_per_100px": 8.2,
+      "digits_chars_per_100px": 7.8,
+      "citation_chars_per_100px": 8.2,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": {
+        "px": 591.2,
+        "slide": "P04",
+        "text": "품질은 타설·양생 때 정해지지만 지금은 날짜로 관리한다"
+      }
+    },
+    "annotation": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 15.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.3,
+      "latin_chars_per_100px": 13.0,
+      "caps_chars_per_100px": 12.0,
+      "digits_chars_per_100px": 11.5,
+      "citation_chars_per_100px": 12.1,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "cover_title": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 80.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 1.2,
+      "latin_chars_per_100px": 2.4,
+      "caps_chars_per_100px": 2.2,
+      "digits_chars_per_100px": 2.1,
+      "citation_chars_per_100px": 2.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "data": {
+      "family": "Segoe UI, Malgun Gothic, sans-serif",
+      "size": 28.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 3.4,
+      "latin_chars_per_100px": 7.6,
+      "caps_chars_per_100px": 6.4,
+      "digits_chars_per_100px": 6.2,
+      "citation_chars_per_100px": 7.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "display": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 64.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 1.5,
+      "latin_chars_per_100px": 3.0,
+      "caps_chars_per_100px": 2.8,
+      "digits_chars_per_100px": 2.7,
+      "citation_chars_per_100px": 2.8,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "footnote": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 12.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 7.9,
+      "latin_chars_per_100px": 16.2,
+      "caps_chars_per_100px": 15.0,
+      "digits_chars_per_100px": 14.3,
+      "citation_chars_per_100px": 15.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "lead": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 24.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 3.9,
+      "latin_chars_per_100px": 8.1,
+      "caps_chars_per_100px": 7.5,
+      "digits_chars_per_100px": 7.1,
+      "citation_chars_per_100px": 7.5,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    }
+  },
+  "script_samples": {},
+  "source": "spec_lock.md",
+  "generated_at": "2026-11-19T10:19:35Z",
+  "notes": [
+    "role display (64px, at least twice body) has no display_family and uses body_family; declare display_family if it is display type",
+    "every role is measured at normal weight; recalibrate a role realized as bold deck-wide with --role NAME:FAMILY:SIZE:bold: bold widens Latin and digits about 7%, while the bundled advance table gives CJK one width for both weights"
+  ]
+}

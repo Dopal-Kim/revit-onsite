@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">I. 소개 · 개요</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-03/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">I · Revit On-Site 소개</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">I. Revit On-Site 개요</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">현장의 질문에 기준 · 근거로 답합니다</text>
+  </g>
+  <g id="question" data-pptx-bounds="56 160 344 210">
+    <text x="56" y="180" font-size="15" fill="#5B6673">현장의 질문</text>
+    <g id="p03-bubble" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="wedgeRoundRectCallout" data-pptx-frame="56 190 340 150" fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1.5">
+<path d="M 56 215 A 25 25 0 0 1 81 190 L 112.67 190 L 112.67 190 L 197.67 190 L 371 190 A 25 25 0 0 1 396 215 L 396 277.5 L 396 277.5 L 396 315 L 396 315 A 25 25 0 0 1 371 340 L 197.67 340 L 155.17 358.75 L 112.67 340 L 81 340 A 25 25 0 0 1 56 315 L 56 315 L 56 277.5 L 56 277.5 Z" />
+</g>
+    <text fill="#1D3557" font-size="24" text-anchor="middle" font-weight="bold" x="226" y="242">이 구역 동바리,</text><text fill="#1D3557" font-size="24" text-anchor="middle" font-weight="bold" x="226" y="276">오늘 해체 승인을</text><text fill="#1D3557" font-size="24" text-anchor="middle" font-weight="bold" x="226" y="310">요청해도 될까요?</text></g>
+  <g id="p03-arrow-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="406 300 28 28" fill="#C5CDD6" stroke="none">
+<path d="M 406 307 L 420 307 L 420 300 L 434 314 L 420 328 L 420 321 L 406 321 Z" />
+</g>
+  <g id="judgment" data-pptx-bounds="440 166 384 346">
+    <rect x="440" y="170" width="384" height="338" rx="4" fill="#E8EDF2" />
+    <text x="464" y="210" font-size="22" font-weight="bold" fill="#2E6DB4">Revit On-Site 판정 · 구역마다</text>
+    <g fill="#2E6DB4"><circle cx="482" cy="262" r="16" /><circle cx="482" cy="326" r="16" /><circle cx="482" cy="390" r="16" /><circle cx="482" cy="454" r="16" /></g>
+    <g>
+      
+  <g transform="translate(472, 252) scale(0.833333)" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <path d="M5 12l5 5l10 -10" />
+  </g>
+      
+  <g transform="translate(472, 316) scale(0.833333)" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <path d="M5 12l5 5l10 -10" />
+  </g>
+      
+  <g transform="translate(472, 380) scale(0.833333)" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <path d="M5 12l5 5l10 -10" />
+  </g>
+      
+  <g transform="translate(472, 444) scale(0.833333)" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <path d="M5 12l5 5l10 -10" />
+  </g>
+    </g>
+    <g font-size="20" fill="#1E2329">
+      <text x="512" y="269">강도 ≥ 설계기준압축강도</text>
+      <text x="512" y="333">타설층 포함 3개 층 존치</text>
+      <text x="512" y="397">지지층(아래층) 14 MPa 이상</text>
+      <text x="512" y="461">하중 비교 적합</text>
+    </g>
+  </g>
+  <g id="p03-arrow-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="832 300 28 28" fill="#C5CDD6" stroke="none">
+<path d="M 832 307 L 846 307 L 846 300 L 860 314 L 846 328 L 846 321 L 832 321 Z" />
+</g>
+  <g id="verdict" data-pptx-bounds="868 166 356 346">
+    <rect x="872" y="176" width="344" height="56" rx="28" fill="#2E6DB4" />
+    <text x="1044" y="212" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">해체 승인 요청 가능</text>
+    <text x="1044" y="256" font-size="15" fill="#5B6673" text-anchor="middle">모두 만족 · 하나라도 부족하면</text>
+    <rect x="872" y="270" width="344" height="56" rx="28" fill="#FFFFFF" stroke="#1D3557" stroke-width="1.5" />
+    <text x="1044" y="306" font-size="22" font-weight="bold" fill="#1D3557" text-anchor="middle">존치</text>
+    <text x="1044" y="352" font-size="15" fill="#5B6673" text-anchor="middle">+ 근거 조항을 함께 표시</text>
+    <g id="p03-arrow-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="downArrow" data-pptx-frame="1032 364 24 28" fill="#C5CDD6" stroke="none">
+<path d="M 1032 380 L 1038 380 L 1038 364 L 1050 364 L 1050 380 L 1056 380 L 1044 392 Z" />
+</g>
+    <rect x="872" y="404" width="344" height="56" rx="28" fill="#1D3557" />
+    <text x="1044" y="440" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">감리가 최종 승인</text>
+  </g>
+  <g id="timeline" data-pptx-bounds="56 532 1168 116">
+    <text x="56" y="552" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">두 시점을 봅니다</text>
+    <line x1="120" y1="598" x2="1160" y2="598" stroke="#1D3557" stroke-width="2" />
+    <g fill="#1D3557"><circle cx="120" cy="598" r="9" /><circle cx="467" cy="598" r="9" /><circle cx="813" cy="598" r="9" /></g>
+    <circle cx="1160" cy="598" r="9" fill="#E07A1F" />
+    <text x="120" y="578" font-size="15" font-weight="bold" fill="#2E6DB4" text-anchor="middle">설치 검측</text>
+    <text x="1160" y="578" font-size="15" font-weight="bold" fill="#E07A1F" text-anchor="middle">해체 판정</text>
+    <g font-size="18" fill="#1E2329" text-anchor="middle"><text x="120" y="632">설치</text><text x="467" y="632">타설</text><text x="813" y="632">양생</text><text x="1160" y="632">해체</text></g>
+  </g>
+</svg>

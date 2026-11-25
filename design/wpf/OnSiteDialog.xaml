@@ -1,0 +1,76 @@
+﻿<!--
+  OnSiteDialog.xaml — Revit On-Site 모달 대화상자용 리소스 (항상 라이트).
+  Revit 2026 은 다크 테마에서도 "열기" 같은 모달 창을 라이트로 그린다 (ui_spec §7, 03_open_dialog.png 실측).
+  그래서 이 파일은 ThemeChanged 와 상관없이 고정이다.
+
+  병합 (각 Window 의 Resources 에):
+    <Window ... Style="{DynamicResource OnSite.DialogWindow}" WindowStartupLocation="CenterOwner" Language="ko-KR">
+      <Window.Resources>
+        <ResourceDictionary>
+          <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="/RevitOnSite;component/Wpf/OnSiteDialog.xaml"/>
+          </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+      </Window.Resources>
+  · OnSiteStyles.xaml(공용 스타일)을 안에서 병합하므로 같은 폴더에 함께 넣는다.
+  · Language="ko-KR" 를 주면 DatePicker 가 2026-10-01 형식으로 표시된다.
+  · Owner = Revit 주 창(new WindowInteropHelper(win).Owner = uiapp.MainWindowHandle).
+
+  주요 키: OnSite.DialogWindow(창) · OnSite.FieldLabel · OnSite.NumberBox + OnSite.UnitText ("7 일")
+          OnSite.HintText · OnSite.ValidationText(빨간 한 줄) · OnSite.DialogButton([확인][취소][적용]) · OnSite.HelpButton([?])
+          그 밖의 TextBox·ComboBox·DatePicker·CheckBox·GroupBox·Button 은 암시적 스타일로 자동 적용.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="OnSiteStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- 크기: 입력 칸 23 px (ui_spec §7), Windows 11 모서리 -->
+    <sys:Double x:Key="OnSite.ControlHeight">20</sys:Double> <!-- Revit 열기 대화상자 실측 ≈19 DIP(125% 화면 23–24 px) + 한글 여유 1 -->
+    <sys:Double x:Key="OnSite.RowHeight">20</sys:Double>
+    <CornerRadius x:Key="OnSite.CornerRadius">3</CornerRadius>
+
+    <!-- 색: 03_open_dialog.png 실측 (괄호 없는 값), 나머지는 Windows 11 기본값 -->
+    <SolidColorBrush x:Key="OnSite.Brush.Background"               Color="#F0F0F0"/> <!-- 실측 창 배경 -->
+    <SolidColorBrush x:Key="OnSite.Brush.Foreground"               Color="#000000"/> <!-- 실측 -->
+    <SolidColorBrush x:Key="OnSite.Brush.ForegroundDisabled"       Color="#6D6D6D"/> <!-- 실측 (작업 공유 칸) -->
+    <SolidColorBrush x:Key="OnSite.Brush.ForegroundHint"           Color="#6D6D6D"/>
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBackground"        Color="#FDFDFD"/> <!-- 실측 버튼·콤보 -->
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBackgroundHover"   Color="#E0EEF9"/>
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBackgroundPressed" Color="#CCE4F7"/>
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBorder"            Color="#D0D0D0"/> <!-- 실측 위·옆 테두리 -->
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBorderBottom"      Color="#BABABA"/> <!-- 실측 아래 테두리 -->
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBorderHover"       Color="#0078D4"/>
+    <SolidColorBrush x:Key="OnSite.Brush.ControlBorderDisabled"    Color="#DCDCDC"/>
+    <SolidColorBrush x:Key="OnSite.Brush.InputBackground"          Color="#FFFFFF"/> <!-- 실측 -->
+    <SolidColorBrush x:Key="OnSite.Brush.FocusBorder"              Color="#0078D4"/> <!-- 실측 (포커스 칸) -->
+    <SolidColorBrush x:Key="OnSite.Brush.Glyph"                    Color="#5E5E5E"/> <!-- 실측 ⌵, 체크 상자 -->
+    <SolidColorBrush x:Key="OnSite.Brush.Accent"                   Color="#0078D4"/>
+    <SolidColorBrush x:Key="OnSite.Brush.AccentForeground"         Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="OnSite.Brush.HeaderBackground"         Color="#FFFFFF"/> <!-- 실측 목록 머리글 -->
+    <SolidColorBrush x:Key="OnSite.Brush.HeaderForeground"         Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Brush.GridLine"                 Color="#E5E5E5"/>
+    <SolidColorBrush x:Key="OnSite.Brush.GroupBorder"              Color="#DCDCDC"/> <!-- 실측 그룹 상자 -->
+    <SolidColorBrush x:Key="OnSite.Brush.Error"                    Color="#C42B1C"/>
+    <SolidColorBrush x:Key="OnSite.Brush.ScrollTrack"              Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="OnSite.Brush.ScrollThumb"              Color="#C2C2C2"/>
+    <SolidColorBrush x:Key="OnSite.Brush.PopupBackground"          Color="#FFFFFF"/>
+
+    <!-- 대화상자 창: 크기 조절 불가·내용에 맞춤·주인 창 가운데. 표가 있는 창은 ResizeMode="CanResize" 로 덮어쓴다 -->
+    <Style x:Key="OnSite.DialogWindow" TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource OnSite.Brush.Background}"/>
+        <Setter Property="Foreground" Value="{DynamicResource OnSite.Brush.Foreground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OnSite.FontFamily}"/>
+        <Setter Property="FontSize" Value="{DynamicResource OnSite.FontSize}"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        <Setter Property="ShowInTaskbar" Value="False"/>
+        <!-- WindowStartupLocation 은 의존 속성이 아니라 스타일에 못 넣는다 → 각 창에 WindowStartupLocation="CenterOwner" -->
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+    </Style>
+
+</ResourceDictionary>

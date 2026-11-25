@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>층 보기 · Revit On-Site</title>
+<!-- 반장·협력업체용 층 화면 (F12) — 층 표지 QR(보기 토큰 v)로 열면 읽기 전용, 지시 문구 없음('금지'·'확인 전'까지).
+     신고 QR(신고 토큰 r, F14 — 현장 입력 창에서 협력업체 반장에게 따로)로 열면 구역마다 [이 구역 동바리를 뺐음]·[다시 세움] + 이름(필수)·소속(선택)
+     → POST /api/report → shore_checks.csv (source = 협력업체 신고). 답은 신고 확인 문구까지.
+     못 보낸 신고(지하·전파 약한 곳)는 기기에 저장 → 연결되면 자동 재전송 (index.html 큐와 같은 방식, client_id 로 중복 없음, 다시 보낼 때 device_at = 누른 시각).
+     자료: GET /api/floor?f=층&v=보기토큰 (tools/field_server.py · C# FieldServer 같은 JSON). 햇빛 아래에서 읽게 흰 바탕·검정 글자 고대비가 기본. -->
+<style>
+:root{--bg:#fff;--ink:#000;--sub:#222;--line:#555;--hold:#8b0018;--ready:#f2c94c;--ok:#0b4f1e;--chip:#e6e9ee}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:720px;margin:0 auto;padding:12px 14px 40px}
+h1{font-size:40px;line-height:1.1;margin:4px 0 8px}
+.band{border-radius:10px;padding:12px 14px;font-size:22px;font-weight:800;margin:0 0 12px}
+.hold{background:var(--hold);color:#fff}.ready{background:var(--ready);color:#000}.done{background:var(--ok);color:#fff}
+.ok{background:var(--ready);color:#000}   /* v6.3 0-4: 감리 확인(6)은 '바로 빼도 됨'이 아니라 현장 책임자 지시 대기 → 초록 대신 주의색 */
+:root{color-scheme:light}
+main{padding-bottom:calc(40px + env(safe-area-inset-bottom));padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+:focus-visible{outline:4px solid #ffbf00;outline-offset:2px}
+button,a,input{touch-action:manipulation}
+.ln2{font-size:17px;font-weight:600;opacity:.85;margin-top:2px}
+.syncage{border-radius:10px;padding:8px 12px;font-weight:700;margin:0 0 10px;background:var(--chip)}.syncage.old{background:var(--hold);color:#fff}
+.err button{margin-top:10px;display:block;background:#fff;color:#000}
+.ngl{margin-top:6px;border:2px solid var(--hold);color:var(--hold);border-radius:8px;padding:4px 10px;font-weight:700}
+ul{list-style:none;margin:0;padding:0}
+li.z{border:2px solid var(--line);border-left-width:12px;border-radius:10px;padding:10px 12px;margin:0 0 10px}
+li.z.hold{border-left-color:var(--hold);background:#fff;color:#000}li.z.ready{border-left-color:#b8860b;background:#fff;color:#000}
+li.z.done{border-left-color:var(--ok);background:#fff;color:#000}li.z.ok{border-left-color:#b8860b;background:#fff;color:#000}
+.zid{font-size:22px;font-weight:800}.ln{font-size:20px;font-weight:700}
+.sus{margin-top:6px;background:var(--hold);color:#fff;border-radius:8px;padding:6px 10px;font-size:18px;font-weight:700}
+.floors{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px;margin:16px 0 8px}
+.floors a{display:flex;align-items:center;justify-content:center;min-height:52px;border:2px solid var(--line);border-radius:26px;background:var(--chip);color:#000;font-weight:800;font-size:18px;text-decoration:none}
+.floors a[aria-current=page]{background:#000;color:#fff;border-color:#000}
+.note{color:var(--sub);font-size:16px;margin:12px 0 0}
+#rep label{display:block;font-weight:700;margin:8px 0 0}
+#rep input{display:block;width:100%;min-height:48px;font-size:18px;border:2px solid var(--line);border-radius:10px;padding:0 12px;background:#fff;color:#000}
+#msg{margin:10px 0 0;font-size:18px;font-weight:700}#msg:empty{display:none}#msg.bad{background:var(--hold);color:#fff;border-radius:8px;padding:8px 10px}
+#queue{margin:10px 0 0;border:2px dashed var(--line);border-radius:10px;padding:8px 12px}#queue p{margin:0}
+#queue ul{list-style:disc;margin:4px 0 0;padding-left:20px}#queue li{margin:4px 0}.qe{color:var(--hold);font-weight:700}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.acts button{flex:1 1 150px}
+button:disabled{opacity:.5}
+button{min-height:48px;padding:0 18px;border-radius:24px;border:2px solid var(--line);background:#fff;color:#000;font-weight:800;font-size:18px}
+.err{background:var(--hold);color:#fff;border-radius:10px;padding:12px;font-size:18px;font-weight:700}
+.s2{background:#8b0018;color:#fff;border-radius:10px;padding:10px 12px;font-weight:800;margin:8px 0}.s2 small{display:block;font-weight:600}
+#notify{margin:10px 0}#notify button{min-height:44px;padding:0 16px;border-radius:22px;font-weight:800}
+.signok{border:2px solid #555;border-radius:10px;padding:8px 12px;font-weight:700;margin:8px 0}
+.signgray{border:2px dashed #888;border-radius:10px;padding:8px 12px;color:#555;margin:8px 0}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="name">층 보기</h1>
+  <div id="band" class="band" role="status" aria-live="polite">불러오는 중…</div>
+  <div id="syncage" class="syncage" role="status" hidden></div>
+  <div id="s2"></div>
+  <div id="sign"></div>
+  <section id="rep" hidden aria-label="협력업체 해체 신고">
+    <p class="note">협력업체 해체 신고: 동바리를 빼거나 다시 세운 뒤 그 구역 버튼을 한 번 누릅니다. 신고는 기록으로 남고, 해체 여부는 감리 확인을 거쳐 현장 책임자가 정합니다.</p>
+    <label for="nm">이름 (필수)</label><input id="nm" maxlength="20" autocomplete="name">
+    <label for="co">소속 (선택)</label><input id="co" maxlength="40" autocomplete="organization">
+    <label for="ph">사진 (선택, 1장. 다음에 누르는 신고에 붙음)</label><input id="ph" type="file" accept="image/jpeg,image/png" capture="environment">
+    <div id="msg" role="status" aria-live="polite"></div>
+    <div id="queue" hidden></div>
+  </section>
+  <ul id="zones" aria-label="구역별 상태"></ul>
+  <section class="note" id="shoreInfo" aria-label="동바리 사양·해체 이력"></section>
+  <nav class="floors" id="floors" aria-label="다른 층"></nav>
+  <p class="note" id="meta"></p>
+  <p><a id="tlink" hidden>강도 타임라인 (상시 웹) →</a></p>
+  <div id="notify" hidden></div>
+  <p class="note">이 화면은 프로그램 판정 기록을 옮긴 것입니다. 해체 여부는 감리(책임기술인) 확인을 거쳐 현장 책임자가 정합니다.<span id="ro"> 읽기 전용입니다. 입력은 품질·안전관리자의 현장 입력 화면에서 합니다.</span></p>
+  <p><button type="button" id="reload">새로 고침</button></p>
+</main>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+const qs = new URLSearchParams(location.search);
+// 0-7 (v6.3·v6.4) 열쇠: 주소의 t·v·r·s 를 기기에 옮기고 주소창에서 지움 — 화면은 열쇠 없이 열리고 자료 API 만 열쇠로 (server/vercel/API.md §9.1).
+// 역할마다 하나(onsite.tok.t …), 화면마다 마지막에 쓴 역할(onsite.tok.last/경로).
+function takeToken(keys) {
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem("onsite.tok." + k); localStorage.setItem("onsite.tok." + k, v); } catch (_) {} return null; };
+  const u = new URL(location.href), k = keys.find(x => u.searchParams.get(x));
+  if (k) { ls(k, u.searchParams.get(k)); ls("last" + location.pathname, k); }
+  if (keys.some(x => u.searchParams.has(x))) {   // v6.4: Wi-Fi 서버(field_server·C#)도 화면을 열쇠 없이 내서 어디서나 지움
+    keys.forEach(x => u.searchParams.delete(x)); history.replaceState(history.state, "", u.pathname + u.search + u.hash);
+  }
+  const use = k || [ls("last" + location.pathname), ...keys].find(x => x && keys.includes(x) && ls(x));
+  return {k: use || keys[0], v: (use && ls(use)) || ""};
+}
+// 0-5 (v6.3) "마지막 Revit 동기화 n분 전" — Vercel 서버만 (답에 synced_at). 60분 넘으면 빨강. synced_at = PC 한국 시각
+function syncAge(syncedAt) {
+  if (!syncedAt) return null;
+  const min = Math.max(0, Math.round((Date.now() - Date.parse(String(syncedAt).slice(0, 19) + "+09:00")) / 6e4));
+  const t = min < 1 ? "방금" : min < 120 ? `${min}분 전` : min < 2880 ? `${Math.round(min / 60)}시간 전` : `${Math.round(min / 1440)}일 전`;
+  return min > 60 ? {old: true, text: `PC 동기화가 멈췄습니다. 담당자에게 알려 주세요 (마지막 동기화 ${t})`} : {old: false, text: `마지막 Revit 동기화 ${t}`};
+}
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});   // v6.4 2-3 오프라인 열기 — sw.js 는 Vercel 만 있음 (Wi-Fi 서버는 404 → 조용히 넘어감, LAN IP 는 브라우저가 서비스 워커를 안 줌)
+const TK = takeToken(["r", "v"]);   // 신고 토큰(r)으로 열었으면 다른 층으로 가도 신고 화면
+const v = TK.k === "v" ? TK.v : "", r = TK.k === "r" ? TK.v : "";
+const key = TK.k + "=" + encodeURIComponent(TK.v);
+const linkKey = "";   // 층 이동 주소에 열쇠를 다시 넣지 않음 (기기에 있음, v6.4 Wi-Fi 서버도 화면은 열쇠 없이)
+const store = (k, val) => { try { if (val === undefined) return localStorage.getItem(k) || ""; localStorage.setItem(k, val); } catch (_) { return ""; } };
+const say = (t, bad) => { const m = $("#msg"); m.className = bad ? "bad" : ""; m.textContent = t; };
+let f = qs.get("f") ?? (location.hash.match(/floor=(-?\d+)/) || [])[1] ?? "";
+// 동바리 사양·해체 이력 (Revit [동바리] 탭 → server_sync 스냅샷 shore_spec·shore_removed, 서버 판만)
+function shoreInfoHTML(f) {
+  const sp = f.shore_spec || [], rm = f.shore_removed || [];
+  const spec = s => `${esc(s.zone_id || "층 전체")} · ${esc(s.type)} ${esc(s.spec)} · 간격 ${esc(s.spacing_x_mm)}×${esc(s.spacing_y_mm)} mm` +
+    `${s.splices !== "" && s.splices != null ? " · 이음 " + esc(s.splices) : ""}${s.install_date ? " · 설치 " + esc(s.install_date) : ""}`;
+  return `<strong>사용 동바리</strong><ul>${sp.length ? sp.map(s => `<li>${spec(s)}</li>`).join("") : "<li>사양 기록 없음</li>"}</ul>` +
+    `<strong>해체 이력</strong><ul>${rm.length ? rm.map(r => `<li>${esc(r.date)} · ${esc(r.zone_id)} · ${esc(r.count)}본</li>`).join("") : "<li>해체 기록 없음</li>"}</ul>`;
+}
+// v6.2 Vercel 서버 전용 (답에 synced_at 이 있을 때만 — Wi-Fi 서버엔 없음): S2 승인 기록 없는 해체 신고 빨강 · 강도 타임라인 링크 · [알림 받기]
+function serverExtra(j, auth) {
+  const un = (j && j.unapproved_reports) || [], box = document.getElementById("s2");
+  if (box) box.innerHTML = un.map(u => `<div class="s2" role="alert">승인 기록 없이 해체 신고됨 (Revit 판정 전): ${esc(u.zone_id)}` +
+    `<small>${esc(String(u.at).replace("T", " "))} · ${esc(u.name)}${u.company ? " (" + esc(u.company) + ")" : ""}</small></div>`).join("");
+  if (!j || !j.synced_at || window.__srvExtra) return;
+  window.__srvExtra = true;
+  const tl = document.getElementById("tlink");
+  if (tl) { tl.href = "/timeline?" + auth; tl.hidden = false; }
+  const s = document.createElement("script"); s.src = "/notify.js"; s.defer = true; document.body.appendChild(s);
+}
+// v6.2 W10 층 표지 유효 시간 — 표지 QR 주소의 ps(인쇄 시각 YYYYMMDDHHmm, 한국 시각)·pz(그 층 구역 상태 코드를 zones.csv 순서로 이은 것).
+// 인쇄 시각은 실제 시각이라 휴대폰 시계와 비교 (판정 고정 시각과 무관). 판정 문구는 쓰지 않음.
+// v6.3 0-4 반장 문구: "해체 금지 — 감리 확인 전 (해체 승인 요청 가능)" → 첫 구절 크게, 괄호는 작은 둘째 줄 (문구 원본 = field_server VIEW_LINE)
+function lineHTML(t, cls = "ln") {
+  const m = /^(.*\S)\s+\(([^()]+)\)$/.exec(String(t || ""));
+  return m ? `<div class="${cls}">${esc(m[1])}</div><div class="ln2">(${esc(m[2])})</div>` : `<div class="${cls}">${esc(t)}</div>`;
+}
+function signBand(j) {
+  const el = document.getElementById("sign"), m = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})$/.exec(qs.get("ps") || ""), pz = qs.get("pz") || "";
+  if (!el) return;
+  if (!m) { el.innerHTML = ""; return; }
+  const printed = Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4] - 9, +m[5]);   // 한국 시각 → UTC
+  const h = Math.max(0, Math.floor((Date.now() - printed) / 3600e3)), valid = Number(j.sign_valid_hours) || 24;
+  let diff = "", changed = false;
+  if (j.zones.length && j.zones.every(z => z.status != null)) {   // 서버가 구역 상태 코드를 줄 때만 비교
+    if (/^\d+$/.test(pz) && pz.length === j.zones.length) {
+      const n = j.zones.filter((z, i) => String(z.status) !== pz[i]).length;
+      diff = ` · 표지와 지금 상태 다른 구역 ${n}개`; changed = n > 0;
+    } else { diff = " · 표지 이후 구역이 바뀌었습니다. 지금 화면을 따르세요"; changed = true; }
+  }
+  if (printed > Date.now() + 5 * 6e4) {   // 인쇄 시각이 휴대폰 시계보다 뒤 (시연 자료·시계 틀림) — 시간·빨강·유효 지남 판단 안 함 (5분은 시계 오차)
+    el.innerHTML = `<div class="signgray" role="status">표지 인쇄 시각이 이 휴대폰 시각보다 늦습니다. 휴대폰 시각을 확인하세요${diff}</div>`;
+    return;
+  }
+  const old = h >= valid;
+  el.innerHTML = `<div class="${old || changed ? "s2" : "signok"}" role="status">표지 인쇄 후 ${h}시간${diff}${old ? ` · 표지 유효 ${valid}시간 지남. 이 화면을 따르세요` : ""}</div>`;
+}
+let lastSig = "";
+async function load() {
+  try {
+    let j, cached = null;   // v6.4 2-3: 끊기면 이 기기에 저장해 둔 마지막 층 화면
+    try {
+      const res = await fetch(`/api/floor?f=${encodeURIComponent(f)}&${key}`, {cache: "no-store"});
+      j = await res.json();
+      if (j.ok) store("onsite.view.floor." + f, JSON.stringify({...j, _got: new Date().toISOString()}));
+    } catch (e) {
+      const c = store("onsite.view.floor." + f); if (!c) throw e;
+      j = JSON.parse(c); cached = new Date(j._got);
+    }
+    if (!j.ok) throw new Error(j.error || "읽지 못했습니다");
+    document.title = `${j.can_report ? "해체 신고" : "층 보기"} ${j.name} · Revit On-Site`;
+    $("#rep").hidden = !j.can_report; $("#ro").hidden = j.can_report;
+    $("#name").textContent = j.name;
+    serverExtra(j, key);
+    signBand(j);
+    const sa = syncAge(j.synced_at), sb = $("#syncage");
+    sb.hidden = !sa && !cached; if (sa) { sb.textContent = sa.text; sb.classList.toggle("old", sa.old); }
+    if (cached) {   // 오프라인 — 저장된 화면임을 맨 위에 (오래된 상태로 해체하지 않게)
+      const p2 = n => String(n).padStart(2, "0");
+      sb.textContent = `오프라인: 저장된 화면 (받은 시각 ${p2(cached.getMonth() + 1)}-${p2(cached.getDate())} ${p2(cached.getHours())}:${p2(cached.getMinutes())}) · 신고는 기기에 저장했다가 연결되면 보냅니다`;
+      sb.classList.add("old"); lastSig = "";
+    }
+    const sig = JSON.stringify([j.floor, j.status, j.kind, j.zones, j.unapproved_reports, j.can_report, j.shore_spec, j.shore_removed, j.floors]);
+    if (sig === lastSig) return;   // 1-7: 1분 새로 고침 — 바뀐 것이 없으면 목록을 다시 그리지 않음 (누르던 버튼·읽어 주기 유지)
+    lastSig = sig;
+    const b = $("#band"); b.className = "band " + j.kind; b.innerHTML = lineHTML(j.status, "bl");
+    $("#zones").innerHTML = j.zones.map(z => `<li class="z ${z.kind}"><div class="zid">${esc(z.zone_id)}</div>${lineHTML(z.line)}` +
+      (z.suspect ? `<div class="sus">무단 해체 의심. 확인이 필요합니다<br><small>${esc(z.suspect)}</small></div>` : "") +
+      (z.ng ? `<div class="ngl">동바리 결함 기록: ${esc(z.ng)}</div>` : "") +
+      (j.can_report ? `<div class="acts"><button type="button" data-z="${esc(z.zone_id)}" data-p="아니오">이 구역 동바리를 뺐음</button>` +
+        `<button type="button" data-z="${esc(z.zone_id)}" data-p="예">다시 세움</button></div>` : "") + `</li>`).join("");
+    $("#shoreInfo").hidden = !("shore_spec" in j); $("#shoreInfo").innerHTML = shoreInfoHTML(j);   // Wi-Fi 서버는 이 자료를 안 보냄 → 숨김
+    $("#floors").innerHTML = j.floors.slice().reverse().map(x =>
+      `<a href="?${linkKey}f=${x.floor}"${x.floor === j.floor ? ' aria-current="page"' : ""}>${esc(x.name)}</a>`).join("");
+    $("#meta").textContent = `판정 기준 시각 ${j.now.replace("T", " ")}${j.fixed_now ? " (시연 고정)" : ""} · ${j.project}${j.error ? " · 입력 자료 확인 필요: " + j.error : ""}`;
+  } catch (x) {
+    lastSig = "";
+    const net = !(x && x.message) || x instanceof TypeError;
+    const msg = net ? (location.protocol === "https:" ? "서버에 닿지 않았습니다. 휴대폰 인터넷(데이터·Wi-Fi)을 확인하세요" : "서버에 닿지 않았습니다. 현장 PC 와 같은 Wi-Fi 인지, 현장 입력 창이 켜져 있는지 확인하세요") : x.message;
+    $("#band").className = "err"; $("#band").innerHTML = esc(msg) + '<button type="button" id="retry">다시 시도</button>';
+    $("#retry").onclick = () => { $("#band").className = "band"; $("#band").textContent = "불러오는 중…"; load(); };
+  }
+}
+$("#nm").value = store("onsite.report.name"); $("#co").value = store("onsite.report.company");
+// ---------- 신고 오프라인 큐 (index.html 큐와 같은 방식): 못 보낸 신고는 기기에 저장 → 연결되면 자동 재전송, client_id 로 중복 없음
+const SHRINK = location.protocol === "https:";   // https = Vercel 서버 → 사진을 줄여 보냄, http = 현장 Wi-Fi 서버 → 원본 그대로
+const QK = "onsite.report.queue", PHOTO_MAX = (SHRINK ? 3 : 8) * 1024 * 1024, PHOTO_QUEUE_MAX = 3;   // [가정] 사진 상한(서버 photos.MAX_BYTES 와 같음) · 기기에 담아 둘 사진 수
+let photo = null, photoReading = false;      // 다음 신고에 붙일 사진 1장 (F15, 원본 그대로 base64)
+// 서버 판(Vercel): 요청 4.5 MB 상한 → 올리기 전에 긴 변 1600 px · JPEG 0.8 로 줄임, 줄인 뒤 3 MB 넘으면 거부 (총괄 11-08 결정)
+function shrinkPhoto(file) {
+  return new Promise((ok, no) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const k = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      const d = c.toDataURL("image/jpeg", 0.8);
+      (d.length - d.indexOf(",") - 1) * 3 / 4 > PHOTO_MAX ? no(new Error("big")) : ok(d);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); no(new Error("read")); };
+    img.src = url;
+  });
+}
+$("#ph").onchange = () => {
+  photo = null; photoReading = false;
+  const file = $("#ph").files && $("#ph").files[0];
+  if (!file) return;
+  if (!SHRINK) {
+    if (file.size > PHOTO_MAX) { say(`사진이 너무 큽니다 (${(file.size / 1048576).toFixed(1)} MB) . 8 MB 이하로 찍어 주세요`, true); $("#ph").value = ""; return; }
+    photoReading = true;
+    const rd = new FileReader();
+    rd.onload = () => { photo = rd.result; photoReading = false; };
+    rd.onerror = () => { photoReading = false; say("사진을 읽지 못했습니다. 다시 고르세요", true); };
+    rd.readAsDataURL(file);
+    return;
+  }
+  photoReading = true;
+  shrinkPhoto(file).then(d => { photo = d; photoReading = false; }, e => {
+    photoReading = false; $("#ph").value = "";
+    say(e.message === "big" ? "사진이 큽니다. 3 MB 이하로 골라 주세요" : "사진을 읽지 못했습니다. 다시 고르세요", true); });
+};
+let queue = (() => { try { return JSON.parse(localStorage.getItem(QK) || "[]"); } catch (_) { return []; } })(), flushing = false;
+const what = p => p === "아니오" ? "동바리를 뺐음" : "동바리를 다시 세움";
+const stampNow = () => { const d = new Date(), p = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
+function saveQ() {
+  // 사진은 기기에 3장까지·저장 공간이 되는 만큼만 담음 — 넘치면 최근 것부터 사진만 빼고 저장 (이 화면을 연 동안은 메모리의 사진으로 보냄)
+  const keep = new Set(queue.filter(q => q.body.photo_data).slice(0, PHOTO_QUEUE_MAX));
+  for (;;) {
+    for (const q of queue) q.photoMem = !!q.body.photo_data && !keep.has(q);
+    const copy = queue.map(q => q.photoMem ? {...q, photoMem: false, photoDropped: true, body: {...q.body, photo_data: undefined}} : q);
+    try { localStorage.setItem(QK, JSON.stringify(copy)); break; } catch (_) { if (!keep.size) break; keep.delete([...keep].pop()); }
+  }
+  renderQ();
+}
+const photoNote = q => q.photoMem ? " · 사진은 이 화면을 닫으면 빠짐" : q.photoDropped ? " · 사진 빠짐. 연결된 뒤 다시 찍어 신고하세요" : q.body.photo_data ? " · 사진 1장" : "";
+function renderQ() {
+  const el = $("#queue"); el.hidden = !queue.length;
+  el.innerHTML = queue.length ? `<p><b>보내지 못한 신고 ${queue.length}건</b>. 연결되면 자동으로 보냅니다</p><ul>` + queue.map((q, i) =>
+    `<li>${esc(q.body.zone_id)} ${what(q.body.present)} · 기기에만 저장 · ${esc(q.created.replace("T", " "))}${photoNote(q)}` +
+    (q.error ? `<br><span class="qe">${esc(q.error)}</span> <button type="button" data-del="${i}">지우기</button>` : "") + `</li>`).join("") + "</ul>" : "";
+}
+async function send(q, first) {      // → "ok" | "bad" | "net"
+  try {
+    const body = first ? q.body : {...q.body, device_at: q.created};   // 다시 보낼 때만 누른 시각(기기 시계) — 서버는 note 에만 남기고 기록 시각은 받은 시각 (위조 방지)
+    const res = await fetch(`/api/report?r=${encodeURIComponent(q.r)}`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const j = await res.json();
+    if (res.ok && j.ok) { q.res = j; return "ok"; }
+    if (res.status === 400 || res.status === 403) { q.error = j.error || "저장되지 않았습니다"; return "bad"; }
+  } catch (_) { /* 네트워크 — 아래 */ }
+  return "net";                       // 0·5xx: 저장 안 됐을 수 있음 → 남겨 두고 다시 (client_id 로 중복 방지)
+}
+async function flush() {
+  if (flushing) return; flushing = true;
+  let sent = 0;
+  try {
+    for (const q of queue.filter(q => !q.error)) {
+      const res = await send(q, false);
+      if (res === "net") break;
+      if (res === "ok") {
+        queue = queue.filter(x => x !== q); sent++;
+        say(`보냄: ${q.res.zone_id} ${q.res.timestamp.replace("T", " ")} · ${q.res.message} (누른 시각 ${q.created.replace("T", " ")}, 기기 시계)`);
+      }
+      saveQ();
+    }
+  } finally { flushing = false; renderQ(); }
+  if (sent) load();
+}
+$("#zones").addEventListener("click", async e => {   // 신고 (F14): 한 구역 한 번 — 확인 창 뒤 POST /api/report, 못 보내면 기기에 저장
+  const b = e.target.closest("button[data-p]");
+  if (!b) return;
+  const nm = $("#nm").value.trim(), co = $("#co").value.trim();
+  if (!nm) { say("이름을 먼저 적어 주세요 (신고 기록에 남습니다)", true); $("#nm").focus(); return; }
+  if (photoReading) { say("사진을 읽는 중입니다. 잠시 뒤 다시 누르세요", true); return; }
+  if (!confirm(`${b.dataset.z}: ${what(b.dataset.p)}${photo ? " (사진 1장)" : ""}\n이대로 신고할까요?`)) return;
+  store("onsite.report.name", nm); store("onsite.report.company", co);
+  const q = {r, created: stampNow(), body: {zone_id: b.dataset.z, present: b.dataset.p, name: nm, company: co,
+             client_id: "rep-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8)}};
+  if (photo) q.body.photo_data = photo;
+  queue.push(q); saveQ();             // 보내기 전에 먼저 기기에 (보내는 중 화면이 꺼져도 남게)
+  const label = b.textContent; b.disabled = true; b.textContent = "보내는 중…";
+  const res = flushing ? "net" : await send(q, true);
+  b.disabled = false; b.textContent = label;
+  if (res !== "bad") { photo = null; $("#ph").value = ""; }     // 사진은 이 신고에 붙음 — 다음 신고는 새로 고름
+  if (res === "net") { say(`서버에 닿지 않아 기기에만 저장했습니다 · ${q.created.replace("T", " ")}. 연결되면 자동으로 보냅니다.` +
+                           (q.photoMem ? " 사진은 기기에 담아 둘 한도를 넘었습니다. 이 화면을 연 동안에만 함께 보냅니다." : ""), true); return; }
+  queue = queue.filter(x => x !== q); saveQ();   // 바로 보이는 오류(이름·구역)는 큐에 남기지 않음 — index.html 과 같음
+  if (res === "bad") { say(q.error, true); return; }
+  say(`${q.res.zone_id} ${q.res.timestamp.replace("T", " ")} · ${q.res.message}${q.res.photo ? " · 사진 저장됨" : ""}`);
+  load();
+});
+$("#queue").addEventListener("click", e => {
+  const b = e.target.closest("button[data-del]");
+  if (b && confirm("이 신고를 기기에서 지울까요? (서버에는 저장되지 않은 신고)")) { queue.splice(Number(b.dataset.del), 1); saveQ(); }
+});
+addEventListener("online", flush);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) flush(); });
+setInterval(() => { if (queue.some(q => !q.error)) flush(); }, 20000);
+renderQ(); flush();
+$("#reload").onclick = load;
+load();
+setInterval(load, 60000);   // 1분마다 새로 (게시판처럼 띄워 둘 때)
+</script>
+</body>
+</html>

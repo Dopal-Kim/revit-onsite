@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- shoring/engine.py · evaluate.py 의 C# 이식. Revit 참조 없음 (애드인이 참조). 일치 시험: RevitOnSite.Engine.Check -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>RevitOnSite.Engine</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="RevitOnSite.Engine.Check" />
+    <InternalsVisibleTo Include="RevitOnSite.Field.Check" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,279 @@
+{
+  "schema": "pptx_intake_index.v1",
+  "deck_count": 1,
+  "decks": [
+    {
+      "schema": "pptx_intake_profile.v1",
+      "stem": "Build Up 발표 검토판 2 (목차 수정)_3",
+      "source_pptx": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\sources\\Build Up 발표 검토판 2 (목차 수정)_3.pptx",
+      "slide_count": 26,
+      "usage_contract": {
+        "standard_generation": "Use identity and slide-library fields as source facts and recommendation candidates only; do not preserve original page count, order, or coordinates unless the user selected the beautify profile.",
+        "beautify": "Promote source text, page order, page count, colors, fonts, and font sizes into locked constraints after user confirmation."
+      },
+      "artifacts": {
+        "identity": "Build Up 발표 검토판 2 (목차 수정)_3.identity.json",
+        "slide_library": "Build Up 발표 검토판 2 (목차 수정)_3.slide_library.json"
+      },
+      "canvas": {
+        "width_px": 1280,
+        "height_px": 720,
+        "aspect": 1.7778
+      },
+      "identity": {
+        "theme_palette": {
+          "background": "#F5F8FC",
+          "background_alt": "#DFE1E5",
+          "text": "#141413",
+          "text_alt": "#4C4D4D",
+          "hyperlink": "#0563C1",
+          "accent1": "#9AA0A6",
+          "accent2": "#6E6F70",
+          "accent3": "#909193",
+          "accent4": "#B2B4B6",
+          "accent5": "#C8CACD",
+          "accent6": "#363636",
+          "primary": "#9AA0A6"
+        },
+        "theme_fonts": {
+          "title": {
+            "latin": "Arial",
+            "scripts": {
+              "Jpan": "游ゴシック Light",
+              "Hang": "맑은 고딕",
+              "Hans": "等线 Light",
+              "Hant": "新細明體"
+            }
+          },
+          "body": {
+            "latin": "Arial",
+            "scripts": {
+              "Jpan": "游ゴシック",
+              "Hang": "맑은 고딕",
+              "Hans": "等线",
+              "Hant": "新細明體"
+            }
+          }
+        },
+        "theme_sizes": {
+          "title": 44.0,
+          "body": 32.0,
+          "body_levels": [
+            32.0,
+            28.0,
+            24.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0,
+            20.0
+          ]
+        },
+        "observed_colors": [
+          {
+            "value": "#F5F8FC",
+            "count": 20
+          },
+          {
+            "value": "#F3F6FA",
+            "count": 6
+          }
+        ],
+        "observed_fonts": {
+          "latin": [],
+          "ea": []
+        },
+        "observed_sizes_pt": [],
+        "layout_sizes_pt": [
+          {
+            "value": 16.0,
+            "count": 1
+          }
+        ]
+      },
+      "structure": {
+        "canvas_px": {
+          "width": 1280,
+          "height": 720
+        },
+        "page_types": [
+          {
+            "slide_index": 1,
+            "page_type": "cover_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 2,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 3,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 4,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 5,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 6,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 7,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 8,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 9,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 10,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 11,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 12,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 13,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 14,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 15,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 16,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 17,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 18,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 19,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 20,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 21,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 22,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 23,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 24,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 25,
+            "page_type": "chapter_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          },
+          {
+            "slide_index": 26,
+            "page_type": "ending_candidate",
+            "slot_count": 0,
+            "diagram_count": 0
+          }
+        ]
+      },
+      "tables": {
+        "table_count": 0,
+        "tables": []
+      },
+      "charts": {
+        "chart_count": 0,
+        "series_count": 0,
+        "multi_plot_chart_count": 0,
+        "charts": []
+      },
+      "diagrams": {
+        "diagram_count": 0,
+        "text_item_count": 0,
+        "unreadable_count": 0,
+        "warning_count": 0,
+        "slides_with_diagrams": [],
+        "diagrams": []
+      }
+    }
+  ]
+}

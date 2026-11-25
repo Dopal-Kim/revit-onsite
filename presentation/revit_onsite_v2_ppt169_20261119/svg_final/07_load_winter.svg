@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF" />
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1" />
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 국토부 해체 가이드라인 [2] · 시나리오 검증표 S0·S3 (Revit On-Site 엔진)</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">07 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8" />
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">02 · 기준 · 존치 층수</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">몇 개 층을 남길지는 하중 비교로 정합니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">평소엔 3개 층이면 충분하지만, 겨울엔 부족할 수 있습니다</text>
+  </g>
+  <g id="load-compare" data-pptx-bounds="64 188 560 464">
+    <text x="64" y="212" font-size="18" font-weight="bold" fill="#1B2A41">하중 비교 (kN/m²) · 슬래브 210 mm 계산 예시</text>
+    <g id="load-compare-chartArea">
+      <g stroke="#D5DCE4" stroke-width="1"><line x1="110" y1="236" x2="580" y2="236" /><line x1="110" y1="339.33" x2="580" y2="339.33" /><line x1="110" y1="442.67" x2="580" y2="442.67" /></g>
+      <line x1="110" y1="546" x2="580" y2="546" stroke="#1B2A41" stroke-width="1.5" />
+      <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="15" fill="#5E6B7A" text-anchor="end"><text x="100" y="551">0</text><text x="100" y="448">6</text><text x="100" y="344">12</text><text x="100" y="241">18</text></g>
+      
+      <rect x="170" y="333.67" width="120" height="212.33" fill="#1F5FA8" />
+      <rect x="400" y="279.08" width="120" height="266.92" fill="#1B2A41" />
+      <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#1B2A41" text-anchor="middle"><text x="230" y="320">12.33</text><text x="460" y="266">15.50</text></g>
+    </g>
+    <g font-size="18" fill="#1E2633" text-anchor="middle"><text x="230" y="576">새로 타설한 층 하중</text><text x="460" y="576">아래 3개 층 여유</text></g>
+    <text x="64" y="618" font-size="18" font-weight="bold" fill="#1F5FA8">12.33 &lt; 15.50 → 3개 층 유지로 충분</text>
+    <text x="64" y="644" font-size="15" fill="#E8613C">동바리를 빼거나 다시 세운 구역 → 상세 구조 계산 필요</text>
+  </g>
+  <g id="winter" data-pptx-bounds="656 188 560 464">
+    <rect x="656" y="192" width="560" height="456" rx="6" fill="#EEF3F9" />
+    <text x="684" y="232" font-size="15" font-weight="bold" fill="#5E6B7A">Revit On-Site 엔진 계산 · 시나리오 S3</text>
+    <text x="684" y="270" font-size="24" font-weight="bold" fill="#1B2A41">첫 타설 계절에 따른 필요 존치 층수</text>
+    <text x="684" y="330" font-size="18" fill="#1E2633">5월 1일 첫 타설</text>
+    <g fill="#1F5FA8"><rect x="864" y="306" width="48" height="36" rx="4" /><rect x="920" y="306" width="48" height="36" rx="4" /><rect x="976" y="306" width="48" height="36" rx="4" /></g>
+    <text x="1040" y="331" font-size="20" font-weight="bold" fill="#1F5FA8">3개 층</text>
+    <text x="684" y="398" font-size="18" fill="#1E2633">12월 1일 첫 타설</text>
+    <g fill="#1F5FA8"><rect x="864" y="374" width="48" height="36" rx="4" /><rect x="920" y="374" width="48" height="36" rx="4" /><rect x="976" y="374" width="48" height="36" rx="4" /></g>
+    <g fill="#E8613C"><rect x="1032" y="374" width="48" height="36" rx="4" /><rect x="1088" y="374" width="48" height="36" rx="4" /></g>
+    <text x="1144" y="399" font-size="20" font-weight="bold" fill="#E8613C">5개</text>
+    <text fill="#5E6B7A" font-size="15" x="684" y="436">15층 · 7일 사이클 · 보통 시멘트 · fck 24 MPa</text><text fill="#5E6B7A" font-size="15" x="684" y="456">겨울에 3개 층만 두면 1–12층 위반</text><line x1="684" y1="472" x2="1188" y2="472" stroke="#D5DCE4" stroke-width="1" />
+    <text x="684" y="504" font-size="18" font-weight="bold" fill="#1B2A41">왜 겨울에 늘어날까 (시나리오 S0)</text>
+    <text fill="#1E2633" font-size="18" x="684" y="538">11월 · 1월 타설은 보온(5 °C)만으로 fck 도달까지</text><text fill="#1E2633" font-size="18" x="684" y="566"><tspan><tspan font-weight="bold" fill="#E8613C">24–29일</tspan>이 걸려 7일 사이클 3개 층(21일)보다 깁니다</tspan></text><text fill="#1E2633" font-size="18" x="684" y="594">가열 양생(15 °C)이면 18일</text></g>
+</svg>

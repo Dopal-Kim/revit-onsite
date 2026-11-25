@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF" />
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1" />
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 시나리오 검증표(scenarios.py) · run_all_checks.py · 참고문헌 [5]–[9] · 센서 · 공시체 값은 시연용 가상 자료, KBIM 높이는 IFC 실측</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">20 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8" />
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">04 · 검증</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">위험한 조건은 걸러 내고, 된 구역은 통과시켰습니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">시나리오마다 기대 결과를 먼저 적고, 엔진을 돌려 비교했습니다</text>
+  </g>
+  <g id="col-risk" data-pptx-bounds="64 184 368 380">
+    <rect x="64" y="188" width="368" height="372" rx="6" fill="#EEF3F9" />
+    <text x="84" y="220" font-size="15" font-weight="bold" fill="#E8613C">질문 1</text>
+    <text x="84" y="248" font-size="20" font-weight="bold" fill="#1B2A41">위험한 조건은 걸러 내나</text>
+    <line x1="84" y1="264" x2="412" y2="264" stroke="#E8613C" stroke-width="2" />
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="84" y="298">화정처럼 1개 층만 존치</text><text x="84" y="372">겨울 첫 타설</text><text x="84" y="446">공시체 강도 미달</text><text x="84" y="520">공시체 결과 없음</text></g>
+    <g font-size="15" fill="#1E2633"><text x="84" y="324">15개 층 모두 위반 · 하중비 2.43–2.78</text><text x="84" y="398">남겨야 할 층수 5개 층</text><text x="84" y="472">'존치 (공시체 미달)'</text><text x="84" y="546">6개 구역 모두 '시험 필요'</text></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="13" font-weight="bold" fill="#3E7D22" text-anchor="end"><text x="412" y="298">S2 PASS</text><text x="412" y="372">S3 PASS</text><text x="412" y="446">S4 PASS</text><text x="412" y="520">S6 PASS</text></g>
+    <g stroke="#D5DCE4" stroke-width="1"><line x1="84" y1="342" x2="412" y2="342" /><line x1="84" y1="416" x2="412" y2="416" /><line x1="84" y1="490" x2="412" y2="490" /></g>
+  </g>
+  <g id="col-pass" data-pptx-bounds="456 184 368 380">
+    <rect x="456" y="188" width="368" height="372" rx="6" fill="#EEF3F9" />
+    <text x="476" y="220" font-size="15" font-weight="bold" fill="#3E7D22">질문 2</text>
+    <text x="476" y="248" font-size="20" font-weight="bold" fill="#1B2A41">된 구역은 제대로 통과시키나</text>
+    <line x1="476" y1="264" x2="804" y2="264" stroke="#5FA83A" stroke-width="2" />
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="476" y="298">시연 9–12층 24개 구역</text><text x="476" y="372">센서 최저값까지 반영</text><text x="476" y="446">계절별 강도 도달 일수</text></g>
+    <g font-size="15" fill="#1E2633"><text x="476" y="324">A1 · B1 · C1 · C2 요청 가능, A2 · B2 존치</text><text x="476" y="398">A2 · B2만 01-01, 나머지 12-30</text><text x="476" y="472">정의서 표와 같음 (16일 · 29일)</text></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="13" font-weight="bold" fill="#3E7D22" text-anchor="end"><text x="804" y="298">S1 PASS</text><text x="804" y="372">S11 PASS</text><text x="804" y="446">S0 PASS</text></g>
+    <g stroke="#D5DCE4" stroke-width="1"><line x1="476" y1="342" x2="804" y2="342" /><line x1="476" y1="416" x2="804" y2="416" /></g>
+  </g>
+  <g id="col-model" data-pptx-bounds="848 184 368 380">
+    <rect x="848" y="188" width="368" height="372" rx="6" fill="#EEF3F9" />
+    <text x="868" y="220" font-size="15" font-weight="bold" fill="#1F5FA8">질문 3</text>
+    <text x="868" y="248" font-size="20" font-weight="bold" fill="#1B2A41">실제 모델과 경계 조건에서도</text>
+    <line x1="868" y1="264" x2="1196" y2="264" stroke="#1F5FA8" stroke-width="2" />
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="868" y="298">실제 건물 동바리 높이</text><text x="868" y="392">동바리 1본이 받는 하중</text><text x="868" y="466">최상층</text></g>
+    <g font-size="15" fill="#1E2633"><text x="868" y="324">3,950 mm → 수평연결재 필요</text><text x="868" y="346">5,900 mm → 구조 계산 대상</text><text x="868" y="418">간격 1.2 m OK · 1.5 m NG (13.3 kN)</text><text x="868" y="492">위층이 없어 층수 조건은 통과,</text><text x="868" y="514">강도는 공시체로 판단 (팀 해석)</text></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="13" font-weight="bold" fill="#3E7D22" text-anchor="end"><text x="1196" y="298">S8 PASS</text><text x="1196" y="392">S9 PASS</text><text x="1196" y="466">S7 PASS</text></g>
+    <g stroke="#D5DCE4" stroke-width="1"><line x1="868" y1="362" x2="1196" y2="362" /><line x1="868" y1="436" x2="1196" y2="436" /></g>
+  </g>
+  <g id="totals" data-pptx-bounds="64 576 1152 84">
+    <rect x="64" y="580" width="368" height="76" rx="6" fill="#1B2A41" />
+    <text x="84" y="628" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#8FC46A">10 / 10</text>
+    <text x="196" y="610" font-size="15" font-weight="bold" fill="#FFFFFF">실행한 시나리오 모두 통과</text>
+    <text x="196" y="636" font-size="13" fill="#D5DCE4">남은 1개는 Revit 화면 시험 (S10)</text>
+    <rect x="456" y="580" width="368" height="76" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5" />
+    <text x="476" y="628" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#1F5FA8">40</text>
+    <text x="528" y="610" font-size="15" font-weight="bold" fill="#1B2A41">회귀 검사, 고칠 때마다 통과</text>
+    <text x="528" y="636" font-size="13" fill="#5E6B7A">Python 기준 엔진과 애드인이 같은 답</text>
+    <rect x="848" y="580" width="368" height="76" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5" />
+    <text x="868" y="610" font-size="15" font-weight="bold" fill="#1B2A41">선행 연구 5편과의 차이</text>
+    <text x="868" y="636" font-size="13" fill="#5E6B7A">강도 · 하중 측정에서 멈추지 않고 구역별 판정까지</text>
+  </g>
+</svg>

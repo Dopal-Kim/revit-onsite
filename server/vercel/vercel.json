@@ -1,0 +1,49 @@
+{
+  "regions": [
+    "icn1"
+  ],
+  "functions": {
+    "api/handler.js": {
+      "includeFiles": "{pages,lib}/**",
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/handler?__page=index"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/api/handler?__page=index"
+    },
+    {
+      "source": "/view",
+      "destination": "/api/handler?__page=view"
+    },
+    {
+      "source": "/timeline",
+      "destination": "/api/handler?__page=timeline"
+    },
+    {
+      "source": "/supervisor",
+      "destination": "/api/handler?__page=supervisor"
+    },
+    {
+      "source": "/sw.js",
+      "destination": "/api/handler?__page=sw.js"
+    },
+    {
+      "source": "/notify.js",
+      "destination": "/api/handler?__page=notify.js"
+    },
+    {
+      "source": "/manifest.json",
+      "destination": "/api/handler?__page=manifest.json"
+    },
+    {
+      "source": "/api/:p*",
+      "destination": "/api/handler?__p=:p*"
+    }
+  ]
+}

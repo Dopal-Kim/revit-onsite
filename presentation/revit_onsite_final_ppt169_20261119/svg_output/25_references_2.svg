@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">VII. 참고문헌 (2/2)</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-25/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">VII · 결론 및 참고문헌</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">VII. 참고문헌 (2/2)</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">사고 보도 · 법령 · 고시</text>
+  </g>
+  <g id="refs" data-pptx-bounds="56 164 1168 486" font-size="15" fill="#1E2329">
+    <text x="56" y="186">[11] 노컷뉴스, "사조위 '광주 아파트 붕괴, 무단 구조변경이 부른 人災'," 2022.3.14. https://nocutnews.co.kr/news/5722477</text>
+    <text x="56" y="216">[12] 아시아경제 (메디게이트뉴스 전재), "'총체적 부실' 광주 붕괴사고 결국 '人災'," 2022.3.14. https://medigatenews.com/stand/46619</text>
+    <text x="56" y="246">[13] 한국일보, "사당종합체육관 공사장 천장 붕괴로 한때 11명 매몰," 2015.2.11.</text>
+    <text x="56" y="276">[14] 쿠키뉴스, 사당종합체육관 붕괴사고 현장소장 구속 보도, 2015.8.13.</text>
+    <text x="56" y="306">[15] 서울신문, "용인 도로공사 현장 붕괴… 9명 사상," 2015.3.26.</text>
+    <text x="56" y="336">[16] 시대일보, 용인 교량 붕괴사고 경찰 수사 결과 보도, 2015.4.2. https://www.sidae.com/article/2015040212548078847</text>
+    <text x="56" y="366">[17] 뉴시스, "경찰 · 노동부, 안성 물류창고 신축현장 붕괴사고 시공사 압수수색 (종합)," 2022.10.26.</text>
+    <text x="56" y="396">[18] 경기일보, "'5명 사상' 안성 물류창고 추락사고 현장소장, 2심도 징역형 집행유예," 2025.7.27.</text>
+    <text x="56" y="426">[19] 트윅, "'사상자 6명' 안성 신축공사장 붕괴사고 합동감식," 2023.8.16.</text>
+    <text x="56" y="456">[20] 산업안전보건기준에 관한 규칙 제332조의2 (2023.11.14 신설). 국가법령정보센터.</text>
+    <text x="56" y="486">[21] 건설기술 진흥법 시행령 제101조의2 (가설구조물의 구조적 안전성 확인). 국가법령정보센터.</text>
+    <text x="56" y="516">[22] 국토교통부 고시 제2024-879호, 콘크리트구조설계기준 (KDS 14 20 00) 및 콘크리트공사표준시방서 (KCS 14 20 00) 개정,<tspan x="56" dy="22">2024.12.30. CODIL 고시문.</tspan></text>
+    <text x="56" y="568">[23] 국토교통부, KCS 21 50 05:2023 거푸집 및 동바리공사 일반사항, 2023.1.</text>
+    <text x="56" y="610" fill="#5B6673">웹 자료 열람일: 2026.11.7.</text>
+  </g>
+</svg>

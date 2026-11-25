@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">II. 문제인식 · 공사 과정</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-05/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">II · 문제인식</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">II. 동바리 공사 과정</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">계획부터 해체 · 전용까지, 단계별로 기준이 관리됩니다</text>
+  </g>
+  <g id="steps" data-pptx-bounds="56 164 616 432">
+    <g fill="#1D3557"><circle cx="80" cy="196" r="20" /><circle cx="80" cy="268" r="20" /><circle cx="80" cy="340" r="20" /><circle cx="80" cy="412" r="20" /><circle cx="80" cy="556" r="20" /></g>
+    <circle cx="80" cy="484" r="20" fill="#2E6DB4" />
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle"><text x="80" y="203">1</text><text x="80" y="275">2</text><text x="80" y="347">3</text><text x="80" y="419">4</text><text x="80" y="491">5</text><text x="80" y="563">6</text></g>
+    <g font-size="20" font-weight="bold" fill="#1D3557"><text x="116" y="192">계획 · 설계</text><text x="116" y="264">조립 · 설치</text><text x="116" y="336">타설 전 검측</text><text x="116" y="408">타설 · 양생</text><text x="116" y="480" fill="#2E6DB4">해체</text><text x="116" y="552">재받침 · 전용</text></g>
+    <g font-size="18" fill="#5B6673"><text x="116" y="218">하중 산정, 구조 검토, 조립도 작성</text><text x="116" y="290">간격 · 수직도 확보, 높이별 수평연결재 설치</text><text x="116" y="362">설치 상태 점검, 감리 확인</text><text x="116" y="434">타설 중 변형 감시, 현장양생 공시체 제작</text><text x="116" y="506">강도 확인 → 책임기술인 검토 → 공사감독자 승인</text><text x="116" y="578">필요 시 재받침, 상부층으로 자재 전용</text></g>
+  </g>
+  <g id="cycle" data-pptx-bounds="700 164 524 420">
+    <rect x="704" y="176" width="150" height="64" rx="4" fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1.5" />
+    <text x="779" y="204" font-size="18" font-weight="bold" fill="#1D3557" text-anchor="middle">계획 · 설계</text>
+    <text x="779" y="228" font-size="15" fill="#5B6673" text-anchor="middle">착공 전 1회</text>
+    <g id="p05-a1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="downArrow" data-pptx-frame="767 244 24 40" fill="#C5CDD6" stroke="none">
+<path d="M 767 272 L 773 272 L 773 244 L 785 244 L 785 272 L 791 272 L 779 284 Z" />
+</g>
+    <g fill="#E8EDF2"><rect x="704" y="290" width="150" height="84" rx="4" /><rect x="884" y="290" width="150" height="84" rx="4" /><rect x="1064" y="290" width="150" height="84" rx="4" /><rect x="884" y="440" width="150" height="84" rx="4" /></g>
+    <rect x="1064" y="440" width="150" height="84" rx="4" fill="#2E6DB4" />
+    <rect x="704" y="440" width="150" height="84" rx="4" fill="none" stroke="#5B6673" stroke-width="1.5" stroke-dasharray="4,4" />
+    <g font-size="18" font-weight="bold" fill="#1D3557" text-anchor="middle"><text x="779" y="338">조립 · 설치</text><text x="959" y="338">타설 전 검측</text><text x="1139" y="338">타설 · 양생</text><text x="959" y="488">재받침 · 전용</text><text x="779" y="478">상부층으로</text></g>
+    <text x="779" y="502" font-size="15" fill="#5B6673" text-anchor="middle">층마다 반복</text>
+    <text x="1139" y="478" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">해체</text>
+    <text x="1139" y="502" font-size="15" fill="#FFFFFF" text-anchor="middle">강도 확인 후</text>
+    <g id="p05-a2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="857 318 24 28" fill="#C5CDD6" stroke="none">
+<path d="M 857 325 L 869 325 L 869 318 L 881 332 L 869 346 L 869 339 L 857 339 Z" />
+</g>
+    <g id="p05-a3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="1037 318 24 28" fill="#C5CDD6" stroke="none">
+<path d="M 1037 325 L 1049 325 L 1049 318 L 1061 332 L 1049 346 L 1049 339 L 1037 339 Z" />
+</g>
+    <g id="p05-a4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="downArrow" data-pptx-frame="1127 378 24 58" fill="#C5CDD6" stroke="none">
+<path d="M 1127 424 L 1133 424 L 1133 378 L 1145 378 L 1145 424 L 1151 424 L 1139 436 Z" />
+</g>
+    <g id="p05-a5" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="leftArrow" data-pptx-frame="1037 468 24 28" fill="#C5CDD6" stroke="none">
+<path d="M 1037 482 L 1049 468 L 1049 475 L 1061 475 L 1061 489 L 1049 489 L 1049 496 Z" />
+</g>
+    <g id="p05-a6" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="leftArrow" data-pptx-frame="857 468 24 28" fill="#C5CDD6" stroke="none">
+<path d="M 857 482 L 869 468 L 869 475 L 881 475 L 881 489 L 869 489 L 869 496 Z" />
+</g>
+    <g id="p05-a7" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="upArrow" data-pptx-frame="767 378 24 58" fill="#C5CDD6" stroke="none">
+<path d="M 767 390 L 779 378 L 791 390 L 785 390 L 785 436 L 773 436 L 773 390 Z" />
+</g>
+    <text x="959" y="566" font-size="15" fill="#5B6673" text-anchor="middle">그림 2. 층마다 반복되는 동바리 공사 순서</text>
+  </g>
+</svg>

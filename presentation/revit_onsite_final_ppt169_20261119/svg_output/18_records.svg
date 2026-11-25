@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">V. 기대효과 · 기록·책임</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-18/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">V · 기대효과 ② · 확실</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">V. 기대효과: 기록 · 책임</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">"몰랐다"는 말이 통하지 않게 기록이 남습니다</text>
+  </g>
+  <g id="now-site" data-pptx-bounds="56 164 400 412">
+    <text x="56" y="190" font-size="20" font-weight="bold" fill="#5B6673">지금 현장</text>
+    <line x1="56" y1="202" x2="450" y2="202" stroke="#5B6673" stroke-width="3" />
+    <g fill="#E8EDF2"><rect x="56" y="218" width="394" height="108" rx="4" /><rect x="56" y="340" width="394" height="108" rx="4" /><rect x="56" y="462" width="394" height="108" rx="4" /></g>
+    <use data-icon="tabler-outline/alert-triangle" x="76" y="254" width="32" height="32" fill="#5B6673" stroke-width="2" />
+    <use data-icon="tabler-outline/book" x="76" y="376" width="32" height="32" fill="#5B6673" stroke-width="2" />
+    <use data-icon="tabler-outline/search" x="76" y="498" width="32" height="32" fill="#5B6673" stroke-width="2" />
+    <g font-size="22" font-weight="bold" fill="#1D3557"><text x="124" y="262">해체 사실</text><text x="124" y="384">감리 승인</text><text x="124" y="506">판정 근거</text></g>
+    <g font-size="18" fill="#5B6673"><text x="124" y="296">뺀 반장만 앎</text><text x="124" y="418">종이 서명을 옮겨 적음</text><text x="124" y="540">흩어지고 나중에 씀</text></g>
+  </g>
+  <g id="with-tool" data-pptx-bounds="468 164 412 412">
+    <text x="488" y="190" font-size="20" font-weight="bold" fill="#2E6DB4">Revit On-Site를 쓰면</text>
+    <line x1="488" y1="202" x2="876" y2="202" stroke="#2E6DB4" stroke-width="3" />
+    <g font-size="24" fill="#C5CDD6" text-anchor="middle"><text x="475" y="282">→</text><text x="475" y="404">→</text><text x="475" y="526">→</text></g>
+    <g fill="#2E6DB4" fill-opacity="0.12"><rect x="488" y="218" width="388" height="108" rx="4" /><rect x="488" y="340" width="388" height="108" rx="4" /><rect x="488" y="462" width="388" height="108" rx="4" /></g>
+    <use data-icon="tabler-outline/bolt" x="508" y="254" width="32" height="32" fill="#2E6DB4" stroke-width="2" />
+    <use data-icon="tabler-outline/rosette-discount-check" x="508" y="376" width="32" height="32" fill="#2E6DB4" stroke-width="2" />
+    <use data-icon="tabler-outline/lock" x="508" y="498" width="32" height="32" fill="#2E6DB4" stroke-width="2" />
+    <g font-size="22" font-weight="bold" fill="#1D3557"><text x="556" y="262">빼면 바로 신고</text><text x="556" y="384">감리가 직접 남김</text><text x="556" y="506">8단계 원장</text></g>
+    <g font-size="18" fill="#2E6DB4"><text x="556" y="296">승인 없으면 즉시 빨강</text><text x="556" y="418">휴대폰으로 현장에서</text><text x="556" y="540">고치면 바로 드러남</text></g>
+  </g>
+  <g id="evidence-doc" data-pptx-bounds="900 164 324 476">
+    <rect x="900" y="176" width="324" height="360" fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1" />
+    <image href="../images/inspection_request.jpg" x="906" y="182" width="312" height="348" preserveAspectRatio="xMidYMid meet" />
+    <text x="900" y="568" font-size="15" fill="#1D3557" font-weight="bold">프로그램이 만든 검측요청서</text>
+    <text x="900" y="592" font-size="15" fill="#5B6673">감리 서명란(성명 · 서명 · 일시)은 비워 둠</text>
+  </g>
+  <g id="takeaway" data-pptx-bounds="56 588 824 56">
+    <text x="56" y="626" font-size="20" font-weight="bold" fill="#1D3557">모든 근거가 원장에 쌓여 '몰랐다'는 말이 통하지 않습니다</text>
+  </g>
+</svg>

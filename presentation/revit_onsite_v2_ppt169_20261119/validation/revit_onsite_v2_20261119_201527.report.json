@@ -1,0 +1,380 @@
+{
+  "schema": "ppt-master.pptx-postflight-report.v1",
+  "status": "passed-with-warnings",
+  "output": {
+    "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_v2_ppt169_20261119\\exports\\revit_onsite_v2_20261119_201527.pptx",
+    "bytes": 1356965
+  },
+  "source": {
+    "svg_slide_count": 30,
+    "layout_definition_count": 0,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "digest": "5188fa3cba6d437130f06e6ac3803b217a42f95b230157efcc0f9e5ea6de0c3e",
+      "file_count": 30,
+      "files": [
+        {
+          "file": "01_cover.svg",
+          "sha256": "888b7d9165a690959d13f2b0e6bfa798047663a0c49441774b486b4de8f00706"
+        },
+        {
+          "file": "02_agenda.svg",
+          "sha256": "5280537d236b5d4603ec9e1bc490ced81b94431ae49ca1ca5e5bc21690f06aa4"
+        },
+        {
+          "file": "03_question.svg",
+          "sha256": "3bb92804d9c355478f2b4ab06f03f77584eeeab69da2fc06b56856b6d0b012ae"
+        },
+        {
+          "file": "04_root_cause.svg",
+          "sha256": "d4c836d2b38d9e59cb1648a2824b21637698658438eacaec436b515c19813452"
+        },
+        {
+          "file": "05_accidents.svg",
+          "sha256": "13c21cd9bd2d0beb2ca29d6d79fc163086acd8b419ad07a4e8be68f6b45f6f9e"
+        },
+        {
+          "file": "06_criteria.svg",
+          "sha256": "dd0c3286f7c3e0bbc33570589f44236cfe3a4ebb8dd8aee3a2394b80b7d49d51"
+        },
+        {
+          "file": "07_load_winter.svg",
+          "sha256": "b0eda3387c5fe55ac9a9202ce60c25e3e71bc82b658f5e8bb3568f32055ab9e5"
+        },
+        {
+          "file": "08_ribbon.svg",
+          "sha256": "bd6bb6d323b2c306e744afa0461a8e4924532cd4753cf64b94f80da193231f0a"
+        },
+        {
+          "file": "09_system.svg",
+          "sha256": "1a934fb97aa8e64dc82da8a35a094ff9e3cf958537debc53eb52e471c18f9592"
+        },
+        {
+          "file": "10_daily_flow.svg",
+          "sha256": "8e0990a1eada06f348ee7f58373649a40da456c7db2583160a131166557a54e8"
+        },
+        {
+          "file": "11_evidence.svg",
+          "sha256": "eb966db26667949958de4d5c1512edb85f02deba401cd231519f123127413d2b"
+        },
+        {
+          "file": "12_dashboard.svg",
+          "sha256": "954ad1380a7965af307b13516fbc1f22599d5a728fe6bc3cb1cebfba05add30d"
+        },
+        {
+          "file": "13_location.svg",
+          "sha256": "1f200f7a18c8ed14d6c7ce9d1000816acbca3d24c5b1633a9633a0ff490e2b23"
+        },
+        {
+          "file": "14_install.svg",
+          "sha256": "55059bb9d92d17367acc6165d41f19fbca9a7e55cac86397a4e7e2cb00b6952c"
+        },
+        {
+          "file": "15_unauthorized.svg",
+          "sha256": "9f409504ff538bae8567cb9b672e8f0c407e7e5cdcb1032d17e1991363a1e482"
+        },
+        {
+          "file": "16_ledger.svg",
+          "sha256": "1cab8ce412c41c1933ef36a8379d27669f40cee31160be6c0a56dabae3bf4fc5"
+        },
+        {
+          "file": "17_outputs.svg",
+          "sha256": "6b2717a9565957eb5b0401dfdf185282424816374988f90e5852c4e059035f17"
+        },
+        {
+          "file": "18_recipients.svg",
+          "sha256": "5704c0bbb314739bf007a7c1ba0a1493fd6f26dd4012b2ad9f2f8295827cd5f9"
+        },
+        {
+          "file": "19_demo.svg",
+          "sha256": "f51c506f402cd8c6210b8a8a5430dc79cdbe61c2cd9506e408df6d9495dac743"
+        },
+        {
+          "file": "20_validation.svg",
+          "sha256": "437f479d3bce603e9bfd844a244d4e805a1447e71606954609c8809bc4ddd76b"
+        },
+        {
+          "file": "21_effects.svg",
+          "sha256": "12d6e127977f18305af20d9cb32bf396bde33a3667cae27c63e31e40a79635f2"
+        },
+        {
+          "file": "22_safety.svg",
+          "sha256": "4438ffeca26f1bd7ca84ab3565323046dc1701c044bf23f7a597bf8efa4d77a4"
+        },
+        {
+          "file": "23_records.svg",
+          "sha256": "22e4cbfec88fa2ef4dfbbc2fae419ad269b4ec53c13ba6a84ecee7a7e9d807f4"
+        },
+        {
+          "file": "24_cost.svg",
+          "sha256": "d8822a2ecef41bec2de4c1bcc9126b8a19b948972fe9ba1ef03c39b95cc45c21"
+        },
+        {
+          "file": "25_schedule.svg",
+          "sha256": "80aa2b55494c2154b45b78222baaad806314d83dd7272c03acec7d3979d99e49"
+        },
+        {
+          "file": "26_limits.svg",
+          "sha256": "e502577887955ba1ca91c3038c5b8e8c778fc99683796989a7b2ecbdbf3bcd10"
+        },
+        {
+          "file": "27_conclusion.svg",
+          "sha256": "41deeb6f07c701e4f87a47c009468738cd57fbcb6e8e1611824315ba9d2e98c3"
+        },
+        {
+          "file": "28_references_1.svg",
+          "sha256": "1f1106f48ff5af711d3afedccc2162b546f61277919baaef74754680c170c311"
+        },
+        {
+          "file": "29_references_2.svg",
+          "sha256": "050462d948f2d684ecc88588d97a7b5fe2ef9d39663123f1b0eca378e12fe170"
+        },
+        {
+          "file": "30_qa.svg",
+          "sha256": "f09a887fed3f939e2bd83a1e9ec595b32179500e19b65b7a75f22844746436d9"
+        }
+      ]
+    },
+    "authoring_roundtrip": null
+  },
+  "package": {
+    "zip_integrity": "passed",
+    "corrupt_member": null,
+    "slides": 30,
+    "notes": 30,
+    "masters": 1,
+    "layouts": 1
+  },
+  "checks": {
+    "zip_integrity": "passed",
+    "slide_count": "passed",
+    "internal_relationships": "enforced-at-build",
+    "structured_package": "not-applicable",
+    "transitions": "enforced-at-build",
+    "animations": "enforced-at-build",
+    "project_svg_contract": "enforced-at-build",
+    "compatibility_normalization": "not-applicable",
+    "authoring_roundtrip": "not-applicable",
+    "quality_gate": "passed",
+    "quality_warnings": "warning",
+    "template_tokens": "passed",
+    "external_images": "passed",
+    "font_portability": "passed"
+  },
+  "quality": {
+    "status": "loaded",
+    "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_v2_ppt169_20261119\\validation\\svg_quality_report.json",
+    "schema": "ppt-master.svg-quality-report.v1",
+    "stage": "final",
+    "source_match": "passed",
+    "source_fingerprint": {
+      "algorithm": "sha256",
+      "digest": "5188fa3cba6d437130f06e6ac3803b217a42f95b230157efcc0f9e5ea6de0c3e",
+      "file_count": 30,
+      "files": [
+        {
+          "file": "01_cover.svg",
+          "sha256": "888b7d9165a690959d13f2b0e6bfa798047663a0c49441774b486b4de8f00706"
+        },
+        {
+          "file": "02_agenda.svg",
+          "sha256": "5280537d236b5d4603ec9e1bc490ced81b94431ae49ca1ca5e5bc21690f06aa4"
+        },
+        {
+          "file": "03_question.svg",
+          "sha256": "3bb92804d9c355478f2b4ab06f03f77584eeeab69da2fc06b56856b6d0b012ae"
+        },
+        {
+          "file": "04_root_cause.svg",
+          "sha256": "d4c836d2b38d9e59cb1648a2824b21637698658438eacaec436b515c19813452"
+        },
+        {
+          "file": "05_accidents.svg",
+          "sha256": "13c21cd9bd2d0beb2ca29d6d79fc163086acd8b419ad07a4e8be68f6b45f6f9e"
+        },
+        {
+          "file": "06_criteria.svg",
+          "sha256": "dd0c3286f7c3e0bbc33570589f44236cfe3a4ebb8dd8aee3a2394b80b7d49d51"
+        },
+        {
+          "file": "07_load_winter.svg",
+          "sha256": "b0eda3387c5fe55ac9a9202ce60c25e3e71bc82b658f5e8bb3568f32055ab9e5"
+        },
+        {
+          "file": "08_ribbon.svg",
+          "sha256": "bd6bb6d323b2c306e744afa0461a8e4924532cd4753cf64b94f80da193231f0a"
+        },
+        {
+          "file": "09_system.svg",
+          "sha256": "1a934fb97aa8e64dc82da8a35a094ff9e3cf958537debc53eb52e471c18f9592"
+        },
+        {
+          "file": "10_daily_flow.svg",
+          "sha256": "8e0990a1eada06f348ee7f58373649a40da456c7db2583160a131166557a54e8"
+        },
+        {
+          "file": "11_evidence.svg",
+          "sha256": "eb966db26667949958de4d5c1512edb85f02deba401cd231519f123127413d2b"
+        },
+        {
+          "file": "12_dashboard.svg",
+          "sha256": "954ad1380a7965af307b13516fbc1f22599d5a728fe6bc3cb1cebfba05add30d"
+        },
+        {
+          "file": "13_location.svg",
+          "sha256": "1f200f7a18c8ed14d6c7ce9d1000816acbca3d24c5b1633a9633a0ff490e2b23"
+        },
+        {
+          "file": "14_install.svg",
+          "sha256": "55059bb9d92d17367acc6165d41f19fbca9a7e55cac86397a4e7e2cb00b6952c"
+        },
+        {
+          "file": "15_unauthorized.svg",
+          "sha256": "9f409504ff538bae8567cb9b672e8f0c407e7e5cdcb1032d17e1991363a1e482"
+        },
+        {
+          "file": "16_ledger.svg",
+          "sha256": "1cab8ce412c41c1933ef36a8379d27669f40cee31160be6c0a56dabae3bf4fc5"
+        },
+        {
+          "file": "17_outputs.svg",
+          "sha256": "6b2717a9565957eb5b0401dfdf185282424816374988f90e5852c4e059035f17"
+        },
+        {
+          "file": "18_recipients.svg",
+          "sha256": "5704c0bbb314739bf007a7c1ba0a1493fd6f26dd4012b2ad9f2f8295827cd5f9"
+        },
+        {
+          "file": "19_demo.svg",
+          "sha256": "f51c506f402cd8c6210b8a8a5430dc79cdbe61c2cd9506e408df6d9495dac743"
+        },
+        {
+          "file": "20_validation.svg",
+          "sha256": "437f479d3bce603e9bfd844a244d4e805a1447e71606954609c8809bc4ddd76b"
+        },
+        {
+          "file": "21_effects.svg",
+          "sha256": "12d6e127977f18305af20d9cb32bf396bde33a3667cae27c63e31e40a79635f2"
+        },
+        {
+          "file": "22_safety.svg",
+          "sha256": "4438ffeca26f1bd7ca84ab3565323046dc1701c044bf23f7a597bf8efa4d77a4"
+        },
+        {
+          "file": "23_records.svg",
+          "sha256": "22e4cbfec88fa2ef4dfbbc2fae419ad269b4ec53c13ba6a84ecee7a7e9d807f4"
+        },
+        {
+          "file": "24_cost.svg",
+          "sha256": "d8822a2ecef41bec2de4c1bcc9126b8a19b948972fe9ba1ef03c39b95cc45c21"
+        },
+        {
+          "file": "25_schedule.svg",
+          "sha256": "80aa2b55494c2154b45b78222baaad806314d83dd7272c03acec7d3979d99e49"
+        },
+        {
+          "file": "26_limits.svg",
+          "sha256": "e502577887955ba1ca91c3038c5b8e8c778fc99683796989a7b2ecbdbf3bcd10"
+        },
+        {
+          "file": "27_conclusion.svg",
+          "sha256": "41deeb6f07c701e4f87a47c009468738cd57fbcb6e8e1611824315ba9d2e98c3"
+        },
+        {
+          "file": "28_references_1.svg",
+          "sha256": "1f1106f48ff5af711d3afedccc2162b546f61277919baaef74754680c170c311"
+        },
+        {
+          "file": "29_references_2.svg",
+          "sha256": "050462d948f2d684ecc88588d97a7b5fe2ef9d39663123f1b0eca378e12fe170"
+        },
+        {
+          "file": "30_qa.svg",
+          "sha256": "f09a887fed3f939e2bd83a1e9ec595b32179500e19b65b7a75f22844746436d9"
+        }
+      ]
+    },
+    "summary": {
+      "total": 30,
+      "passed": 29,
+      "warnings": 1,
+      "errors": 0
+    },
+    "categories": {
+      "blocking": {
+        "count": 0,
+        "issues": []
+      },
+      "introduced": {
+        "count": 1,
+        "issues": [
+          {
+            "file": "29_references_2.svg",
+            "message": "Detected 2 paragraph-like line run(s) split across sibling <text> elements (<g id=\"refs\"> x=64.0, y=198.0..258.0, 3 lines; <g id=\"refs\"> x=64.0, y=348.0..378.0, 2 lines). If each run is one prose paragraph, combine it into one <text>: keep its first line as direct text and use direct <tspan> children with the parent x and positive relative dy values for later lines. An all-<tspan> form may start with dy=\"0\". Keep semantically independent text frames separate."
+          }
+        ]
+      },
+      "inherited": {
+        "count": 0,
+        "issues": []
+      },
+      "source-import": {
+        "count": 0,
+        "summary": {
+          "warning_count": 0,
+          "by_code": {}
+        }
+      }
+    }
+  },
+  "resources": {
+    "unresolved_template_tokens": [],
+    "fonts": {
+      "stacks": [
+        "Malgun Gothic, Segoe UI, sans-serif",
+        "Segoe UI, Malgun Gothic, sans-serif"
+      ],
+      "generic_only_stacks": [],
+      "unsafe_exported_faces": []
+    },
+    "images": {
+      "data_uri": 0,
+      "local": 16,
+      "external": 0,
+      "external_references": []
+    }
+  },
+  "export_policy": {
+    "project_svg_contract": "strict",
+    "dangerous_normalization_count": 0
+  },
+  "deck_motion": {
+    "transition": {
+      "effect": "fade",
+      "effect_options": {},
+      "duration": 0.4,
+      "auto_advance": null,
+      "sound": null
+    },
+    "animation": {
+      "effect": "none",
+      "effect_request": null,
+      "duration": 0.4,
+      "stagger": 0.5,
+      "trigger": "after-previous"
+    },
+    "cli_overrides": {
+      "transition": false,
+      "transition_duration": false,
+      "auto_advance": false,
+      "transition_sound": false,
+      "animation": false,
+      "animation_duration": false,
+      "animation_stagger": false,
+      "animation_trigger": false
+    },
+    "narration_timings": false
+  },
+  "backup_path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_v2_ppt169_20261119\\backup\\20261119_201527\\svg_output",
+  "conversion_trace_path": null
+}

@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revit On-Site 강도 예측 타임라인</title>
+<style>
+:root{
+  --bg:#F3F4F6; --panel:#FFFFFF; --panel2:#F7F8FA; --line:#D9DCE1; --line2:#E8EAED;
+  --text:#16181C; --text2:#4A4F57; --muted:#6B717A; --accent:#2B78C5; --risk:#C0271F; --canvas:#E6EAEE;
+  --font:"Malgun Gothic","Apple SD Gothic Neo","Segoe UI","Noto Sans KR",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:13px;line-height:1.5;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:6px 16px;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+header h1{font-size:16px;margin:0;font-weight:700;white-space:nowrap}
+header .proj{color:var(--text2);font-size:12.5px;flex:1;min-width:200px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 11px;font-size:11.5px;color:var(--text2);width:100%}
+.legend span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.legend .grp{color:var(--muted);font-weight:700;margin-left:4px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid rgba(0,0,0,.18);flex:none}
+.ramp{display:inline-block;width:70px;height:10px;border-radius:2px;border:1px solid rgba(0,0,0,.18)}
+main{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 390px;min-height:0}
+#view{display:flex;flex-direction:column;min-height:0;min-width:0}
+#cvWrap{position:relative;flex:1;min-height:340px;background:var(--canvas)}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#cv.drag{cursor:grabbing}
+.ovl{position:absolute;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:8px;box-shadow:0 2px 8px rgba(16,18,22,.06)}
+#dayBox{left:10px;top:10px;padding:8px 12px;max-width:min(470px,calc(100% - 20px));pointer-events:none}
+#dayDate{font-size:19px;font-weight:700;letter-spacing:-.2px;font-variant-numeric:tabular-nums}
+#dayDate small{font-size:12.5px;color:var(--text2);font-weight:600;margin-left:8px}
+#dayLine{color:var(--text2);font-size:12.5px;margin-top:1px}
+#selChip{right:10px;top:10px;padding:5px 6px 5px 10px;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700}
+#selChip[hidden]{display:none}
+#selChip button{padding:1px 7px}
+#timeline{background:var(--panel);border-top:1px solid var(--line);padding:6px 12px 8px}
+.row{display:flex;align-items:center;gap:6px 8px;flex-wrap:wrap}
+select,button,input[type=date]{font-family:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:6px;padding:4px 8px}
+button{cursor:pointer;font-weight:600}
+button:hover,select:hover{border-color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible,.cell:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+#playBtn{width:74px;background:var(--text);color:#fff;border-color:var(--text)}
+#slider{flex:1 1 160px;accent-color:var(--accent);min-width:0}
+#chart{display:block;width:100%;margin-top:6px;cursor:crosshair;touch-action:none}
+#tools{margin-top:6px;font-size:12px}
+#tools label{display:flex;align-items:center;gap:5px;color:var(--text2)}
+#hint{font-size:11.5px;color:var(--muted);margin-top:3px}
+.side{border-left:1px solid var(--line);background:var(--panel);overflow-y:auto;padding:10px}
+.box{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:var(--panel)}
+.box>h2{margin:0;font-size:13px;font-weight:700;padding:7px 11px;background:var(--panel2);border-bottom:1px solid var(--line2);border-radius:8px 8px 0 0;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.box>h2 small{font-weight:400;color:var(--muted);font-size:11.5px}
+.box .bd{padding:9px 11px}
+table.grid{border-collapse:separate;border-spacing:2px;width:100%;table-layout:fixed;font-size:11px}
+table.grid th{font-weight:600;color:var(--muted);font-size:11px;padding:0}
+table.grid th.fl{width:44px;text-align:right;padding-right:4px;white-space:nowrap}
+.cell{height:21px;border-radius:3px;text-align:center;vertical-align:middle;cursor:pointer;border:1px solid rgba(0,0,0,.10);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden}
+.cell.none{background:#fff;border:1px dashed #C9CDD3;color:#A3A8AF}
+.cell.sel{outline:2.5px solid var(--text);outline-offset:0}
+.cell.gap{border:none;background:none;cursor:default;width:6px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12.5px}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:1px 8px;border-radius:4px;font-weight:700;font-size:12.5px;border:1px solid rgba(0,0,0,.12)}
+.reason{margin-top:8px;padding:7px 9px;background:var(--panel2);border-radius:6px;font-size:12.5px;color:var(--text2)}
+.bar{height:8px;border-radius:4px;background:var(--line2);overflow:hidden;margin-top:3px}
+.bar i{display:block;height:100%}
+.mlist{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.mlist button{font-size:11.5px;padding:2px 7px;font-weight:600}
+.mlist button.on{background:var(--text);color:#fff;border-color:var(--text)}
+.assume li{margin-bottom:5px;font-size:12.5px;color:var(--text2)}
+.assume{padding-left:18px;margin:0}
+.tag{font-size:11px;color:var(--muted);margin-left:4px}
+.empty{color:var(--muted);font-size:12.5px}
+.mini{font-size:11.5px;color:var(--muted)}
+svg.spark{width:100%;height:84px;display:block;margin-top:6px;background:var(--panel2);border-radius:6px}
+@media (max-width:900px){
+  html,body{height:auto} body{display:block}
+  main{grid-template-columns:1fr}
+  #cvWrap{height:58vh;flex:none}
+  .side{border-left:none;border-top:1px solid var(--line)}
+  #hint{display:none}
+  #dayDate{font-size:16px}
+  #dayBox{padding:6px 9px}
+  .legend{font-size:11px}
+}
+</style>
+</head>
+<body>
+<script type="application/json" id="data"></script>
+<header>
+  <h1>Revit On-Site · 강도 예측 타임라인</h1>
+  <div class="proj" id="projName">데이터를 불러오세요</div>
+  <div class="legend" id="legend"></div>
+</header>
+<main>
+  <section id="view">
+    <div id="cvWrap">
+      <canvas id="cv" aria-label="3차원 보기: 끌어서 회전, 휠로 확대, 구역이나 측정 표식을 누르면 근거"></canvas>
+      <div class="ovl" id="dayBox"><div id="dayDate">—</div><div id="dayLine"></div></div>
+      <div class="ovl" id="selChip" hidden><span id="selName"></span><button type="button" id="selClear" aria-label="선택 해제">✕</button></div>
+    </div>
+    <section id="timeline">
+      <div class="row">
+        <button id="evBack" type="button" title="앞 사건 날로 (Shift+←): 층 타설 · 추정 14 MPa·fck 도달 (참고) · 공시체 시험">|◀ 사건</button>
+        <button id="backBtn" type="button" title="하루 전 (←)" aria-label="하루 전">◀ 1일</button>
+        <button id="playBtn" type="button">▶ 재생</button>
+        <button id="fwdBtn" type="button" title="하루 뒤 (→)" aria-label="하루 뒤">1일 ▶</button>
+        <button id="evFwd" type="button" title="다음 사건 날로 (Shift+→): 층 타설 · 추정 14 MPa·fck 도달 (참고) · 공시체 시험">사건 ▶|</button>
+        <button id="todayBtn" type="button">오늘</button>
+        <input type="range" id="slider" min="0" max="0" value="0" step="1" aria-label="날짜">
+        <input type="date" id="dateIn" aria-label="날짜 직접 선택">
+        <select id="speed" aria-label="재생 속도"><option value="1">1일/초</option><option value="3" selected>3일/초</option><option value="7">1주/초</option></select>
+        <span class="mini" id="evNote" aria-live="polite"></span>
+      </div>
+      <canvas id="chart" aria-label="층별 추정 강도 곡선 (참고 · 판정에 안 씀): 누르면 그 날짜로 이동"></canvas>
+      <div class="mini">추정 강도 (참고 · 판정에 안 씀) · ◆ 공시체 실측</div>
+      <div class="row" id="tools">
+        <label>동바리 <select id="shoreMode"><option value="sel" selected>선택 구역만</option><option value="all">전부</option></select></label>
+        <label><input type="checkbox" id="sameFloor">같은 층만 보기</label>
+        <label>벽 <select id="wallMode"><option value="0.45">반투명</option><option value="1">불투명</option><option value="0">숨김</option></select></label>
+        <label>층 펼치기 <select id="explode"><option value="0">끔</option><option value="2.4">켬</option></select></label>
+        <label>표시 층 <select id="clip"></select></label>
+        <label>색 <select id="colorMode"><option value="str" selected>추정 강도 (참고)</option><option value="ev">근거 단계 (1–8)</option></select></label>
+        <label>가상 부재 <select id="synth"><option value="1">표시</option><option value="0">숨김</option></select></label>
+        <button id="resetCam" type="button">시점 초기화</button>
+      </div>
+      <div id="hint">끌기 회전 · Shift/오른쪽 끌기 이동 · 휠 확대 · 구역·측정 표식 클릭 = 근거 · Esc 또는 빈 곳 클릭 = 선택 해제 · Space 재생 · ←/→ 하루 · Shift+←/→ 사건 · 강도 곡선을 누르면 그 날짜</div>
+    </section>
+  </section>
+  <aside class="side">
+    <div class="box"><h2>층 × 구역 현황 <small>숫자 = 그날 추정 MPa (참고)</small></h2><div class="bd" id="gridBox"></div></div>
+    <div class="box"><h2>선택 구역 <small id="selTag"></small></h2><div class="bd" id="detail"><div class="empty">3D 화면이나 위 표에서 구역을 누르면 강조되고 판정 근거가 보입니다.</div></div></div>
+    <div class="box"><h2>현장 측정값 <small id="measTag"></small></h2><div class="bd" id="meas"></div></div>
+    <div class="box"><h2>이 화면에서 가정한 부분</h2><div class="bd"><ul class="assume" id="assume"></ul></div></div>
+    <div class="box"><h2>데이터 파일</h2><div class="bd">
+      <input type="file" id="file" accept=".json,application/json" aria-label="데이터 JSON 파일 고르기">
+      <div class="mini" id="loadMsg">Revit On-Site [웹 공유판] 으로 내보낸 JSON 을 고르면 그 내용으로 바뀝니다.</div>
+    </div></div>
+  </aside>
+</main>
+<script>
+"use strict";
+/* ---------- 상수 ---------- */
+// 구역 색 = 그날 추정 강도 ÷ 그 층 fck, 40·60·80·100 % 구간 — Revit 애드인 [표시: 강도]와 같은 색 ([가정] 화면 표시용)
+const STR=[[222,235,247],[158,202,225],[107,174,214],[49,130,189],[8,81,156]], STR_KO=["40 % 미만","40–60 %","60–80 %","80–100 %","100 % 이상"];
+const strCol=r=>STR[r<.4?0:r<.6?1:r<.8?2:r<1?3:4];
+const CONCRETE=[212,208,200], STEEL=[70,82,96], GLASS=[143,179,201], WIN_EDGE=[79,107,125], GHOST=[205,208,212], UNPOURED=[205,205,205], CYL_OK=[26,152,80];
+const DEC_RGB=d=>/^해체 승인 요청 가능/.test(d)?[145,207,96]:/^공시체 시험 필요/.test(d)?[254,224,139]:[244,109,67];
+const APPR_KO={6:"감리 승인 기록",7:"해체 완료",8:"재받침"};
+const KIND_KO={sensor_temp:"온도 센서",sensor_strength:"강도 센서",cylinder:"현장양생 공시체",rebound:"반발경도"};
+const rgb=(c,a)=>a==null||a>=1?`rgb(${c[0]|0},${c[1]|0},${c[2]|0})`:`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a<0?0:+a.toFixed(3)})`;
+const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
+const shade=(c,f)=>[Math.min(255,c[0]*f),Math.min(255,c[1]*f),Math.min(255,c[2]*f)];
+const lum=c=>(0.299*c[0]+0.587*c[1]+0.114*c[2]);
+const DN=s=>{const [y,m,d]=s.slice(0,10).split("-").map(Number);return Math.round(Date.UTC(y,m-1,d)/864e5)};
+const DT=s=>DN(s)+(s.length>10?(+s.slice(11,13)+(+s.slice(14,16)||0)/60)/24:0);   // 측정 시각 "YYYY-MM-DDTHH:MM" → 일(소수)
+const ISO=n=>new Date(Math.floor(n)*864e5).toISOString().slice(0,10);
+const WD="일월화수목금토";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $=id=>document.getElementById(id);
+const suffix=id=>String(id).split("-").pop();
+const fmt=v=>(+v).toFixed(1);
+const EVC=k=>{if(k<=0) return [196,200,204]; const a=[200,230,200],b=[34,118,64],u=(Math.min(k,8)-1)/7;return a.map((v,i)=>Math.round(v+(b[i]-v)*u))};   // 근거 0 회색, 1 연녹 → 8 진녹
+
+/* ---------- 상태 ---------- */
+let D=null, M=null, FONT="sans-serif";
+const view={color:"str",t:0,wallA:0.45,explode:0,clip:999,synth:true,sel:null,selM:null,playing:false,speed:3,shore:"sel",same:false};
+const cam={theta:-Math.PI*0.62,phi:0.5,scale:10,tx:15,ty:9,tz:20};
+const today=()=>Math.floor(view.t);
+
+/* ---------- 데이터 준비 ---------- */
+function validate(d){
+  if(!d||d.schema!=="revit-onsite-4d") throw new Error('schema = "revit-onsite-4d" 가 아닙니다 — Revit On-Site [웹 공유판] 으로 내보낸 JSON 인지 확인하세요.');
+  const v=String(d.version||"1");
+  if(!/^2(\.|$)/.test(v)) throw new Error(/^[01](\.|$)/.test(v)?"이 파일은 예전 형식(v1.x)입니다 — 애드인 [웹 공유판]으로 다시 내보내 주세요.":`이 뷰어가 모르는 형식(v${v})입니다.`);
+  const miss=[];
+  for(const k of ["levels","elements"]) if(!Array.isArray(d[k])) miss.push(k);
+  if(!d.strength_timeline||!Array.isArray(d.strength_timeline.floors)) miss.push("strength_timeline");
+  if(!d.project||!Array.isArray(d.project.date_range)) miss.push("project.date_range");
+  if(miss.length) throw new Error("필수 항목이 없습니다: "+miss.join(", ")+" — web/onsite_4d_schema.md 형식인지 확인하세요.");
+}
+const LIGHT=(()=>{const v=[-0.45,-0.7,0.55],l=Math.hypot(...v);return v.map(x=>x/l)})();
+function face(t,n,pts){
+  let cx=0,cy=0,cz=0; const p=new Float64Array(pts.length*3);
+  pts.forEach((q,i)=>{p[i*3]=q[0];p[i*3+1]=q[1];p[i*3+2]=q[2];cx+=q[0];cy+=q[1];cz+=q[2]});
+  const k=pts.length, lam=t==="top"?1:t==="bot"?0.62:0.70+0.30*Math.max(0,n[0]*LIGHT[0]+n[1]*LIGHT[1]+n[2]*LIGHT[2]);
+  return {t,n,p,cx:cx/k,cy:cy/k,cz:cz/k,lam,ck:-1,cs:""};
+}
+function prism(fp,z0,z1,out=[]){
+  out.push(face("top",[0,0,1],fp.map(q=>[q[0],q[1],z1])), face("bot",[0,0,-1],fp.map(q=>[q[0],q[1],z0]).reverse()));
+  for(let i=0;i<fp.length;i++){
+    const a=fp[i],b=fp[(i+1)%fp.length],dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1;
+    out.push(face("side",[dy/L,-dx/L,0],[[a[0],a[1],z0],[b[0],b[1],z0],[b[0],b[1],z1],[a[0],a[1],z1]]));
+  }
+  return out;
+}
+function stairFaces(x0,y0,x1,y1,z0,z1){   // 평면 범위를 긴 변 방향 한 줄 계단으로 단순화
+  const alongY=(y1-y0)>=(x1-x0),N=12,out=[];
+  for(let i=0;i<N;i++){
+    const zt=z0+(z1-z0)*(i+1)/N, a=i/N, b=(i+1)/N;
+    prism(alongY?[[x0,y0+(y1-y0)*a],[x1,y0+(y1-y0)*a],[x1,y0+(y1-y0)*b],[x0,y0+(y1-y0)*b]]
+                :[[x0+(x1-x0)*a,y0],[x0+(x1-x0)*b,y0],[x0+(x1-x0)*b,y1],[x0+(x1-x0)*a,y1]],z0,zt,out);
+  }
+  return out;
+}
+function prep(d){
+  const zoneRaw=d.elements.filter(e=>e.category==="zone");
+  const order=(d.project.zone_order&&d.project.zone_order.length)?d.project.zone_order:[...new Set(zoneRaw.map(e=>suffix(e.id)))].sort();
+  const floorZones={};
+  for(const e of zoneRaw) (floorZones[e.floor]=floorZones[e.floor]||[]).push(e.zone);
+  for(const k in floorZones) floorZones[k].sort((a,b)=>order.indexOf(suffix(a))-order.indexOf(suffix(b)));
+  const dec={}; for(const x of d.decisions||[]) (dec[x.zone]=dec[x.zone]||[]).push({...x,n:DN(x.at)});
+  for(const k in dec) dec[k].sort((a,b)=>a.n-b.n);
+  const levels=[...d.levels].sort((a,b)=>a.floor-b.floor);
+  const levelZ={}; levels.forEach(l=>levelZ[l.floor]=l.z);
+  let minx=1e9,miny=1e9,maxx=-1e9,maxy=-1e9,maxz=0;
+  const els=d.elements.map(e=>{
+    let fp=e.geometry.footprint.map(p=>[+p[0],+p[1]]);
+    let A=0; for(let i=0;i<fp.length;i++){const a=fp[i],b=fp[(i+1)%fp.length];A+=a[0]*b[1]-b[0]*a[1]}
+    if(A<0) fp=fp.reverse();
+    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    for(const p of fp){x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])}
+    minx=Math.min(minx,x0);maxx=Math.max(maxx,x1);miny=Math.min(miny,y0);maxy=Math.max(maxy,y1);
+    const z0=e.geometry.z0,z1=e.geometry.z1; maxz=Math.max(maxz,z1);
+    return {...e,fp,x0,y0,x1,y1,cx:(x0+x1)/2,cy:(y0+y1)/2,z0,z1,
+      faces:e.category==="stair"?stairFaces(x0,y0,x1,y1,z0,z1):prism(fp,z0,z1),S:{}};
+  });
+  const zoneEls=els.filter(e=>e.category==="zone");
+  const zoneById={}; for(const z of zoneEls) zoneById[z.zone]=z;
+  const shoreByZone={}; for(const e of els) if(e.category==="shore_zone") shoreByZone[e.zone]=e;
+  const floorsWithZones=new Set(zoneEls.map(e=>e.floor));
+  const thr=d.thresholds||{side_form_mpa:5,remove_mpa:d.project.fck_mpa||24,support_slab_mpa:14};
+  const d0=DN(d.project.date_range[0]), d1=DN(d.project.date_range[1]), ju=d.project.judged_until?DN(d.project.judged_until):null;
+  // 강도 예측 타임라인: 층·구역 추정 곡선 (참고 · 판정에 안 씀), 공시체 실측, 기준선
+  const T=d.strength_timeline, ts=DN(T.start||d.project.date_range[0]), fck0=+d.project.fck_mpa||thr.remove_mpa||24;
+  const tl=T.floors.map(f=>({floor:f.floor,label:f.label||f.floor+"F",fck:+f.fck||fck0,v:f.mpa||[]})).sort((a,b)=>a.floor-b.floor);
+  const tf={}; for(const f of tl) tf[f.floor]=f;
+  const tz={}; for(const z of T.zones||[]) tz[z.zone]=z.mpa||[];
+  const cyl=(T.cylinders||[]).map(c=>({...c,n:DN(c.date),mpa:+c.mpa})).sort((a,b)=>a.n-b.n);
+  const lines=(T.lines||[]).filter(l=>l.mpa!=null);
+  // 사건 (|◀ 사건 · 사건 ▶|): 층 첫 타설 · 층 추정 14 MPa·fck 도달 (그 층 구역이 다 타설된 날부터 셈) · 공시체 시험
+  const evs={}, add=(n,t)=>(evs[n]=evs[n]||[]).push(t), first=a=>a.findIndex(v=>v!=null);
+  const flOf=z=>zoneById[z]?zoneById[z].floor:parseInt(z,10), sup=thr.support_slab_mpa??14;
+  for(const f of tl){
+    const i0=first(f.v); if(i0<0) continue; add(ts+i0,`${f.label} 타설`);
+    const iAll=Math.max(i0,...Object.keys(tz).filter(z=>flOf(z)===f.floor).map(z=>{const k=first(tz[z]);return k<0?Infinity:k}));
+    for(const [lim,txt] of [[sup,`${f.label} 추정 ${sup} MPa 도달 (참고)`],[f.fck,`${f.label} 추정 fck ${f.fck} MPa 도달 (참고)`]]){
+      const k=f.v.findIndex((v,i)=>i>=iAll&&v!=null&&v>=lim); if(k>=0) add(ts+k,txt)}
+  }
+  for(const c of cyl) add(c.n,`${c.zone} 공시체 ${fmt(c.mpa)} MPa`);
+  const events=Object.keys(evs).map(Number).sort((a,b)=>a-b).map(n=>({n,texts:evs[n]}));
+  // 실측값: 지점별 시계열
+  const mp={};
+  for(const m of d.measurements||[]){
+    const k=m.kind+"|"+m.point_id; let p=mp[k];
+    if(!p) p=mp[k]={key:k,kind:m.kind,id:m.point_id,floor:m.floor,zone:m.zone,x:+m.x,y:+m.y,unit:m.unit||"",ser:[],sx:0,sy:0,on:false};
+    p.ser.push({n:DT(m.timestamp),ts:m.timestamp,v:+m.value,by:m.entered_by||"",f:m.f,curing:m.curing});
+  }
+  const appr={}; for(const a of d.approvals||[]) if(a.status!=null) (appr[a.zone]=appr[a.zone]||[]).push({n:DN(a.at),st:a.status,action:a.action,actor:a.actor||""});   // 사람이 입력한 기록 (감리 승인 기록 6 · 해체 완료 7 · 재받침 8)
+  for(const k in appr) appr[k].sort((a,b)=>a.n-b.n);
+  const evid={}; for(const x of d.evidence||[]) (evid[x.zone]=evid[x.zone]||[]).push({n:DN(x.date)+1,stage:+x.stage});   // 그날 끝에 갖춘 것으로
+  const meas=Object.values(mp); for(const p of meas){p.ser.sort((a,b)=>a.n-b.n);
+    p.lo=Math.min(...p.ser.map(s=>s.v)); p.hi=Math.max(...p.ser.map(s=>s.v))}
+  meas.sort((a,b)=>a.floor-b.floor||a.kind.localeCompare(b.kind)||a.id.localeCompare(b.id,"ko",{numeric:true}));
+  return {dec,levels,levelZ,els,zoneEls,zoneById,shoreByZone,floorsWithZones,order,floorZones,thr,meas,appr,evid,synthetic:!!d.project.measurements_synthetic,
+    ts,tl,tf,tz,cyl,lines,fck0,ju,events,bbox:{minx,miny,maxx,maxy,maxz},d0,d1,zsc:{}};
+}
+const at=(a,n)=>a&&a[n-M.ts]!=null?+a[n-M.ts]:null;   // 타임라인 값 (타설 전·범위 밖 = null)
+const fckOf=f=>M.tf[f]?M.tf[f].fck:M.fck0;
+function evStage(zone,day){ const L=M.evid[zone]; if(!L) return 0; const got=new Set(L.filter(x=>x.n<=day).map(x=>x.stage)); let k=0; while(got.has(k+1)) k++; return k; }   // evidence.py ledger_at 과 같은 규칙
+function apprAt(zone,day){ const L=M.appr[zone]; let r=null; if(!L) return null; for(const x of L){ if(x.n<=day) r=x; else break } return r; }
+/* 그날 이하 가장 최근 판정 — 마지막 기록일(judged_until) 뒤는 판정 없음 */
+function decisionAt(zone,day){
+  const L=M.dec[zone]; if(!L||M.ju==null||day>M.ju) return null; let r=null;
+  for(const x of L){ if(x.n<=day) r=x; else break } return r;
+}
+const noDec=()=>M.ju==null?"판정 없음 (실측 기록 없음)":`판정 없음 (마지막 기록일 ${ISO(M.ju)} 뒤)`;
+const reqOk=dc=>!!dc&&/^해체 승인 요청 가능/.test(dc.decision);
+/* 구역의 그날 값: v = 추정 MPa (참고, 타설 전 null), r = v ÷ 그 층 fck, ev = 근거 단계 */
+function zoneVal(z,fl,day){const v=at(M.tz[z],day); return {v,r:v==null?null:v/fckOf(fl),ev:evStage(z,day)}}
+const zs=z=>M.zsc[z];
+const zoneColor=s=>view.color==="ev"&&(s.v!=null||s.ev>0)?EVC(s.ev):s.v==null?UNPOURED:strCol(s.r);
+function topPoured(day){let f=null; for(const z of M.zoneEls) if(at(M.tz[z.zone],day)!=null&&(f==null||z.floor>f)) f=z.floor; return f}
+
+/* ---------- 카메라 ---------- */
+const cv=$("cv"), ctx=cv.getContext("2d");
+let W=0,H=0,DPR=1;
+let rX=0,rY=0,uX=0,uY=0,uZ=0,fX=0,fY=0,fZ=0,dX=0,dY=0,dZ=0, SX=0,SY=0;
+function basis(){
+  const cp=Math.cos(cam.phi),sp=Math.sin(cam.phi),ct=Math.cos(cam.theta),st=Math.sin(cam.theta);
+  dX=cp*ct; dY=cp*st; dZ=sp; fX=-dX; fY=-dY; fZ=-dZ;
+  const rl=Math.hypot(fY,fX)||1; rX=fY/rl; rY=-fX/rl;
+  uX=rY*fZ; uY=-rX*fZ; uZ=rX*fY-rY*fX;        // up = r × fw
+}
+function proj(x,y,z){const vx=x-cam.tx,vy=y-cam.ty,vz=z-cam.tz; SX=W/2+(vx*rX+vy*rY)*cam.scale; SY=H/2-(vx*uX+vy*uY+vz*uZ)*cam.scale}
+function P(x,y,z){proj(x,y,z);return [SX,SY]}
+const depth=(x,y,z)=>(x-cam.tx)*fX+(y-cam.ty)*fY+(z-cam.tz)*fZ;
+function topZ(){ if(!M) return 45; const L=M.levels; return (L.length?L[L.length-1].z:M.bbox.maxz)+view.explode*(L.length-1) }
+const zoff=f=>view.explode*(f-1);
+function fitFor(zlo,top){   // 높이 zlo~top 인 건물(+그리드 기호 자리)이 안내 상자 아래 빈 곳에 들어가는 {scale, tx, ty, tz}
+  const b=M.bbox, keep={...cam}, m=4;
+  cam.tx=(b.minx+b.maxx)/2; cam.ty=(b.miny+b.maxy)/2-2; cam.tz=(zlo+top)*0.5; cam.scale=1; basis();
+  let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
+  for(const x of [b.minx-m,b.maxx+m]) for(const y of [b.miny-m-6,b.maxy+m]) for(const z of [zlo,top]){proj(x,y,z);x0=Math.min(x0,SX);x1=Math.max(x1,SX);y0=Math.min(y0,SY);y1=Math.max(y1,SY)}
+  const cr=cv.getBoundingClientRect(), padTop=Math.max(0,$("dayBox").getBoundingClientRect().bottom-cr.top)+6;
+  const sc=Math.min((W-24)/(x1-x0),(H-padTop-16)/(y1-y0));
+  const oy=(y0+y1)/2-H/2, r={scale:sc,tx:cam.tx,ty:cam.ty,tz:cam.tz+(padTop/2-oy*sc)/(Math.cos(cam.phi)*sc)};   // tz 를 Δ 올리면 화면 y 가 cos(phi)·scale·Δ 내려감
+  Object.assign(cam,keep); basis(); return r;
+}
+function resetCam(){
+  if(!M||!W) return; cam.theta=-Math.PI*0.62; cam.phi=0.5;
+  const r=camRange(), f=fitFor(r[0],r[1]); Object.assign(cam,f); req();
+}
+function camRange(){   // 화면에 맞출 높이 범위: 같은 층만 → 그 층, 아니면 건물 전체
+  const sf=sameFloorTarget();
+  if(sf!=null){const zb=M.levelZ[sf-1]!=null?M.levelZ[sf-1]+zoff(sf-1):0; return [zb-1,M.levelZ[sf]+zoff(sf)+2]}
+  return [0,topZ()+3];
+}
+
+/* ---------- 그리기 ---------- */
+const pool=[], items=[]; let NI=0;
+function push(o,type,el,f){let it=pool[NI]; if(!it) it=pool[NI]={o:0,type:0,el:null,f:null}; it.o=o; it.type=type; it.el=el; it.f=f; items[NI]=it; NI++}
+const T_FACE=1,T_POSTS=2,T_BOX=3;
+let zPicks=[];     // 그린 순서의 구역 (클릭 판정)
+let SF=null;       // 같은 층만 보기 대상 층 (draw() 시작 때 한 번 계산)
+
+/* 부재 스타일 → el.S: 구역 = 그날 추정 강도 색, 나머지 = 완성된 모습 (시공 순서 표현 없음) */
+function styleEl(el){
+  const S=el.S; S.fill=CONCRETE; S.a=1; S.stroke=null; S.box=false;
+  switch(el.category){
+    case "slab": return !M.floorsWithZones.has(el.floor);           // 구역이 있는 층은 구역이 대신 그림
+    case "zone": S.fill=zoneColor(zs(el.zone)); if(S.fill===UNPOURED) S.a=.35; return true;
+    case "shore_zone": S.box=!(view.shore==="all"||view.sel===el.zone); return true;   // 동바리는 늘 서 있음
+    case "wall": case "stair": return true;
+    case "window": S.fill=GLASS; S.a=.6; S.stroke=WIN_EDGE; return true;
+  }
+  return false;
+}
+function hidden(el){
+  if(el.synthetic&&!view.synth) return true;
+  if(el.category==="wall"&&view.wallA===0) return true;
+  if(SF!=null) return el.floor>SF||el.floor<SF-1;
+  return el.floor>view.clip;
+}
+function sameFloorTarget(){ if(!view.same) return null; if(view.sel&&M.zoneById[view.sel]) return M.zoneById[view.sel].floor; return topPoured(today()) }
+function isGhost(el){
+  if(SF!=null&&el.floor<SF) return true;
+  return !!view.sel&&el.zone!==view.sel;
+}
+function draw(){
+  if(!M){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);return}
+  basis(); ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,W,H);
+  const day=today();
+  for(const z of M.zoneEls) M.zsc[z.zone]=zoneVal(z.zone,z.floor,day);
+  SF=sameFloorTarget();
+  drawGround();
+  NI=0; zPicks.length=0;
+  for(const el of M.els){
+    if(hidden(el)||!styleEl(el)) continue;
+    const S=el.S; S.ghost=isGhost(el);
+    const dz=zoff(el.floor), base=el.floor*8;
+    if(el.category==="shore_zone"){
+      // 동바리는 벽 뒤에 가려지지 않게 벽 다음에 그림 (검토용 X-ray)
+      if(S.box){for(const f of el.faces) if(f.n[0]*dX+f.n[1]*dY+f.n[2]*dZ>1e-6) push((base+1)*1000+500-depth(f.cx,f.cy,f.cz+dz),T_BOX,el,f)}
+      else push((base+1)*1000+500-depth(el.cx,el.cy,(el.z0+el.z1)/2+dz),T_POSTS,el,null);
+      continue;
+    }
+    if(el.category==="zone"&&zs(el.zone).v!=null) zPicks.push(el);   // 타설된 구역만 누를 수 있음 (타설 전은 표에서)
+    const slab=el.category==="zone"||el.category==="slab";
+    for(const f of el.faces){
+      if(f.n[0]*dX+f.n[1]*dY+f.n[2]*dZ<=1e-6) continue;   // 뒷면
+      const sub=slab?(f.t==="top"?5:4):0;
+      push((base+sub)*1000+500-depth(f.cx,f.cy,f.cz+dz),T_FACE,el,f);
+    }
+  }
+  items.length=NI; items.sort(byO);
+  let grp=-1;
+  for(let i=0;i<NI;i++){const it=items[i], g=Math.floor(it.o/1000);
+    if(g!==grp){flushEdges(grp);grp=g}
+    switch(it.type){case T_FACE:drawFace(it.el,it.f);break; case T_BOX:drawBoxFace(it.el,it.f);break; case T_POSTS:drawPosts(it.el);break}}
+  flushEdges(grp);
+  drawZoneLines(); drawMeas(); if(view.sel) drawSelection(); drawFloorLabels(); drawCompass();
+}
+const byO=(a,b)=>a.o-b.o;
+const PB=new Float64Array(64); let PN=0;     // 투영한 면 꼭짓점 (다시 쓰는 버퍼)
+function projFace(f,dz){const p=f.p; PN=0; for(let i=0;i<p.length;i+=3){proj(p[i],p[i+1],p[i+2]+dz); PB[PN++]=SX; PB[PN++]=SY}}
+function facePath(f,dz){projFace(f,dz); ctx.beginPath(); ctx.moveTo(PB[0],PB[1]); for(let i=2;i<PN;i+=2) ctx.lineTo(PB[i],PB[i+1]); ctx.closePath()}
+// 모서리 선은 면마다 stroke 하지 않고 층·묶음 단위로 Path2D 에 모아 한 번에 (그리기 비용의 절반 이상이 stroke)
+let EN=null,EG=null,EW=null; const FB=new Map();
+function addEdge(kind){let P=kind===0?EN:kind===1?EG:EW; if(!P){P=new Path2D(); if(kind===0)EN=P; else if(kind===1)EG=P; else EW=P}
+  P.moveTo(PB[0],PB[1]); for(let i=2;i<PN;i+=2) P.lineTo(PB[i],PB[i+1]); P.closePath()}
+function flushEdges(g){
+  if(FB.size){for(const [k,P] of FB){ctx.fillStyle=k;ctx.fill(P)} FB.clear()}
+  if(EN){ctx.strokeStyle=g%8===0?"rgba(40,44,50,.30)":"rgba(40,44,50,.40)";ctx.lineWidth=.6;ctx.stroke(EN);EN=null}
+  if(EW){ctx.strokeStyle=rgb(WIN_EDGE);ctx.lineWidth=.8;ctx.stroke(EW);EW=null}
+  if(EG){ctx.strokeStyle="rgba(60,66,74,.10)";ctx.lineWidth=.5;ctx.stroke(EG);EG=null}
+}
+function faceCol(f,c,a){   // 면 색 문자열 캐시 (같은 색·투명도면 다시 만들지 않음)
+  const k=((c[0]|0)*65536+(c[1]|0)*256+(c[2]|0))*1000+Math.round(a*999);
+  if(f.ck!==k){f.ck=k;f.cs=rgb(shade(c,f.lam),a)} return f.cs;
+}
+function drawFace(el,f){
+  const S=el.S, dz=zoff(el.floor), isWall=el.category==="wall";
+  let c=S.fill, a=S.a;
+  if(isWall&&view.wallA<1) a=Math.min(1,a*view.wallA*1.25);
+  if(S.ghost){c=mix(c,GHOST,.65);a*=.16}
+  // 반투명 벽은 같은 색 면끼리 층 단위 Path2D 로 묶어 한 번에 칠함 (겹침 순서가 화면에 거의 안 드러남)
+  if(isWall&&a<1){
+    projFace(f,dz); const k=faceCol(f,c,a); let P=FB.get(k); if(!P){P=new Path2D(); FB.set(k,P)}
+    P.moveTo(PB[0],PB[1]); for(let i=2;i<PN;i+=2) P.lineTo(PB[i],PB[i+1]); P.closePath();
+    addEdge(S.ghost?1:0); return;
+  }
+  facePath(f,dz); ctx.fillStyle=faceCol(f,c,a); ctx.fill();
+  addEdge(S.ghost||a<.5?1:S.stroke?2:0);
+}
+function drawBoxFace(el,f){   // 선택 밖 구역의 동바리 = 반투명 상자
+  const S=el.S; facePath(f,zoff(el.floor));
+  ctx.fillStyle=rgb(STEEL,S.ghost?.04:.12); ctx.fill();
+  ctx.strokeStyle=rgb(STEEL,S.ghost?.12:.45); ctx.lineWidth=.8; ctx.stroke();
+}
+function drawPosts(el){
+  const S=el.S, sp=el.spacing_m||[1.2,1.2], dz=zoff(el.floor), z0=el.z0+dz, z1=el.z1+dz;
+  const nx=Math.max(1,Math.round((el.x1-el.x0)/sp[0])), ny=Math.max(1,Math.round((el.y1-el.y0)/sp[1])), sel=view.sel===el.zone;
+  ctx.strokeStyle=rgb(S.ghost?mix(STEEL,GHOST,.5):STEEL,S.ghost?.25:sel?.95:.7);
+  ctx.lineWidth=Math.max(sel?1.2:.9,Math.min(sel?2.2:1.6,cam.scale*(sel?.09:.07)));
+  ctx.beginPath();
+  for(let j=0;j<=ny;j++){const y=el.y0+(el.y1-el.y0)*j/ny;
+    for(let i=0;i<=nx;i++){const x=el.x0+(el.x1-el.x0)*i/nx; proj(x,y,z0); ctx.moveTo(SX,SY); proj(x,y,z1); ctx.lineTo(SX,SY)}
+    proj(el.x0,y,z1); ctx.moveTo(SX,SY); proj(el.x1,y,z1); ctx.lineTo(SX,SY);      // 멍에
+  }
+  ctx.stroke();
+}
+function box(x0,y0,z0,x1,y1,z1,c,a){   // 화면용 상자 (기초) — 보이는 면만
+  const fs=[[[0,0,1],[[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],1],[[0,-1,0],[[x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1]],.8],
+    [[1,0,0],[[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],.7],[[-1,0,0],[[x0,y1,z0],[x0,y0,z0],[x0,y0,z1],[x0,y1,z1]],.7],[[0,1,0],[[x1,y1,z0],[x0,y1,z0],[x0,y1,z1],[x1,y1,z1]],.8]];
+  for(const [n,q,l] of fs){ if(n[0]*dX+n[1]*dY+n[2]*dZ<=0) continue; ctx.beginPath();
+    q.forEach((p,i)=>{proj(p[0],p[1],p[2]); i?ctx.lineTo(SX,SY):ctx.moveTo(SX,SY)}); ctx.closePath();
+    ctx.fillStyle=rgb(shade(c,l),a); ctx.fill(); ctx.strokeStyle="rgba(40,44,50,.35)"; ctx.lineWidth=.6; ctx.stroke() }
+}
+function drawGround(){
+  const b=M.bbox, m=8, gx0=Math.floor((b.minx-m)/5)*5, gx1=Math.ceil((b.maxx+m)/5)*5, gy0=Math.floor((b.miny-m-6)/5)*5, gy1=Math.ceil((b.maxy+m)/5)*5;
+  ctx.beginPath(); proj(gx0,gy0,0);ctx.moveTo(SX,SY);proj(gx1,gy0,0);ctx.lineTo(SX,SY);proj(gx1,gy1,0);ctx.lineTo(SX,SY);proj(gx0,gy1,0);ctx.lineTo(SX,SY);ctx.closePath();
+  ctx.fillStyle="#D9D4CB"; ctx.fill();
+  ctx.strokeStyle="rgba(120,112,100,.20)"; ctx.lineWidth=.7; ctx.beginPath();
+  for(let x=gx0;x<=gx1;x+=5){proj(x,gy0,0);ctx.moveTo(SX,SY);proj(x,gy1,0);ctx.lineTo(SX,SY)}
+  for(let y=gy0;y<=gy1;y+=5){proj(gx0,y,0);ctx.moveTo(SX,SY);proj(gx1,y,0);ctx.lineTo(SX,SY)}
+  ctx.stroke();
+  box(b.minx-0.6,b.miny-0.6,-0.7,b.maxx+0.6,b.maxy+0.6,0,[176,172,164],1);      // 기초 (매트)
+  const zl=M.zoneEls.filter(e=>e.floor===M.levels[0].floor);
+  const xs=[...new Set(zl.flatMap(e=>[e.x0,e.x1]))].sort((a,b)=>a-b), ys=[...new Set(zl.flatMap(e=>[e.y0,e.y1]))].sort((a,b)=>a-b);
+  ctx.setLineDash([6,4]); ctx.strokeStyle="rgba(43,120,197,.45)"; ctx.lineWidth=.8; ctx.beginPath();
+  for(const x of xs){proj(x,b.miny-4,0);ctx.moveTo(SX,SY);proj(x,b.miny-0.6,0);ctx.lineTo(SX,SY)}
+  for(const y of ys){proj(b.minx-4,y,0);ctx.moveTo(SX,SY);proj(b.minx-0.6,y,0);ctx.lineTo(SX,SY)}
+  ctx.stroke(); ctx.setLineDash([]);
+  ctx.font="600 11px "+FONT; ctx.textAlign="center"; ctx.textBaseline="middle";
+  xs.forEach((x,i)=>bubble(P(x,b.miny-5,0),"X"+(i+1))); ys.forEach((y,i)=>bubble(P(b.minx-5,y,0),"Y"+(i+1)));
+}
+function bubble(p,t){ctx.beginPath();ctx.arc(p[0],p[1],10,0,7);ctx.fillStyle="#fff";ctx.fill();ctx.strokeStyle="rgba(43,120,197,.7)";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#2B78C5";ctx.fillText(t,p[0],p[1]+.5)}
+function label(t,x,y,bg,fg,font){ctx.font=font||("700 11px "+FONT); const w=ctx.measureText(t).width+10;
+  ctx.fillStyle=bg; roundRect(x-w/2,y-9,w,18,4); ctx.fill(); ctx.fillStyle=fg; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText(t,x,y+.5)}
+function drawZoneLines(){   // 타설된 가장 위층(과 선택 층)의 구역 경계·구역 이름
+  const fs=new Set(), a=topPoured(today()); if(a!=null) fs.add(a); if(view.sel) fs.add(M.zoneById[view.sel].floor);
+  for(const fl of fs){
+    if(SF!=null?fl!==SF:fl>view.clip) continue;
+    const els=M.zoneEls.filter(e=>e.floor===fl); if(!els.length) continue;
+    ctx.strokeStyle="rgba(20,40,80,.55)"; ctx.lineWidth=1; ctx.beginPath();
+    for(const e of els){const z=e.z1+zoff(fl);
+      proj(e.x0,e.y0,z);ctx.moveTo(SX,SY);proj(e.x1,e.y0,z);ctx.lineTo(SX,SY);proj(e.x1,e.y1,z);ctx.lineTo(SX,SY);proj(e.x0,e.y1,z);ctx.lineTo(SX,SY);ctx.closePath()}
+    ctx.stroke();
+    for(const e of els){if(e.zone===view.sel) continue; proj(e.cx,e.cy,e.z1+zoff(fl)+0.05);
+      label(suffix(e.zone),SX,SY,view.sel?"rgba(255,255,255,.55)":"rgba(255,255,255,.85)",view.sel?"#7A7F87":"#16181C","700 10.5px "+FONT)}
+  }
+}
+function lastAt(p,day){   // 그날(끝)까지 들어온 마지막 측정 (이후 값은 아직 없던 것으로)
+  const s=p.ser; let lo=0,hi=s.length-1,r=-1; while(lo<=hi){const m=(lo+hi)>>1; if(s[m].n<day+1){r=m;lo=m+1}else hi=m-1} return r;
+}
+function drawMeas(){
+  const day=today();
+  for(const p of M.meas){
+    p.on=false; if(SF!=null?p.floor!==SF:p.floor>view.clip) continue;
+    const i=lastAt(p,day); if(i<0) continue; p.on=true;
+    const z=(M.levelZ[p.floor]??0)+zoff(p.floor)+0.03, sel=view.selM===p.key, inZ=view.sel&&p.zone===view.sel, dim=view.sel&&!inZ&&!sel;
+    proj(p.x,p.y,z); p.sx=SX; p.sy=SY; const v=p.ser[i].v;
+    if(p.kind==="cylinder"){
+      const bx=SX,by=SY; proj(p.x,p.y,z+2.2);
+      ctx.strokeStyle=dim?"rgba(30,30,30,.3)":"#222"; ctx.lineWidth=sel?2:1.4; ctx.beginPath(); ctx.moveTo(bx,by); ctx.lineTo(SX,SY); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(SX,SY); ctx.lineTo(SX+16,SY+5); ctx.lineTo(SX,SY+10); ctx.closePath();
+      ctx.fillStyle=dim?"rgba(255,255,255,.4)":"#fff"; ctx.fill(); ctx.stroke();
+      p.sy=SY+5; p.sx=SX+6;
+      if(sel||inZ||cam.scale>16) label(`공시체 ${v.toFixed(1)}`,SX+16+30,SY+5,sel?"#16181C":"rgba(255,255,255,.9)",sel?"#fff":"#16181C","700 10px "+FONT);
+    } else {
+      const r=sel?7.5:inZ?6:4.5;
+      ctx.beginPath(); ctx.arc(SX,SY,r,0,7); ctx.fillStyle=dim?"rgba(0,140,150,.3)":p.kind==="sensor_strength"?"#6A3D9A":"#00838F"; ctx.fill();
+      ctx.lineWidth=sel?2.5:1.5; ctx.strokeStyle=dim?"rgba(255,255,255,.4)":"#fff"; ctx.stroke();
+      if(sel||inZ||cam.scale>16) label(`${p.id} ${v.toFixed(1)}${p.unit}`,SX,SY-15,sel?"#16181C":"rgba(255,255,255,.9)",sel?"#fff":"#00525A","700 10px "+FONT);
+    }
+  }
+}
+function drawFloorLabels(){
+  const b=M.bbox; ctx.font="600 11px "+FONT; ctx.textBaseline="middle";
+  let best=null,bx=1e9; for(const c of [[b.minx,b.miny],[b.maxx,b.miny],[b.maxx,b.maxy],[b.minx,b.maxy]]){proj(c[0],c[1],0); if(SX<bx){bx=SX;best=c}}
+  for(const L of M.levels){
+    if(SF!=null?(L.floor>SF||L.floor<SF-1):L.floor>view.clip) continue;
+    proj(best[0],best[1],L.z+zoff(L.floor)-0.1); const tx=SX-12;
+    ctx.textAlign="right"; ctx.fillStyle="#4A4F57"; ctx.fillText(L.name||L.floor+"층",tx,SY);
+    ctx.strokeStyle="rgba(74,79,87,.5)"; ctx.lineWidth=.8; ctx.beginPath(); ctx.moveTo(tx+3,SY); ctx.lineTo(SX-2,SY); ctx.stroke();
+  }
+}
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function drawSelection(){
+  const el=M.zoneById[view.sel]; if(!el) return;
+  const dz=zoff(el.floor), s=zs(el.zone), zt=el.z1+dz, sh=M.shoreByZone[el.zone], zb=sh?sh.z0+dz:el.z0+dz;
+  const c=[[el.x0,el.y0],[el.x1,el.y0],[el.x1,el.y1],[el.x0,el.y1]];
+  if(sh&&!hidden(sh)){const g=sh.S.ghost; sh.S.ghost=false; drawPosts(sh); sh.S.ghost=g}
+  if(s.v!=null){ctx.beginPath(); c.forEach((q,i)=>{proj(q[0],q[1],zt); i?ctx.lineTo(SX,SY):ctx.moveTo(SX,SY)}); ctx.closePath(); ctx.fillStyle=rgb(zoneColor(s),.88); ctx.fill()}
+  ctx.strokeStyle="#16181C"; ctx.lineWidth=3; ctx.beginPath(); c.forEach((q,i)=>{proj(q[0],q[1],zt); i?ctx.lineTo(SX,SY):ctx.moveTo(SX,SY)}); ctx.closePath(); ctx.stroke();
+  ctx.lineWidth=1.3; ctx.setLineDash([4,3]); ctx.beginPath();
+  c.forEach((q,i)=>{proj(q[0],q[1],zb); i?ctx.lineTo(SX,SY):ctx.moveTo(SX,SY)}); ctx.closePath();
+  for(const q of c){proj(q[0],q[1],zb);ctx.moveTo(SX,SY);proj(q[0],q[1],zt);ctx.lineTo(SX,SY)}
+  ctx.stroke(); ctx.setLineDash([]);
+  proj(el.cx,el.cy,zt+0.3);
+  label(`${el.zone} · ${s.v!=null?"추정 "+fmt(s.v)+" MPa (참고)":"타설 전"}`,SX,SY-14,"#16181C","#fff","700 12px "+FONT);
+}
+function drawCompass(){
+  const cx=W-40, cy=H-40; proj(cam.tx,cam.ty+1,cam.tz); const ax=SX,ay=SY; proj(cam.tx,cam.ty,cam.tz);
+  let dx=ax-SX, dy=ay-SY; const l=Math.hypot(dx,dy)||1; dx/=l; dy/=l;
+  ctx.beginPath(); ctx.arc(cx,cy,17,0,7); ctx.fillStyle="rgba(255,255,255,.92)"; ctx.fill(); ctx.strokeStyle="#C9CDD3"; ctx.lineWidth=1; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx+dx*12,cy+dy*12); ctx.lineTo(cx-dy*5,cy+dx*5); ctx.lineTo(cx+dy*5,cy-dx*5); ctx.closePath(); ctx.fillStyle="#C0271F"; ctx.fill();
+  ctx.font="700 10px sans-serif"; ctx.fillStyle="#16181C"; ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillText("N",cx+dx*25,cy+dy*25);
+}
+
+/* ---------- 강도 곡선 (층별 추정 = 참고 · 공시체 실측 ◆ · 기준선) ---------- */
+const ch=$("chart"), cctx=ch.getContext("2d"), cOff=document.createElement("canvas");
+const G={L:32,R:12,top:16,bot:16,w:0,h:0,ymax:30};
+const gx=n=>G.L+(n-M.d0)/Math.max(1,M.d1-M.d0)*(G.w-G.L-G.R);
+const gy=v=>G.h-G.bot-v/G.ymax*(G.h-G.bot-G.top);
+function polyline(g,a){g.beginPath(); let pen=false;
+  a.forEach((v,i)=>{if(v==null){pen=false;return} const x=gx(M.ts+i), y=gy(v); pen?g.lineTo(x,y):g.moveTo(x,y); pen=true}); g.stroke()}
+function chartLayout(){
+  G.h=innerWidth<700?120:160; G.w=ch.getBoundingClientRect().width||600;
+  ch.style.height=G.h+"px"; ch.width=Math.round(G.w*DPR); ch.height=Math.round(G.h*DPR); cOff.width=ch.width; cOff.height=ch.height;
+  let mx=Math.max(M.fck0,...M.tl.map(f=>f.fck))*1.25;
+  for(const a of [...M.tl.map(f=>f.v),...Object.values(M.tz)]) for(const v of a) if(v!=null&&v>mx) mx=v;
+  for(const c of M.cyl) mx=Math.max(mx,c.mpa);
+  G.ymax=Math.ceil(mx/5)*5||30;
+}
+function chartStatic(){
+  const g=cOff.getContext("2d"); g.setTransform(DPR,0,0,DPR,0,0); g.clearRect(0,0,G.w,G.h);
+  g.font="10px "+FONT; g.textBaseline="middle";
+  const x0=G.L, x1=G.w-G.R, yb=gy(0);
+  for(let n=M.d0;n<=M.d1;n++){const d=new Date(n*864e5), x=gx(n);   // 달·주 눈금
+    if(d.getUTCDate()===1){g.fillStyle="rgba(22,24,28,.18)";g.fillRect(x,G.top,1,yb-G.top);g.fillStyle="#4A4F57";g.textAlign="left";g.fillText(`${d.getUTCFullYear()%100}.${d.getUTCMonth()+1}월`,x+3,G.h-7)}
+    else if(d.getUTCDay()===1){g.fillStyle="rgba(22,24,28,.06)";g.fillRect(x,G.top,1,yb-G.top)}}
+  g.fillStyle="rgba(22,24,28,.35)"; g.fillRect(x0,yb,x1-x0,1);
+  g.textAlign="right"; g.fillStyle="#6B717A"; g.fillText("0",x0-4,yb); g.textAlign="left"; g.fillText("MPa",x0+3,G.top+4);
+  g.setLineDash([4,3]); g.lineWidth=1;   // 기준선
+  for(const l of M.lines){const y=gy(l.mpa); g.strokeStyle="rgba(192,39,31,.55)"; g.beginPath(); g.moveTo(x0,y); g.lineTo(x1,y); g.stroke();
+    g.fillStyle="#C0271F"; g.textAlign="right"; g.fillText(String(+l.mpa),x0-4,y); g.fillStyle="rgba(192,39,31,.75)"; g.textAlign="left"; g.fillText(l.name,x0+3,y-6)}
+  if(M.ju!=null&&M.ju>=M.d0&&M.ju<=M.d1){const x=gx(M.ju);   // 판정 기록은 이 날까지
+    g.setLineDash([2,3]); g.strokeStyle="rgba(22,24,28,.45)"; g.beginPath(); g.moveTo(x,G.top); g.lineTo(x,yb); g.stroke();
+    g.fillStyle="#4A4F57"; g.textAlign="left"; g.fillText("마지막 기록일",x+3,G.top+5)}
+  g.setLineDash([]); g.strokeStyle="rgba(74,79,87,.55)"; g.lineWidth=1;
+  for(const f of M.tl) polyline(g,f.v);
+}
+function drawChart(){
+  if(!M||!G.w) return; const g=cctx; g.setTransform(1,0,0,1,0,0); g.clearRect(0,0,ch.width,ch.height); g.drawImage(cOff,0,0);
+  g.setTransform(DPR,0,0,DPR,0,0);
+  const day=today(), x=gx(day);
+  if(view.sel&&M.tz[view.sel]){g.strokeStyle="#2B78C5"; g.lineWidth=1.6; polyline(g,M.tz[view.sel])}   // 선택 구역 곡선
+  for(const c of M.cyl){ if(c.n>day) break; const cx=gx(c.n), cy=gy(c.mpa);   // 그날까지 공시체 실측 ◆
+    g.beginPath(); g.moveTo(cx,cy-5); g.lineTo(cx+4,cy); g.lineTo(cx,cy+5); g.lineTo(cx-4,cy); g.closePath();
+    g.fillStyle=c.mpa>=fckOf(c.floor)?rgb(CYL_OK):"#16181C"; g.fill(); g.strokeStyle="#fff"; g.lineWidth=1; g.stroke()}
+  g.fillStyle="#C0271F"; g.fillRect(x-1,G.top-2,2,gy(0)-G.top+2);
+  g.font="700 10px "+FONT; const s=ISO(day).slice(5), w=g.measureText(s).width+8, lx=Math.min(G.w-w,Math.max(0,x-w/2));
+  g.fillRect(lx,0,w,13); g.fillStyle="#fff"; g.textAlign="center"; g.textBaseline="middle"; g.fillText(s,lx+w/2,7);
+  const pts=M.tl.map(f=>({f,v:at(f.v,day)})).filter(p=>p.v!=null).reverse();   // 위층부터
+  for(const p of pts){g.beginPath(); g.arc(x,gy(p.v),4,0,7); g.fillStyle=rgb(strCol(p.v/p.f.fck)); g.fill(); g.strokeStyle="#16181C"; g.lineWidth=1; g.stroke()}
+  const ys=[], right=x<G.w-G.R-70; g.textAlign="left";
+  for(const p of pts.slice(0,4)){const y=gy(p.v); if(ys.some(q=>Math.abs(q-y)<11)) continue; ys.push(y);
+    const t=`${p.f.label} ${fmt(p.v)}`, tw=g.measureText(t).width+6, tx=right?x+7:x-7-tw;
+    g.fillStyle="rgba(255,255,255,.85)"; g.fillRect(tx,y-6,tw,12); g.fillStyle="#16181C"; g.fillText(t,tx+3,y+.5)}
+}
+
+/* ---------- 패널 ---------- */
+function buildStatic(){
+  const p=D.project;
+  $("projName").textContent=`${p.name}${p.model_file?" · "+p.model_file:""}${p.generated_at?" · 내보냄 "+p.generated_at.replace("T"," "):""}`;
+  const sw=c=>`<i class="sw" style="background:${rgb(c)}"></i>`;
+  $("legend").innerHTML=`<span class="grp">구역 색 = 추정 강도 ÷ fck (참고 · 판정에 안 씀)</span>`+STR.map((c,i)=>`<span>${sw(c)}${STR_KO[i]}</span>`).join("")
+    +`<span><i class="sw" style="background:rgba(205,205,205,.5)"></i>타설 전</span>`
+    +`<span class="grp">근거 단계</span><span>1<i class="ramp" style="background:linear-gradient(90deg,rgb(${EVC(1)}),rgb(${EVC(8)}))"></i>8</span>`
+    +`<span class="grp">부재</span><span>${sw(CONCRETE)}벽·계단</span><span><i class="sw" style="background:repeating-linear-gradient(90deg,rgb(${STEEL}) 0 1px,transparent 1px 4px);border-color:rgb(${STEEL})"></i>동바리</span><span>${sw(GLASS)}창호</span>`
+    +`<span class="grp">실측</span><span><i class="sw" style="background:#00838F;border-radius:50%;border:2px solid #fff;outline:1px solid #ccc"></i>센서</span><span>⚑ 공시체</span>`;
+  const clip=$("clip"); clip.innerHTML=`<option value="999">전체</option>`+M.levels.map(l=>`<option value="${l.floor}">${l.floor}층까지</option>`).reverse().join("");
+  $("slider").max=M.d1-M.d0;
+  $("dateIn").min=ISO(M.d0); $("dateIn").max=ISO(M.d1);
+  const syn=D.elements.filter(e=>e.synthetic).length;
+  const VIEW_ASSUME=[
+    "날짜는 하루 단위입니다. 측정값 표식과 공시체 ◆ 는 그날 안의 기록까지 보이고, 구역 판정은 그날 이하 가장 최근(매일 09:00) 기록입니다.",
+    "동바리는 해체 기록과 관계없이 늘 서 있는 것으로 그립니다. 기둥은 spacing_m 간격이며 실제 본 위치가 아니고, 표시 설정에 따라 다른 구역은 반투명 상자로 묶어 보여 줍니다.",
+    "벽·계단·창호와 구역이 없는 층의 슬래브는 날짜와 관계없이 완성된 모습으로 그립니다 (시공 순서 표현 없음)."
+  ];
+  $("assume").innerHTML=(D.assumptions||[]).map(a=>`<li>${esc(a.text)}<span class="tag">${esc(a.basis||"")}</span></li>`).join("")
+    +VIEW_ASSUME.map(t=>`<li>${esc(t)}<span class="tag">[화면]</span></li>`).join("")
+    +(syn?`<li>가상 부재 ${syn}개 (아래 [가상 부재] 에서 숨길 수 있음)<span class="tag">[가정]</span></li>`:"");
+}
+function dayBox(){
+  const day=today(), ok=M.ju!=null&&day<=M.ju?M.zoneEls.filter(z=>reqOk(decisionAt(z.zone,day))).length:-1;
+  setText("dayDate",`${ISO(day)} (${WD[new Date(day*864e5).getUTCDay()]})`,ok<0?noDec():`그날 판정: 해체 승인 요청 가능 ${ok}구역`);
+  const pts=M.tl.map(f=>[f.label,at(f.v,day)]).filter(p=>p[1]!=null).reverse().slice(0,4);
+  const t="추정 강도 (참고): "+(pts.length?pts.map(p=>p[0]+" "+fmt(p[1])).join(" · ")+" MPa":"타설된 층 없음");
+  if($("dayLine").textContent!==t) $("dayLine").textContent=t;
+}
+function setText(id,main,small){const el=$(id), h=`${esc(main)}<small>${esc(small)}</small>`; if(el._h!==h){el._h=h;el.innerHTML=h}}
+function panels(){
+  if(!M) return; const day=today();
+  $("dateIn").value=ISO(day);
+  renderGrid(day); renderDetail(day); renderMeas();
+  const sel=view.sel&&M.zoneById[view.sel];
+  $("selChip").hidden=!sel; if(sel){const s=zs(view.sel); $("selName").textContent=`${view.sel} · ${s.v!=null?"추정 "+fmt(s.v)+" MPa (참고)":"타설 전"}`}
+}
+function renderGrid(day){
+  const ord=M.order, half=ord.length===6?3:-1;
+  let h=`<table class="grid"><thead><tr><th class="fl"></th>`;
+  ord.forEach((c,i)=>{h+=`<th>${esc(c)}</th>`+(i===half-1?`<th class="cell gap"></th>`:"")}); h+=`</tr></thead><tbody>`;
+  for(const L of [...M.levels].reverse()){
+    h+=`<tr><th class="fl">${L.floor}층</th>`;
+    ord.forEach((c,i)=>{
+      const el=M.zoneEls.find(e=>e.floor===L.floor&&suffix(e.id)===c);
+      if(!el){h+=`<td></td>`}else{
+        const s=zs(el.zone), dc=decisionAt(el.zone,day), sel=view.sel===el.zone?" sel":"", c2=zoneColor(s);
+        const txt=(reqOk(dc)?"✓":"")+(s.v!=null?fmt(s.v):"");
+        const tip=`${el.zone} · ${s.v!=null?"추정 "+fmt(s.v)+" MPa (참고)":"타설 전"}${dc?" · 판정 "+dc.decision:""}${s.ev?" · 근거 "+s.ev+"/8":""}`;
+        h+=c2===UNPOURED?`<td class="cell none${sel}" data-z="${esc(el.zone)}" tabindex="0" role="button" aria-pressed="${!!sel}" aria-label="${esc(tip)}" title="${esc(tip)}">${txt}</td>`
+          :`<td class="cell${sel}" data-z="${esc(el.zone)}" tabindex="0" role="button" aria-pressed="${!!sel}" aria-label="${esc(tip)}" title="${esc(tip)}" style="background:${rgb(c2)};color:${lum(c2)<140?"#fff":"#16181C"}">${txt}</td>`;
+      }
+      if(i===half-1) h+=`<td class="cell gap"></td>`;
+    });
+    h+=`</tr>`;
+  }
+  h+=`</tbody></table><div class="mini" style="margin-top:5px">열: 남측 ${ord.slice(0,half>0?half:ord.length).join("·")}${half>0?" | 북측 "+ord.slice(half).join("·"):""} · 칸 색 = ${view.color==="ev"?"근거 단계":"추정 강도 ÷ fck (참고 · 판정에 안 씀)"} · ✓ = 그날 판정 "해체 승인 요청 가능" · 빈 칸 = 타설 전 · 칸을 누르면 그 구역만 강조</div>`;
+  $("gridBox").innerHTML=h;
+}
+function renderDetail(day){
+  const z=view.sel; if(!z){$("selTag").textContent="";$("detail").innerHTML=`<div class="empty">3D 화면이나 위 표에서 구역을 누르면 강조되고 판정 근거가 보입니다.</div>`;return}
+  const el=M.zoneById[z]; if(!el) return;
+  const s=zs(z), dec=decisionAt(z,day), fck=fckOf(el.floor), ap=apprAt(z,day), i0=M.tz[z]?M.tz[z].findIndex(v=>v!=null):-1;
+  $("selTag").textContent=`${el.floor}층 · ${z}`;
+  const row=(k,v)=>v?`<dt>${k}</dt><dd>${v}</dd>`:"";
+  const inZone=M.els.filter(e=>e.zone===z&&e.category!=="zone"), syn=inZone.filter(e=>e.synthetic).length;
+  const sh=M.shoreByZone[z], sp=sh&&sh.spacing_m||[1.2,1.2], posts=sh?(Math.round((sh.x1-sh.x0)/sp[0])+1)*(Math.round((sh.y1-sh.y0)/sp[1])+1):0;
+  let h;
+  if(s.v!=null){const p=Math.min(1,s.r);
+    h=`<div class="mini">추정 강도 (참고 · 판정에 안 씀) <b style="color:var(--text)">${fmt(s.v)}</b> / fck ${+fck} MPa (${Math.round(s.r*100)} %)</div><div class="bar"><i style="width:${(p*100).toFixed(0)}%;background:${rgb(strCol(s.r))}"></i></div>`}
+  else h=`<div class="mini">타설 전 — 이 날짜의 추정 강도가 없습니다.</div>`;
+  h+=`<dl class="kv" style="margin-top:8px">${row("타설일",i0>=0?ISO(M.ts+i0):"")}${row("근거 단계",s.ev?s.ev+" / 8":"")}
+    ${row("승인 기록",ap?`${ap.st} ${APPR_KO[ap.st]||""} (${ISO(ap.n)}${ap.actor?" · "+esc(ap.actor):""})`:"")}${row("동바리",sh?`약 ${posts}본 (${sp[0]} × ${sp[1]} m)`:"")}</dl>`;
+  if(dec){
+    const g=dec.level_gate||"";
+    h+=`<div class="reason"><b>구역 판정</b> <span class="mini">(${esc(dec.at.replace("T"," "))} 기준 · 기록)</span><br>
+      <span class="badge" style="background:${rgb(DEC_RGB(dec.decision))};color:#16181C;margin:4px 0">${esc(dec.decision)}</span><br>${esc(dec.reason)}
+      <dl class="kv" style="margin-top:6px">${row("공시체 평균",dec.f_cyl!=null?dec.f_cyl+" MPa":"없음")}${row("구역 최소 추정",dec.f_est_min!=null?dec.f_est_min+" MPa"+(dec.f_est_xy?` @ (${dec.f_est_xy.join(", ")})`:""):"")}
+      ${row("추정 근거",esc(dec.est_source))}${row("존치 층수",/^OK/.test(g)?"충족":/^NG/.test(g)?"미달"+esc(g.slice(2)):"")}${row("재령",dec.age_days!=null?dec.age_days+" 일":"")}</dl></div>`;
+  } else h+=`<div class="reason mini">${M.ju==null||day>M.ju?esc(noDec()):"이 날짜까지 이 구역의 판정 기록이 없습니다."}</div>`;
+  const ms=M.meas.filter(p=>p.zone===z);
+  if(ms.length) h+=`<div class="mini" style="margin-top:6px">이 구역 실측 지점: ${ms.map(p=>esc(p.id)).join(", ")} (아래 [현장 측정값])</div>`;
+  h+=`<div class="mini" style="margin-top:6px">이 구역 부재 ${inZone.length}개${syn?` (가상 ${syn}개)`:""} · 결론은 "해체 승인 요청 가능" / "존치" 까지이며 승인은 감리가 합니다.</div>`;
+  $("detail").innerHTML=h;
+}
+function renderMeas(){
+  const day=today(), box=$("meas");
+  if(!M.meas.length){$("measTag").textContent="";box.innerHTML=`<div class="empty">이 데이터에는 실측값(measurements)이 없습니다.</div>`;return}
+  const vis=M.meas.filter(p=>lastAt(p,day)>=0);
+  $("measTag").textContent=(M.synthetic?"샘플 가상 데이터 · ":"")+`${vis.length}/${M.meas.length} 지점 · 이 날짜까지`;
+  let h=`<div class="mlist">${M.meas.map(p=>{const ok=lastAt(p,day)>=0; return `<button type="button" data-m="${esc(p.key)}" class="${view.selM===p.key?"on":""}" ${ok?"":"disabled title=\"이 날짜엔 아직 측정 없음\""}>${p.kind==="cylinder"?"⚑ "+esc(suffix(p.zone)):esc(p.id)}<span class="mini"> ${p.floor}층</span></button>`}).join("")}</div>`;
+  const p=M.meas.find(q=>q.key===view.selM);
+  if(!p){box.innerHTML=h+`<div class="empty">3D 의 센서(원)·공시체(깃발)나 위 버튼을 누르면 값의 변화와 판정 반영 여부가 보입니다.</div>`;return}
+  const i=lastAt(p,day);
+  if(i<0){box.innerHTML=h+`<div class="empty">${esc(p.id)}: ${esc(ISO(day))} 까지 들어온 측정이 없습니다 (첫 측정 ${esc(p.ser[0].ts.replace("T"," "))}).</div>`;return}
+  const last=p.ser[i];
+  h+=`<div style="display:flex;gap:8px;align-items:baseline;flex-wrap:wrap"><b>${esc(KIND_KO[p.kind]||p.kind)} ${esc(p.id)}</b><span class="mini">${p.floor}층 ${esc(p.zone)} · (${p.x}, ${p.y}) m</span></div>`;
+  h+=`<div style="font-size:20px;font-weight:700;font-variant-numeric:tabular-nums">${last.v.toFixed(p.unit==="MPa"?2:1)} <span style="font-size:13px">${esc(p.unit)}</span> <span class="mini">${esc(last.ts.replace("T"," "))} · ${esc(last.by)}</span></div>`;
+  if(p.kind==="cylinder"&&last.f) h+=`<div class="mini">f1·f2·f3 = ${last.f.join(" · ")} MPa${last.curing?" · "+esc(last.curing):""}</div>`;
+  h+=spark(p,i);
+  h+=`<div class="reason">${usedText(p,last)}</div>`;
+  box.innerHTML=h;
+}
+function spark(p,i){
+  const w=320,h=84,pad=6, s=p.ser, n0=s[0].n, n1=Math.max(s[s.length-1].n,n0+1), thr=p.unit==="MPa"?M.thr.remove_mpa:null;
+  let lo=p.lo,hi=p.hi; if(thr!=null){lo=Math.min(lo,thr);hi=Math.max(hi,thr)} if(hi-lo<1e-6){hi+=1;lo-=1}
+  const X=n=>pad+(n-n0)/(n1-n0)*(w-2*pad), Y=v=>h-pad-12-(v-lo)/(hi-lo)*(h-2*pad-14);
+  let d=""; for(let k=0;k<=i;k++) d+=(k?"L":"M")+X(s[k].n).toFixed(1)+" "+Y(s[k].v).toFixed(1);
+  const one=i===0?`<circle cx="${X(s[0].n)}" cy="${Y(s[0].v)}" r="3" fill="#00838F"/>`:"";
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="측정값 변화">
+    ${thr!=null?`<line x1="${pad}" x2="${w-pad}" y1="${Y(thr)}" y2="${Y(thr)}" stroke="#C0271F" stroke-dasharray="3 3"/><text x="${w-pad}" y="${Y(thr)-3}" font-size="9" text-anchor="end" fill="#C0271F">기준 ${thr} MPa</text>`:""}
+    ${p.unit==="°C"&&lo<5&&hi>5?`<line x1="${pad}" x2="${w-pad}" y1="${Y(5)}" y2="${Y(5)}" stroke="#F46D43" stroke-dasharray="2 3"/><text x="${w-pad}" y="${Y(5)-3}" font-size="9" text-anchor="end" fill="#B4441F">양생 최저 5 °C</text>`:""}
+    <path d="${d}" fill="none" stroke="#00838F" stroke-width="1.6"/>${one}
+    <circle cx="${X(s[i].n)}" cy="${Y(s[i].v)}" r="3.2" fill="#16181C"/>
+    <text x="${pad}" y="${h-3}" font-size="9" fill="#6B717A">${s[0].ts.slice(5,10)}</text><text x="${w-pad}" y="${h-3}" font-size="9" text-anchor="end" fill="#6B717A">${s[s.length-1].ts.slice(5,10)}</text>
+    ${s.length>1?`<text x="${pad}" y="10" font-size="9" fill="#6B717A">${hi.toFixed(1)} ${esc(p.unit)}</text>`:""}</svg>`;
+}
+function usedText(p,last){   // 이 측정이 그날 구역 판정에 쓰였나 (evaluate 출력 decisions[] 로 확인)
+  const day=today();
+  if(p.kind==="rebound") return `<b>판정 미사용</b> — 반발경도는 조회만 합니다 (field_input_spec §2).`;
+  if(M.ju==null||day>M.ju) return esc(noDec())+" — 판정 반영 여부를 보여 줄 판정이 없습니다.";
+  if(p.kind==="cylinder"){
+    const dc=decisionAt(p.zone,day);
+    if(dc&&dc.f_cyl!=null&&Math.abs(dc.f_cyl-last.v)<0.06) return `<b>판정에 쓰임</b> (기준 근거) — ${esc(p.zone)} 공시체 평균 ${dc.f_cyl} MPa ${dc.f_cyl>=M.thr.remove_mpa?"≥":"<"} 기준 ${M.thr.remove_mpa} MPa → 그날 판정 "<b>${esc(dc.decision)}</b>" (${esc(dc.at.replace("T"," "))})`;
+    return dc?`그날 판정(${esc(dc.at.replace("T"," "))})에는 이 공시체가 반영되지 않았습니다.`:`이 구역의 그날 판정 기록이 없습니다.`;
+  }
+  const same=M.meas.filter(q=>q.floor===p.floor&&(q.kind==="sensor_temp"||q.kind==="sensor_strength")&&lastAt(q,day)>=0);
+  const zones=(M.floorZones[p.floor]||[]), lines=[], drive=[];
+  let used=false;
+  for(const z of zones){const dc=decisionAt(z,day); if(!dc||!/^센서/.test(dc.est_source||"")) continue; used=true;
+    if(!dc.f_est_xy) continue;
+    let best=null,bd=1e9; for(const q of same){const dd=Math.hypot(q.x-dc.f_est_xy[0],q.y-dc.f_est_xy[1]); if(dd<bd){bd=dd;best=q}}
+    if(best===p){drive.push(z); lines.push(`${suffix(z)}: 최소 ${dc.f_est_min} MPa @ (${dc.f_est_xy.join(", ")}) → "${dc.decision}"`)}}
+  if(!used) return `그날 이 층 판정은 센서를 쓰지 않았습니다 (기상 예측 또는 판정 전).`;
+  let h=`<b>판정에 쓰임</b> — 그날 ${p.floor}층 구역 판정 중 센서 IDW 로 구역 최소 강도를 추정한 구역이 있습니다 (센서 수는 구역 카드의 '추정 근거').`;
+  if(drive.length) h+=`<br>구역 최소 지점이 이 센서에 가장 가까움 = <b>이 센서가 판정을 좌우</b>:<br>${lines.map(esc).join("<br>")}`;
+  return h;
+}
+
+/* ---------- 입력 ---------- */
+let raf=0, lastTs=0, lastDay=null, lastPanels=0, frames=0;
+function req(){ if(!raf) raf=requestAnimationFrame(frame) }
+function frame(ts){
+  raf=0; const dt=lastTs?Math.min(0.1,(ts-lastTs)/1000):0; lastTs=ts; let more=false;
+  if(!M){draw();return}
+  if(view.playing){view.t+=dt*view.speed; if(view.t>=M.d1){view.t=M.d1;setPlay(false)} else more=true}
+  draw(); drawChart(); dayBox();
+  const d=today();
+  if(d!==lastDay&&(!view.playing||ts-lastPanels>350)){lastDay=d;lastPanels=ts;panels(); if(!view.playing) syncHash()}   // 재생 중엔 옆 패널을 0.35초마다만 다시 씀
+  const sl=$("slider"), v=d-M.d0; if(+sl.value!==v) sl.value=v; sl.setAttribute("aria-valuetext",ISO(d));
+  frames++;
+  if(more) raf=requestAnimationFrame(frame); else lastTs=0;
+}
+// 통합 10 (v6.4): 주소에 날짜·구역을 남김 (#d=YYYY-MM-DD&z=구역) — 링크로 같은 화면을 다시 열 수 있게
+function syncHash(){ if(!M) return; const h="#d="+ISO(today())+(view.sel?"&z="+encodeURIComponent(view.sel):""); if(location.hash!==h) history.replaceState(null,"",location.pathname+location.search+h) }
+function setT(n,force){ if(!M) return; view.t=Math.max(M.d0,Math.min(M.d1,Math.floor(n))); if(force) lastDay=null; req() }
+function setPlay(on){ if(!M) return; view.playing=on; $("playBtn").textContent=on?"❚❚ 정지":"▶ 재생";
+  if(!on){view.t=today();lastDay=null} else if(view.t>=M.d1) view.t=M.d0; req() }
+$("slider").addEventListener("input",e=>setT(M.d0+ +e.target.value));
+$("dateIn").addEventListener("change",e=>{if(e.target.value) setT(DN(e.target.value))});
+$("speed").addEventListener("change",e=>{view.speed=+e.target.value});
+$("playBtn").addEventListener("click",()=>setPlay(!view.playing));
+$("backBtn").addEventListener("click",()=>setT(today()-1));
+$("fwdBtn").addEventListener("click",()=>setT(today()+1));
+/* 사건 건너뛰기: 층 타설 · 층 추정 14 MPa·fck 도달 (참고) · 공시체 시험 — 사건 글을 버튼 옆에 */
+function evJump(dir){
+  if(!M) return; const day=today(), L=M.events;
+  const e=dir<0?[...L].reverse().find(x=>x.n<day):L.find(x=>x.n>day);
+  $("evNote").textContent=e?`${ISO(e.n).slice(5)} 사건 — ${e.texts.join(" · ")}`:(L.length?"그 쪽으로 더 갈 사건이 없습니다.":"이 데이터에는 사건이 없습니다.");
+  if(e) setT(e.n,true);
+}
+$("evBack").addEventListener("click",()=>evJump(-1));
+$("evFwd").addEventListener("click",()=>evJump(1));
+$("todayBtn").addEventListener("click",()=>setT(DN(new Date().toISOString())));
+$("shoreMode").addEventListener("change",e=>{view.shore=e.target.value;req()});
+$("sameFloor").addEventListener("change",e=>{view.same=e.target.checked;resetCam()});
+$("wallMode").addEventListener("change",e=>{view.wallA=+e.target.value;req()});
+$("explode").addEventListener("change",e=>{view.explode=+e.target.value;resetCam()});
+$("clip").addEventListener("change",e=>{view.clip=+e.target.value;req()});
+$("synth").addEventListener("change",e=>{view.synth=e.target.value==="1";req()});
+$("colorMode").addEventListener("change",e=>{view.color=e.target.value;lastDay=null;req()});
+$("resetCam").addEventListener("click",resetCam);
+$("selClear").addEventListener("click",()=>select(null));
+function select(z){view.sel=z&&M.zoneById[z]?z:null; if(view.sel&&view.selM){const p=M.meas.find(q=>q.key===view.selM); if(p&&p.zone!==view.sel) view.selM=null} lastDay=null; req()}
+function selectM(k){const p=M.meas.find(q=>q.key===k); view.selM=p?k:null; if(p) view.sel=p.zone; lastDay=null; req()}
+$("gridBox").addEventListener("click",e=>{const c=e.target.closest("[data-z]"); if(c) select(view.sel===c.dataset.z?null:c.dataset.z)});
+$("gridBox").addEventListener("keydown",e=>{const c=e.target.closest("[data-z]"); if(c&&(e.key==="Enter"||e.key===" ")){e.preventDefault();select(c.dataset.z)}});
+$("meas").addEventListener("click",e=>{const b=e.target.closest("[data-m]"); if(b) selectM(view.selM===b.dataset.m?null:b.dataset.m)});
+addEventListener("keydown",e=>{ if(!M||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)&&e.target.type!=="range") return;
+  if(e.key==="Escape"){view.selM=null;select(null)} else if(e.key===" "&&e.target.tagName!=="BUTTON"){e.preventDefault();setPlay(!view.playing)}
+  else if(e.key==="ArrowLeft"&&e.shiftKey){e.preventDefault();evJump(-1)} else if(e.key==="ArrowRight"&&e.shiftKey){e.preventDefault();evJump(1)}
+  else if(e.key==="ArrowLeft"&&e.target.type!=="range"){setT(today()-1)} else if(e.key==="ArrowRight"&&e.target.type!=="range"){setT(today()+1)} });
+// 강도 곡선: 누르거나 끌면 그 날짜
+let gDrag=false;
+const gSet=e=>{const r=ch.getBoundingClientRect(), x=e.clientX-r.left; if(x<G.L) return; setT(Math.round(M.d0+(x-G.L)/(G.w-G.L-G.R)*(M.d1-M.d0)))};
+ch.addEventListener("pointerdown",e=>{if(!M) return; gDrag=true; ch.setPointerCapture(e.pointerId); gSet(e)});
+ch.addEventListener("pointermove",e=>{if(gDrag) gSet(e)});
+ch.addEventListener("pointerup",()=>gDrag=false); ch.addEventListener("pointercancel",()=>gDrag=false);
+// 카메라 조작
+const ptrs=new Map(); let drag=null, pinch=0, moved=false;
+cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId,[e.clientX,e.clientY]); moved=false;
+  drag={x:e.clientX,y:e.clientY,pan:e.shiftKey||e.button===2}; cv.classList.add("drag");
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()]; pinch=Math.hypot(a[0]-b[0],a[1]-b[1])}});
+cv.addEventListener("pointermove",e=>{ if(!drag) return; const pr=ptrs.get(e.pointerId); if(pr){pr[0]=e.clientX;pr[1]=e.clientY}
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]); if(pinch) cam.scale*=d/pinch; pinch=d; moved=true; req(); return}
+  const dx=e.clientX-drag.x, dy=e.clientY-drag.y; if(Math.abs(dx)+Math.abs(dy)>3) moved=true; drag.x=e.clientX; drag.y=e.clientY;
+  if(drag.pan){const s=1/cam.scale; cam.tx-=(dx*rX-dy*uX)*s; cam.ty-=(dx*rY-dy*uY)*s; cam.tz+=dy*uZ*s}
+  else{cam.theta-=dx*0.008; cam.phi=Math.max(0.04,Math.min(1.53,cam.phi+dy*0.006))}
+  req()});
+const up=e=>{ptrs.delete(e.pointerId); if(ptrs.size<2) pinch=0;
+  if(drag&&!moved&&e.type==="pointerup") pick(e); if(!ptrs.size){drag=null;cv.classList.remove("drag")}};
+cv.addEventListener("pointerup",up); cv.addEventListener("pointercancel",up);
+cv.addEventListener("contextmenu",e=>e.preventDefault());
+cv.addEventListener("wheel",e=>{e.preventDefault(); cam.scale*=Math.exp(-e.deltaY*0.0012); cam.scale=Math.max(1,Math.min(200,cam.scale)); req()},{passive:false});
+function pick(e){
+  const r=cv.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
+  for(const p of M.meas) if(p.on&&Math.hypot(p.sx-x,p.sy-y)<=10) return selectM(p.key);
+  basis(); const poly=[];
+  for(let i=zPicks.length-1;i>=0;i--){const el=zPicks[i], z=el.z1+zoff(el.floor); poly.length=0;
+    for(const q of [[el.x0,el.y0],[el.x1,el.y0],[el.x1,el.y1],[el.x0,el.y1]]){proj(q[0],q[1],z);poly.push([SX,SY])}
+    if(inPoly(x,y,poly)) return select(el.zone)}
+  view.selM=null; select(null);           // 빈 곳 = 선택 해제
+}
+function inPoly(x,y,p){let c=false;for(let i=0,j=p.length-1;i<p.length;j=i++){const a=p[i],b=p[j];
+  if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0]) c=!c} return c}
+let camReady=false;
+function resize(){DPR=window.devicePixelRatio||1; if(M){chartLayout(); chartStatic()}   // 곡선 높이를 먼저 정해야 3D 높이가 맞음
+  const r=cv.getBoundingClientRect(); W=r.width; H=r.height; cv.width=Math.round(W*DPR); cv.height=Math.round(H*DPR);
+  if(M){if(W>0&&!camReady){camReady=true;resetCam()} req()}}
+new ResizeObserver(resize).observe($("cvWrap"));
+addEventListener("resize",()=>{if(M){chartLayout();chartStatic();req()}});
+
+/* ---------- 불러오기 ---------- */
+function load(d){
+  validate(d); D=d; M=prep(d); view.sel=null; view.selM=null; FONT=getComputedStyle(document.body).fontFamily;
+  $("evBack").disabled=$("evFwd").disabled=!M.events.length; $("evNote").textContent="";
+  buildStatic(); setT(M.ju!=null?M.ju:M.d0,true);   // 처음 = 마지막 기록일 (판정이 있는 마지막 날)
+  dayBox(); camReady=false; resize();                // 안내 상자 높이가 정해진 뒤 시점 맞춤
+}
+$("file").addEventListener("change",e=>{const f=e.target.files[0]; if(!f) return; const rd=new FileReader();
+  rd.onload=()=>{try{load(JSON.parse(rd.result)); $("loadMsg").textContent=`${f.name} 을 불러왔습니다.`}
+    catch(err){$("loadMsg").innerHTML=`<span style="color:#C0271F">${esc(f.name)}: ${esc(err.message)}</span>`}};
+  rd.readAsText(f,"utf-8")});
+window.onsite={load, setDate:s=>setT(DN(s),true), select, selectM, play:setPlay, get frames(){return frames}, draw,
+  get state(){return {date:M?ISO(today()):null,sel:view.sel,selM:view.selM,cam:{...cam}}}, cam, view, resetCam};
+try{const txt=$("data").textContent.trim(); if(txt){ load(JSON.parse(txt));
+    const hp=new URLSearchParams(location.hash.slice(1)); if(/^\d{4}-\d{2}-\d{2}$/.test(hp.get("d")||"")) setT(DN(hp.get("d")),true); if(hp.get("z")) select(hp.get("z")) } else $("dayLine").textContent="오른쪽 아래 [데이터 파일] 에서 JSON 을 고르세요."}
+catch(err){$("dayLine").textContent="내장 데이터를 읽지 못했습니다: "+err.message}
+</script>
+</body>
+</html>

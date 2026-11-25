@@ -1,0 +1,91 @@
+<!--
+  구역·동바리 생성 대화상자 — ui_spec §7 규칙 (ProjectSetupWindow 와 같은 모양). 값은 GenerateOptions 와 주고받는다.
+  창에서는 m, GenerateOptions 는 mm. 구역 크기는 그리드가 없을 때만 쓴다.
+-->
+<Window x:Class="RevitOnSite.GenerateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="구역·동바리 생성" WindowStartupLocation="CenterOwner" Style="{DynamicResource OnSite.DialogWindow}" Language="ko-KR">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RevitOnSite;component/Wpf/OnSiteDialog.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="Row" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+            <Style x:Key="Error" TargetType="TextBlock" BasedOn="{StaticResource OnSite.ValidationText}">
+                <Setter Property="Margin" Value="118,-1,0,3"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="Help" Executed="Help"/>
+    </Window.CommandBindings>
+
+    <Border Background="{DynamicResource OnSite.Brush.Background}" Padding="12">
+        <StackPanel>
+            <GroupBox Header="모델 인식">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="감지한 층:"/>
+                        <TextBlock x:Name="FloorSummary" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="구역 기준:"/>
+                        <TextBlock x:Name="ZoneSource" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="구역" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="구역 크기(_Z):" Target="{Binding ElementName=CellX}"/>
+                        <TextBox x:Name="CellX" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="×" Margin="5,0"/>
+                        <TextBox x:Name="CellY" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="m"/>
+                        <TextBlock x:Name="CellHint" Style="{StaticResource OnSite.HintText}"/>
+                    </StackPanel>
+                    <TextBlock x:Name="CellError" Style="{StaticResource Error}" Text="구역 크기는 2–50 m 사이 숫자로 입력하세요."/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="동바리" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="간격(_S):" Target="{Binding ElementName=SpacingX}"/>
+                        <TextBox x:Name="SpacingX" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="×" Margin="5,0"/>
+                        <TextBox x:Name="SpacingY" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="m"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(동바리 조립도 값)"/>
+                    </StackPanel>
+                    <TextBlock x:Name="SpacingError" Style="{StaticResource Error}" Text="동바리 간격은 0.3–3 m 사이 숫자로 입력하세요."/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="놓을 층:" VerticalAlignment="Top" Margin="0,3,0,0"/>
+                        <Border BorderThickness="1" BorderBrush="{DynamicResource OnSite.Brush.ControlBorder}" Background="{DynamicResource OnSite.Brush.InputBackground}">
+                            <ScrollViewer Width="380" MaxHeight="220" VerticalScrollBarVisibility="Auto" Focusable="False">
+                                <StackPanel x:Name="Floors" Margin="6,3"/>
+                            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource OnSite.HintText}" Margin="118,3,0,0"
+                               Text="구역 상자는 모든 층에 만듭니다.&#x0a;동바리는 고른 층만 다시 만들고, 고르지 않은 층의 동바리는 그대로 둡니다&#x0a;(아무 층도 안 고르면 구역만 다시 만듦)."/>
+                </StackPanel>
+            </GroupBox>
+
+            <TextBlock Style="{StaticResource OnSite.HintText}" Margin="0,8,0,0"
+                       Text="다시 실행하면 이전에 만든 구역과 고른 층의 동바리를 지우고 새로 만듭니다 (손으로 고친 것도 지워짐)."/>
+
+            <DockPanel Margin="0,12,0,0" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Style="{StaticResource OnSite.HelpButton}" Command="Help"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="취소" IsCancel="True"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="확인" IsDefault="True" x:Name="OkButton" Click="Ok"/>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>

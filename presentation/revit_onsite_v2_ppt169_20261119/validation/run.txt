@@ -1,0 +1,129 @@
+
+[SCAN] Checking 28 SVG file(s)...
+
+[OK] 01_cover.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 02_agenda.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 03_question.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 04_root_cause.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 05_accidents.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 06_criteria.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 07_load_winter.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 08_ribbon.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 09_system.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 10_daily_flow.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 11_evidence.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 12_dashboard.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 13_location.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 14_install.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 15_unauthorized.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 16_ledger.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 17_outputs.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 18_recipients.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 19_demo.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 20_validation.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 21_effects.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 22_safety.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 23_cost.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 24_limits.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 25_conclusion.svg - Passed
+   viewBox: 0 0 1280 720
+
+[OK] 26_references_1.svg - Passed
+   viewBox: 0 0 1280 720
+
+[WARN] 27_references_2.svg - Passed (with warnings)
+   viewBox: 0 0 1280 720
+   [WARN] Detected 2 paragraph-like line run(s) split across sibling <text> elements (<g id="refs"> x=64.0, y=198.0..258.0, 3 lines; <g id="refs"> x=64.0, y=348.0..378.0, 2 lines). If each run is one prose paragraph, combine it into one <text>: keep its first line as direct text and use direct <tspan> children with the parent x and positive relative dy values for later lines. An all-<tspan> form may start with dy="0". Keep semantically independent text frames separate.
+
+[OK] 28_qa.svg - Passed
+   viewBox: 0 0 1280 720
+
+================================================================================
+[SUMMARY] Check Summary
+================================================================================
+
+Total files: 28
+  [OK] Fully passed: 27 (96%)
+  [WARN] With warnings: 1 (3%)
+  [ERROR] With errors: 0 (0%)
+
+Provenance categories:
+  blocking: 0          hard findings; gate also requires exit 0
+  introduced: 1        advisory; new or changed
+  inherited: 0         informational; prototype-identical
+  source-import: 0     informational; source-conversion loss
+
+[CARRIERS] Actual-use receipt (informational; not a quota)
+  Pages: 28 | text: 659 | images: 16 | icons: 21
+  Geometry: SVG elements 375 | native presets 0 | page-frame elements 28 | marker uses 11
+  Effects: inline emphasis 22 (pages 13) | gradients 0 (pages 0) | filters 0 (pages 0) | text effects 0 (pages 0)
+  Native objects: charts 0 | tables 0 | formulas 0
+  Presets: (none)
+  Relationship pages: 21 (§IX names order / link / parent / membership) | pages carrying a preset or connector: 0
+  Largest image-frame share on image pages: 0.6%–48.4%
+
+Contextual values beyond spec_lock anchors (informational):
+  Colors:
+    #3E7D22  (4 files)
+    #8FC46A  (4 files)
+    #F08A65  (2 files)
+    #8FB4E3  (1 file)
+Note: contextual page paint, gradient/effect colors, and export-safe typefaces are allowed.
+      Add a spec_lock row only when a value becomes a recurring named semantic role.
+
+[TIP] Common fixes:
+  1. XML well-formedness: write typography as raw Unicode (—, ©, →, NBSP); escape XML reserved chars as &amp; &lt; &gt; &quot; &apos; — never use HTML named entities like &nbsp; &mdash; &copy;
+  2. viewBox issues: root viewBox is the canvas authority (see references/canvas-formats.md)
+  3. Paint recommendation: generated SVG prefers uppercase #RRGGBB plus channel-specific opacity; compatible alternatives remain non-blocking
+  4. foreignObject: Use <text> + <tspan> for manual line breaks
+  5. Font issues: use PPT-safe exported typefaces (e.g. Arial / Consolas, with the CJK face of the deck language)
+
+[REPORT] JSON quality report exported: C:\Users\admin\Desktop\시스템2\build-up-2\presentation\revit_onsite_v2_ppt169_20261119\validation\svg_quality_report.json

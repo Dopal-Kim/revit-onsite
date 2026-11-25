@@ -1,0 +1,131 @@
+{
+  "roles": {
+    "body": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 20.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.7,
+      "latin_chars_per_100px": 9.7,
+      "caps_chars_per_100px": 9.0,
+      "digits_chars_per_100px": 8.6,
+      "citation_chars_per_100px": 9.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": {
+        "px": 1305.9,
+        "slide": "P19",
+        "text": "3 \"3개 층으로 충분한가\"가 핵심: 불안해서 4번째 층을 남기는 대신…"
+      }
+    },
+    "title": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 34.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 2.8,
+      "latin_chars_per_100px": 5.7,
+      "caps_chars_per_100px": 5.3,
+      "digits_chars_per_100px": 5.0,
+      "citation_chars_per_100px": 5.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": {
+        "px": 708.2,
+        "slide": "P11",
+        "text": "III. 동바리를 몇 개 층에 남길지 정하는 방법"
+      }
+    },
+    "subtitle": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 22.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 4.3,
+      "latin_chars_per_100px": 8.8,
+      "caps_chars_per_100px": 8.2,
+      "digits_chars_per_100px": 7.8,
+      "citation_chars_per_100px": 8.2,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": {
+        "px": 705.4,
+        "slide": "P10",
+        "text": "선행 연구는 측정에 머물렀고, 본 과제는 국내 기준 판정까지 잇는다"
+      }
+    },
+    "annotation": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 15.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.3,
+      "latin_chars_per_100px": 13.0,
+      "caps_chars_per_100px": 12.0,
+      "digits_chars_per_100px": 11.5,
+      "citation_chars_per_100px": 12.1,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "cover_title": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 72.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 1.3,
+      "latin_chars_per_100px": 2.7,
+      "caps_chars_per_100px": 2.5,
+      "digits_chars_per_100px": 2.4,
+      "citation_chars_per_100px": 2.5,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "data": {
+      "family": "Consolas, Malgun Gothic, monospace",
+      "size": 15.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 6.3,
+      "latin_chars_per_100px": 11.3,
+      "caps_chars_per_100px": 10.9,
+      "digits_chars_per_100px": 11.5,
+      "citation_chars_per_100px": 11.3,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "display": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 60.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 1.6,
+      "latin_chars_per_100px": 3.2,
+      "caps_chars_per_100px": 3.0,
+      "digits_chars_per_100px": 2.9,
+      "citation_chars_per_100px": 3.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "footnote": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 12.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 7.9,
+      "latin_chars_per_100px": 16.2,
+      "caps_chars_per_100px": 15.0,
+      "digits_chars_per_100px": 14.3,
+      "citation_chars_per_100px": 15.0,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    },
+    "lead": {
+      "family": "Malgun Gothic, Segoe UI, sans-serif",
+      "size": 24.0,
+      "weight": "normal",
+      "cjk_chars_per_100px": 3.9,
+      "latin_chars_per_100px": 8.1,
+      "caps_chars_per_100px": 7.5,
+      "digits_chars_per_100px": 7.1,
+      "citation_chars_per_100px": 7.5,
+      "script_clusters_per_100px": {},
+      "longest_planned_line": null
+    }
+  },
+  "script_samples": {},
+  "source": "spec_lock.md",
+  "generated_at": "2026-11-19T09:57:33Z",
+  "notes": [
+    "role display (60px, at least twice body) has no display_family and uses body_family; declare display_family if it is display type",
+    "every role is measured at normal weight; recalibrate a role realized as bold deck-wide with --role NAME:FAMILY:SIZE:bold: bold widens Latin and digits about 7%, while the bundled advance table gives CJK one width for both weights"
+  ]
+}

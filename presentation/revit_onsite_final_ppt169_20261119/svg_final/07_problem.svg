@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">II. 문제인식 · 현행 방식</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-07/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">II · 문제인식</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">II. 현행 해체 판단 방식의 문제점</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">해체 시점은 이르거나 늦으면 모두 문제입니다</text>
+  </g>
+  <g id="balance" data-pptx-bounds="56 164 1168 250">
+    <rect x="120" y="176" width="400" height="112" rx="4" fill="#FFFFFF" stroke="#B23A2E" stroke-width="1.5" />
+    <text x="320" y="214" font-size="18" fill="#5B6673" text-anchor="middle">너무 일찍 빼면</text>
+    <text x="320" y="258" font-size="32" font-weight="bold" fill="#B23A2E" text-anchor="middle">붕괴 위험</text>
+    <rect x="760" y="176" width="400" height="112" rx="4" fill="#FFFFFF" stroke="#5B6673" stroke-width="1.5" />
+    <text x="960" y="214" font-size="18" fill="#5B6673" text-anchor="middle">너무 오래 두면</text>
+    <text x="960" y="258" font-size="32" font-weight="bold" fill="#1D3557" text-anchor="middle">후속 공정 지연</text>
+    <rect x="180" y="306" width="920" height="12" fill="#1D3557" />
+    <g id="p07-fulcrum" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="triangle" data-pptx-frame="604 318 72 56" fill="#1D3557" stroke="none">
+<path d="M 604 374 L 640 318 L 676 374 Z" />
+</g>
+    <text x="640" y="402" font-size="18" font-weight="bold" fill="#1D3557" text-anchor="middle">받침점 = 경험에 기댄 판단</text>
+  </g>
+  <g id="cause-days" data-pptx-bounds="56 428 368 216">
+    <rect x="56" y="432" width="368" height="208" rx="4" fill="#E8EDF2" />
+    <text x="80" y="484" font-size="32" font-weight="bold" fill="#E07A1F">14일 → 9.6일</text>
+    <text fill="#1E2329" font-size="18" x="80" y="528">날짜 기준은 보수적입니다</text><text fill="#1E2329" font-size="18" x="80" y="556">강도 기준으로 보 해체</text><text fill="#1E2329" font-size="18" x="80" y="584">4.4일 단축 (선행 연구)</text></g>
+  <g id="cause-scatter" data-pptx-bounds="456 428 368 216">
+    <rect x="456" y="432" width="368" height="208" rx="4" fill="#E8EDF2" />
+    <text x="480" y="484" font-size="32" font-weight="bold" fill="#1D3557">기준의 분산</text>
+    <text fill="#1E2329" font-size="18" x="480" y="528">강도 KCS · 존치 층수 가이드라인</text><text fill="#1E2329" font-size="18" x="480" y="556">하중 KDS · 높이 법령</text><text fill="#1E2329" font-size="18" x="480" y="584">— 한 곳에서 보이지 않음</text></g>
+  <g id="cause-strength" data-pptx-bounds="856 428 368 216">
+    <rect x="856" y="432" width="368" height="208" rx="4" fill="#E8EDF2" />
+    <text x="880" y="484" font-size="32" font-weight="bold" fill="#B23A2E">강도 부족</text>
+    <text fill="#1E2329" font-size="18" x="880" y="528">아파트 사고 주요 원인 중 하나</text><text fill="#1E2329" font-size="18" x="880" y="556">→ 현장양생 공시체 기준 신설</text><text fill="#1E2329" font-size="18" x="880" y="584">(2024 표준시방서 개정)</text></g>
+</svg>

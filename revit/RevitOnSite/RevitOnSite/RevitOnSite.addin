@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Revit On-Site</Name>
+    <Assembly>RevitOnSite\RevitOnSite.dll</Assembly>
+    <FullClassName>RevitOnSite.App</FullClassName>
+    <ClientId>5C1F3A52-7E0B-4D51-9C7A-0B9F2D6E41A8</ClientId>
+    <VendorId>KHU.BuildUp2</VendorId>
+    <VendorDescription>동바리 타설·해체 검측 (경희대 BIM 과제)</VendorDescription>
+  </AddIn>
+</RevitAddIns>

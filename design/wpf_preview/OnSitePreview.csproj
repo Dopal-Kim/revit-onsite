@@ -1,0 +1,15 @@
+<!-- design/wpf 의 리소스 사전을 병합해 대화상자·대시보드를 PNG 로 그려 보는 미리보기 앱.
+     실행: dotnet run  →  out/dialog_setup.png, dialog_setup_invalid.png, dashboard_light.png, dashboard_dark.png -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- 디자인 원본을 복사하지 않고 링크로 컴파일 (add-in 과 같은 상대 경로 wpf/...) -->
+    <Page Include="..\wpf\*.xaml" Link="wpf\%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

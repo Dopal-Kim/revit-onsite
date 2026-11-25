@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f2a37">
+<meta name="color-scheme" content="light dark">
+<title>현장 입력 · Revit On-Site</title>
+<!-- 데이터 계약: docs/field_input_spec.md. 서버: tools/field_server.py (시험용) · Revit On-Site 애드인 (실사용). 외부 파일 없음. -->
+<!-- ===== 수정본 (2026-11-07) — 원본: Documents\카카오톡 받은 파일\현장입력.html (원본은 그대로)
+  재판(/court) 판결: 유죄 12:0 — "수정 방향은 옳고 원본보다 낫지만, 그대로 내보내기엔 확인이 남음". 무죄 조건 처리 현황:
+   1. [확인됨] 상태 흐름 순서 — 사용자 확인 (2026-11-07):
+      타설 전 → 양생 중 → 공시체 필요·존치 연장 → 승인 요청 가능 → 감리 승인 기록 → 해체 완료. 흐름 밖: 재받침·설치 결함·설치 합격.
+      근거: 샘플 데이터에서 존치 연장(9)은 층수 조건 OK·강도 미달 구역 (9F-A2·B2·C2). 코드: FLOW, SIDE 상수
+   2. [남음] 실제 휴대폰 한 바퀴 — 이 파일을 휴대폰으로 보내 그대로 열면(file://) 안의 미리보기 서버로 샘플이 뜸.
+      확인할 것: 구역 → 종류 → 입력 → 저장 결과, 입력 오류 요약, 오프라인 저장, 햇빛 모드, 장갑 낀 손으로 버튼 누르기.
+      (에뮬레이션 375×812 에서는 저장 결과·오프라인 저장·입력 오류 문구 렌더까지 확인함)
+   3. [확인됨] 해체 후 점검 AC-1~5 의 예 = OK — 서버 모델의 동바리 점검 '해체 후' 단계에 같은 AC-1~5 가
+      OK/NG 로 들어 있고("[확정] 해체 가이드라인 4.3"), 원본 코드 주석도 "예 → OK, 아니오 → NG". 항목은 질문이 아니라 점검 항목 이름.
+===== -->
+<style>
+:root{
+  --bg:#f4f5f7; --card:#fff; --ink:#111; --sub:#4a5260; --line:#c9ced6; --acc:#0b5cad; --acc-ink:#fff;
+  --err:#b00020; --ok:#1a7f37; --warn:#8a5a00; --chip:#e6e9ee; --focus:#ffbf00;
+  --s0:rgb(160,160,160); --s1:rgb(171,190,209); --s2:rgb(215,48,39); --s3:rgb(69,117,180); --s4:rgb(254,224,139);
+  --s5:rgb(145,207,96); --s6:rgb(26,152,80); --s7:rgb(115,115,115); --s8:rgb(128,100,162); --s9:rgb(244,109,67);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#14181f; --card:#1f2630; --ink:#f2f4f7; --sub:#b3bccb; --line:#3a4452; --acc:#4da3ff; --acc-ink:#06121f;
+         --err:#ff8a8a; --ok:#6fdc8c; --warn:#ffcc66; --chip:#2b3440; }
+}
+/* 햇빛 모드 (ui_reference_research 7절 #13): 머리의 [햇빛] 을 누르면 고대비 — 흰 바탕, 글자 #000, 보조 #222, 경고 #6b4500·오류 #8b0018·확인 #0b4f1e (모두 7:1 이상) */
+html.sun{--bg:#fff;--card:#fff;--ink:#000;--sub:#222;--line:#555;--acc:#0a3f7a;--acc-ink:#fff;--err:#8b0018;--ok:#0b4f1e;--warn:#6b4500;--chip:#e6e9ee}
+html.sun .tile .st,html.sun .tile .due{text-shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
+body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit;color:inherit}
+/* 포커스: 밝은 바탕에선 진한 파랑, 어두운 바탕에선 노랑 (노랑은 흰 바탕에서 대비가 약 1.6:1 이라 안 보임) */
+:root{--ring:#0b2f6b}
+@media (prefers-color-scheme: dark){:root{--ring:#ffbf00}}
+html.sun{--ring:#000}
+:focus-visible{outline:4px solid var(--ring);outline-offset:2px}
+header :focus-visible{outline-color:#ffbf00}
+header{position:sticky;top:0;z-index:5;background:#1f2a37;color:#fff;display:flex;align-items:center;gap:8px;padding:8px 12px;min-height:56px}
+header h1{font-size:18px;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.net{display:inline-flex;align-items:center;gap:6px;font-size:16px}
+.net i{width:12px;height:12px;border-radius:50%;background:#6fdc8c;display:inline-block}
+.net.off i{background:#ff6b6b}
+/* [보낼 것 N건] 배지가 뜨면 연결 글자는 점만 남김 (화면 낭독기에는 그대로) — 머리 제목 "현장 · 층"이 잘리지 않게 */
+header:has(#badge:not([hidden])) .net span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+header h1{min-width:0}
+.badge{min-height:44px;border:0;border-radius:22px;padding:0 14px;background:#ffcc00;color:#000;font-weight:700;font-size:16px}
+.badge[hidden]{display:none}
+.stale{position:sticky;top:56px;z-index:4;display:flex;flex-wrap:wrap;gap:0 10px;align-items:baseline;padding:8px 12px;background:#ffcc00;color:#000;font-size:16px;border-bottom:2px solid #000}
+.stale b{font-size:16px}
+#sun{background:#fff;color:#000;border:2px solid #fff}
+#sun[aria-pressed=true]{background:#ffcc00;border-color:#000;box-shadow:0 0 0 2px #ffcc00}
+main{padding:12px;max-width:520px;margin:0 auto}
+h2{font-size:22px;margin:18px 0 8px}
+h2:focus{outline:none}
+.sub{color:var(--sub);font-size:16px}
+.alerts summary{font-weight:700;color:var(--warn);cursor:pointer}.alerts.urgent summary{color:var(--err)}.alerts li{margin:4px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0}
+.row{display:flex;gap:8px;align-items:center}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
+#floors{display:block;overflow-x:auto}   /* 구역이 많은 층은 표만 옆으로 밀림 (칸 40px 아래로 줄이지 않음) */
+.mx-row{display:flex;gap:4px;align-items:stretch;margin:0 0 4px}
+.mx-fl{flex:0 0 56px;min-height:52px;border:2px solid var(--line);border-radius:10px;background:var(--card);font-weight:800;font-size:16px}
+.mx-row[aria-current="true"] .mx-fl{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.mx-c{flex:1 1 0;min-width:40px;min-height:52px;border:2px solid transparent;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;padding:2px}
+.mx-c b{font-size:16px}.mx-c span{font-size:13px;font-weight:600}
+.mx-row[aria-current="true"] .mx-c{border-color:var(--ink)}
+.ktabs{display:flex;gap:6px;overflow-x:auto;padding:8px 2px;scrollbar-width:none;align-items:center;position:sticky;top:56px;z-index:3;background:var(--bg)}
+.ktabs .kt-z{font-weight:800;padding:0 6px;white-space:nowrap}
+.ktabs button{flex:0 0 auto;min-height:48px;padding:0 14px;border-radius:24px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:16px;white-space:nowrap}
+.ktabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.quick{display:flex;gap:8px;margin:8px 0 0}.quick button{flex:1 1 0;max-width:160px;min-height:52px;padding:0 18px;border-radius:26px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-weight:600;font-size:18px}
+input[type=file]{width:100%;min-height:60px;padding:6px;border:2px dashed var(--line);border-radius:10px;background:var(--card);color:var(--sub);font-size:16px}
+input[type=file]::file-selector-button{min-height:48px;margin-right:12px;padding:0 18px;border:0;border-radius:10px;background:var(--acc);color:var(--acc-ink);font-weight:700;font-size:18px;cursor:pointer}
+.chip{flex:0 0 auto;min-height:52px;min-width:64px;padding:0 16px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:600;font-size:18px}
+.chip[aria-pressed=true]{font-weight:700;background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.chip small{display:block;font-weight:400;font-size:16px;line-height:1.15}
+.chip.tall{min-height:60px;text-align:left;padding:6px 14px}
+/* 평면 구역 타일: 실제 좌표 배치 (북 = 위) */
+.plan{position:relative;width:100%;margin:4px 0 6px}
+.tile{position:absolute;border:2px solid var(--bg);border-radius:8px;padding:6px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;overflow:hidden;font-weight:700}
+.tile{container-type:inline-size}   /* 야외 가독성 (ui_reference_research 7절 #12): 상태·날짜 16px, 좁은 타일은 구역명 18px */
+.tile .zn{font-size:22px;line-height:1}
+.tile .st{font-size:16px;line-height:1.15;word-break:keep-all;overflow-wrap:anywhere}   /* 한글은 띄어쓰기에서만 줄바꿈 ("승인 요청 / 가능") */
+.tile .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:4px}
+.tile .sn{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:2px;min-width:0}
+.tile .sn i{font-style:normal;font-size:14px;line-height:1.3;font-weight:700;background:rgba(255,255,255,.92);color:#000;border-radius:4px;padding:0 4px;white-space:nowrap}
+.tile .due{font-size:16px;font-weight:600}
+@container (max-width:90px){.tile .zn{font-size:18px}}
+.tile[aria-current=true]{outline:4px solid var(--ink);outline-offset:-4px}
+/* 색만으로 구분이 어려운 상태에 무늬 (상태색 값은 ui_spec §6 그대로): 타설 전 = 점선 테두리(아직 없음), 해체 완료 = 빗금(끝남), 감리 승인 기록 = 굵은 안쪽 테두리 */
+.tile.s0,.flow .s0 i{border:2px dashed rgba(0,0,0,.55)}
+.tile.s7,.flow .s7 i{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.28) 0 5px,transparent 5px 10px)}
+.tile.s6,.flow .s6 i{box-shadow:inset 0 0 0 3px rgba(0,0,0,.45)}
+.tag.zt{font-size:16px;padding:3px 10px}
+.tag.zt.s0{border:2px dashed rgba(0,0,0,.55)}
+.tag.zt.s7{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.28) 0 5px,transparent 5px 10px)}
+.tag.zt.s6{box-shadow:inset 0 0 0 2px rgba(0,0,0,.45)}
+.dot{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;border:3px solid #000;pointer-events:none}
+.dot.w{border-radius:3px}
+.dot b{position:absolute;left:12px;top:-6px;font-size:14px;background:rgba(255,255,255,.9);color:#000;padding:0 3px;border-radius:3px;white-space:nowrap}
+.dot.r b{left:auto;right:12px}
+.dot.new{background:var(--focus)}
+.north{position:absolute;right:4px;top:-22px;font-size:14px;color:var(--sub)}
+/* 상태 흐름 (범례 겸 층 요약): 여섯 칸 막대 + 이름 + 이 층 구역 수. 없는 단계는 흐리게 */
+.flow{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+.flow li{min-width:0;font-size:16px;line-height:1.2;color:var(--sub);opacity:.45}
+.flow li.on{opacity:1;color:var(--ink)}
+.flow i{display:block;box-sizing:border-box;height:12px;border-radius:3px;background-color:var(--c);margin-bottom:5px}
+.flow span{display:block;word-break:keep-all}
+.flow b{display:block;font-size:18px;line-height:1.3}
+.flow b.sm{font-size:16px;line-height:1.25;word-break:keep-all}
+.flow.side{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:flex-start;margin-top:10px}
+.flow.side li{opacity:1;color:var(--ink)}.flow.side i{width:100%}
+.flow.side .lead{color:var(--sub);align-self:center}
+.flow.mini{gap:3px;margin:8px 0 2px}.flow.mini span{display:none}
+.flow.mini i{height:8px;margin:3px 0 0}
+.flow.mini li{opacity:.25}.flow.mini li.past{opacity:.7}
+.flow.mini li.on{opacity:1}.flow.mini li.on i{height:14px;margin:0;outline:2px solid var(--ink);outline-offset:1px}
+.kinds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kh{font-size:16px;font-weight:600;color:var(--sub);margin:16px 0 8px}
+#kinds .kh:first-child{margin-top:4px}
+.kind{min-height:96px;border-radius:14px;border:2px solid var(--line);background:var(--card);text-align:left;padding:12px;font-size:22px;font-weight:700}
+.kind small{display:block;font-size:16px;font-weight:400;word-break:keep-all;color:var(--sub);margin-top:4px}
+.kind.ref{border-style:dashed}
+.zcard{border-left:12px solid var(--c);}
+.dec{font-size:22px;font-weight:800;margin:6px 0 2px}
+.dec.ok{color:var(--ok)}.dec.no{color:var(--warn)}
+.zcard .why{font-size:16px;margin-bottom:6px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0 0;padding-top:8px;border-top:1px solid var(--line);font-size:16px}
+.kv dt{color:var(--sub);font-size:16px;white-space:nowrap}.kv dd{margin:0;word-break:keep-all}
+.zwarn{margin-top:8px;padding:8px 10px;border-radius:8px;background:color-mix(in srgb,var(--warn) 14%,var(--card));color:var(--warn);font-size:16px}
+.zwarn ul{margin:2px 0 6px;padding-left:18px}.zwarn li{margin:4px 0}
+.zwarn summary{min-height:44px;font-weight:700}
+/* 카드 안 접힘: 작은 회색 제목, 펼치면 본문 */
+.zcard .more summary{min-height:48px;font-size:16px;font-weight:600;color:var(--sub)}
+.zcard .more summary::before{font-size:16px}
+.zcard .more .mb{font-size:14px;color:var(--sub);padding:0 0 6px 22px;word-break:keep-all;overflow-wrap:anywhere}
+.zcard .more .mb ul{margin:0;padding-left:16px}
+.zcard .more.w summary{color:var(--warn)}
+.zcard .more.basis{margin-top:6px;border-top:1px solid var(--line)}
+label{display:block;font-weight:600;margin:14px 0 6px}
+label .sub{font-weight:400}
+input,select,textarea{width:100%;min-height:56px;border:2px solid var(--line);border-radius:10px;background:var(--card);padding:8px 12px;font-size:18px}
+input[inputmode=decimal]{font-size:28px;font-weight:700;letter-spacing:.5px}
+textarea{min-height:160px;font:16px/1.4 ui-monospace,Consolas,monospace}
+input[aria-invalid=true],textarea[aria-invalid=true]{border-color:var(--err);background:color-mix(in srgb,var(--err) 8%,var(--card))}
+.err{color:var(--err);font-weight:700;font-size:16px;margin:6px 0 0}
+.err:empty{display:none}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.three label{margin-top:0;font-size:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1 1 0;min-height:52px;border:2px solid var(--line);border-radius:10px;background:var(--card);font-weight:600;font-size:18px}
+.seg button[aria-pressed=true]{font-weight:700;background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.avg{font-size:18px;margin-top:8px;font-weight:700}.avg.sub{font-weight:400;font-size:16px}.avg.ok{color:var(--ok)}.avg.no{color:var(--warn)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--card);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px}
+.bar[hidden]{display:none}
+.btn{min-height:60px;border-radius:10px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:18px;padding:0 16px}
+.btn.sec{flex:1}
+.btn.pri{flex:1;background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.btn:disabled{opacity:.55}
+.list{list-style:none;margin:0;padding:0}
+.list li{border-bottom:1px solid var(--line);padding:10px 2px;font-size:16px}
+.list li:last-child{border-bottom:0}
+.list .k{font-weight:700}
+.tag{display:inline-block;font-size:16px;font-weight:700;border-radius:6px;padding:1px 6px;background:var(--chip);margin-left:4px}
+.tag.q{background:#ffcc00;color:#000}.tag.f{background:var(--err);color:#fff}.tag.s{background:color-mix(in srgb,var(--ok) 16%,var(--card));color:color-mix(in srgb,var(--ok) 72%,var(--ink))}
+.lnk{background:none;border:0;color:var(--acc);font-weight:600;min-height:48px;padding:0 6px;text-decoration:underline}
+.msg{border-radius:10px;padding:10px 12px;margin:10px 0;font-weight:700}
+.msg.e{background:color-mix(in srgb,var(--err) 14%,var(--card));color:var(--err)}
+.msg.w{background:color-mix(in srgb,var(--warn) 16%,var(--card));color:var(--warn)}
+.msg.o{background:color-mix(in srgb,var(--ok) 14%,var(--card));color:var(--ok)}
+.pv{font-size:16px;color:var(--sub);margin-top:6px}
+details summary{min-height:48px;display:flex;align-items:center;font-weight:600;cursor:pointer;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"▸";flex:0 0 auto;margin-right:8px;font-size:20px;line-height:1;transition:transform .15s}
+details[open]>summary::before{transform:rotate(90deg)}
+details summary .sub{margin-left:6px;font-weight:400}   /* 제목이 flex 라 사이 공백이 사라짐 */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* F16 동바리 점검 평면 (SVG, 미터 좌표) — 선 굵기는 확대해도 그대로 */
+.siitem{border:2px solid var(--line);border-radius:14px;padding:8px 10px;margin:8px 0;background:var(--card)}
+.siitem[data-active=true]{border-color:#d71920}
+.splan{display:block;width:100%;max-height:62vh;touch-action:none;user-select:none;-webkit-user-select:none;background:var(--card);border:2px solid var(--line);border-radius:12px;margin-top:8px}
+.splan .zr{fill:var(--chip);stroke:var(--line);stroke-width:1px;vector-effect:non-scaling-stroke}
+.splan .zr.me{fill:color-mix(in srgb,var(--acc) 10%,var(--card));stroke:var(--acc);stroke-width:3px}
+.splan circle{fill:#fff;stroke:#000;stroke-width:2px;vector-effect:non-scaling-stroke}
+.splan .was circle{stroke:#d71920;stroke-dasharray:4 3}
+.splan .oth circle{stroke:#d71920;stroke-width:4px;stroke-dasharray:none}
+.splan .sel circle{fill:#d71920;stroke:#000;stroke-width:2px;stroke-dasharray:none}
+.splan text{display:none;font-size:.16px;text-anchor:middle;fill:var(--ink)}
+.splan.lab text{display:block}
+.zbar{display:grid;grid-template-columns:1fr 1fr 2fr 2fr;gap:6px;margin-top:6px}.zbar .btn{min-height:52px;padding:0 6px;font-size:18px}
+.zbar .btn[data-zm=in],.zbar .btn[data-zm=out]{font-size:26px;line-height:1}
+.allok{display:block;width:100%;min-height:52px;margin:6px 0 4px;font-size:18px;border-color:var(--ok);color:var(--ok)}
+[hidden]{display:none!important}
+.s2{background:#8b0018;color:#fff;border-radius:10px;padding:10px 12px;font-weight:800;margin:8px 0}.s2 small{display:block;font-weight:600}
+#notify{margin:10px 0}#notify button{min-height:48px;padding:0 16px;border-radius:24px;font-weight:800;background:var(--card);color:var(--ink);border:2px solid var(--line)}
+#tlink{display:inline-flex;align-items:center;min-height:48px;color:var(--acc);font-weight:700}
+.syncage{padding:6px 12px;font-size:16px;font-weight:700;background:var(--chip);color:var(--ink)}.syncage.old{background:var(--err);color:#fff}
+button:active:not(:disabled),.tile:active,.kind:active,.chip:active{filter:brightness(.85)}
+html{scroll-padding-bottom:calc(110px + env(safe-area-inset-bottom))}
+.req{color:var(--err);margin-left:2px}
+.lnk.del{color:var(--err);margin-left:24px}
+</style>
+</head>
+<body>
+<header>
+  <h1>현장 입력</h1>
+  <span class="net" id="net" role="status"><i aria-hidden="true"></i><span>연결 확인 중</span></span>
+  <button class="badge" id="badge" hidden type="button" aria-label="휴대폰에 남은 기록 다시 보내기"></button>
+  <button class="badge" id="sun" type="button" aria-pressed="false" title="햇빛 아래에서 글자를 더 진하게">햇빛</button>
+</header>
+<!-- 오프라인으로 저장된 판정을 보는 중이면 어느 화면에서나 머리 바로 아래에 기준 시각을 띄움 (오래된 판정으로 해체하지 않게) -->
+<div class="stale" id="stale" role="status" hidden></div>
+<div class="syncage" id="syncage" role="status" hidden></div>
+<p class="sr" aria-live="polite" id="live"></p>
+<main>
+  <nav class="ktabs" id="ktabs" role="tablist" aria-label="이 구역 입력" hidden></nav>
+  <!-- 1. 층 → 구역 -->
+  <section id="s-zone" data-step="zone">
+    <div id="topmsg"></div>
+    <div id="s2"></div>
+    <!-- 오늘 볼 것 (D4, alerts.py) — 종류별 개수, 누르면 목록·구역으로 이동. 판정은 안 바꿈 -->
+    <details class="card alerts" id="alerts" hidden><summary id="alertSum"></summary><ul class="list" id="alertList"></ul></details>
+    <h2 tabindex="-1">층 × 구역 <span class="sub">칸을 누르면 그 구역 입력</span></h2>
+    <div id="floors" class="mx" role="group" aria-label="층과 구역 상태"></div>
+    <h2 id="planTitle">구역 평면</h2>
+    <div class="plan" id="plan"></div>
+    <div class="legend" id="legend"></div>
+    <details class="card" id="shoreInfo" open><summary>동바리 사양·해체 이력</summary><div class="sub" id="shoreInfoBody"></div></details>
+    <div class="card">
+      <div class="row"><strong style="flex:1">최근 입력</strong><button class="lnk" type="button" id="reloadRecent">새로고침</button></div>
+      <ul class="list" id="recent"><li class="sub">불러오는 중…</li></ul>
+    </div>
+    <p class="sub" id="meta"></p>
+    <p><a id="tlink" hidden>강도 타임라인 (상시 웹) →</a></p>
+    <div id="notify" hidden></div>
+  </section>
+
+  <!-- 2. 측정 종류 -->
+  <section id="s-kind" data-step="kind" hidden>
+    <div class="card zcard" id="zcard"></div>
+    <h2 tabindex="-1">무엇을 기록할까요?</h2>
+    <div id="kinds"></div>
+  </section>
+
+  <!-- 3. 입력 -->
+  <section id="s-form" data-step="form" hidden>
+    <h2 tabindex="-1" id="ftitle"></h2>
+    <p class="sub" id="fsub"></p>
+    <form id="form" novalidate autocomplete="off"></form>
+  </section>
+
+  <!-- 4. 결과 -->
+  <section id="s-done" data-step="done" hidden>
+    <h2 tabindex="-1">저장 결과</h2>
+    <div id="result"></div>
+  </section>
+</main>
+<div class="bar" id="bar" hidden></div>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+// 0-7 (v6.3·v6.4) 열쇠: 주소의 t·v·r·s 를 기기에 옮기고 주소창에서 지움 — 화면은 열쇠 없이 열리고 자료 API 만 열쇠로 (server/vercel/API.md §9.1).
+// 역할마다 하나(onsite.tok.t …), 화면마다 마지막에 쓴 역할(onsite.tok.last/경로).
+function takeToken(keys) {
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem("onsite.tok." + k); localStorage.setItem("onsite.tok." + k, v); } catch (_) {} return null; };
+  const u = new URL(location.href), k = keys.find(x => u.searchParams.get(x));
+  if (k) { ls(k, u.searchParams.get(k)); ls("last" + location.pathname, k); }
+  if (keys.some(x => u.searchParams.has(x))) {   // v6.4: Wi-Fi 서버(field_server·C#)도 화면을 열쇠 없이 내서 어디서나 지움
+    keys.forEach(x => u.searchParams.delete(x)); history.replaceState(history.state, "", u.pathname + u.search + u.hash);
+  }
+  const use = k || [ls("last" + location.pathname), ...keys].find(x => x && keys.includes(x) && ls(x));
+  return {k: use || keys[0], v: (use && ls(use)) || ""};
+}
+// 0-5 (v6.3) "마지막 Revit 동기화 n분 전" — Vercel 서버만 (답에 synced_at). 60분 넘으면 빨강. synced_at = PC 한국 시각
+function syncAge(syncedAt) {
+  if (!syncedAt) return null;
+  const min = Math.max(0, Math.round((Date.now() - Date.parse(String(syncedAt).slice(0, 19) + "+09:00")) / 6e4));
+  const t = min < 1 ? "방금" : min < 120 ? `${min}분 전` : min < 2880 ? `${Math.round(min / 60)}시간 전` : `${Math.round(min / 1440)}일 전`;
+  return min > 60 ? {old: true, text: `PC 동기화가 멈췄습니다. 담당자에게 알려 주세요 (마지막 동기화 ${t})`} : {old: false, text: `마지막 Revit 동기화 ${t}`};
+}
+const TOKEN = takeToken(["t"]).v;
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});   // v6.4 2-3 오프라인 열기 — sw.js 는 Vercel 만 있음 (Wi-Fi 서버는 404 → 조용히 넘어감, LAN IP 는 브라우저가 서비스 워커를 안 줌)
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem("field." + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem("field." + k, JSON.stringify(v)); return true; } catch (e) { return false; } }   // false = 저장 공간 모자람
+};
+// ui_spec §6 상태 색 + 짧은 글자 (색만으로 구분하지 않게)
+const MX_ABBR = {0: "전", 1: "설치", 2: "결함", 3: "양생", 4: "공시체", 5: "요청", 6: "승인", 7: "완료", 8: "재받침", 9: "존치"};   // 표 칸 짧은 글자 (색만으로 구분하지 않게)
+const STATUS = {0:["타설 전","--s0","#000"],1:["설치 합격","--s1","#000"],2:["설치 결함","--s2","#fff"],3:["양생 중","--s3","#fff"],
+  4:["공시체 필요","--s4","#000"],5:["승인 요청 가능","--s5","#000"],6:["감리 승인 기록","--s6","#000"],7:["해체 완료","--s7","#fff"],
+  8:["재받침","--s8","#fff"],9:["존치 연장","--s9","#000"]};
+const KIND = {
+  cylinder:{label:"공시체", sub:"현장양생 · 판정 근거"},
+  sensor_temp:{label:"온도 센서", sub:"성숙도로 강도 추정", unit:"°C", col:"temp_c", vlabel:"온도"},
+  sensor_strength:{label:"강도 센서", sub:"무선 센서 강도 추정", unit:"MPa", col:"mpa", vlabel:"추정 강도"},
+  rebound:{label:"반발경도", sub:"참고 · 판정 미사용", ref:true},
+  shore_check:{label:"동바리 확인", sub:"타설 전 · 아래층 동바리가 서 있는지"},
+  pour_batch:{label:"타설 전 일괄 확인", sub:"아래 3개층 동바리를 한 화면에서"},   // v6.4 2-2 — 저장은 구역마다 shore_check (새 PC route 없음)
+  after_check:{label:"해체 후 점검", sub:"참고 · 판정 미사용 · 가이드라인 4.3", ref:true},
+  shore_inspect:{label:"동바리 점검", sub:"설치·일상·해체 전후 · 문제 동바리 표시"}   // F16 — 설치 검측 NG 미해결이면 해체 요청 불가·타설 보류
+};
+const AC = [["AC-1", "필러·지지 동바리 타설층 포함 하부 3개층 설치"], ["AC-2", "각 층 같은 위치(상하 정렬)"], ["AC-3", "연직도"],
+  ["AC-4", "자재 변형·침하"], ["AC-5", "콘크리트 면 결함"]];   // shoring/after_check.py ITEMS 와 같게
+let model = LS.get("model", null), online = false, flushing = false;
+const st = {floor: LS.get("floor", null), zone: null, kind: null, sensor: null, mode: "one", curing: null, nx: null, ny: null};
+let queue = LS.get("queue", []);
+let shoreCache = LS.get("shores", {});   // F16: 층 → {rects, shores, ng} (/api/floor 마지막 응답)
+const SHRINK = location.protocol === "https:";   // https = Vercel 서버 (요청 4.5 MB) → 사진을 줄여 보냄. http = 현장 Wi-Fi 서버 → 원본 그대로
+const PHOTO_MAX = (SHRINK ? 3 : 8) * 1024 * 1024, PHOTO_QUEUE_MAX = 3;   // [가정] 사진 1장 상한 — Wi-Fi 서버 photos.MAX_BYTES 8 MB · Vercel 은 줄인 뒤 3 MB · 기기에 담아 둘 사진 수 (localStorage 약 5 MB)
+
+// ---------- 기기 ID (client_id 앞부분). http 에서도 되는 getRandomValues ----------
+let dev = LS.get("device", "");
+if (!dev) { const a = new Uint8Array(8); crypto.getRandomValues(a); dev = Array.from(a, b => b.toString(16).padStart(2, "0")).join(""); LS.set("device", dev); }
+function nextId() { const n = LS.get("seq", 0) + 1; LS.set("seq", n); return dev + "-" + n; }
+
+// ---------- 시간 (서버가 --at 이면 그 시각을 '지금'으로) ----------
+const pad = n => String(n).padStart(2, "0");
+function nowStr() {
+  if (model && model.fixed_now) return model.now;
+  const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+const today = () => nowStr().slice(0, 10);
+const TSRE = /^\s*(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})[T ]+(\d{1,2}):(\d{2})(?::\d{2}(?:\.\d+)?)?\s*$/;
+function normTs(s) { const m = TSRE.exec(s); return m ? `${m[1]}-${pad(m[2])}-${pad(m[3])}T${pad(m[4])}:${m[5]}` : null; }
+const num = s => { const t = String(s ?? "").trim().replace(",", "."); return t === "" || !/^[-+]?\d*\.?\d+(e[-+]?\d+)?$/i.test(t) ? NaN : Number(t); };
+
+// 서버 판(Vercel): 요청 4.5 MB 상한 → 올리기 전에 긴 변 1600 px · JPEG 0.8 로 줄임, 줄인 뒤 3 MB 넘으면 거부 (총괄 11-08 결정)
+const PHOTO_HINT = SHRINK ? "긴 변 1600 px 로 줄여 근거 사진으로 저장 · 3 MB 이하" : "원본 그대로 근거 사진으로 저장 · 8MB 이하 JPEG·PNG";
+function shrinkPhoto(file) {
+  return new Promise((ok, no) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const k = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      const d = c.toDataURL("image/jpeg", 0.8);
+      (d.length - d.indexOf(",") - 1) * 3 / 4 > PHOTO_MAX ? no(new Error("big")) : ok(d);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); no(new Error("read")); };
+    img.src = url;
+  });
+}
+
+// ---------- 서버 ----------
+async function api(path, body) {
+  const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), body && body.photo_data ? 90000 : 10000);   // 사진은 올리는 데 오래 걸림
+  try {
+    const r = await fetch(path + (path.includes("?") ? "&" : "?") + "t=" + encodeURIComponent(TOKEN), {
+      method: body ? "POST" : "GET", cache: "no-store", signal: ctl.signal,
+      headers: body ? {"Content-Type": "application/json"} : {}, body: body ? JSON.stringify(body) : undefined});
+    let j = null; try { j = await r.json(); } catch (e) {}
+    return {status: r.status, j: j || {ok: false, error: "서버 응답을 읽지 못했습니다"}};
+  } catch (e) { return {status: 0, j: {ok: false, error: "연결 안 됨"}}; }
+  finally { clearTimeout(tm); }
+}
+function setOnline(v, why) {
+  online = v; const n = $("#net"); n.classList.toggle("off", !v);
+  const p = (typeof queue !== "undefined" ? queue : []).filter(q => q.state === "pending").length;
+  n.lastElementChild.textContent = v ? "연결됨" : (why || "오프라인") + (p ? ` · ${p}건 대기` : "");   // v6.4 2-3
+  renderStale();
+}
+function renderStale() {
+  const s = $("#stale"); s.hidden = online || !model; if (s.hidden) return;
+  const t = String(model.now || "").replace("T", " ").slice(5).replace("-", "/");
+  s.innerHTML = `<b>저장된 판정 · ${esc(t)} 기준</b>${model.fetched ? `<span>받은 시각 ${esc(model.fetched)}</span>` : ""}`;
+}
+async function loadModel() {
+  const r = await api("/api/model");
+  if (r.status === 200 && r.j.ok) { model = r.j; model.fetched = nowClock(); LS.set("model", model); setOnline(true); serverExtra(model, "t=" + encodeURIComponent(TOKEN)); }
+  else setOnline(false, r.status === 403 ? "접속 코드 만료" : "오프라인");
+  if (r.status === 403) topMsg("e", "서버가 다시 켜져 접속 코드가 바뀌었습니다. PC 화면의 새 QR 코드로 다시 여세요. 입력한 기록은 이 휴대폰에 남아 있습니다.");
+  else if (model && model.error) topMsg("e", "판정 계산 오류: " + model.error);
+  else topMsg();
+}
+const nowClock = () => { const d = new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const nowStamp = () => { const d = new Date(); return `${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${nowClock()}`; };   // 큐 시각: 하루 지난 실패도 알아보게 날짜까지 (감사 A-30)
+function topMsg(kind, text) { $("#topmsg").innerHTML = text ? `<div class="msg ${kind}" role="alert">${esc(text)}</div>` : ""; }
+function say(t) { $("#live").textContent = t; }
+
+// ---------- 오프라인 큐 ----------
+function saveQueue() {
+  // 사진(F15)은 기기에 3장까지·저장 공간이 되는 만큼만 담음 — 넘치면 최근 것부터 사진만 빼고 저장. 이 화면을 연 동안은 메모리의 사진으로 보냄(photoMem)
+  const keep = new Set(queue.filter(q => q.body.photo_data).slice(0, PHOTO_QUEUE_MAX));
+  for (;;) {
+    for (const q of queue) q.photoMem = !!q.body.photo_data && !keep.has(q);
+    const copy = queue.map(q => q.photoMem ? {...q, photoMem: false, photoDropped: true, body: {...q.body, photo_data: undefined}} : q);
+    if (LS.set("queue", copy) || !keep.size) break;
+    keep.delete([...keep].pop());
+  }
+  renderBadge();
+}
+const photoNote = q => q.photoMem ? " · 화면을 닫으면 사진은 빠집니다" : q.photoDropped ? " · 사진 빠짐 · 연결된 뒤 다시 찍어 보내 주세요" : q.body.photo_data ? " · 사진 1장" : "";
+function renderBadge() {
+  const p = queue.filter(q => q.state === "pending").length, f = queue.filter(q => q.state === "failed").length;
+  const b = $("#badge"); b.hidden = !(p || f);
+  b.textContent = p ? `보낼 것 ${p}건` : `실패 ${f}건`;
+  b.style.background = p ? "#ffcc00" : "#ff6b6b";
+}
+async function send(item) {          // → "ok" | "bad" | "net" | "token"
+  const r = await api("/api/measure", item.body);
+  if (r.status === 200 && r.j.ok) { item.res = r.j; return "ok"; }
+  if (r.status === 400) { item.error = r.j.error; return "bad"; }
+  if (r.status === 403) { setOnline(false, "접속 코드 만료"); return "token"; }
+  setOnline(false); return "net";    // 0·5xx: 저장 안 됐을 수 있음 → 남겨 두고 다시 보냄 (client_id 로 중복 방지)
+}
+async function flush() {
+  if (flushing) return; flushing = true;
+  try {
+    for (const it of queue.filter(q => q.state === "pending")) {
+      const r = await send(it);
+      if (r === "ok") { queue = queue.filter(q => q !== it); setOnline(true); applyResult(it.res); }
+      else if (r === "bad") it.state = "failed";
+      else break;
+      saveQueue();
+    }
+  } finally { flushing = false; renderBadge(); }
+  if (!$("#s-zone").hidden) { renderZones(); loadRecent(); }
+}
+function applyResult(res) {     // 응답의 그 층 구역 판정으로 타일 갱신 (모델 다시 받지 않아도)
+  if (!model || !res || !res.floor_zones || !res.floor_zones.length) return;
+  const fl = floorOfZone(res.floor_zones[0].zone_id), f = model.floors.find(f => f.floor === fl);
+  if (f) { f.zones = res.floor_zones; LS.set("model", model); }
+}
+function floorOfZone(zid) { for (const f of model.floors) if (f.zones.some(z => z.zone_id === zid)) return f.floor; return null; }
+
+// ---------- 화면 이동 (휴대폰 뒤로 버튼 = 앞 단계) ----------
+function go(step, push = true) {
+  for (const s of document.querySelectorAll("main > section")) s.hidden = s.dataset.step !== step;
+  if (push) history.pushState({step}, "", location.search + "#" + step);
+  st.step = step;
+  ({zone: renderZoneStep, kind: renderKind, form: renderForm, done: () => {}})[step]();
+  renderBar(); if (model) renderHead(); renderTabs(); window.scrollTo(0, 0);
+  const h = $(`#s-${step} h2`); if (h) h.focus({preventScroll: true});
+}
+// v6.4 ② 구역 입력 탭: 구역을 고른 뒤 판정·측정 종류를 한 번에 오감 (종류 목록으로 돌아가지 않아도 됨)
+function renderTabs() {
+  const el = $("#ktabs"), z = (st.step === "kind" || st.step === "form") && model && curZone();
+  el.hidden = !z; if (!z) return;
+  const tabs = [["", "판정"], ...(z.pour_gate ? [["pour_batch", "타설 전 확인"]] : []), ["cylinder", "공시체"], ["sensor_temp", "온도"], ["sensor_strength", "강도 센서"],
+    ["shore_check", "동바리 확인"], ["shore_inspect", "동바리 점검"], ["after_check", "해체 후"], ["rebound", "반발경도"]];
+  const cur = st.step === "kind" ? "" : st.kind;
+  el.innerHTML = `<span class="kt-z">${esc(z.zone_id)}</span>` + tabs.map(([k, t]) => `<button type="button" role="tab" aria-selected="${k === cur}" data-tab="${k}">${t}</button>`).join("");
+  // 탭 바꾸기는 기록을 쌓지 않음: 폼 기록 바로 아래는 늘 종류(판정) 기록이라 [←]·휴대폰 뒤로가 판정 → 구역 표 순서로 감
+  for (const b of el.querySelectorAll("[data-tab]")) b.onclick = () => { const k = b.dataset.tab;
+    if (!k) return st.step === "form" ? history.back() : null;
+    const onForm = st.step === "form";
+    st.kind = k; st.sensor = null; st.mode = "one"; st.siLoaded = null;
+    if (onForm) history.replaceState({step: "form"}, "", location.search + "#form");
+    go("form", !onForm); };
+  const a = el.querySelector('[aria-selected="true"]'); if (a && a.scrollIntoView) a.scrollIntoView({block: "nearest", inline: "center"});
+}
+addEventListener("popstate", e => {
+  const s = (e.state && e.state.step) || "zone";
+  if (s !== "zone" && !st.zone) return go("zone", false);
+  go(s === "done" ? "zone" : s, false);
+});
+function renderBar() {
+  const b = $("#bar"); const s = st.step;
+  if (s === "zone") { b.hidden = true; return; }
+  b.hidden = false;
+  if (s === "kind") b.innerHTML = `<button class="btn sec" type="button" id="bBack">← 구역 다시 고르기</button>`;   // 이 화면의 할 일은 종류 고르기 — 뒤로는 보조 버튼
+  if (s === "form") b.innerHTML = `<button class="btn" type="button" id="bBack" aria-label="뒤로">←</button><button class="btn pri" type="button" id="bSave">저장</button>`;
+  if (s === "done") b.innerHTML = `<button class="btn" type="button" id="bAgain">이 구역 계속 입력</button><button class="btn pri" type="button" id="bHome">구역 목록</button>`;
+  const on = (id, f) => { const e = $("#" + id); if (e) e.onclick = f; };
+  on("bBack", () => history.back()); on("bSave", save);
+  on("bAgain", () => go("kind")); on("bHome", () => { go("zone"); });
+}
+
+// ---------- 1. 층·구역 ----------
+function curFloor() { return model && model.floors.find(f => f.floor === st.floor); }
+// 동바리 사양·해체 이력 (Revit [동바리] 탭 → server_sync 스냅샷 shore_spec·shore_removed, 서버 판만)
+function shoreInfoHTML(f) {
+  const sp = f.shore_spec || [], rm = f.shore_removed || [];
+  const spec = s => `${esc(s.zone_id || "층 전체")} · ${esc(s.type)} ${esc(s.spec)} · 간격 ${esc(s.spacing_x_mm)}×${esc(s.spacing_y_mm)} mm` +
+    `${s.splices !== "" && s.splices != null ? " · 이음 " + esc(s.splices) : ""}${s.install_date ? " · 설치 " + esc(s.install_date) : ""}`;
+  return `<strong>사용 동바리</strong><ul>${sp.length ? sp.map(s => `<li>${spec(s)}</li>`).join("") : "<li>사양 기록 없음</li>"}</ul>` +
+    `<strong>해체 이력</strong><ul>${rm.length ? rm.map(r => `<li>${esc(r.date)} · ${esc(r.zone_id)} · ${esc(r.count)}본</li>`).join("") : "<li>해체 기록 없음</li>"}</ul>`;
+}
+const dueOf = z => [6, 7].includes(z.status) ? "" : z.predicted_due;   // 감리 승인 기록·해체 완료 구역은 예측일이 뜻 없음 → 숨김 (총괄 11-08)
+// v6.2 Vercel 서버 전용 (답에 synced_at 이 있을 때만 — Wi-Fi 서버엔 없음): S2 승인 기록 없는 해체 신고 빨강 · 강도 타임라인 링크 · [알림 받기]
+function serverExtra(j, auth) {
+  const un = (j && j.unapproved_reports) || [], box = document.getElementById("s2");
+  if (box) box.innerHTML = un.map(u => `<div class="s2" role="alert">승인 기록 없이 해체 신고됨 (Revit 판정 전): ${esc(u.zone_id)}` +
+    `<small>${esc(String(u.at).replace("T", " "))} · ${esc(u.name)}${u.company ? " (" + esc(u.company) + ")" : ""}</small></div>`).join("");
+  const sa = syncAge(j && j.synced_at), sb = document.getElementById("syncage");
+  if (sb) { sb.hidden = !sa; if (sa) { sb.textContent = sa.text; sb.classList.toggle("old", sa.old); } }
+  if (!j || !j.synced_at || window.__srvExtra) return;
+  window.__srvExtra = true;
+  setInterval(() => serverExtra(model, auth), 60000);   // 경과 분 갱신
+  const tl = document.getElementById("tlink");
+  if (tl) { tl.href = "/timeline?" + auth; tl.hidden = false; }
+  const s = document.createElement("script"); s.src = "/notify.js"; s.defer = true; document.body.appendChild(s);
+}
+function renderZoneStep() {
+  if (!model) { $("#floors").innerHTML = ""; $("#plan").innerHTML = `<div class="msg e" role="alert">서버에 연결되지 않았고, 이 휴대폰에 저장된 판정도 없습니다. 현장 PC와 같은 Wi-Fi에 연결돼 있는지 확인하세요.</div>`; return; }
+  if (!curFloor()) {     // 기본: 마지막 고른 층 → 층수 게이트를 통과한 가장 높은 층(해체 검토 대상) → 타설된 가장 높은 층
+    const pick = fn => model.floors.filter(f => f.zones.some(fn)).pop();
+    st.floor = (pick(z => String(z.level_gate).startsWith("OK")) || pick(z => z.pour_date) || model.floors[model.floors.length - 1] || {}).floor;
+  }
+  // v6.4 ② 층 × 구역 표 (Dalux 처럼): 줄 = 층(위층부터), 칸 = 구역 상태 색 + 짧은 글자. 층 이름 = 아래 평면 바꾸기, 칸 = 그 구역 입력으로
+  $("#floors").innerHTML = model.floors.slice().reverse().map(f => `<div class="mx-row" aria-current="${f.floor === st.floor}">` +
+    `<button type="button" class="mx-fl" data-f="${f.floor}" aria-label="${esc(f.name)} 평면 보기">${esc(f.name)}</button>` +
+    f.zones.map(z => { const [lab, c, ink] = STATUS[z.status] || STATUS[0];
+      return `<button type="button" class="mx-c s${STATUS[z.status] ? z.status : 0}" style="background-color:var(${c});color:${ink}" data-f="${f.floor}" data-z="${esc(z.zone_id)}" aria-label="${esc(z.zone_id)} ${lab}" title="${esc(z.zone_id)} ${lab}"><b>${esc(short(z.zone_id))}</b><span>${MX_ABBR[z.status] ?? ""}</span></button>`; }).join("") + `</div>`).join("");
+  for (const b of document.querySelectorAll("#floors .mx-fl")) b.onclick = () => { st.floor = Number(b.dataset.f); LS.set("floor", st.floor); renderZoneStep(); };
+  for (const b of document.querySelectorAll("#floors .mx-c")) b.onclick = () => { st.floor = Number(b.dataset.f); LS.set("floor", st.floor); st.zone = b.dataset.z; go("kind"); };
+  $("#planTitle").textContent = `${curFloor().name} 평면`;
+  renderZones();
+  // 범례 = 상태 흐름 + 이 층 구역 수 (색 설명과 '지금 어디쯤'을 한 번에). 갈림 상태(존치 연장·재받침·설치 결함·설치 합격)는 이 층에 있을 때만
+  const cnt = new Map(); for (const z of curFloor().zones) cnt.set(z.status, (cnt.get(z.status) || 0) + 1);
+  $("#legend").innerHTML = flowHTML({count: cnt});
+  $("#shoreInfo").hidden = !("shore_spec" in curFloor());   // Wi-Fi 서버는 이 자료를 안 보냄 → 숨김
+  $("#shoreInfoBody").innerHTML = shoreInfoHTML(curFloor());
+  renderHead();
+  renderAlerts();
+  $("#meta").textContent = `판정 기준 시각 ${model.now.replace("T", " ")}${model.fixed_now ? " (데모 고정)" : ""} · 받은 시각 ${model.fetched || "-"}`;
+}
+// 상태 흐름 (사용자 확인 2026-11-07): 타설 전 → 양생 중 → 공시체 필요·존치 연장 → 승인 요청 가능 → 감리 승인 기록 → 해체 완료
+// 존치 연장 = 층수 조건은 통과했지만 강도가 모자란 구역 (샘플 9F-A2·B2·C2) → 공시체 필요와 같은 '기다리는' 단계. 흐름 밖은 재받침·설치 결함·설치 합격
+const FLOW = [[0], [3], [4, 9], [5], [6], [7]], SIDE = [8, 2, 1];
+const FLOW_SHORT = {4: "공시체", 9: "존치", 5: "승인 요청", 6: "감리 승인"};   // 여섯 칸이 좁아 막대에서만 줄인 이름 (전체 이름은 title·타일에)
+function flowHTML(o) {   // o.count: Map 상태 → 구역 수 (층 범례) | o.cur: 한 구역의 지금 상태 (구역 카드, 막대만)
+  const ci = FLOW.findIndex(g => g.includes(o.cur));
+  const cell = (g, i) => { const ks = Array.isArray(g) ? g : [g], labs = ks.map(k => STATUS[k][0]), lab = labs.join(" · ");
+    const n = o.count ? ks.reduce((a, k) => a + (o.count.get(k) || 0), 0) : null;
+    const cls = o.count ? (n ? " on" : "") : ks.includes(o.cur) ? " on" : i != null && i < ci ? " past" : "";
+    const sh = i != null ? ks.map(k => FLOW_SHORT[k] || STATUS[k][0]).join("·") : lab;
+    // 두 상태가 한 단계면 막대를 반씩 두 색으로
+    const bar = ks.length > 1 ? `background:linear-gradient(90deg,var(${STATUS[ks[0]][1]}) 50%,var(${STATUS[ks[1]][1]}) 50%)` : `--c:var(${STATUS[ks[0]][1]})`;
+    const nt = o.count && ks.length > 1 && n ? ks.filter(k => o.count.get(k)).map(k => `${FLOW_SHORT[k] || STATUS[k][0]} ${o.count.get(k)}`).join(" · ") : n;
+    return `<li class="${ks.map(k => "s" + k).join(" ")}${cls}" title="${lab}"><i style="${bar}"></i><span${sh !== lab ? ` aria-label="${lab}"` : ""}>${sh}</span>${n ? `<b${ks.length > 1 ? ' class="sm"' : ""}>${nt}</b>` : ""}</li>`; };
+  const side = SIDE.filter(k => o.count ? o.count.get(k) : false);
+  return `<ol class="flow${o.count ? "" : " mini"}" aria-label="${o.count ? "상태 흐름 · 이 층 구역 수" : "상태 흐름에서 지금 위치"}">${FLOW.map(cell).join("")}</ol>` +
+    (side.length ? `<ul class="flow side" aria-label="흐름 밖 상태"><li class="lead">흐름 밖</li>${side.map(k => cell(k)).join("")}</ul>` : "");
+}
+function renderHead() {   // 머리: 현장 이름 · 지금 층 (어느 현장 어느 층을 보는지 늘 보이게)
+  const f = model && curFloor();
+  $("header h1").textContent = model ? `${model.project || "현장 입력"}${f ? " · " + f.name : ""}` : "현장 입력";
+}
+function renderAlerts() {   // 오늘 볼 것 (D4) — 서버 모델 alerts [{kind, zone_id, text}] (종류 순서는 서버가 정함)
+  const al = model.alerts || [], box = $("#alerts");
+  box.hidden = !al.length; if (!al.length) return;
+  const kinds = [...new Set(al.map(a => a.kind))];
+  $("#alertSum").textContent = `오늘 볼 것 ${al.length}건: ` + kinds.map(k => `${k} ${al.filter(a => a.kind === k).length}`).join(" · ");
+  box.classList.toggle("urgent", kinds.includes("무단 해체 의심"));
+  $("#alertList").innerHTML = al.map(a => `<li><button type="button" class="lnk" data-z="${esc(a.zone_id)}">${esc(a.zone_id)}</button> ${esc(a.text)}</li>`).join("");
+  for (const b of document.querySelectorAll("#alertList [data-z]")) b.onclick = () => {
+    const f = model.floors.find(f => f.zones.some(q => q.zone_id === b.dataset.z)); if (!f) return;
+    st.floor = f.floor; LS.set("floor", st.floor); st.zone = b.dataset.z; go("kind"); };
+}
+function bbox(zones) {
+  return zones.reduce((b, z) => [Math.min(b[0], z.x0), Math.min(b[1], z.y0), Math.max(b[2], z.x1), Math.max(b[3], z.y1)], [1e9, 1e9, -1e9, -1e9]);
+}
+function drawPlan(el, zones, opt) {   // 실제 평면 배치. opt.tile(z) → 타일 HTML, opt.dots → 센서 점
+  const [x0, y0, x1, y1] = bbox(zones), w = x1 - x0, h = y1 - y0;
+  const cw = el.clientWidth || 340, minH = Math.min(...zones.map(z => z.y1 - z.y0));
+  const H = Math.max(cw * h / w, (opt.minTile || 92) * h / minH);
+  el.style.height = H + "px";
+  const L = x => (x - x0) / w * 100, T = y => (y1 - y) / h * 100;
+  el.innerHTML = `<span class="north" aria-hidden="true">▲ 북</span>` + zones.map(z => opt.tile(z,
+    `left:${L(z.x0)}%;top:${T(z.y1)}%;width:${L(z.x1) - L(z.x0)}%;height:${T(z.y0) - T(z.y1)}%`)).join("") +
+    (opt.dots || []).map(d => `<span class="dot ${d.cls || ""}${L(d.x) > 75 ? " r" : ""}" style="left:${L(d.x)}%;top:${T(d.y)}%" aria-hidden="true">${d.label ? `<b>${esc(d.label)}</b>` : ""}</span>`).join("");
+  return {x0, y0, x1, y1, w, h, H};
+}
+const short = zid => zid.includes("-") ? zid.slice(zid.indexOf("-") + 1) : zid;
+const mmdd = d => d ? d.slice(5).replace("-", "/") : "";
+function renderZones() {
+  const f = curFloor(); if (!f) return;
+  // 센서는 위치 점 대신 그 구역 타일 오른쪽 위 배지로 (점이 상태 글자를 가리지 않게). 정확한 위치는 센서 입력 폼 평면에서
+  const inZone = new Map(f.zones.map(z => [z.zone_id, []]));
+  for (const s of model.sensors.filter(s => s.floor === f.floor)) {
+    const z = f.zones.find(z => s.x >= z.x0 && s.x <= z.x1 && s.y >= z.y0 && s.y <= z.y1); if (z) inZone.get(z.zone_id).push(s.sensor_id);
+  }
+  drawPlan($("#plan"), f.zones, {
+    tile: (z, pos) => { const [lab, c, ink] = STATUS[z.status] || STATUS[0], sn = inZone.get(z.zone_id), due = dueOf(z);
+      return `<button type="button" class="tile s${STATUS[z.status] ? z.status : 0}" style="${pos};background-color:var(${c});color:${ink}" data-z="${esc(z.zone_id)}"
+        aria-label="${esc(z.zone_id)} ${lab}${due ? ", 예측 해체 가능일 " + due : ""}${sn.length ? ", 센서 " + sn.map(esc).join(" ") : ""}">
+        <span class="hd"><span class="zn">${esc(short(z.zone_id))}</span>${sn.length ? `<span class="sn" aria-hidden="true">${sn.map(id => `<i>${esc(id)}</i>`).join("")}</span>` : ""}</span><span class="st">${lab}</span><span class="due">${due ? "예측 " + mmdd(due) : ""}</span></button>`; }
+  });
+  for (const t of document.querySelectorAll("#plan .tile")) t.onclick = () => { st.zone = t.dataset.z; go("kind"); };
+}
+
+// ---------- 2. 종류 ----------
+function curZone() { const f = curFloor(); return f && f.zones.find(z => z.zone_id === st.zone); }
+// 타설 보류 사유 "10F-A1: …; B1-A1: …" 의 구역 ID — 모델에 있는 ID 만 (B1·PH 처럼 nF 꼴이 아닌 이름도, KBIM 재점검 52차)
+function gateZones(reason) {
+  const known = new Set(model.floors.flatMap(f => f.zones.map(q => q.zone_id)));
+  return [...new Set(String(reason || "").split(/;\s*/).map(x => x.split(":")[0].trim()).filter(id => known.has(id)))];
+}
+function zoneCard(z, extra = "") {
+  const [lab, c, ink] = STATUS[z.status] || STATUS[0];
+  const has = v => v !== "" && v != null;
+  // 긴 글(경고·추정 근거·판정 규칙)은 접어 두고 제목·건수만 — 카드가 길어져 종류 버튼이 밀려나지 않게
+  const long = s => String(s || "").length > 24;
+  const fold = (t, body, cls = "") => `<details class="more${cls}"><summary>${t}</summary><div class="mb">${body}</div></details>`;
+  const ew = z.evidence_warnings || [];
+  // 수치는 한 문단 대신 "항목 | 값" 줄로 (휴대폰에서 숫자를 바로 찾게)
+  const kv = [["공시체 평균", has(z.f_cyl) ? `<b>${esc(z.f_cyl)}</b> MPa` : "기록 없음"],
+    has(z.f_est_min) ? ["최소 추정", `<b>${esc(z.f_est_min)}</b> MPa` + (!z.est_source ? "" : long(z.est_source) ? fold("추정 근거", esc(z.est_source)) : ` <span class="sub">(${esc(z.est_source)})</span>`)] : null,
+    z.threshold ? ["기준", `<b>${esc(z.threshold)}</b> MPa`] : null,
+    dueOf(z) ? ["예측 해체", `<b>${esc(mmdd(z.predicted_due))}</b> <span class="sub">${esc(z.predicted_due.slice(0, 4))}</span>`] : null,
+    z.evidence_stage != null ? ["근거 원장", `${esc(z.evidence_stage)}/8` + (ew.length ? fold(`⚠ 원장 확인 ${ew.length}건`, `<ul>${ew.map(w => `<li>${esc(w)}</li>`).join("")}</ul>`, " w") : "")] : null
+  ].filter(Boolean);
+  const rb = String(model.rule_basis || "").replace(/^\s*판정 규칙 근거\s*:\s*/, "");
+  const dc = !z.decision ? "" : /불가|보류|존치/.test(z.decision) ? " no" : /가능|승인/.test(z.decision) ? " ok" : "";
+  return `<div class="card zcard" style="--c:var(${c})"><div class="row"><strong style="font-size:22px;flex:1">${esc(z.zone_id)}</strong><span class="tag zt s${STATUS[z.status] ? z.status : 0}" style="background-color:var(${c});color:${ink}">${lab}</span></div>${FLOW.some(g => g.includes(z.status)) ? flowHTML({cur: z.status}) : ""}
+    <div class="dec${dc}">${esc(z.decision || "판정 없음")}</div>${z.reason ? `<div class="why">${esc(z.reason)}</div>` : ""}
+    <dl class="kv">${kv.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>${
+    (z.warnings || []).length ? `<details class="zwarn"><summary>⚠ 경고 ${z.warnings.length}건</summary><ul>${z.warnings.map(w => `<li>${esc(w)}</li>`).join("")}</ul></details>` : ""}${
+    z.pour_gate ? `<div class="sub" style="font-weight:700;color:${z.pour_gate.decision === "타설 요청 가능" ? "var(--ok,#2e7d32)" : "var(--warn,#b5531c)"}">타설 전 확인: ${esc(z.pour_gate.decision)}</div>${!z.pour_gate.reason ? "" : long(z.pour_gate.reason) ? fold("타설 전 확인 사유", esc(z.pour_gate.reason)) : `<div class="sub">${esc(z.pour_gate.reason)}</div>`}${z.pour_gate.decision === "타설 보류" ? `<div class="sub">아래층 동바리를 바로 확인하기: ${gateZones(z.pour_gate.reason).map(id => `<button type="button" class="chip" data-goto="${esc(id)}">${esc(id)}</button>`).join(" ")}</div>` : ""}` : ""}${
+    !z.early_form ? "" : long(z.early_form) ? fold(/조기 탈형/.test(z.early_form) ? "판넬 조기 탈형 검토" : esc(String(z.early_form).split(/[:(—]/)[0].trim().slice(0, 20)) || "자세히", esc(z.early_form)) : `<div class="sub">${esc(z.early_form)}</div>`}${
+    z.decision && rb ? fold("판정 규칙 근거", esc(rb), " basis") : ""}${extra}</div>`;
+}
+// v6.4 2-2 타설 전 동바리 일괄 확인 대상 — shoring/pour_gate.py 와 같은 규칙 (층 순서로 바로 아래 MIN_LEVELS=3 개층, 평면이 면적 > 0 으로 겹치는 구역 = evaluate.overlaps)
+function pourTargets(z) {
+  const fl = floorOfZone(z.zone_id), order = model.floors.map(f => f.floor).sort((a, b) => a - b);
+  const ov = (a, b) => Math.min(a.x1, b.x1) > Math.max(a.x0, b.x0) && Math.min(a.y1, b.y1) > Math.max(a.y0, b.y0);
+  return order.filter(f => f < fl).reverse().slice(0, 3).map(f => { const F = model.floors.find(x => x.floor === f);
+    return {floor: f, name: F.name, zones: F.zones.filter(q => ov(q, z))}; }).filter(g => g.zones.length);
+}
+const safeId = zid => String(zid).replace(/[^0-9A-Za-z_-]/g, "_");
+function renderKind() {
+  const z = curZone(); if (!z) return go("zone");
+  $("#zcard").outerHTML = `<div id="zcard">${zoneCard(z)}</div>`;
+  // 쓰임새로 묶음: 판정에 쓰는 측정 → 동바리 → 참고 (판정 미사용)
+  const GROUPS = [["판정에 쓰는 측정", ["cylinder", "sensor_temp", "sensor_strength"]], ["동바리", ["shore_check", "shore_inspect"]],
+    ["참고 · 판정에 안 씀", ["rebound", "after_check"]]];
+  $("#kinds").innerHTML = GROUPS.map(([t, ks]) => `<h3 class="kh">${t}</h3><div class="kinds">` + ks.filter(k => KIND[k]).map(k => { const v = KIND[k];
+    const s = v.sub.replace(/^참고 · 판정 미사용( · )?/, "");   // 묶음 제목이 이미 '참고'라 되풀이하지 않음
+    return `<button type="button" class="kind${v.ref ? " ref" : ""}" data-k="${k}">${v.label}${s ? `<small>${s}</small>` : ""}</button>`; }).join("") + `</div>`).join("");
+  if (z.pour_gate) {   // 아직 타설 전 구역 — 아래 3개층 동바리를 한 번에 확인 (v6.4 2-2)
+    const n = pourTargets(z).reduce((a, g) => a + g.zones.length, 0);
+    $("#kinds").insertAdjacentHTML("afterbegin", `<h3 class="kh">타설 전</h3><div class="kinds"><button type="button" class="kind" data-k="pour_batch">타설 전 동바리 일괄 확인<small>아래 3개층 ${n}구역 · 전부 서 있음 한 번 + 예외만 아니오</small></button></div>`);
+  }
+  for (const b of document.querySelectorAll("#kinds .kind")) b.onclick = () => { st.kind = b.dataset.k; st.sensor = null; st.mode = "one"; st.siLoaded = null; go("form"); };
+  for (const b of document.querySelectorAll("#zcard [data-goto]")) b.onclick = () => {   // 타설 보류 사유의 아래층 구역 → 그 구역 동바리 확인
+    const f = model.floors.find(f => f.zones.some(q => q.zone_id === b.dataset.goto)); if (!f) return;
+    st.floor = f.floor; st.zone = b.dataset.goto; st.kind = "shore_check"; st.present = "예"; go("form"); };
+}
+
+// ---------- 3. 입력 ----------
+const REQ = `<b class="req" aria-hidden="true">*</b><span class="sr">(필수)</span>`;   // U10 꼭 넣을 칸
+const field = (id, label, inner, hint = "") =>
+  `<div><label for="${id}">${label}${hint ? ` <span class="sub">${hint}</span>` : ""}</label>${inner}<p class="err" id="e-${id}"></p></div>`;
+const numIn = (id, ph, next = "next") => `<input id="${id}" inputmode="decimal" enterkeyhint="${next}" placeholder="${ph}" aria-describedby="e-${id}">`;
+function nameNote() {
+  return field("f-name", "입력자" + REQ, `<input id="f-name" autocomplete="name" enterkeyhint="done" value="${esc(LS.get("name", ""))}" aria-describedby="e-f-name">`, "기록에 남습니다") +
+    `<details${LS.get("noteOpen", false) ? " open" : ""}><summary>메모 (선택)</summary><input id="f-note" maxlength="200" enterkeyhint="done" aria-label="메모" aria-describedby="e-f-note"><p class="err" id="e-f-note"></p></details>`;
+}
+function sensorsHere() {
+  return model.sensors.filter(s => s.floor === st.floor && s.kind === st.kind);
+}
+function nextSensorId() {
+  const pre = st.kind === "sensor_temp" ? "S" : "W";
+  const all = model.sensors.map(s => s.sensor_id), n = Math.max(0, ...all.filter(i => i.startsWith(pre)).map(i => parseInt(i.slice(1)) || 0));
+  let id = pre + (n + 1); while (all.includes(id)) id = pre + (parseInt(id.slice(1)) + 1); return id;
+}
+// v6.4 G9 해체 후 침하 계측 (가이드라인 3.2.12①) — 지점 이름 + mm, 날마다 같은 지점을 다시 잼 (지점 이름은 구역마다 기억)
+function settleHTML(z) {
+  const pts = LS.get("settle." + z.zone_id, ["P1", "P2"]);
+  return `<details class="card"${pts.length > 2 || LS.get("settleOpen", false) ? " open" : ""} id="f-settle"><summary>침하 계측 <span class="sub">(선택 · 지점마다 mm, 날마다 같은 지점)</span></summary>` +
+    `<div id="f-set-rows">${pts.map((p, i) => settleRow(p, i)).join("")}</div>` +
+    `<button type="button" class="btn sec" id="f-set-add">＋ 지점 더하기</button><p class="err" id="e-f-settle"></p></details>`;
+}
+const settleRow = (p, i) => `<div class="three" data-set="${i}"><div><label for="f-set-p${i}" class="sub">지점</label><input id="f-set-p${i}" value="${esc(p)}" maxlength="10" autocapitalize="characters" enterkeyhint="next"></div>` +
+  `<div><label for="f-set-v${i}" class="sub">침하 mm</label>${numIn("f-set-v" + i, "", "next")}</div></div>`;
+function lotOf(z) {   // W1 타설 묶음: 이 구역과 같은 pour_id 를 가진 구역들 (2개 이상일 때만 고르기)
+  const id = (z && z.pour_id || "").trim(); if (!id || !model) return null;
+  const zs = model.floors.flatMap(f => f.zones).filter(x => (x.pour_id || "").trim() === id).map(x => x.zone_id);
+  return zs.length > 1 ? {id, zones: zs} : null;
+}
+function renderForm() {
+  const z = curZone(), k = KIND[st.kind]; if (!z || !k) return go("zone");
+  $("#ftitle").textContent = `${z.zone_id} ${k.label}`;
+  $("#fsub").textContent = k.ref ? "참고값으로 저장만 합니다 (판정에 쓰지 않음)" : k.sub;
+  const f = $("#form"), now = nowStr();
+  let h = "";
+  st.photo = null; st.photoReading = false;      // 폼을 새로 그리면 고른 사진도 새로 (파일 칸이 비므로)
+  const lot = st.kind === "cylinder" ? lotOf(z) : null;
+  if (!lot) st.cylLot = false;
+  if (lot && st.cylLot) $("#ftitle").textContent = `타설 ${lot.id} (${lot.zones.length}구역) ${k.label}`;
+  if (st.kind === "cylinder") {
+    st.curing = st.curing || LS.get("curing", (model.curings || [])[0]);
+    if (lot) h += `<label id="l-lot">공시체 대상</label><div class="seg" role="group" aria-labelledby="l-lot" id="f-lot">` +
+      `<button type="button" aria-pressed="${!st.cylLot}" data-lot="0">이 구역만 (${esc(z.zone_id)})</button>` +
+      `<button type="button" aria-pressed="${!!st.cylLot}" data-lot="1">타설 묶음 ${esc(lot.id)} · ${lot.zones.length}구역 공통</button></div>` +
+      `<p class="sub">같이 친 구역(${esc(lot.zones.join(", "))})에 같은 공시체 결과를 씁니다. 구역 자기 공시체가 있으면 그것을 먼저 씁니다</p>`;
+    const samp = LS.get("samp", {});   // 채취 정보 지난번 값 (레미콘 회사·보관 위치, ui_reference_research 7절 #16)
+    h += field("f-date", "시험일", `<input id="f-date" type="date" value="${today()}" min="${z.pour_date}" max="${today()}">`, `<span id="age"></span>`) +
+      `<label id="l-cur">양생 방법${REQ}</label><div class="seg" role="group" aria-labelledby="l-cur" id="f-curing">${(model.curings || []).map(c =>
+        `<button type="button" aria-pressed="${c === st.curing}" data-c="${esc(c)}">${esc(c)}</button>`).join("")}</div><p class="err" id="e-f-curing"></p>` +
+      `<label>공시체 강도${REQ} <span class="sub">MPa, 3개</span></label><div class="three">` +
+      [1, 2, 3].map(i => `<div><label for="f-f${i}" class="sub">${i}번</label>${numIn("f-f" + i, "", i < 3 ? "next" : "done")}<p class="err" id="e-f-f${i}"></p></div>`).join("") +
+      `</div><div class="avg" id="avg" aria-live="polite"></div>` +
+      field("f-photo", "사진 (선택, 1장: 시험 성적서나 공시체)", `<input id="f-photo" type="file" accept="image/jpeg,image/png" capture="environment">`, PHOTO_HINT) +   // v6.4 2-4
+      // 채취 정보 (선택, F2) — 판정에는 안 쓰고 cylinders.csv 에 같이 남김 (값을 넣을 때만 열이 생김)
+      `<details class="card"><summary>채취 정보 <span class="sub">(선택 · 판정에 안 씀)</span></summary>` +
+      field("f-pid", "타설 번호", `<input id="f-pid" maxlength="40" enterkeyhint="next" placeholder="예: P-9F-2">`) +
+      field("f-sat", "채취 시각", `<input id="f-sat" type="datetime-local" min="${z.pour_date}T00:00" max="${today()}T23:59">`, "타설 때 채취한 시각") +
+      field("f-sup", "레미콘 회사", `<input id="f-sup" maxlength="40" enterkeyhint="next" value="${esc(samp.supplier || "")}">`, samp.supplier ? "지난번 값입니다. 다르면 고치세요" : "") +
+      field("f-truck", "차량 번호", `<input id="f-truck" maxlength="20" enterkeyhint="next" placeholder="예: 12가3456">`) +
+      field("f-store", "보관 위치", `<input id="f-store" maxlength="40" enterkeyhint="next" placeholder="예: 9F-B2 옆 수조" value="${esc(samp.storage_zone || "")}">`, samp.storage_zone ? "지난번 값입니다. 다르면 고치세요" : "") +
+      field("f-cphoto", "사진 파일 이름", `<input id="f-cphoto" maxlength="80" enterkeyhint="done">`, "사진은 휴대폰에 보관") + `</details>`;
+  } else if (st.kind === "shore_check") {
+    st.present = st.present || "예";
+    h += field("f-ts", "확인 시각", `<input id="f-ts" type="datetime-local" value="${now}" max="${today()}T23:59">`) +
+      `<label id="l-pre">이 구역 아래 동바리가 지금 서 있나요?</label><div class="seg" role="group" aria-labelledby="l-pre" id="f-present">${["예", "아니오"].map(c =>
+        `<button type="button" aria-pressed="${c === st.present}" data-c="${c}">${c}</button>`).join("")}</div><p class="err" id="e-f-present"></p>` +
+      field("f-photo", "사진 (선택, 1장)", `<input id="f-photo" type="file" accept="image/jpeg,image/png" capture="environment">`, PHOTO_HINT);
+  } else if (st.kind === "pour_batch") {   // v6.4 2-2 — 구역마다 예/아니오, [전부 서 있음] 한 번
+    if (st.pbz !== z.zone_id) { st.pb = {}; st.pbz = z.zone_id; }
+    const groups = pourTargets(z);
+    h += field("f-ts", "확인 시각", `<input id="f-ts" type="datetime-local" value="${now}" max="${today()}T23:59">`) +
+      (groups.length ? `<button type="button" class="btn sec" id="pbAll" style="width:100%">✓ 전부 서 있음</button><p class="sub">예외 구역만 '아니오'로 바꾸세요. 해체 완료 기록이 있는 구역은 재받침 기록 없이는 지지로 보지 않습니다.</p>` +
+        groups.map(g => `<h3 class="kh">${esc(g.name)}</h3>` + g.zones.map(q => `<label id="l-pb-${safeId(q.zone_id)}">${esc(q.zone_id)}${q.status === 7 ? ' <span class="sub">해체 완료 기록</span>' : ""}</label>` +
+          `<div class="seg" role="group" aria-labelledby="l-pb-${safeId(q.zone_id)}" data-pb="${esc(q.zone_id)}">${["예", "아니오"].map(c => `<button type="button" aria-pressed="${st.pb[q.zone_id] === c}" data-c="${c}">${c === "예" ? "서 있음" : "없음"}</button>`).join("")}</div>`).join("")).join("") +
+        `<p class="err" id="e-f-pb"></p>`
+        : `<div class="msg w">확인할 아래층 구역이 없습니다 (아래층이 없거나 평면이 겹치지 않음).</div>`);
+  } else if (st.kind === "after_check") {   // 해체 후 점검 5항목 — 고른 항목만 저장 (화면 OK/NG, 값은 예 → OK, 아니오 → NG)
+    if (st.acz !== z.zone_id) { st.ac = {}; st.acz = z.zone_id; }
+    h += field("f-date", "점검일", `<input id="f-date" type="date" value="${today()}" min="${z.pour_date}" max="${today()}">`, "해체 뒤 그 층에서 확인") +
+      AC.map(([c, n]) => `<label id="l-${c}">${c} ${esc(n)}</label><div class="seg" role="group" aria-labelledby="l-${c}" data-ac="${c}">${[["예", "OK"], ["아니오", "NG"]].map(([v, t]) =>   // 보내는 값은 예/아니오 그대로 (서버가 예 → OK, 아니오 → NG). 글자만 OK/NG — 항목마다 '예'의 뜻이 달라 헷갈리지 않게
+        `<button type="button" aria-pressed="${st.ac[c] === v}" data-c="${v}">${t}</button>`).join("")}</div>`).join("") + `<p class="err" id="e-f-ac"></p>` +
+      settleHTML(z) +
+      field("f-photo", "사진 (선택, 1장)", `<input id="f-photo" type="file" accept="image/jpeg,image/png" capture="environment">`, PHOTO_HINT);
+  } else if (st.kind === "shore_inspect") {   // F16 — 단계 → 항목마다 OK/NG ([전부 OK] 한 번에), NG 면 평면에서 문제 동바리 여러 개 (사진 없음)
+    const stages = model.inspect || [];
+    if (st.siz !== z.zone_id) { st.si = {}; st.siz = z.zone_id; st.siActive = null; }
+    if (!stages.some(s => s.stage === st.siStage)) st.siStage = (stages[0] || {}).stage;
+    h += `<label id="l-stg">점검 단계</label><div class="seg" role="group" aria-labelledby="l-stg" id="f-stage">${stages.map(s =>
+        `<button type="button" aria-pressed="${s.stage === st.siStage}" data-c="${esc(s.stage)}">${esc(s.stage)}</button>`).join("")}</div>` +
+      field("f-ts", "점검 시각", `<input id="f-ts" type="datetime-local" value="${now}" max="${today()}T23:59">`) +
+      `<label style="margin-top:14px">항목 <span class="sub">기준 · 출처</span></label>` +
+      `<button type="button" class="btn allok" id="f-allok">✓ ${Object.values(st.si).some(v => v.r === "NG") ? "나머지 전부 OK" : "전부 OK"}</button>` +
+      // 평면은 지금 고르는 NG 항목 바로 아래에 (없으면 맨 끝) — 항목이 많아도 스크롤 없이 고르게
+      siItems().map(it => { const v = st.si[it.code] || {}, act = st.siActive === it.code;
+        return `<div class="siitem" data-active="${act}"><div id="l-${esc(it.code)}"><b>${esc(it.code)} ${esc(it.label)}</b><div class="sub">${esc(it.criterion)} · ${esc(it.source)}</div></div>` +
+          `<div class="seg" role="group" aria-labelledby="l-${esc(it.code)}" data-si="${esc(it.code)}">${["OK", "NG"].map(r => `<button type="button" aria-pressed="${v.r === r}" data-c="${r}">${r}</button>`).join("")}</div>` +
+          (v.r === "NG" ? `<button type="button" class="lnk" data-pick="${esc(it.code)}">${esc(pickText(it.code))}</button>` : "") + (act ? `<div id="f-plan"></div>` : "") + `</div>`; }).join("") +
+      `<p class="err" id="e-f-si"></p>${siItems().some(it => it.code === st.siActive) ? "" : `<div id="f-plan"></div>`}`;
+  } else if (st.kind === "rebound") {
+    h += field("f-date", "시험일", `<input id="f-date" type="date" value="${today()}" min="${z.pour_date}" max="${today()}">`) +
+      field("f-r", "평균 반발경도 R", numIn("f-r", "예: 42", "done"), "20점 평균") +
+      `<details><summary>측정 위치 (기본: 구역 가운데)</summary><div class="two">${field("f-x", "x (m)", numIn("f-x", ""))}${field("f-y", "y (m)", numIn("f-y", ""))}</div></details>`;
+  } else {
+    const cx = (z.x0 + z.x1) / 2, cy = (z.y0 + z.y1) / 2;   // 이 구역에 가까운 센서부터, 기본 선택 = 가장 가까운 것
+    const list = sensorsHere().sort((a, b) => Math.hypot(a.x - cx, a.y - cy) - Math.hypot(b.x - cx, b.y - cy));
+    if (!st.sensor) st.sensor = list.length ? list[0].sensor_id : "__new";
+    h += `<label id="l-sen">센서 <span class="sub">${esc((curFloor() || {}).name || st.floor + "층")} ${k.label} ${list.length}개</span></label><div class="chips" role="group" aria-labelledby="l-sen" id="f-sensor">` +
+      list.map(s => `<button type="button" class="chip tall" aria-pressed="${s.sensor_id === st.sensor}" data-s="${esc(s.sensor_id)}">${esc(s.sensor_id)}<small>(${s.x}, ${s.y}) m</small><small>${s.last ? esc(s.last[k.col]) + " " + k.unit + " · " + mmdd(s.last.timestamp.slice(0, 10)) + " " + s.last.timestamp.slice(11) : ""}</small></button>`).join("") +
+      `<button type="button" class="chip tall" aria-pressed="${st.sensor === "__new"}" data-s="__new">+ 새 센서<small>ID·위치 등록</small></button></div>`;
+    if (st.sensor === "__new") {
+      if (st.nx == null || st.nzone !== z.zone_id) { st.nx = (z.x0 + z.x1) / 2; st.ny = (z.y0 + z.y1) / 2; st.nzone = z.zone_id; }
+      h += `<div class="card">` + field("f-sid", "새 센서 ID", `<input id="f-sid" value="${esc(nextSensorId())}" enterkeyhint="next" autocapitalize="characters" aria-describedby="e-f-sid">`) +
+        `<label>위치 <span class="sub">평면을 누르거나 숫자로 넣으세요 (기본: 구역 가운데)</span></label><div class="plan" id="pickplan" role="application" aria-label="센서 위치 고르기 평면"></div>` +
+        `<div class="two">${field("f-x", "x (m)", numIn("f-x", ""))}${field("f-y", "y (m)", numIn("f-y", ""))}</div></div>`;
+    }
+    h += `<div class="seg" role="group" aria-label="입력 방식" id="f-mode" style="margin-top:14px">
+      <button type="button" data-m="one" aria-pressed="${st.mode === "one"}">한 건 입력</button>
+      <button type="button" data-m="paste" aria-pressed="${st.mode === "paste"}">기록 붙여넣기</button></div>`;
+    if (st.mode === "one") {
+      h += field("f-ts", "측정 시각", `<input id="f-ts" type="datetime-local" value="${now}" max="${today()}T23:59">`) +
+        field("f-val", `${k.vlabel} (${k.unit})`, st.kind === "sensor_temp"   // iPhone 숫자 키패드에는 − 가 없어 영하 온도용 부호 버튼
+          ? `<div class="row">${numIn("f-val", "예: 12.5", "done")}<button type="button" class="btn" id="f-neg" aria-label="영하 (부호 바꾸기)">±</button></div>`
+          : numIn("f-val", "예: 18.4", "done"));
+    } else {
+      h += field("f-paste", `${k.vlabel} 기록 붙여넣기`, `<textarea id="f-paste" spellcheck="false" aria-describedby="e-f-paste pv"
+        placeholder="센서 앱에서 내보낸 CSV를 붙여 넣으세요&#10;한 줄에 시각,값&#10;2026-12-30 09:00,12.5&#10;2026-12-30 10:00,12.1"></textarea><div class="pv" id="pv"></div>`, "시각,값");
+    }
+  }
+  h += nameNote();
+  f.innerHTML = h;
+  bindForm(z);
+  restoreDraft();
+  const sel = f.querySelector("#f-sensor [aria-pressed=true]"); if (sel) sel.scrollIntoView({inline: "nearest", block: "nearest"});
+  const first = f.querySelector("input[inputmode=decimal]:not(#f-x):not(#f-y), textarea"); if (first) setTimeout(() => first.focus(), 60);
+}
+function quickDates(f) {   // ui_reference_research 7절 #15
+  const add = (el, list) => { if (el.nextElementSibling && el.nextElementSibling.classList.contains("quick")) return;
+    el.insertAdjacentHTML("afterend", `<div class="quick">${list.map(([t, v]) => `<button type="button" data-v="${v}"${(el.min && v < el.min) || (el.max && v > el.max) ? " disabled" : ""}>${t}</button>`).join("")}</div>`);
+    for (const b of el.nextElementSibling.querySelectorAll("button")) b.onclick = () => { el.value = b.dataset.v; el.dispatchEvent(new Event("input", {bubbles: true})); };
+  };
+  const d0 = today(), y = new Date(Date.parse(d0 + "T12:00:00") - 864e5).toISOString().slice(0, 10);
+  for (const el of f.querySelectorAll("input[type=date]")) add(el, [["오늘", d0], ["어제", y]]);
+  for (const el of f.querySelectorAll("input[type=datetime-local]")) add(el, [["지금", nowStr()]]);
+}
+// U9 (v6.3) 넣던 값 임시 저장: 뒤로 갔다 와도 칸이 비지 않게 — 구역·종류별 sessionStorage, 저장(또는 기기 대기열에 넣음)하면 지움
+const draftKey = () => "draft." + st.zone + "." + st.kind + (st.sensor ? "." + st.sensor : "");
+function restoreDraft() {
+  let d = null; try { d = JSON.parse(sessionStorage.getItem(draftKey()) || "null"); } catch (_) {}
+  const f = $("#form");
+  if (d) for (const [id, v] of Object.entries(d)) { const e = document.getElementById(id); if (e && f.contains(e) && e.type !== "file") { e.value = v; e.dispatchEvent(new Event("input", {bubbles: true})); } }
+  f.oninput = e => { const t = e.target; if (!t.id || t.type === "file") return;
+    try { const o = JSON.parse(sessionStorage.getItem(draftKey()) || "{}"); o[t.id] = t.value; sessionStorage.setItem(draftKey(), JSON.stringify(o)); } catch (_) {} };
+}
+const dropDraft = () => { try { sessionStorage.removeItem(draftKey()); } catch (_) {} };
+function bindForm(z) {
+  const f = $("#form");
+  quickDates(f);
+  const sadd = f.querySelector("#f-set-add");   // 침하 지점 더하기
+  if (sadd) sadd.onclick = () => { const box = f.querySelector("#f-set-rows"), n = box.children.length; if (n >= 20) return;
+    box.insertAdjacentHTML("beforeend", settleRow("P" + (n + 1), n)); f.querySelector("#f-set-v" + n).focus(); LS.set("settleOpen", true); };
+  const pbPaint = () => { for (const g of f.querySelectorAll("[data-pb]")) for (const b of g.querySelectorAll("button")) b.setAttribute("aria-pressed", st.pb[g.dataset.pb] === b.dataset.c); };
+  for (const g of f.querySelectorAll("[data-pb]")) for (const b of g.querySelectorAll("button")) b.onclick = () => { st.pb[g.dataset.pb] = b.dataset.c; pbPaint(); clearErr("f-pb"); };
+  const all = f.querySelector("#pbAll"); if (all) all.onclick = () => { for (const g of f.querySelectorAll("[data-pb]")) st.pb[g.dataset.pb] = "예"; pbPaint(); clearErr("f-pb"); say("전부 서 있음으로 표시했습니다. 예외만 바꾸세요"); };
+  if (st.kind === "shore_inspect") {
+    const re = fn => keep(() => { fn(); clearErr("f-si"); });
+    for (const b of f.querySelectorAll("#f-stage button")) b.onclick = () => re(() => { if (st.siStage !== b.dataset.c) { st.siStage = b.dataset.c; st.si = {}; st.siActive = null; } });
+    for (const g of f.querySelectorAll("[data-si]")) for (const b of g.querySelectorAll("button")) b.onclick = () => re(() => {
+      const c = g.dataset.si, v = st.si[c] = st.si[c] || {ids: []}; v.r = b.dataset.c;
+      if (v.r === "NG") st.siActive = c;
+      else { v.ids = []; if (st.siActive === c) st.siActive = Object.keys(st.si).find(k => st.si[k].r === "NG") || null; } });
+    for (const b of f.querySelectorAll("[data-pick]")) b.onclick = () => re(() => { st.siActive = b.dataset.pick; });
+    $("#f-allok").onclick = () => re(() => { for (const it of siItems()) if (!st.si[it.code] || !st.si[it.code].r) st.si[it.code] = {r: "OK", ids: []}; });   // NG 로 고른 항목은 그대로
+    renderShorePlan();
+    if (st.siLoaded !== st.floor) loadShores(st.floor).then(ok => { if (ok) { st.siLoaded = st.floor; if (st.step === "form" && st.kind === "shore_inspect") renderShorePlan(); } });
+  }
+  const ph = f.querySelector("#f-photo[type=file]");
+  if (ph) ph.onchange = () => {    // 사진 1장 (F15) — 원본 그대로 base64 로 (크기·종류는 서버가 다시 검사)
+    clearErr("f-photo"); st.photo = null; st.photoReading = false;
+    const file = ph.files && ph.files[0];
+    if (!file) return;
+    if (!SHRINK) {
+      if (file.size > PHOTO_MAX) { setErr("f-photo", `사진이 너무 큽니다 (${(file.size / 1048576).toFixed(1)} MB) . 8 MB 이하로 찍어 주세요`); ph.value = ""; return; }
+      st.photoReading = true;
+      const rd = new FileReader();
+      rd.onload = () => { st.photo = rd.result; st.photoReading = false; };
+      rd.onerror = () => { st.photoReading = false; setErr("f-photo", "사진을 읽지 못했습니다. 다시 고르세요"); };
+      rd.readAsDataURL(file);
+      return;
+    }
+    st.photoReading = true;
+    shrinkPhoto(file).then(d => { st.photo = d; st.photoReading = false; }, e => {
+      st.photoReading = false; ph.value = "";
+      setErr("f-photo", e.message === "big" ? "사진이 큽니다. 3 MB 이하로 골라 주세요" : "사진을 읽지 못했습니다. 다시 고르세요"); });
+  };
+  for (const b of f.querySelectorAll("#f-present button")) b.onclick = () => { st.present = b.dataset.c; for (const x of f.querySelectorAll("#f-present button")) x.setAttribute("aria-pressed", x === b); };
+  for (const g of f.querySelectorAll("[data-ac]")) for (const b of g.querySelectorAll("button")) b.onclick = () => {
+    st.ac[g.dataset.ac] = b.dataset.c; clearErr("f-ac"); for (const x of g.querySelectorAll("button")) x.setAttribute("aria-pressed", x === b); };
+  for (const b of f.querySelectorAll("#f-lot button")) b.onclick = () => { st.cylLot = b.dataset.lot === "1"; renderForm(); };   // W1 대상 바꾸면 폼 다시
+  for (const b of f.querySelectorAll("#f-curing button")) b.onclick = () => { st.curing = b.dataset.c; LS.set("curing", st.curing); for (const x of f.querySelectorAll("#f-curing button")) x.setAttribute("aria-pressed", x === b); };
+  for (const b of f.querySelectorAll("#f-sensor .chip")) b.onclick = () => { keep(() => { st.sensor = b.dataset.s; }); };
+  for (const b of f.querySelectorAll("#f-mode button")) b.onclick = () => { keep(() => { st.mode = b.dataset.m; }); };
+  // Enter → 다음 칸, 마지막 칸이면 저장
+  const ins = [...f.querySelectorAll("input:not([type=date]):not([type=datetime-local])")];
+  ins.forEach((el, i) => el.addEventListener("keydown", e => {
+    if (e.key !== "Enter") return; e.preventDefault();
+    const nx = ins.slice(i + 1).find(x => x.offsetParent && x.id !== "f-note" && !(x.id === "f-name" && x.value.trim()));
+    nx && el.id !== "f-name" ? nx.focus() : save();
+  }));
+  for (const el of f.querySelectorAll("input,textarea")) el.addEventListener("input", () => { clearErr(el.id); });
+  if ($("#f-f1")) { const upd = () => { const v = [1, 2, 3].map(i => num($("#f-f" + i).value)); const ok = v.filter(isFinite), a = $("#avg");
+      if (ok.length < 3) { a.className = "avg sub"; a.textContent = `평균은 3개를 모두 넣으면 나옵니다 (${ok.length}/3)`; return; }
+      const m = ok.reduce((x, y) => x + y) / 3, pass = z.threshold ? m >= z.threshold : null;
+      a.className = "avg" + (pass === true ? " ok" : pass === false ? " no" : "");
+      a.textContent = `평균 ${m.toFixed(2)} MPa ${z.threshold ? (pass ? "≥" : "<") + " 기준 " + z.threshold + " MPa" : ""}`; };
+    for (const i of [1, 2, 3]) $("#f-f" + i).addEventListener("input", upd); upd(); }
+  if ($("#age")) { const ageUpd = () => {   // 타설일 대신 재령(타설 후 며칠)을 보여 줌 — 시험일 값과 헷갈리지 않게
+      const d = $("#f-date").value, n = d && z.pour_date ? Math.round((Date.parse(d + "T12:00:00") - Date.parse(z.pour_date + "T12:00:00")) / 864e5) : null;
+      $("#age").textContent = n == null ? "" : `재령 ${n}일 · 타설 ${mmdd(z.pour_date)}`; };
+    $("#f-date").addEventListener("input", ageUpd); $("#f-date").addEventListener("change", ageUpd); ageUpd(); }
+  if ($("#f-paste")) $("#f-paste").addEventListener("input", () => preview());
+  if ($("#f-neg")) $("#f-neg").onclick = () => { const v = $("#f-val"); v.value = v.value.startsWith("-") ? v.value.slice(1) : "-" + v.value; v.focus(); clearErr("f-val"); };
+  const pick = $("#pickplan");
+  if (pick) {
+    const fz = curFloor().zones, sx = () => $("#f-x"), sy = () => $("#f-y");
+    const draw = () => { const g = drawPlan(pick, fz, {minTile: 60, tile: (q, pos) => `<span class="tile" style="${pos};background:var(--chip);color:var(--ink)"><span class="st">${esc(short(q.zone_id))}</span></span>`,
+      dots: model.sensors.filter(s => s.floor === st.floor).map(s => ({x: s.x, y: s.y, label: s.sensor_id, cls: s.kind === "sensor_strength" ? "w" : ""})).concat([{x: st.nx, y: st.ny, cls: "new", label: "새"}])}); return g; };
+    let g = draw(); sx().value = r1(st.nx); sy().value = r1(st.ny);
+    pick.onclick = e => { const r = pick.getBoundingClientRect();
+      st.nx = Math.round((g.x0 + (e.clientX - r.left) / r.width * g.w) * 2) / 2; st.ny = Math.round((g.y1 - (e.clientY - r.top) / r.height * g.h) * 2) / 2;
+      st.nx = Math.min(Math.max(st.nx, g.x0), g.x1); st.ny = Math.min(Math.max(st.ny, g.y0), g.y1);
+      sx().value = r1(st.nx); sy().value = r1(st.ny); g = draw(); clearErr("f-x"); clearErr("f-y"); };
+    for (const el of [sx(), sy()]) el.addEventListener("change", () => { const x = num(sx().value), y = num(sy().value); if (isFinite(x) && isFinite(y)) { st.nx = x; st.ny = y; g = draw(); } });
+  }
+}
+const r1 = v => String(Math.round(v * 100) / 100);
+
+// ---------- F16 동바리 점검: 구역 평면(SVG — 두 손가락 확대·끌어 옮기기·＋－) 에서 문제 동바리를 눌러 여러 개 고름 ----------
+const shortId = id => id.slice(id.lastIndexOf("-") + 1);
+async function loadShores(fl) {   // GET /api/floor (입력 토큰) → 이 층 구역 사각형·동바리 점·풀리지 않은 NG. 기기에 담아 오프라인에서도 고름
+  const r = await api("/api/floor?f=" + encodeURIComponent(fl));
+  if (r.status !== 200 || !r.j.ok) return false;
+  shoreCache[fl] = {rects: r.j.zone_rects || [], shores: r.j.shores || [], ng: Object.fromEntries((r.j.zones || []).map(z => [z.zone_id, z.ng || ""]))};
+  LS.set("shores", shoreCache); return true;
+}
+function shoreData() { const c = shoreCache[st.floor]; return c && {...c, mine: c.shores.filter(s => s.zone_id === st.zone)}; }
+function siItems() { return (((model && model.inspect) || []).find(s => s.stage === st.siStage) || {items: []}).items; }
+function pickText(code) { const ids = (st.si[code] || {}).ids || [];
+  return `${st.siActive === code ? "▶ 평면에서 고르는 중" : "평면에서 고르기"} · 문제 동바리 ${ids.length}개${ids.length ? ": " + ids.slice(0, 3).map(shortId).join(", ") + (ids.length > 3 ? " …" : "") : ""}`; }
+function renderShorePlan() {
+  const el = $("#f-plan"); if (!el) return;
+  const d = shoreData();
+  if (!d) { el.innerHTML = `<div class="msg w">동바리 위치를 받는 중… 오프라인이면 연결된 뒤 평면이 보입니다 (NG 항목의 동바리는 그때 고르세요).</div>`; return; }
+  const was = d.ng[st.zone] ? `<div class="msg w">풀리지 않은 결함 기록: ${esc(d.ng[st.zone])}</div>` : "";
+  if (!d.mine.length) { el.innerHTML = was + `<div class="msg w">이 구역 동바리 위치가 아직 없습니다 (Revit에서 현장 입력을 켜면 만들어집니다). NG는 구역 전체로 기록됩니다.</div>`; return; }
+  const z = d.rects.find(r => r.zone_id === st.zone) || curZone();
+  const fit = [z.x0 - 0.6, -z.y1 - 0.6, z.x1 - z.x0 + 1.2, z.y1 - z.y0 + 1.2];   // 평면 y 는 북 = 위라 SVG 에서 뒤집음
+  if (st.vbz !== st.zone) { st.vb = fit.slice(); st.vbz = st.zone; }
+  el.innerHTML = was + `<svg class="splan" id="splan" viewBox="${st.vb.join(" ")}" style="aspect-ratio:${fit[2]}/${fit[3]}" role="application" aria-label="${esc(st.zone)} 동바리 평면. 눌러서 문제 동바리를 고르고, 두 손가락으로 확대">` +
+    d.rects.map(r => `<rect class="zr${r.zone_id === st.zone ? " me" : ""}" x="${r.x0}" y="${-r.y1}" width="${r.x1 - r.x0}" height="${r.y1 - r.y0}"/>`).join("") +
+    d.mine.map(s => `<g data-id="${esc(s.id)}"><circle cx="${s.x}" cy="${-s.y}" r="0.14"/><text x="${s.x}" y="${-s.y - 0.24}">${esc(s.label || shortId(s.id))}</text></g>`).join("") + `</svg>` +
+    `<div class="zbar"><button type="button" class="btn" data-zm="in" aria-label="확대">＋</button><button type="button" class="btn" data-zm="out" aria-label="축소">－</button>` +
+    `<button type="button" class="btn" data-zm="fit">구역 전체</button><button type="button" class="btn" data-zm="clr">선택 지우기</button></div>` +
+    `<p class="sub">● 빨강 = 고르는 항목의 문제 동바리 · ○ 빨강 테두리 = 다른 NG 항목 · 점선 = 풀리지 않은 기존 결함 기록</p><p class="sub" id="f-selids" aria-live="polite"></p>` +
+    // v6.4 2-7 (U13): 평면을 누르지 않고 번호로 고르기 + 고른 동바리 칩(누르면 뺌) — 장갑·화면 읽기·키보드 대안
+    `<div class="row" style="gap:8px;margin-top:6px"><input id="f-sid-in" placeholder="R01C01 처럼 넣기 (여러 개는 쉼표)" aria-label="문제 동바리 번호 넣기" enterkeyhint="done" autocapitalize="characters" style="flex:1">` +
+    `<button type="button" class="btn" id="f-sid-add">넣기</button></div><div class="chips" id="f-selchips" aria-label="고른 동바리 (누르면 뺌)"></div>`;
+  const svg = $("#splan"), mine = new Map(d.mine.map(s => [s.id, s])), ctm = () => svg.getScreenCTM();
+  const apply = () => { svg.setAttribute("viewBox", st.vb.join(" ")); const m = ctm(); if (!m || !m.a) return;
+    for (const c of svg.querySelectorAll("circle")) c.setAttribute("r", Math.max(0.12, 8 / m.a));   // 멀리서 봐도 점이 8 px 이상
+    svg.classList.toggle("lab", m.a > 45); };                                                  // 1 m 가 45 px 넘게 확대하면 이름 표시
+  const zoomAt = (cx, cy, k, vb) => { const w = Math.min(Math.max(vb[2] * k, 1.5), fit[2] * 2), s = w / vb[2];
+    st.vb = [cx - (cx - vb[0]) * s, cy - (cy - vb[1]) * s, w, vb[3] * s]; apply(); };
+  const world = (x, y) => { const p = svg.createSVGPoint(); p.x = x; p.y = y; return p.matrixTransform(ctm().inverse()); };
+  const paint = () => { const act = st.siActive && st.si[st.siActive], sel = new Set(act ? act.ids : []), oth = new Set();
+    for (const [c, v] of Object.entries(st.si)) if (c !== st.siActive && v.r === "NG") for (const i of v.ids || []) oth.add(i);
+    for (const g of svg.querySelectorAll("g[data-id]")) { const id = g.dataset.id;
+      g.setAttribute("class", [sel.has(id) && "sel", oth.has(id) && "oth", mine.get(id).ng && "was"].filter(Boolean).join(" ")); }
+    const b = document.querySelector(`[data-pick="${st.siActive}"]`); if (b) b.textContent = pickText(st.siActive);
+    $("#f-selids").textContent = act ? `${st.siActive}: ${act.ids.length ? act.ids.join(", ") : "고른 동바리 없음"}` : "항목의 NG를 누르면 평면에서 그 항목의 문제 동바리를 고를 수 있습니다";
+    $("#f-selchips").innerHTML = act ? act.ids.map(i => `<button type="button" class="chip" data-unpick="${esc(i)}" aria-label="${esc(shortId(i))} 빼기">${esc(shortId(i))} ✕</button>`).join("") : "";
+    for (const c of document.querySelectorAll("#f-selchips [data-unpick]")) c.onclick = () => { const v = st.si[st.siActive]; v.ids = v.ids.filter(x => x !== c.dataset.unpick); paint(); say(`${shortId(c.dataset.unpick)} 뺌, ${v.ids.length}개`); }; };
+  const addTyped = () => {   // 번호로 넣기: 'R01C01'(짧은 이름) 또는 전체 ID
+    if (!st.siActive) { setErr("f-si", "먼저 항목의 NG를 누른 뒤 문제 동바리를 넣으세요"); return; }
+    const inp = $("#f-sid-in"), want = inp.value.split(/[\s,]+/).map(t => t.trim().toUpperCase()).filter(Boolean), bad = [], v = st.si[st.siActive];
+    for (const t of want) { const hit = d.mine.find(s => s.id.toUpperCase() === t || shortId(s.id).toUpperCase() === t);
+      if (!hit) bad.push(t); else if (!v.ids.includes(hit.id)) v.ids = v.ids.concat(hit.id); }
+    if (bad.length) setErr("f-si", `${bad.slice(0, 3).join(", ")} 은(는) ${st.zone} 에 없는 동바리 번호입니다. 평면 이름(R행C열)을 확인하세요`); else clearErr("f-si");
+    inp.value = bad.join(", "); paint(); say(`${v.ids.length}개 고름`); };
+  $("#f-sid-add").onclick = addTyped;
+  $("#f-sid-in").onkeydown = e => { if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); addTyped(); } };
+  const tap = (x, y) => {
+    if (!st.siActive) { setErr("f-si", "먼저 항목의 NG를 누른 뒤 문제 동바리를 고르세요"); return; }
+    const p = world(x, y); let best = null, bd = 24 / ctm().a;   // 손가락 24 px 안의 가장 가까운 동바리
+    for (const s of d.mine) { const dd = Math.hypot(s.x - p.x, -s.y - p.y); if (dd < bd) { bd = dd; best = s; } }
+    if (!best) return;
+    const v = st.si[st.siActive]; v.ids = v.ids.includes(best.id) ? v.ids.filter(i => i !== best.id) : v.ids.concat(best.id);
+    clearErr("f-si"); paint(); say(`${shortId(best.id)} ${v.ids.includes(best.id) ? "고름" : "뺌"}, ${v.ids.length}개`); };
+  const pts = new Map(); let start = null, pinch = null, moved = false;
+  svg.onpointerdown = e => { svg.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pts.size === 1) { start = {x: e.clientX, y: e.clientY, vb: st.vb.slice()}; moved = false; }
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = {d: Math.hypot(a[0] - b[0], a[1] - b[1]), vb: st.vb.slice(), c: world((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)}; moved = true; } };
+  svg.onpointermove = e => { if (!pts.has(e.pointerId)) return; pts.set(e.pointerId, [e.clientX, e.clientY]);
+    if (pinch && pts.size === 2) { const [a, b] = [...pts.values()]; zoomAt(pinch.c.x, pinch.c.y, pinch.d / Math.max(10, Math.hypot(a[0] - b[0], a[1] - b[1])), pinch.vb); }
+    else if (start && !pinch && pts.size === 1) { const dx = e.clientX - start.x, dy = e.clientY - start.y;
+      if (Math.hypot(dx, dy) > 8) moved = true;
+      if (moved) { const s = 1 / ctm().a; st.vb = [start.vb[0] - dx * s, start.vb[1] - dy * s, start.vb[2], start.vb[3]]; apply(); } } };
+  svg.onpointerup = svg.onpointercancel = e => { const had = pts.delete(e.pointerId);
+    if (!pts.size) { if (had && !moved && e.type === "pointerup") tap(e.clientX, e.clientY); start = null; pinch = null; } };
+  svg.onwheel = e => { e.preventDefault(); const p = world(e.clientX, e.clientY); zoomAt(p.x, p.y, e.deltaY > 0 ? 1.2 : 1 / 1.2, st.vb); };
+  for (const b of el.querySelectorAll("[data-zm]")) b.onclick = () => { const k = b.dataset.zm, cx = st.vb[0] + st.vb[2] / 2, cy = st.vb[1] + st.vb[3] / 2;
+    if (k === "in" || k === "out") zoomAt(cx, cy, k === "in" ? 1 / 1.6 : 1.6, st.vb);
+    else if (k === "fit") { st.vb = fit.slice(); apply(); }
+    else if (st.siActive) { st.si[st.siActive].ids = []; paint(); } };
+  apply(); paint();
+}
+function keep(fn) {   // 다시 그릴 때 이미 넣은 값 유지
+  const vals = {}; for (const el of $("#form").querySelectorAll("input,textarea")) vals[el.id] = el.value;
+  fn(); renderForm();
+  for (const [id, v] of Object.entries(vals)) { const el = document.getElementById(id); if (el && id !== "f-sid" && id !== "f-x" && id !== "f-y") el.value = v; }
+  if (vals["f-sid"] && $("#f-sid")) $("#f-sid").value = vals["f-sid"];
+  if ($("#f-paste")) preview();
+}
+function parsePaste(text, col) {   // 센서 앱 CSV: 시각,값 (구분 , 탭 ; 또는 공백). 첫 줄 머리글은 건너뜀
+  const out = [], bad = [];
+  text.split(/\r?\n/).forEach((line, i) => {
+    if (!line.trim()) return;
+    let p = line.split(/[,\t;]/).map(s => s.trim()).filter(Boolean);
+    if (p.length < 2) { const m = /^(.*\d)\s+(-?[\d.]+)\s*$/.exec(line.trim()); p = m ? [m[1], m[2]] : p; }
+    const ts = normTs(p[0] || ""), v = num(p[p.length - 1]);
+    if (ts && isFinite(v)) out.push({timestamp: ts, [col]: v});
+    else if (!(out.length === 0 && bad.length === 0 && !/\d{4}[-/.]\d/.test(line))) bad.push(i + 1);   // 머리글 줄 무시
+  });
+  return {out, bad};
+}
+function preview() {
+  const k = KIND[st.kind], {out, bad} = parsePaste($("#f-paste").value, k.col), pv = $("#pv");
+  if (!out.length && !bad.length) { pv.textContent = ""; return; }
+  const vs = out.map(r => r[k.col]);
+  pv.innerHTML = `<b>${out.length}줄 읽음</b>` + (out.length ? ` · ${esc(out[0].timestamp.replace("T", " "))} ~ ${esc(out[out.length - 1].timestamp.replace("T", " "))} · ${Math.min(...vs)}~${Math.max(...vs)} ${k.unit}` : "") +
+    (bad.length ? `<br><span style="color:var(--err)">읽지 못한 줄: ${bad.slice(0, 8).join(", ")}${bad.length > 8 ? " …" : ""}번. "2026-12-30 09:00,12.5" 형식인지 확인하세요</span>` : "") +
+    `<br>이미 서버에 있는 시각은 건너뜁니다 (누적 기록을 통째로 붙여도 됨)`;
+}
+function setErr(id, msg) { const e = document.getElementById("e-" + id), el = document.getElementById(id); if (e) e.textContent = msg; if (el) el.setAttribute("aria-invalid", "true"); }
+function clearErr(id) { const e = document.getElementById("e-" + id), el = document.getElementById(id); if (e) e.textContent = ""; if (el) el.removeAttribute("aria-invalid"); }
+
+function collect() {   // 서버와 같은 검사를 먼저 (오프라인에서도 바로 알려 주려고). 서버가 다시 검사한다.
+  const z = curZone(), k = KIND[st.kind], L = model.limits || {mpa: [0, 100], temp_c: [-30, 90], r_value: [10, 70]}, errs = [];
+  const val = id => (document.getElementById(id) || {}).value ?? "";
+  const need = (id, label, [lo, hi], unit, open) => { const s = val(id).trim(); const v = num(s);
+    if (s === "") errs.push([id, `${label} 값을 넣으세요`]);
+    else if (!isFinite(v)) errs.push([id, `숫자만 넣으세요 (예: 24.5)`]);
+    else if (v < lo || v > hi || (open && v <= lo)) errs.push([id, `${lo}${open ? " 초과" : ""}~${hi} ${unit} 사이로 넣으세요` + (unit === "MPa" && v > hi ? " (kgf/cm²이면 ÷10.2)" : "")]);
+    return v; };
+  const name = val("f-name").trim();
+  const body = {kind: st.kind, entered_by: name, note: val("f-note").trim()};
+  const dayOk = id => { const d = val(id);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) errs.push([id, "날짜를 고르세요"]);
+    else if (d < z.pour_date) errs.push([id, `타설일 ${z.pour_date} 이후 날짜로 고르세요`]);
+    else if (d > today()) errs.push([id, `오늘(${today()}) 또는 그 전 날짜로 고르세요`]);
+    return d; };
+  if (st.kind === "cylinder") {
+    const lot = st.cylLot ? lotOf(z) : null;   // W1: 묶음이면 zone_id 비우고 pour_id = 묶음 (서버가 묶음 구역 전체로)
+    Object.assign(body, {zone_id: lot ? "" : z.zone_id, test_date: dayOk("f-date"), curing: st.curing});
+    if (!st.curing) errs.push(["f-curing", "양생 방법을 고르세요"]);
+    for (const i of [1, 2, 3]) body["f" + i] = need("f-f" + i, `${i}번 강도`, L.mpa, "MPa", true);
+    const sat = val("f-sat").trim(), satN = sat ? normTs(sat) : "";
+    if (sat && !satN) errs.push(["f-sat", "채취 시각은 날짜와 시각으로 고르세요 (예: 2026-12-30 09:00)"]);
+    else if (satN && satN.slice(0, 10) < z.pour_date) errs.push(["f-sat", `채취 시각은 타설일 ${z.pour_date} 이후로 고르세요`]);
+    Object.assign(body, {pour_id: lot ? lot.id : val("f-pid").trim(), sampled_at: satN, supplier: val("f-sup").trim(), truck_no: val("f-truck").trim(),
+      storage_zone: val("f-store").trim(), photo: val("f-cphoto").trim()});
+  } else if (st.kind === "shore_check") {
+    const ts = normTs(val("f-ts"));
+    if (!ts) errs.push(["f-ts", "확인 시각을 고르세요"]);
+    else if (ts.slice(0, 10) > today()) errs.push(["f-ts", "지금 또는 그 전 시각으로 고르세요"]);
+    Object.assign(body, {zone_id: z.zone_id, timestamp: ts, present: st.present, photo: ""});
+  } else if (st.kind === "after_check") {
+    const items = Object.fromEntries(AC.filter(([c]) => st.ac[c]).map(([c]) => [c, st.ac[c]]));
+    const settle = {}, pts = [];   // 침하 계측: mm 를 넣은 줄만 (지점 영문·숫자 10자, -100–100 mm — 서버와 같은 검사)
+    for (const r of document.querySelectorAll("#f-set-rows [data-set]")) {
+      const i = r.dataset.set, p = val("f-set-p" + i).trim().toUpperCase(), raw = val("f-set-v" + i).trim();
+      if (p) pts.push(p);
+      if (raw === "") continue;
+      if (!/^[A-Z0-9]{1,10}$/.test(p)) { errs.push(["f-set-p" + i, "지점은 영문·숫자 10자까지 (예: P1)"]); continue; }
+      if (p in settle) { errs.push(["f-set-p" + i, `${p} 가 두 번 있습니다`]); continue; }
+      settle[p] = need("f-set-v" + i, `침하량 ${p}`, [-100, 100], "mm");
+    }
+    if (!Object.keys(items).length && !Object.keys(settle).length) errs.push(["f-ac", "점검 항목을 하나 이상 고르거나 침하량을 넣으세요"]);
+    if (pts.length) LS.set("settle." + z.zone_id, [...new Set(pts)]);
+    Object.assign(body, {zone_id: z.zone_id, date: dayOk("f-date"), items, photo: "", ...(Object.keys(settle).length ? {settle} : {})});
+  } else if (st.kind === "shore_inspect") {   // 고른 항목만 보냄. NG 는 동바리 위치가 있는 구역이면 하나 이상 (서버와 같은 검사)
+    const its = siItems().filter(it => st.si[it.code] && st.si[it.code].r), d = shoreData(), has = !!(d && d.mine.length);
+    const ts = normTs(val("f-ts"));
+    if (!ts) errs.push(["f-ts", "점검 시각을 고르세요"]);
+    else if (ts.slice(0, 10) > today()) errs.push(["f-ts", "지금 또는 그 전 시각으로 고르세요"]);
+    if (!its.length) errs.push(["f-si", "항목마다 OK 또는 NG를 고르세요 (모두 괜찮으면 [전부 OK])"]);
+    const miss = has && its.find(it => st.si[it.code].r === "NG" && !st.si[it.code].ids.length);
+    if (miss) errs.push(["f-si", `${miss.code} ${miss.label} NG: 문제 동바리를 평면에서 하나 이상 고르세요`]);
+    Object.assign(body, {zone_id: z.zone_id, stage: st.siStage, timestamp: ts,
+      items: its.map(it => ({item_code: it.code, result: st.si[it.code].r, shore_ids: st.si[it.code].r === "NG" ? st.si[it.code].ids.slice() : []}))});
+  } else if (st.kind === "rebound") {
+    Object.assign(body, {zone_id: z.zone_id, test_date: dayOk("f-date"), r_value: need("f-r", "반발경도", L.r_value, "")});
+    for (const a of ["x", "y"]) if (val("f-" + a).trim() !== "") body[a] = need("f-" + a, a, a === "x" ? [z.x0, z.x1] : [z.y0, z.y1], "m");
+  } else if (st.kind === "pour_batch") {   // 아래에서 (v6.4 2-2)
+  } else {
+    body.floor = st.floor;
+    if (st.sensor === "__new") {
+      const sid = val("f-sid").trim(), [bx0, by0, bx1, by1] = bbox(curFloor().zones);
+      if (!/^[0-9A-Za-z가-힣_\-]{1,20}$/.test(sid)) errs.push(["f-sid", "영문·숫자 20자 이내로 적으세요 (예: S7)"]);
+      else if (model.sensors.some(s => s.sensor_id === sid)) errs.push(["f-sid", `${sid}는 이미 있는 센서입니다. 위 목록에서 고르거나 다른 ID를 쓰세요`]);
+      Object.assign(body, {sensor_id: sid, x: need("f-x", "x", [bx0, bx1], "m"), y: need("f-y", "y", [by0, by1], "m")});
+    } else body.sensor_id = st.sensor;
+    const lim = L[k.col];
+    if (st.mode === "one") {
+      const ts = normTs(val("f-ts"));
+      if (!ts) errs.push(["f-ts", "측정 시각을 고르세요"]);
+      else if (ts.slice(0, 10) > today()) errs.push(["f-ts", "지금 또는 그 전 시각으로 고르세요"]);
+      body.timestamp = ts; body[k.col] = need("f-val", k.vlabel, lim, k.unit);
+    } else {
+      const {out, bad} = parsePaste(val("f-paste"), k.col);
+      if (!out.length) errs.push(["f-paste", "한 줄에 '시각,값'으로 붙여 넣으세요 (예: 2026-12-30 10:00,12.5)"]);
+      else if (bad.length) errs.push(["f-paste", `${bad[0]}번 줄을 '시각,값'으로 고치거나 지우세요 (예: 2026-12-30 10:00,12.5)`]);
+      else { const o = out.find(r => r[k.col] < lim[0] || r[k.col] > lim[1]);
+        if (o) errs.push(["f-paste", `${o.timestamp.replace("T", " ")} 값(${o[k.col]} ${k.unit})이 허용 범위(${lim[0]}~${lim[1]})를 벗어납니다`]); }
+      body.readings = out;
+    }
+  }
+  const withPhoto = ["shore_check", "after_check", "cylinder"].includes(st.kind);   // v6.4 2-4 공시체도 사진 1장
+  if (withPhoto && st.photoReading) errs.push(["f-photo", "사진을 읽는 중입니다. 잠시 뒤 저장하세요"]);
+  else if (withPhoto && st.photo) body.photo_data = st.photo;   // 사진 1장 (F15)
+  if (st.kind === "pour_batch") {   // v6.4 2-2 — 구역마다 shore_check 한 건씩 (save 가 나눔)
+    const ts = normTs(val("f-ts")), zs = pourTargets(z).flatMap(g => g.zones.map(q => q.zone_id));
+    if (!ts) errs.push(["f-ts", "확인 시각을 고르세요"]);
+    else if (ts.slice(0, 10) > today()) errs.push(["f-ts", "아직 오지 않은 시각입니다"]);
+    if (!zs.length) errs.push(["f-pb", "확인할 아래층 구역이 없습니다"]);
+    const miss = zs.filter(q => !st.pb[q]);
+    if (miss.length) errs.push(["f-pb", `${miss.length}구역을 고르지 않았습니다 (${miss.slice(0, 3).join(", ")}${miss.length > 3 ? " …" : ""}). [전부 서 있음]을 누르고 다른 곳만 바꾸세요`]);
+    Object.assign(body, {timestamp: ts, items: zs.map(q => ({zone_id: q, present: st.pb[q]}))});
+  }
+  if (!name) errs.push(["f-name", "입력자 이름을 적어 주세요 (기록에 남습니다)"]);
+  return {body, errs};
+}
+
+// ---------- 저장 ----------
+async function save() {
+  for (const e of document.querySelectorAll("#form .err")) e.textContent = "";
+  for (const e of document.querySelectorAll("#form [aria-invalid]")) e.removeAttribute("aria-invalid");
+  const {body, errs} = collect();
+  const old = $("#errsum"); if (old) old.remove();
+  if (errs.length) {   // 폼 맨 위 오류 요약 (ui_reference_research 7절 #18) — 몇 곳인지, 누르면 그 칸으로
+    errs.forEach(([id, m]) => setErr(id, m));
+    const name = id => {   // 라벨 이름만 (옆의 회색 도움말 "기록에 남습니다" 등은 빼고). 공시체 1·2·3번은 "강도 1번"으로
+      const l = document.querySelector(`label[for="${id}"]`); if (!l) return "";
+      const c = l.cloneNode(true); for (const s of c.querySelectorAll(".sub")) s.remove();
+      const t = c.textContent.replace(/\s+/g, " ").trim();
+      return /^f-f\d$/.test(id) ? "강도 " + t : t; };
+    $("#form").insertAdjacentHTML("afterbegin", `<div class="msg e" id="errsum" role="alert" tabindex="-1">고칠 곳 ${errs.length}곳: ` +
+      errs.map(([id, m]) => `<a href="#${id}" data-go="${id}">${esc(name(id) || m)}</a>`).join(", ") + `</div>`);
+    for (const a of document.querySelectorAll("#errsum [data-go]")) a.onclick = e => { e.preventDefault(); const el = document.getElementById(a.dataset.go); if (el) { el.focus(); el.scrollIntoView({block: "center"}); } };
+    $("#errsum").focus(); say(`고칠 곳 ${errs.length}곳: ` + errs.map(([, m]) => m).join(" / ")); return;
+  }
+  LS.set("name", body.entered_by); LS.set("noteOpen", !!body.note);
+  if (body.kind === "pour_batch") return saveBatch(body);
+  if (body.kind === "cylinder") LS.set("samp", {supplier: body.supplier || "", storage_zone: body.storage_zone || ""});
+  body.client_id = nextId();
+  if (model && model.project_id) body.project_id = model.project_id;   // 다른 프로젝트 서버로 가면 400 → '실패'로 남음 (감사 A-07)
+  if (st.fixId) { queue = queue.filter(q => q.body.client_id !== st.fixId); st.fixId = null; }   // 고쳐 보낸 실패 기록은 새 기록으로 바뀜
+  const item = {body, state: "pending", created: nowStamp(), zone: st.zone};
+  queue.push(item); saveQueue(); dropDraft();
+  const btn = $("#bSave"); if (btn) { btn.disabled = true; btn.textContent = "보내는 중…"; }
+  const r = await (flushing ? Promise.resolve("net") : send(item));
+  try { navigator.vibrate && navigator.vibrate(r === "bad" ? [80, 60, 80] : 40); } catch (_) {}   // U8 저장 결과 진동 (iPhone 은 무시)
+  if (r === "bad") {            // 바로 보이는 오류 → 큐에 남기지 않고 폼에서 고치게
+    queue = queue.filter(q => q !== item); saveQueue();
+    if (btn) { btn.disabled = false; btn.textContent = "저장"; }
+    $("#fsub").innerHTML = `<span class="msg e" role="alert" style="display:block">${esc(item.error)}</span>`; say(item.error); return;
+  }
+  if (r === "ok") { queue = queue.filter(q => q !== item); saveQueue(); setOnline(true); applyResult(item.res); }
+  showResult(r, item);
+}
+async function saveBatch(b) {   // v6.4 2-2: 구역마다 기존 shore_check 입력 한 건 (client_id = 공통 id + '-구역') — 기기 대기열·중복 방지 그대로
+  const base = nextId(), items = b.items.map(it => ({state: "pending", created: nowStamp(), zone: it.zone_id,
+    body: {kind: "shore_check", zone_id: it.zone_id, timestamp: b.timestamp, present: it.present, entered_by: b.entered_by, note: b.note,
+           client_id: base + "-" + safeId(it.zone_id), ...(model && model.project_id ? {project_id: model.project_id} : {})}}));
+  queue.push(...items); saveQueue(); dropDraft();
+  const btn = $("#bSave"); if (btn) { btn.disabled = true; btn.textContent = "보내는 중…"; }
+  const res = [];
+  let stop = flushing;
+  for (const it of items) {
+    const r = stop ? "net" : await send(it);
+    if (r === "net" || r === "token") stop = true;
+    if (r === "ok" || r === "bad") queue = queue.filter(q => q !== it);
+    res.push([it, r]);
+  }
+  saveQueue(); if (!stop) setOnline(true);
+  try { navigator.vibrate && navigator.vibrate(res.some(([, r]) => r === "bad") ? [80, 60, 80] : 40); } catch (_) {}
+  const ok = res.filter(([, r]) => r === "ok").length, wait = res.filter(([, r]) => r === "net" || r === "token").length, bad = res.filter(([, r]) => r === "bad");
+  const no = b.items.filter(i => i.present === "아니오").map(i => i.zone_id);
+  $("#result").innerHTML = `<div class="msg ${bad.length ? "e" : wait ? "w" : "o"}" role="status">타설 전 동바리 확인 ${b.items.length}구역: 저장 ${ok}${wait ? ` · 휴대폰에 저장(연결되면 보냄) ${wait}` : ""}${bad.length ? ` · 저장 안 됨 ${bad.length}` : ""}</div>` +
+    (no.length ? `<div class="msg w">동바리 없음으로 기록: ${esc(no.join(", "))}. 이 구역 위 타설은 보류됩니다 (재받침 뒤 다시 확인)</div>` : "") +
+    (bad.length ? `<ul class="list">${bad.map(([it]) => `<li>${esc(it.zone)}: ${esc(it.error)}</li>`).join("")}</ul>` : "") +
+    (ok ? `<p class="sub">타설 전 확인 결과는 ${model && model.synced_at ? "Revit 동기화 뒤" : "다음 판정 때"} 구역 카드 '타설 전 확인'에 반영됩니다.</p>` : "");
+  history.replaceState({step: "done"}, "", location.search + "#done"); go("done", false);
+  say(`타설 전 확인 ${b.items.length}구역, 저장 ${ok}`);
+}
+function showResult(r, item) {
+  const res = item.res || {}, k = KIND[item.body.kind];
+  let h = "";
+  if (r === "ok") {
+    h += `<div class="msg o" role="status">${res.duplicate ? "이미 저장된 기록입니다. 다시 보내도 한 번만 저장됩니다" :
+      res.rows === 0 ? "새 기록이 없습니다. 붙여 넣은 시각이 모두 이미 저장돼 있습니다" : `저장했습니다 · ${esc(res.saved)}${res.photo ? ` · 사진 ${esc(res.photo)}` : ""}${res.rows > 1 ? ` · ${res.rows}줄` : ""}${res.skipped ? ` · 이미 있던 ${res.skipped}줄 건너뜀` : ""}${res.new_sensor ? " · 새 센서 등록" : ""}${res.lot_zones ? ` · 타설 묶음 ${res.lot_zones.length}구역 공통` : ""}`}</div>`;
+    if (res.pending_sync && res.message) h += `<div class="msg w">${esc(res.message)}</div>`;   // Vercel 서버: 판정은 Revit 동기화 뒤
+    if (k.ref) h += `<div class="msg w">${esc(k.label)}은 참고 기록이라 판정에는 쓰지 않습니다.</div>`;
+    if (item.body.kind === "shore_inspect" && !res.duplicate && !res.pending_sync) h += res.open_ng
+      ? `<div class="msg w">이 구역 풀리지 않은 결함 기록: ${esc(res.open_ng)}<br>설치 검측 결함이 남아 있으면 해체 승인 요청을 할 수 없고 타설도 보류됩니다. 같은 항목을 다시 점검해 OK로 기록하면 풀립니다.</div>`
+      : `<div class="msg o">이 구역 풀리지 않은 결함 기록 없음</div>`;
+    if (res.zone) h += `<p class="sub">다시 계산한 판정 (${esc((res.now || "").replace("T", " "))} 기준)</p>` + zoneCard(res.zone);
+    if (res.warning) h += `<div class="msg e">판정 계산 오류: ${esc(res.warning)}</div>`;
+    if (item.body.kind === "cylinder" && res.zone && res.zone.decision !== "해체 승인 요청 가능")
+      h += `<p class="sub">공시체가 기준 이상이어도, 센서로 추정한 구역 최소 강도와 층수 조건을 함께 봅니다.</p>`;
+  } else {
+    h += `<div class="msg w" role="status">${r === "token" ? "접속 코드가 바뀌었습니다. PC 화면의 새 QR 코드로 다시 여세요." : "서버에 연결되지 않았습니다."}<br>
+      기록은 이 휴대폰에 저장했고, 연결되면 자동으로 보냅니다 (보낼 것 ${queue.filter(q => q.state === "pending").length}건).</div>`;
+    if (item.photoMem) h += `<div class="msg w">휴대폰에 담아 둘 수 있는 사진(${PHOTO_QUEUE_MAX}장)을 넘었습니다. 이 화면을 열어 둔 동안 연결되면 사진도 함께 보내고, 화면을 닫으면 기록만 보냅니다.</div>`;
+  }
+  $("#result").innerHTML = h;
+  history.replaceState({step: "done"}, "", location.search + "#done"); go("done", false);   // 뒤로 → 종류 고르기 (빈 폼 아님)
+  say(r === "ok" ? "저장됨. " + (res.zone ? res.zone.zone_id + " " + res.zone.decision : "") : "휴대폰에 저장했습니다. 연결되면 보냅니다");
+}
+
+// ---------- 최근 입력 ----------
+const kindLabel = k => (KIND[k] || {label: k}).label;
+function qText(q) { const b = q.body, k = KIND[b.kind];
+  const v = b.kind === "cylinder" ? `${b.f1}·${b.f2}·${b.f3} MPa` : b.kind === "shore_check" ? `동바리 ${b.present === "예" ? "서 있음" : "없음"}` : b.kind === "rebound" ? `R ${b.r_value}` : b.kind === "after_check" ? `${Object.keys(b.items || {}).length}항목` :
+    b.kind === "shore_inspect" ? `${b.stage} ${(b.items || []).length}항목${(b.items || []).some(i => i.result === "NG") ? " · NG " + b.items.filter(i => i.result === "NG").length : ""}` : b.readings ? `${b.readings.length}줄` : `${b[k.col]} ${k.unit}`;
+  return `${esc(kindLabel(b.kind))} <span class="k">${esc(b.zone_id || (b.pour_id && b.kind === "cylinder" ? "타설 " + b.pour_id : b.sensor_id))}</span> ${esc(v)}`; }
+// 실패 기록을 그 값 그대로 폼에 다시 엶 (ui_reference_research 7절 #19) — 저장하면 옛 실패 기록은 새 기록으로 바뀜
+function refill(q) {
+  if (!q || !model) return;
+  const b = q.body, zid = b.zone_id || q.zone;
+  const f = zid ? model.floors.find(f => f.zones.some(z => z.zone_id === zid)) : model.floors.find(f => f.floor === Number(b.floor));
+  if (!f) { say("이 기록의 구역을 지금 판정에서 찾을 수 없습니다. 지우고 새로 입력하세요"); return; }
+  const z = zid ? zid : (f.zones[0] || {}).zone_id;
+  Object.assign(st, {floor: f.floor, zone: z, kind: b.kind, fixId: b.client_id, cylLot: b.kind === "cylinder" && !b.zone_id && !!b.pour_id, mode: b.readings ? "paste" : "one",
+    sensor: b.sensor_id && model.sensors.some(s => s.sensor_id === b.sensor_id) ? b.sensor_id : (b.sensor_id ? "__new" : null),
+    curing: b.curing || st.curing, present: b.present || st.present, ac: b.items ? {...b.items} : st.ac, acz: z,
+    siStage: b.stage || st.siStage, si: Array.isArray(b.items) ? Object.fromEntries(b.items.map(i => [i.item_code, {r: i.result, ids: [...(i.shore_ids || [])]}])) : st.si,
+    siz: z, siActive: null, siLoaded: null});
+  if (b.x != null && st.sensor === "__new") { st.nx = Number(b.x); st.ny = Number(b.y); st.nzone = z; }
+  go("form");
+  const set = (id, v) => { const el = document.getElementById(id); if (el && v != null && v !== "") el.value = String(v); };
+  set("f-name", b.entered_by); set("f-note", b.note);
+  set("f-date", b.test_date || b.date); set("f-ts", (b.timestamp || "").slice(0, 16));
+  [1, 2, 3].forEach(i => set("f-f" + i, b["f" + i])); set("f-r", b.r_value);
+  set("f-pid", b.pour_id); set("f-sat", (b.sampled_at || "").slice(0, 16)); set("f-sup", b.supplier); set("f-truck", b.truck_no); set("f-store", b.storage_zone);
+  if (b.kind === "cylinder") set("f-cphoto", b.photo);
+  else if (b.photo_data) { st.photo = b.photo_data; const e = document.getElementById("e-f-photo"); if (e) e.textContent = "앞서 고른 사진이 함께 저장됩니다. 바꾸려면 새로 고르세요"; }
+  set("f-sid", st.sensor === "__new" ? b.sensor_id : null);
+  if (b.kind === "rebound" || st.sensor === "__new") { set("f-x", b.x); set("f-y", b.y); }
+  const k = KIND[b.kind]; if (k && k.col) set("f-val", b[k.col]);
+  if (b.readings && k) { set("f-paste", b.readings.map(r => `${r.timestamp},${r[k.col]}`).join("\n")); if ($("#f-paste")) preview(); }
+  say("보내지 못한 기록을 다시 열었습니다. 고친 뒤 저장하세요" + (q.error ? ": " + q.error : ""));
+}
+async function loadRecent() {
+  const r = await api("/api/recent?n=15"), el = $("#recent");
+  // 줄마다 어디에 저장됐는지 (ui_reference_research 7절 #7): 기기에만 저장 · 시각 → 보내면 서버 목록에 "서버 저장 ✓"
+  const mine = queue.map((q, i) => `<li>${qText(q)}<span class="tag ${q.state === "failed" ? "f" : "q"}">${q.state === "failed" ? "보내지 못함" : "보낼 것"}</span>
+      <div class="sub">휴대폰에만 저장 · ${esc(q.created)}${photoNote(q)}${q.error ? ` · <span style="color:var(--err)">${esc(q.error)}</span>` : ""}</div>
+      ${q.state === "failed" ? `<button class="lnk" type="button" data-fix="${i}">고쳐서 다시 보내기</button> <button class="lnk del" type="button" data-del="${i}">이 기록 지우기</button>` : ""}</li>`).join("");
+  let srv = "";
+  if (r.status === 200 && r.j.ok) {
+    setOnline(true);
+    srv = r.j.items.map(it => `<li>${esc(it.label)} <span class="k">${esc(it.point)}</span> ${esc(it.value)}<span class="tag s">서버 저장 ✓</span>
+      <div class="sub">${esc((it.when || "").replace("T", " "))} 측정 · ${esc(it.entered_by)} · ${esc((it.entered_at || "").slice(5, 16).replace("T", " "))} 저장${it.note ? " · " + esc(it.note) : ""}</div></li>`).join("");
+  } else srv = `<li class="sub">${online ? "목록을 받지 못했습니다" : "연결되면 서버에 저장된 입력이 보입니다"}</li>`;
+  el.innerHTML = (mine + srv) || `<li class="sub">아직 현장 입력이 없습니다</li>`;
+  for (const b of el.querySelectorAll("[data-fix]")) b.onclick = () => refill(queue[Number(b.dataset.fix)]);
+  for (const b of el.querySelectorAll("[data-del]")) b.onclick = () => { if (confirm("이 기록을 지울까요? 서버에 저장되지 않은 기록이라 지우면 되살릴 수 없습니다.")) { queue.splice(Number(b.dataset.del), 1); saveQueue(); loadRecent(); } };
+}
+
+// ---------- 시작 ----------
+function setSun(on) { document.documentElement.classList.toggle("sun", on); const b = $("#sun"); b.setAttribute("aria-pressed", on); b.textContent = on ? "☀ 햇빛 켬" : "햇빛"; LS.set("sun", on); }
+$("#sun").onclick = () => setSun(!document.documentElement.classList.contains("sun"));
+setSun(!!LS.get("sun", false));
+$("#badge").onclick = () => { flush().then(loadRecent); };
+$("#reloadRecent").onclick = () => loadModel().then(() => { renderZoneStep(); loadRecent(); });
+addEventListener("online", () => { loadModel().then(flush); });
+addEventListener("offline", () => setOnline(false));
+document.addEventListener("visibilitychange", () => { if (!document.hidden) loadModel().then(() => { flush(); if (st.step === "zone") renderZoneStep(); }); });
+setInterval(() => { if (queue.some(q => q.state === "pending")) loadModel().then(flush); }, 20000);
+addEventListener("resize", () => { if (st.step === "zone") renderZones(); });
+(async () => {
+  renderBadge();
+  const hf = /floor=(-?\d+)/.exec(location.hash);   // 층 표지 QR: …?t=TOKEN#floor=N (B1 = -1) → 그 층을 고른 채 시작, 없는 층이면 renderZoneStep 이 기본 층으로
+  if (hf) st.floor = Number(hf[1]);
+  history.replaceState({step: "zone"}, "", location.search + "#zone");
+  go("zone", false);
+  await loadModel();
+  renderZoneStep(); loadRecent(); flush();
+})();
+</script>
+</body>
+</html>

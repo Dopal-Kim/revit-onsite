@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">III. 기술 현황 · 선행 연구</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-10/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">III · 기술 현황 및 적용 필요성</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">III. 기술 현황: 선행 연구</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">선행 연구는 측정에 집중했고, 본 과제는 국내 기준 판정까지 잇습니다</text>
+  </g>
+  <g id="research-timeline" data-pptx-bounds="56 164 1168 372">
+    <line x1="96" y1="226" x2="1184" y2="226" stroke="#1D3557" stroke-width="2" />
+    <g fill="#1D3557"><circle cx="166" cy="226" r="8" /><circle cx="403" cy="226" r="8" /><circle cx="640" cy="226" r="8" /><circle cx="877" cy="226" r="8" /><circle cx="1114" cy="226" r="8" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4" text-anchor="middle"><text x="166" y="204">2014</text><text x="403" y="204">2016</text><text x="640" y="204">2020</text><text x="877" y="204">2024</text><text x="1114" y="204">2024</text></g>
+    <g fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1"><rect x="56" y="246" width="220" height="284" rx="4" /><rect x="293" y="246" width="220" height="284" rx="4" /><rect x="530" y="246" width="220" height="284" rx="4" /><rect x="767" y="246" width="220" height="284" rx="4" /><rect x="1004" y="246" width="220" height="284" rx="4" /></g>
+    <g font-size="18" font-weight="bold" fill="#1D3557" text-anchor="middle"><text x="166" y="284">천성철 외</text><text x="403" y="284">Alvarado 외</text><text x="640" y="284">Hamooni 외</text><text x="877" y="284">Iqbal 외</text><text x="1114" y="284">서형석 외</text></g>
+    <g font-size="15" fill="#5B6673" text-anchor="middle">
+      <text x="166" y="320">재받침 + 10층<tspan x="166" dy="22">현장 계측</tspan></text>
+      <text x="403" y="320">존치 2·3·4개 층<tspan x="403" dy="22">공정 비교</tspan></text>
+      <text x="640" y="320">온도센서 · 성숙도법<tspan x="640" dy="22">+ Revit</tspan></text>
+      <text x="877" y="320">IoT 센서 + BIM<tspan x="877" dy="22">디지털 트윈</tspan></text>
+      <text x="1114" y="320">하중 감지<tspan x="1114" dy="22">지능형 동바리</tspan></text>
+    </g>
+    <g stroke="#C5CDD6" stroke-width="1"><line x1="80" y1="380" x2="252" y2="380" /><line x1="317" y1="380" x2="489" y2="380" /><line x1="554" y1="380" x2="726" y2="380" /><line x1="791" y1="380" x2="963" y2="380" /><line x1="1028" y1="380" x2="1200" y2="380" /></g>
+    <g font-size="22" font-weight="bold" fill="#1D3557" text-anchor="middle">
+      <text x="166" y="438">동바리 −40%<tspan x="166" dy="34">거푸집 −50%</tspan></text>
+      <text x="403" y="438">3개 층이<tspan x="403" dy="34">최저 비용</tspan></text>
+      <text x="640" y="438">보 해체<tspan x="640" dy="34">9.6일</tspan></text>
+      <text x="877" y="438">원격 실시간<tspan x="877" dy="34">강도 확인</tspan></text>
+      <text x="1114" y="438">해체 시기<tspan x="1114" dy="34">판단 보조</tspan></text>
+    </g>
+  </g>
+  <g id="shift" data-pptx-bounds="56 548 1168 100">
+    <rect x="56" y="552" width="500" height="88" rx="4" fill="#E8EDF2" />
+    <text x="80" y="584" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">선행 연구</text>
+    <text x="80" y="620" font-size="22" font-weight="bold" fill="#1D3557">강도 · 하중을 측정하는 데 집중</text>
+    <g id="p10-shift" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="rightArrow" data-pptx-frame="572 574 56 44" fill="#E07A1F" stroke="none">
+<path d="M 572 585 L 606 585 L 606 574 L 628 596 L 606 618 L 606 607 L 572 607 Z" />
+</g>
+    <rect x="644" y="552" width="580" height="88" rx="4" fill="#1D3557" />
+    <text x="668" y="584" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#C5CDD6">본 과제 · Revit On-Site</text>
+    <text x="668" y="620" font-size="22" font-weight="bold" fill="#FFFFFF">측정값 → 국내 기준 구역별 해체 판정</text>
+  </g>
+  <g id="source-note" data-pptx-bounds="56 650 500 18">
+    <text x="56" y="663" font-size="12" fill="#5B6673">출처: 참고문헌 [5]–[9]</text>
+  </g>
+</svg>

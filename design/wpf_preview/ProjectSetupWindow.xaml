@@ -1,0 +1,96 @@
+<!--
+  프로젝트 설정 대화상자 (ui_spec §7-1) — OnSiteDialog.xaml 사용 예.
+  add-in 에서는 Owner = Revit 주 창, ShowDialog() 로 띄운다. 여기 값은 기본값(미리 채움).
+-->
+<Window x:Class="OnSitePreview.ProjectSetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="프로젝트 설정" WindowStartupLocation="CenterOwner" Style="{DynamicResource OnSite.DialogWindow}" Language="ko-KR">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="wpf/OnSiteDialog.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- 한 줄 = 레이블 + 입력, 줄 사이 6 px -->
+            <Style x:Key="Row" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Background="{DynamicResource OnSite.Brush.Background}" Padding="12">
+        <StackPanel>
+            <GroupBox Header="공정">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="첫 타설일(_F):" Target="{Binding ElementName=FirstPour}"/>
+                        <DatePicker x:Name="FirstPour" SelectedDate="2026-10-01"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="타설 사이클(_C):" Target="{Binding ElementName=Cycle}"/>
+                        <TextBox x:Name="Cycle" Style="{StaticResource OnSite.NumberBox}" Text="7"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="일"/>
+                    </StackPanel>
+                    <!-- 값이 잘못되면 칸 바로 아래 빨간 한 줄 (레이블 폭만큼 들여씀) -->
+                    <TextBlock x:Name="CycleError" Style="{StaticResource OnSite.ValidationText}" Margin="118,-1,0,3"
+                               Text="타설 사이클은 1–30 일 사이의 정수로 입력하세요." Visibility="Collapsed"/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="최소 존치 층수(_K):" Target="{Binding ElementName=Keep}"/>
+                        <TextBox x:Name="Keep" Style="{StaticResource OnSite.NumberBox}" Text="3"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="개층"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(가이드라인 2.1.2)"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="콘크리트" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="배합(_M):" Target="{Binding ElementName=Mix}"/>
+                        <ComboBox x:Name="Mix" Width="110" SelectedIndex="0">
+                            <ComboBoxItem Content="보통"/>
+                            <ComboBoxItem Content="조강"/>
+                            <ComboBoxItem Content="고로 슬래그"/>
+                            <ComboBoxItem Content="플라이애시"/>
+                        </ComboBox>
+                        <Label Content="fck" Margin="16,0,6,0"/>
+                        <TextBox Style="{StaticResource OnSite.NumberBox}" Width="40" Text="24"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="MPa"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="양생 최저 온도(_T):" Target="{Binding ElementName=MinTemp}"/>
+                        <TextBox x:Name="MinTemp" Style="{StaticResource OnSite.NumberBox}" Text="5"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="°C"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="데이터" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="기상 관측소(_S):" Target="{Binding ElementName=Station}"/>
+                        <ComboBox x:Name="Station" Width="160" SelectedIndex="0">
+                            <ComboBoxItem Content="108 서울"/>
+                            <ComboBoxItem Content="112 인천"/>
+                            <ComboBoxItem Content="119 수원"/>
+                            <ComboBoxItem Content="159 부산"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="데이터 폴더(_P):" Target="{Binding ElementName=Folder}"/>
+                        <TextBox x:Name="Folder" Width="220" Text="C:\Projects\OnSite\data"/>
+                        <Button Content="찾아보기(_B)…" Margin="6,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- 아래 버튼: 왼쪽 [?], 오른쪽 [확인][취소]. Enter=확인(IsDefault), Esc=취소(IsCancel) -->
+            <DockPanel Margin="0,12,0,0" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Style="{StaticResource OnSite.HelpButton}"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="취소" IsCancel="True"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="확인" IsDefault="True" x:Name="OkButton"/>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>

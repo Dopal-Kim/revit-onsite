@@ -1,0 +1,21 @@
+[19:20:59] [INFO] svg_editor: running at http://127.0.0.1:6060 (live preview (auto-startup))
+[19:20:59] [INFO] svg_editor: project: C:\Users\admin\Desktop\시스템2\build-up-2\presentation\revit_onsite_v2_ppt169_20261119
+[19:20:59] [INFO] svg_editor: svg_output: C:\Users\admin\Desktop\시스템2\build-up-2\presentation\revit_onsite_v2_ppt169_20261119\svg_output (1 slides)
+[19:20:59] [INFO] svg_editor: idle timeout: 7200s (0 = disabled)
+ * Serving Flask app 'server'
+ * Debug mode: off
+[19:20:59] [INFO] svg_editor: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:6060
+[19:20:59] [INFO] svg_editor: Press CTRL+C to quit
+[19:21:23] [INFO] svg_editor: running at http://127.0.0.1:6070 (live preview (auto-startup))
+[19:21:23] [INFO] svg_editor: project: C:\Users\admin\Desktop\시스템2\build-up-2\presentation\revit_onsite_v2_ppt169_20261119
+[19:21:23] [INFO] svg_editor: svg_output: C:\Users\admin\Desktop\시스템2\build-up-2\presentation\revit_onsite_v2_ppt169_20261119\svg_output (1 slides)
+[19:21:23] [INFO] svg_editor: idle timeout: 7200s (0 = disabled)
+ * Serving Flask app 'server'
+ * Debug mode: off
+[19:21:23] [INFO] svg_editor: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:6070
+[19:21:23] [INFO] svg_editor: Press CTRL+C to quit
+[19:21:24] [INFO] svg_editor: 127.0.0.1 - - [19/Nov/2026 19:21:24] "GET /api/health HTTP/1.1" 200 -
+[19:21:30] [INFO] svg_editor: 127.0.0.1 - - [19/Nov/2026 19:21:30] "GET /svg_output/01_cover.svg HTTP/1.1" 404 -
+[19:21:30] [INFO] svg_editor: 127.0.0.1 - - [19/Nov/2026 19:21:30] "GET /favicon.ico HTTP/1.1" 404 -

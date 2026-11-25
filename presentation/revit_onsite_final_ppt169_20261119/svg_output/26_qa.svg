@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="ending" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#1D3557" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#C5CDD6" stroke-width="1.5" stroke-opacity="0.6" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#2E6DB4" stroke-width="1" />
+  </g>
+  <g id="logos" data-pptx-bounds="532 96 216 92">
+    <rect x="536" y="100" width="208" height="84" rx="4" fill="#F6F7F5" />
+    <image href="../images/khu_crest.png" x="546" y="108" width="90" height="68" preserveAspectRatio="xMidYMid meet" />
+    <image href="../images/dept_logo.png" x="670" y="112" width="54" height="61" preserveAspectRatio="xMidYMid meet" />
+  </g>
+  <g id="qa-title" data-pptx-bounds="240 220 800 220" text-anchor="middle">
+    <text x="640" y="350" font-size="72" font-weight="bold" fill="#FFFFFF">Q&amp;A</text>
+    <text x="640" y="414" font-size="24" fill="#E8EDF2">질문을 받겠습니다. 감사합니다.</text>
+  </g>
+  <g id="qa-message" data-pptx-bounds="240 470 800 120">
+    <line x1="520" y1="478" x2="760" y2="478" stroke="#E07A1F" stroke-width="2" />
+    <text x="640" y="526" font-size="22" font-weight="bold" fill="#E07A1F" text-anchor="middle">판정은 프로그램이, 결정은 감리가</text>
+    <text x="640" y="566" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#C5CDD6" text-anchor="middle">REVIT ON-SITE · TEAM BUILD UP · 건축공학시스템설계</text>
+  </g>
+</svg>

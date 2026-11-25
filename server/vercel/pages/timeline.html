@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>강도 타임라인 · Revit On-Site</title>
+<!-- v6.2 S1 강도 타임라인 (상시 웹). 자료: GET /api/timeline (보기 v · 신고 r · 입력 t) = 마지막 Revit push 의 타임라인(server/vercel/API.md §8)
+     + 그 뒤 들어온 현장 입력(아직 Revit 판정 전). 서버는 판정·예측을 계산하지 않음 — 그림 규칙은 웹 공유판(web/onsite_4d.html)과 같음. -->
+<style>
+:root{--bg:#fff;--ink:#16181C;--sub:#4A4F57;--line:#c9ced6;--hold:#8b0018;--acc:#0a3f7a;--pend:#C46A00}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:760px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+:root{color-scheme:light}
+:focus-visible{outline:4px solid #ffbf00;outline-offset:2px}
+button,a,input{touch-action:manipulation}
+.row button{min-height:48px;min-width:52px;border-radius:24px;border:2px solid #555;background:#fff;font:inherit;font-weight:800}
+.note{background:#e6e9ee;border-radius:10px;padding:12px;font-weight:700}
+.err button{display:block;margin-top:8px;min-height:48px;padding:0 16px;border-radius:24px;border:2px solid #fff;background:#fff;color:#000;font:inherit;font-weight:800}
+h1{font-size:26px;margin:4px 0 2px}
+.sub{color:var(--sub);font-size:14px}
+.red{background:var(--hold);color:#fff;border-radius:10px;padding:10px 12px;font-weight:800;margin:10px 0}
+.red small{display:block;font-weight:600}
+.sync{font-weight:700;margin:6px 0 10px}.sync.old{color:var(--hold)}
+canvas{width:100%;height:220px;display:block;border:1px solid var(--line);border-radius:10px;background:#fff;touch-action:pan-y}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0}
+input[type=range]{flex:1 1 160px;min-height:48px}
+.day{font-weight:800;font-size:18px;min-width:96px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chips button{min-height:52px;min-width:60px;border-radius:26px;border:2px solid #555;background:#e6e9ee;font:inherit;font-weight:800}
+.chips button[aria-pressed=true]{background:#000;color:#fff;border-color:#000}
+.plan{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#f4f5f7}
+.tile{position:absolute;border:1px solid rgba(22,24,28,.35);padding:4px 6px;font-size:14px;line-height:1.25;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.tile b{display:block;font-size:15px}.tile.un{outline:4px solid var(--hold);outline-offset:-4px}
+.mark{display:inline-block;align-self:flex-start;padding:0 5px;border-radius:6px;background:#fff;color:#000;font-weight:700;font-size:14px;white-space:nowrap}
+.mark.x{background:var(--hold);color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:15px;color:var(--sub);margin:8px 0}
+.legend i{display:inline-block;width:14px;height:14px;border:1px solid #888;vertical-align:-2px;margin-right:3px}
+ul{margin:4px 0 12px;padding-left:20px}li{margin:3px 0}
+h2{font-size:18px;margin:16px 0 4px}
+#notify{margin:10px 0}#notify button{min-height:44px;padding:0 16px;border-radius:22px;border:2px solid #555;background:#fff;font:inherit;font-weight:800}
+.err{background:var(--hold);color:#fff;border-radius:10px;padding:12px;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">강도 타임라인</h1>
+  <div class="sub">추정 강도 곡선은 참고 (판정에 안 씀) · 판정은 Revit 이 현장양생 공시체·3 m 안 센서로</div>
+  <div id="sync" class="sync" role="status"></div>
+  <div id="red"></div>
+  <div class="row"><button type="button" id="prev" aria-label="하루 전">−1일</button><span class="day" id="day"></span><input type="range" id="slider" min="0" max="0" value="0" aria-label="날짜"><button type="button" id="next" aria-label="하루 뒤">+1일</button></div>
+  <canvas id="chart" aria-label="층별 추정 강도 곡선과 공시체"></canvas>
+  <div class="legend" id="legend"></div>
+  <div class="chips" id="floors" role="group" aria-label="층"></div>
+  <div class="plan" id="plan"></div>
+  <div id="pend"></div>
+  <div id="alerts"></div>
+  <div id="notify" hidden></div>
+  <p class="sub" id="meta"></p>
+</main>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+// 0-7 (v6.3·v6.4) 열쇠: 주소의 t·v·r·s 를 기기에 옮기고 주소창에서 지움 — 화면은 열쇠 없이 열리고 자료 API 만 열쇠로 (server/vercel/API.md §9.1).
+// 역할마다 하나(onsite.tok.t …), 화면마다 마지막에 쓴 역할(onsite.tok.last/경로).
+function takeToken(keys) {
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem("onsite.tok." + k); localStorage.setItem("onsite.tok." + k, v); } catch (_) {} return null; };
+  const u = new URL(location.href), k = keys.find(x => u.searchParams.get(x));
+  if (k) { ls(k, u.searchParams.get(k)); ls("last" + location.pathname, k); }
+  if (keys.some(x => u.searchParams.has(x))) {   // v6.4: Wi-Fi 서버(field_server·C#)도 화면을 열쇠 없이 내서 어디서나 지움
+    keys.forEach(x => u.searchParams.delete(x)); history.replaceState(history.state, "", u.pathname + u.search + u.hash);
+  }
+  const use = k || [ls("last" + location.pathname), ...keys].find(x => x && keys.includes(x) && ls(x));
+  return {k: use || keys[0], v: (use && ls(use)) || ""};
+}
+// 0-5 (v6.3) "마지막 Revit 동기화 n분 전" — Vercel 서버만 (답에 synced_at). 60분 넘으면 빨강. synced_at = PC 한국 시각
+function syncAge(syncedAt) {
+  if (!syncedAt) return null;
+  const min = Math.max(0, Math.round((Date.now() - Date.parse(String(syncedAt).slice(0, 19) + "+09:00")) / 6e4));
+  const t = min < 1 ? "방금" : min < 120 ? `${min}분 전` : min < 2880 ? `${Math.round(min / 60)}시간 전` : `${Math.round(min / 1440)}일 전`;
+  return min > 60 ? {old: true, text: `PC 동기화가 멈췄습니다. 담당자에게 알려 주세요 (마지막 동기화 ${t})`} : {old: false, text: `마지막 Revit 동기화 ${t}`};
+}
+const TK = takeToken(["v", "r", "t"]), auth = TK.k + "=" + encodeURIComponent(TK.v);
+// 웹 공유판(onsite_4d.html)과 같은 색 — 추정 ÷ fck 구간
+const STR = [[222,235,247],[158,202,225],[107,174,214],[49,130,189],[8,81,156]], STR_KO = ["40 % 미만","40–60 %","60–80 %","80–100 %","100 % 이상"];
+const rgb = c => `rgb(${c[0]},${c[1]},${c[2]})`, UNPOURED = "rgb(205,205,205)", CYL_OK = "rgb(26,152,80)";
+const DN = s => Math.round(Date.parse(s.slice(0, 10) + "T00:00:00Z") / 864e5), ISO = n => new Date(n * 864e5).toISOString().slice(0, 10);
+let D = null, T = null, day = 0, sel = null;
+
+function stepCol(v, fck) {
+  if (v == null) return UNPOURED;
+  const r = v / fck, st = T.steps || [0.4, 0.6, 0.8, 1.0];
+  const i = st.findIndex(s => r < s);
+  return rgb(STR[i < 0 ? st.length : i]);
+}
+const at = (a, n) => { const i = n - T.d0; return i < 0 || i >= a.length ? null : a[i]; };
+
+let lastSig = "";
+async function load() {
+  try {
+    const r = await fetch("/api/timeline?" + auth, {cache: "no-store"});
+    const j = await r.json();
+    if (!j.ok) throw new Error(r.status === 403 ? "보기 주소가 맞지 않습니다. 층 표지 QR 을 다시 찍으세요" : j.error || "자료를 읽지 못했습니다");
+    const sig = JSON.stringify([j.timeline && j.timeline.end, j.floors, j.pending, j.unapproved_reports, j.alerts, j.synced_at]);
+    if (sig === lastSig) { head(); return; }   // 1분 새로 고침 — 바뀐 것이 없으면 칩·평면을 다시 그리지 않음 (초점 유지)
+    lastSig = sig;
+    D = j;
+    if (!j.timeline) { $("#plan").innerHTML = `<div class="note">아직 타설 기록이 없어 강도 곡선이 없습니다. Revit 에서 타설을 등록하고 동기화하면 나옵니다</div>`; head(); return; }
+    T = {...j.timeline, d0: DN(j.timeline.start), d1: DN(j.timeline.end), zm: Object.fromEntries(j.timeline.zones.map(z => [z.zone, z.mpa]))};
+    const slider = $("#slider"); slider.max = T.d1 - T.d0;
+    if (day === 0) day = Math.min(T.d1, Math.max(T.d0, DN(j.now)));
+    slider.value = day - T.d0;
+    if (sel == null) {   // 처음 층: 승인 기록 없는 신고 층 → 해체 검토 대상(요청 가능 구역) 층 → 타설된 가장 높은 층
+      const pick = fn => j.floors.filter(f => f.zones.some(fn)).map(f => f.floor);
+      const un = new Set((j.unapproved_reports || []).map(u => u.zone_id));
+      sel = pick(z => un.has(z.zone_id)).pop() ?? pick(z => z.decision === "해체 승인 요청 가능").pop() ?? pick(z => T.zm[z.zone_id]).pop() ?? (j.floors[0] || {}).floor;
+    }
+    head(); floors(); draw();
+  } catch (x) {
+    lastSig = "";
+    const msg = x instanceof TypeError ? "서버에 닿지 않았습니다. 휴대폰 인터넷을 확인하세요" : x.message;
+    $("#sync").innerHTML = `<div class="err" role="alert">${esc(msg)}<button type="button" id="retry">다시 시도</button></div>`;
+    $("#retry").onclick = () => { $("#sync").textContent = "불러오는 중…"; load(); };
+  }
+}
+function head() {
+  $("#title").textContent = `${D.project} · 강도 타임라인`;
+  const mins = Math.round((Date.parse(D.server_now + "Z") - Date.parse(D.synced_at + "Z")) / 6e4);   // 둘 다 한국 시각 (PC·서버)
+  const s = $("#sync"); s.className = "sync" + (mins > 60 ? " old" : "");
+  s.textContent = `마지막 Revit 동기화 ${mins < 1 ? "방금" : mins < 120 ? mins + "분 전" : Math.round(mins / 60) + "시간 전"} (${D.synced_at.slice(5, 16).replace("T", " ")})` +
+    (D.fixed_now ? ` · 판정 기준 ${D.now.replace("T", " ")} (데모 고정)` : "");
+  const un = D.unapproved_reports || [];
+  $("#red").innerHTML = un.map(u => `<div class="red" role="alert">승인 기록 없이 해체 신고됨 (Revit 판정 전): ${esc(u.zone_id)}<small>${esc(u.at.replace("T", " "))} · ${esc(u.name)}${u.company ? " (" + esc(u.company) + ")" : ""}</small></div>`).join("");
+  const p = D.pending || [];
+  const txt = it => it.kind === "cylinder" ? `공시체 ${esc(it.zone_id)} ${esc(it.mpa)} MPa (${esc(it.curing)}) · 시험 ${esc(it.when)}` :
+    it.kind === "report" ? `협력업체 신고 ${esc(it.zone_id)} · ${it.present === "아니오" ? "뺐음" : "다시 세움"} · ${esc(it.when.replace("T", " "))}` :
+    `동바리 확인 ${esc(it.zone_id)} · ${it.present === "예" ? "서 있음" : "없음"} · ${esc(it.when.replace("T", " "))}`;
+  $("#pend").innerHTML = p.length ? `<h2>판정 전 ${p.length}건 <span class="sub">다음 동기화 뒤 반영</span></h2><ul>${p.map(it => `<li>${txt(it)}</li>`).join("")}</ul>` : "";
+  const al = D.alerts || [];
+  $("#alerts").innerHTML = al.length ? `<h2>오늘 볼 것 (마지막 동기화 기준 ${al.length}건)</h2><ul>${al.map(a => `<li><b>${esc(a.kind)}</b> ${esc(a.text)}</li>`).join("")}</ul>` : "";
+  $("#legend").innerHTML = STR.map((c, i) => `<span><i style="background:${rgb(c)}"></i>${STR_KO[i]}</span>`).join("") +
+    `<span><i style="background:${UNPOURED}"></i>타설 전</span><span>◆ 공시체 (초록 = fck 이상)</span><span style="color:var(--pend)">◇ 판정 전 공시체</span><span style="color:#C0271F">- - 기준선</span>`;
+  $("#meta").textContent = "구역 색 = 그날 추정 강도 ÷ fck (참고, 판정에 안 씀). 판정·결론은 Revit 동기화 자료 그대로입니다.";
+}
+function floors() {
+  $("#floors").innerHTML = D.floors.slice().reverse().map(f => `<button type="button" data-f="${f.floor}" aria-pressed="${f.floor === sel}">${esc(f.name)}</button>`).join("");
+  for (const b of document.querySelectorAll("#floors button")) b.onclick = () => { sel = Number(b.dataset.f); floors(); draw(); };
+}
+function plan() {
+  const f = D.floors.find(x => x.floor === sel); if (!f) { $("#plan").innerHTML = ""; return; }
+  const x0 = Math.min(...f.zones.map(z => z.x0)), x1 = Math.max(...f.zones.map(z => z.x1)), y0 = Math.min(...f.zones.map(z => z.y0)), y1 = Math.max(...f.zones.map(z => z.y1));
+  const W = x1 - x0 || 1, H = y1 - y0 || 1, el = $("#plan");
+  el.style.aspectRatio = `${W} / ${H}`;
+  const fck = (T.floors.find(t => t.floor === sel) || {}).fck || 24;
+  const un = new Set((D.unapproved_reports || []).map(u => u.zone_id));
+  const marks = {};
+  for (const p of D.pending || []) if (p.kind !== "cylinder") (marks[p.zone_id] ||= []).push(p);
+  el.innerHTML = f.zones.map(z => {
+    const v = T.zm[z.zone_id] ? at(T.zm[z.zone_id], day) : null, bg = stepCol(v, fck), dark = v != null && v / fck >= 1;   // 흰 글자는 가장 진한 칸만 (대비 4.5:1 이상)
+    const mk = (marks[z.zone_id] || []).map(p => p.kind === "report" ? `<span class="mark${p.present === "아니오" ? " x" : ""}">${p.present === "아니오" ? "뺐음 신고" : "세움 신고"}</span>`
+      : `<span class="mark">${p.present === "예" ? "확인 ✓" : "확인 ✕"}</span>`).join("");
+    return `<div class="tile${un.has(z.zone_id) ? " un" : ""}" style="left:${(z.x0 - x0) / W * 100}%;top:${(y1 - z.y1) / H * 100}%;width:${(z.x1 - z.x0) / W * 100}%;height:${(z.y1 - z.y0) / H * 100}%;background:${bg};color:${dark ? "#fff" : "#000"}">` +
+      `<b>${esc(z.zone_id.split("-").pop())}</b><span>${v == null ? "타설 전" : v.toFixed(1) + " MPa"}</span>${mk}</div>`;
+  }).join("");
+}
+function draw() {
+  $("#day").textContent = ISO(day); $("#slider").setAttribute("aria-valuetext", ISO(day));
+  plan();
+  const c = $("#chart"), dpr = window.devicePixelRatio || 1, w = c.getBoundingClientRect().width || 600, h = 220;
+  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  const g = c.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+  const L = 34, R = 10, TOP = 14, BOT = 18;
+  const pend = (D.pending || []).filter(p => p.kind === "cylinder" && p.when);
+  let ymax = Math.max(...T.lines.map(l => l.mpa), ...T.cylinders.map(x => x.mpa), ...pend.map(p => p.mpa || 0), 10) * 1.15;
+  for (const f of T.floors) for (const v of f.mpa) if (v != null && v > ymax) ymax = v;
+  ymax = Math.ceil(ymax / 5) * 5;
+  const gx = n => L + (n - T.d0) / Math.max(1, T.d1 - T.d0) * (w - L - R), gy = v => h - BOT - v / ymax * (h - BOT - TOP);
+  g.font = "13px system-ui, sans-serif"; g.textBaseline = "middle";
+  g.fillStyle = "#4A4F57"; g.textAlign = "right"; g.fillText("0", L - 4, gy(0)); g.textAlign = "left"; g.fillText("MPa", L + 2, TOP);
+  for (let n = T.d0; n <= T.d1; n++) if (new Date(n * 864e5).getUTCDate() === 1) { g.fillStyle = "rgba(22,24,28,.15)"; g.fillRect(gx(n), TOP, 1, gy(0) - TOP);
+    g.fillStyle = "#4A4F57"; g.fillText(`${new Date(n * 864e5).getUTCMonth() + 1}월`, gx(n) + 3, h - 7); }
+  g.setLineDash([4, 3]); g.lineWidth = 1;
+  for (const l of T.lines) { const y = gy(l.mpa); g.strokeStyle = "rgba(192,39,31,.6)"; g.beginPath(); g.moveTo(L, y); g.lineTo(w - R, y); g.stroke();
+    g.fillStyle = "#C0271F"; g.textAlign = "right"; g.fillText(String(+l.mpa), L - 4, y); g.textAlign = "left"; g.fillText(l.name, L + 3, y - 7); }
+  g.setLineDash([]);
+  for (const f of T.floors) {
+    g.strokeStyle = f.floor === sel ? "#2B78C5" : "rgba(74,79,87,.45)"; g.lineWidth = f.floor === sel ? 2.2 : 1; g.beginPath();
+    let pen = false; f.mpa.forEach((v, i) => { if (v == null) { pen = false; return; } const x = gx(T.d0 + i), y = gy(v); pen ? g.lineTo(x, y) : g.moveTo(x, y); pen = true; }); g.stroke();
+  }
+  const dia = (x, y, fill, stroke) => { g.beginPath(); g.moveTo(x, y - 6); g.lineTo(x + 5, y); g.lineTo(x, y + 6); g.lineTo(x - 5, y); g.closePath();
+    if (fill) { g.fillStyle = fill; g.fill(); } g.strokeStyle = stroke; g.lineWidth = fill ? 1 : 2; g.stroke(); };
+  const fckOf = fl => (T.floors.find(t => t.floor === fl) || {}).fck || 24;
+  for (const cy of T.cylinders) { const n = DN(cy.date); if (n > day) continue; dia(gx(n), gy(cy.mpa), cy.mpa >= fckOf(cy.floor) ? CYL_OK : "#16181C", "#fff"); }
+  for (const p of pend) { const n = DN(p.when); if (n < T.d0 || n > T.d1) continue; dia(gx(n), gy(p.mpa), null, "#C46A00");
+    g.fillStyle = "#C46A00"; g.textAlign = "left"; g.fillText("판정 전", gx(n) + 7, gy(p.mpa) - 8); }
+  const x = gx(day); g.fillStyle = "#C0271F"; g.fillRect(x - 1, TOP - 2, 2, gy(0) - TOP + 2);
+  for (const f of T.floors) { const v = at(f.mpa, day); if (v == null) continue;
+    g.beginPath(); g.arc(x, gy(v), f.floor === sel ? 5 : 3.5, 0, 7); g.fillStyle = stepCol(v, f.fck); g.fill(); g.strokeStyle = "#16181C"; g.lineWidth = 1; g.stroke();
+    if (f.floor === sel) { const t = `${f.label} ${v.toFixed(1)}`; g.textAlign = x < w - 80 ? "left" : "right"; g.fillStyle = "#16181C"; g.fillText(t, x + (x < w - 80 ? 8 : -8), gy(v)); } }
+}
+const setDay = n => { if (!T) return; day = Math.min(T.d1, Math.max(T.d0, n)); $("#slider").value = day - T.d0; draw(); };
+$("#slider").oninput = e => setDay(T.d0 + Number(e.target.value));
+$("#prev").onclick = () => setDay(day - 1);
+$("#next").onclick = () => setDay(day + 1);
+addEventListener("resize", () => { if (T) draw(); });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
+setInterval(load, 60000);
+load();
+</script>
+<script src="/notify.js" defer></script>
+</body>
+</html>

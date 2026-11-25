@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revit On-Site 발표</title>
+<style>
+/* 1280×720 기준. --u = 화면 1px 비율 (화면: 창에 맞춤, 인쇄: 13.333in 폭) */
+:root{
+  --u:min(calc(98vw / 1280), calc(100vh / 720));
+  --bg:#f7f6f2; --ink:#1f2428; --muted:#5d666b; --line:#d9ddd8;
+  --accent:#2f5d7c; --accent-soft:#e3ecf2;
+  --ok:#2e7d4f; --ok-soft:#e2f1e7; --hold:#b8562a; --hold-soft:#f8e6dc;
+  --warn:#a3261e; --warn-soft:#f6dedb; --wait:#8a6d12; --wait-soft:#f5edd2;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#d6d9d5;color:var(--ink);font-family:'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo','Noto Sans KR',sans-serif}
+.hint{font-size:14px;color:#3a4246;text-align:center;padding:8px 16px}
+.slide{
+  position:relative;overflow:hidden;
+  width:calc(var(--u) * 1280);height:calc(var(--u) * 720);
+  margin:calc(var(--u) * 16) auto;padding:2.4em 2.8em 2em;
+  background:var(--bg);font-size:calc(var(--u) * 24);line-height:1.45;
+  box-shadow:0 2px 10px rgba(0,0,0,.15);
+  display:flex;flex-direction:column;
+}
+.slide h1{font-size:1.75em;line-height:1.2;margin:0 0 .5em;letter-spacing:-.01em}
+.slide h2{font-size:1.05em;margin:0 0 .35em;color:var(--accent)}
+.slide p{margin:0 0 .5em}
+.kicker{font-size:.72em;color:var(--muted);letter-spacing:.04em;margin-bottom:.3em}
+.pno{position:absolute;right:1.6em;bottom:.9em;font-size:.6em;color:var(--muted)}
+.src{position:absolute;left:2.8em;right:4em;bottom:.9em;font-size:.56em;color:var(--muted);line-height:1.35}
+.big{font-size:1.25em;font-weight:700}
+.lead{font-size:1.08em}
+.muted{color:var(--muted)}
+.sm{font-size:.78em}
+.xs{font-size:.66em}
+.cols{display:grid;gap:1.1em;flex:1;min-height:0}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}.c21{grid-template-columns:1.35fr 1fr}
+.card{background:#fff;border:1px solid var(--line);border-radius:.45em;padding:.8em 1em}
+.card h2{margin-bottom:.3em}
+ul{margin:.1em 0 .4em;padding-left:1.1em}li{margin:.18em 0}
+.tag{display:inline-block;font-size:.62em;font-weight:700;padding:.08em .45em;border-radius:.3em;vertical-align:.15em;margin-left:.2em;white-space:nowrap}
+.t-ok{background:var(--accent-soft);color:var(--accent)}      /* [확정] */
+.t-as{background:var(--wait-soft);color:var(--wait)}          /* [가정] */
+.t-in{background:#ece9f4;color:#4d3f86}                       /* [입력] */
+.t-un{background:#ececec;color:#555}                          /* [미확인] */
+.pill{display:inline-block;padding:.12em .6em;border-radius:1em;font-weight:700;font-size:.9em}
+.p-ok{background:var(--ok-soft);color:var(--ok)}.p-hold{background:var(--hold-soft);color:var(--hold)}
+.p-warn{background:var(--warn-soft);color:var(--warn)}.p-wait{background:var(--wait-soft);color:var(--wait)}
+table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:.32em .45em;text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.82em}
+.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.quote{border-left:.25em solid var(--accent);padding:.2em 0 .2em .7em;margin:.2em 0 .6em}
+.wait-box{border:2px dashed var(--wait);background:var(--wait-soft);border-radius:.4em;padding:.4em .7em}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif}
+.title-slide{justify-content:center}
+.title-slide h1{font-size:2.6em;margin-bottom:.25em}
+.notes{width:calc(var(--u) * 1280);margin:0 auto calc(var(--u) * 28);background:#fffef8;border:1px solid #cfcab5;
+  border-radius:6px;padding:12px 18px;font-size:15px;line-height:1.6;color:#2b2f31}
+.notes b{color:#111}
+body.hide-notes .notes{display:none}
+@page{size:13.333in 7.5in;margin:0}
+@media print{
+  :root{--u:calc(13.333in / 1280)}
+  body{background:#fff}
+  .hint,.notes{display:none!important}
+  .slide{margin:0;box-shadow:none;break-after:page;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="hint">← → 또는 PageUp/PageDown: 슬라이드 이동 · N: 발표자 메모 숨기기/보이기 · 인쇄(PDF)하면 슬라이드만 한 장씩 (16:9)</div>
+
+<!-- 1 ─────────────────────────────── -->
+<section class="slide title-slide" id="s1">
+  <div class="kicker">한국 RC 공동주택 · 동바리·거푸집 해체 검측 · Revit 2026 애드인 + Python 기준 엔진</div>
+  <h1>Revit On-Site</h1>
+  <p class="lead" style="max-width:36em">아래층 동바리가 <b>있다는 확인</b>을 요구하고, 없어진 것은 드러낸다.<br>해체 시점 판정과 감리에게 낼 <b>근거</b>까지 Revit 안에서.</p>
+  <div style="display:flex;gap:.8em;margin-top:1.2em;align-items:center">
+    <span class="pill p-ok">해체 승인 요청 가능</span><span class="pill p-hold">존치</span>
+    <span class="sm muted">— 결론은 이 두 가지뿐. 승인·해체 지시는 하지 않고, 서명란은 비워 둔다.</span>
+  </div>
+  <div class="pno">1 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 0:00–0:20 · <b>겨냥</b> 창의성(한 문장: "있다는 확인을 요구하고, 없어진 것을 드러낸다")·적용가능성.<br>
+<b>말할 것</b>: 발표의 무게는 강도 계산이 아니라 <b>존치 확인</b>이다. 결론이 두 가지뿐이라는 점을 처음부터 못 박는다. "해체하세요·승인됨·최초" 는 입으로도 쓰지 않는다.<br>
+<b>출처</b>: docs\direction_review_20261104.md §0·개선 5, CLAUDE.md.
+</aside>
+
+<!-- 2 ─────────────────────────────── -->
+<section class="slide" id="s2">
+  <div class="kicker">현장 문제 ① — 첫 장면</div>
+  <h1>협력업체가 뺐는데, 기록이 없었다</h1>
+  <svg viewBox="0 0 1180 150" role="img" aria-label="화정 2022 동바리 해체 경과">
+    <g font-size="19">
+      <line x1="30" y1="60" x2="1150" y2="60" stroke="#9aa3a6" stroke-width="3"/>
+      <g fill="#a3261e"><circle cx="120" cy="60" r="11"/><circle cx="300" cy="60" r="11"/><circle cx="480" cy="60" r="11"/></g>
+      <g text-anchor="middle" font-weight="700"><text x="120" y="36">12-26</text><text x="300" y="36">12-28</text><text x="480" y="36">1-08</text></g>
+      <text x="300" y="100" text-anchor="middle">하청이 동바리 해체·반출 (원청 현장 책임자 지시)</text>
+      <rect x="610" y="34" width="260" height="52" rx="8" fill="#fff" stroke="#9aa3a6"/>
+      <text x="740" y="67" text-anchor="middle">원청·감리: "몰랐다"</text>
+      <rect x="910" y="34" width="230" height="52" rx="8" fill="#f6dedb" stroke="#a3261e"/>
+      <text x="1025" y="67" text-anchor="middle" fill="#a3261e" font-weight="700">붕괴 (1-08 의 3일 뒤)</text>
+      <text x="30" y="138" font-size="16" fill="#5d666b">광주 화정 아이파크 2022 — 해체는 협력업체가 하고, 기록은 원청·감리가 한다. 기록이 없으면 '아직 있음'으로 보인다.</text>
+    </g>
+  </svg>
+  <div class="cols c2" style="margin-top:.4em">
+    <div class="card sm">
+      <h2>1심 (2025-01)</h2>
+      <ul>
+        <li><b>하부 3개층 동바리 무단 철거</b>를 가장 큰 원인으로 인정</li>
+        <li>콘크리트 품질·강도는 원인에서 제외</li>
+        <li>동바리 해체 직접 책임자 실형 <span class="tag t-un">부분 확인 — 기사, 판결문 미열람</span></li>
+      </ul>
+    </div>
+    <div class="card sm">
+      <h2>건설사고조사위 (2022-03)</h2>
+      <ul>
+        <li>가장 큰 원인: PIT층 하부 3개층 동바리 조기 철거</li>
+        <li>감리가 동바리 제거를 검측하지 못하고 <b>후속 공정(위층 타설)을 승인</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="src">출처: 연합뉴스 2025-01-20 화정 1심 [N1], 정책브리핑 2022-03-14 [S01], 연합·시사저널·중앙 [S02·S05·S06] — docs\direction_review_20261104.md §1-1·§4·§5, docs\field_process_research.md §2-6·§2-8</div>
+  <div class="pno">2 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 0:20–1:00 · <b>겨냥</b> 적용가능성 30(실제 사고 경로)·성실성(사조위 + 1심 두 공식 판단).<br>
+<b>말할 것</b>: 화정에서 동바리는 협력업체가 뺐고 원청·감리는 몰랐다고 했다. 1심은 이 하부 3개층 동바리 무단 철거를 가장 큰 원인으로 봤다. 그래서 우리 첫 기능은 강도 계산이 아니라 <b>아래 동바리가 있다는 최근 확인</b>이다.<br>
+<b>숫자·날짜 출처</b>: 12-26·12-28·1-08 = direction_review §1-1(S02·S05·S06), "사고 3일 전" = field_process_research §2-6, 1심 판단 = direction_review §5 N1 [부분 확인]. 붕괴 날짜는 문서에 따로 없어서 "1-08 의 3일 뒤" 로만 쓴다.<br>
+<b>주의</b>: "강도가 사고 원인" 이라고 단정하지 않는다. 사조위는 강도 미달도 원인으로 들었고 1심은 제외했다 — 둘 다 그대로 말한다.
+</aside>
+
+<!-- 3 ─────────────────────────────── -->
+<section class="slide" id="s3">
+  <div class="kicker">현장 문제 ② — 강도 서류와 사람</div>
+  <h1>서류의 강도와 그 자리 슬래브도 어긋난다</h1>
+  <div class="cols c3">
+    <div class="card">
+      <h2>공시체 ≠ 구조체</h2>
+      <ul class="sm">
+        <li>화정: 17개 층 중 15개 층 강도 미달, 최저 9.8 MPa, 동절기 양생 미흡 (사조위)</li>
+        <li>검단 2023: 받아들이기 검사는 서류상 만족, 사고 구간 코어 16.9 MPa</li>
+        <li>검단 조사위 권고 "검측 자료 디지털화·BIM 활용 기반 마련"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>감리 인력</h2>
+      <ul class="sm">
+        <li>2,000세대에 4명이면 평가 최고점</li>
+        <li>LH 자체 감리 현장 <b>81.7 %</b> 인원 미달</li>
+        <li>감리 1명이 여러 동 — 철근 2시간 검사가 <b>10분</b></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>시험 기록</h2>
+      <ul class="sm">
+        <li>2018 합동감찰 195건 중 <b>시험성적서 위·변조 87건</b></li>
+        <li>레미콘 공장 직원이 현장 시험 — 2026 국토부 공문 "시공자 직접"</li>
+        <li>공시체 보관 위치·온도 기록 양식은 찾지 못함 <span class="tag t-un">미확인</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="card sm" style="margin-top:.7em;background:#fbfaf5">
+    <b>같은 뿌리 = 슬래브 구조체 품질.</b> 층간소음은 동기로만: 감사원 2019 — 191세대 실측 60 % 최소기준 미달, 이웃사이센터 상담 8,795(2012) → 46,596(2021).
+    <span class="muted">"양생 불량이 층간소음의 주원인" 이라고는 말하지 않는다.</span>
+  </div>
+  <div class="src">출처: docs\문제정의_방향성.md §2(사조위 2022·2023, 감사원 2019, 통계청), docs\field_process_research.md §2-1·§2-3·§2-4 [S09·S10·S22·S26·S27·S28·S44]</div>
+  <div class="pno">3 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 1:00–1:30 · <b>겨냥</b> 성실성(공식·언론 근거 구분)·적용가능성(감리가 서류로 확인할 수밖에 없는 구조).<br>
+<b>말할 것</b>: 강도 서류도 그 자리 구조체와 어긋난다 — 그래서 강도 판정도 유지한다(사조위 판단). 확인할 사람은 적고 시험 기록은 위조 사례가 있다. 층간소음은 한 줄, 30초 이내.<br>
+<b>숫자 출처</b>: 9.8 MPa·15/17 = 문제정의 §2, 16.9 MPa = field_process_research §2-1 [S10], 81.7 %·2,000세대 4명·10분·87/195 = field_process_research §2-3·§2-4, 191세대 60 %·8,795→46,596 = 문제정의 §2.<br>
+<b>약한 곳</b>: 감리 인력 수치는 언론 보도(2차).
+</aside>
+
+<!-- 4 ─────────────────────────────── -->
+<section class="slide" id="s4">
+  <div class="kicker">지금 절차의 한계</div>
+  <h1>공식 흐름은 있다 — 고장 나는 자리가 정해져 있다</h1>
+  <svg viewBox="0 0 1180 300" role="img" aria-label="공식 해체 절차와 고장 지점">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5d666b"/></marker></defs>
+    <g font-size="19" text-anchor="middle">
+      <g fill="#fff" stroke="#9aa3a6" stroke-width="1.5">
+        <rect x="5" y="40" width="130" height="64" rx="8"/><rect x="155" y="40" width="130" height="64" rx="8"/>
+        <rect x="305" y="40" width="130" height="64" rx="8"/><rect x="455" y="40" width="130" height="64" rx="8"/>
+        <rect x="605" y="40" width="160" height="64" rx="8"/><rect x="785" y="40" width="110" height="64" rx="8"/>
+        <rect x="915" y="40" width="110" height="64" rx="8"/><rect x="1045" y="40" width="130" height="64" rx="8"/>
+      </g>
+      <g fill="#1f2428">
+        <text x="70" y="68">동바리 설치</text><text x="70" y="92">·검측</text>
+        <text x="220" y="80">타설</text>
+        <text x="370" y="68">현장양생</text><text x="370" y="92">공시체</text>
+        <text x="520" y="68">해체</text><text x="520" y="92">작업계획</text>
+        <text x="685" y="68">검측요청 →</text><text x="685" y="92">감리 승인</text>
+        <text x="840" y="80">해체</text>
+        <text x="970" y="80">재받침</text>
+        <text x="1110" y="68">다음 층</text><text x="1110" y="92">타설 확인</text>
+      </g>
+      <g stroke="#5d666b" stroke-width="2" marker-end="url(#ar)">
+        <line x1="135" y1="72" x2="153" y2="72"/><line x1="285" y1="72" x2="303" y2="72"/><line x1="435" y1="72" x2="453" y2="72"/>
+        <line x1="585" y1="72" x2="603" y2="72"/><line x1="765" y1="72" x2="783" y2="72"/><line x1="895" y1="72" x2="913" y2="72"/><line x1="1025" y1="72" x2="1043" y2="72"/>
+      </g>
+      <text x="5" y="24" text-anchor="start" fill="#5d666b" font-size="17">공식 흐름 (가이드라인 표 3.2.1 · 감리 세부기준 제17조)</text>
+      <g font-size="17" fill="#a3261e">
+        <circle cx="840" cy="140" r="15" fill="#f6dedb" stroke="#a3261e"/><text x="840" y="146" font-weight="700">1</text>
+        <circle cx="1110" cy="140" r="15" fill="#f6dedb" stroke="#a3261e"/><text x="1110" y="146" font-weight="700">2</text>
+        <circle cx="370" cy="140" r="15" fill="#f6dedb" stroke="#a3261e"/><text x="370" y="146" font-weight="700">3</text>
+        <circle cx="685" cy="140" r="15" fill="#f6dedb" stroke="#a3261e"/><text x="685" y="146" font-weight="700">4</text>
+      </g>
+    </g>
+    <g font-size="18" fill="#1f2428">
+      <text x="20" y="196"><tspan font-weight="700" fill="#a3261e">1</tspan>  해체는 협력업체가 한다 — 해체 사실을 남기는 사람이 없어, 기록이 없으면 '아직 존치' 로 보인다 (거짓 안전).</text>
+      <text x="20" y="226"><tspan font-weight="700" fill="#a3261e">2</tspan>  위층 타설 승인 때 아래 3개층 동바리가 실제로 있는지 확인한 기록이 없다 (화정의 결정적 고장).</text>
+      <text x="20" y="256"><tspan font-weight="700" fill="#a3261e">3</tspan>  공시체 한 조가 층 전체를 대표 — 늦게 굳는 구역(위치)을 모른다. 센서 추정만으로는 기준 근거가 아니다.</text>
+      <text x="20" y="286"><tspan font-weight="700" fill="#a3261e">4</tspan>  동바리 해체 전용 서식은 찾지 못함 — 검측요청서로 처리하는 것으로 보임. 감리는 인력이 없어 서류로 확인.</text>
+    </g>
+  </svg>
+  <p class="sm muted" style="margin-top:.5em">겨울에도 사이클은 7일 그대로 — 날짜가 먼저 정해지고 성적서·서명이 따라오는 경우가 있다.</p>
+  <div class="src">출처: docs\field_process_research.md §1.2(단계 1–12)·§1.3·§2-1·§2-4·§2-6·§3.1(KCS 14 20 12 3.3.1(4))·§3.2 [S01·S11·S13·S18]. 해체 전용 서식 없음·서류 확인은 [미확인/추정].</div>
+  <div class="pno">4 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 1:30–1:55 · <b>겨냥</b> 성실성(실제 절차 조사)·적용가능성(고장 지점 겨냥).<br>
+<b>말할 것</b>: 규정 흐름은 이미 있다. 고장은 네 자리, 앞의 두 개가 존치 확인이다 — ① 해체 사실을 아무도 기록하지 않는다 ② 위층 타설 때 아래 동바리 존치를 확인하지 않는다 ③ 공시체가 위치를 모른다 ④ 감리는 서류로 확인한다.<br>
+<b>출처</b>: field_process_research.md §1.2 표, §1.3 요약(추정), §3.1, §3.2 해체 전용 서식 번호 [미확인].
+</aside>
+
+<!-- 5 ─────────────────────────────── -->
+<section class="slide" id="s5">
+  <div class="kicker">누가 무엇을 누르나</div>
+  <h1>Revit 은 하루 한 번, 입력은 휴대폰, 서명은 종이</h1>
+  <table>
+    <tr><th style="width:21%">사람</th><th style="width:22%">쓰는 것</th><th>하는 일</th></tr>
+    <tr><td><b>품질관리자</b></td><td>휴대폰 (QR)</td><td class="sm">공시체 시험 직후 3개 값 입력 — 기준 근거</td></tr>
+    <tr><td><b>안전관리자</b></td><td>휴대폰 (층 표지 QR)</td><td class="sm">순회 때 층·구역 <b>동바리 확인 예/아니오</b> — 층당 한 번, 10초 목표 <span class="tag t-as">가정</span></td></tr>
+    <tr><td><b>공무 · BIM 담당</b></td><td>Revit <b>하루 1회</b></td><td class="sm">[판정] → [보고서]·[층 표지] 출력, 받은 서류를 [근거 원장]·[승인 기록]에 기록</td></tr>
+    <tr><td><b>협력업체 반장</b></td><td>층 출입구 표지</td><td class="sm">"동바리 해체 금지 — 존치 n구역" 을 본다</td></tr>
+    <tr><td><b>감리</b></td><td>받는 쪽 — <b>Revit 안 씀</b></td><td class="sm">검측요청서(종이)·층 표지·웹 공유판을 받고, 현장 확인 뒤 <b>종이에 서명</b></td></tr>
+  </table>
+  <p class="sm" style="margin-top:.6em">감리 서명 결과는 시공사가 [승인 기록]으로 남기고, 서명 종이 스캔은 근거 원장 6 에 붙인다.</p>
+  <div class="src">출처: docs\direction_review_20261104.md 개선 4·§4 사용자 가정, docs\field_process_research.md §4.2 "누가 실제로 버튼을 누르는가"·§4.3(10초 [가정]), HANDOFF.md 0-0 19:05(서명 종이 스캔 → 원장 6)</div>
+  <div class="pno">5 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 1:55–2:20 · <b>겨냥</b> 적용가능성 30("현장에서 누가 Revit 을 쓰나" 에 즉답).<br>
+<b>말할 것</b>: 감리는 시공사 Revit 을 쓰지 않는다. 받는 쪽이다. Revit 을 다루는 사람은 공무·BIM 담당 한 명, 하루 한 번. 나머지 사람은 휴대폰과 종이.<br>
+<b>출처</b>: direction_review 개선 4(역할 정리), field_process_research §4.2. 10초는 [가정] — 잰 값 아님.<br>
+<b>약한 곳</b>: 현장 실무자 인터뷰·검토 기록이 없다(direction_review §2 성실성 약점). 이 역할 배분은 조사 문서 기반 판단이다.
+</aside>
+
+<!-- 6 ─────────────────────────────── -->
+<section class="slide" id="s6">
+  <div class="kicker">해결 구조</div>
+  <h1>두 개의 게이트, 하나의 근거 원장</h1>
+  <svg viewBox="0 0 1180 400" role="img" aria-label="Revit On-Site 구조">
+    <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2f5d7c"/></marker></defs>
+    <g font-size="19" text-anchor="middle">
+      <rect x="10" y="10" width="230" height="380" rx="10" fill="#fff" stroke="#9aa3a6"/>
+      <text x="125" y="42" font-weight="700" fill="#2f5d7c">입력</text>
+      <g fill="#1f2428" font-size="17">
+        <text x="125" y="82">휴대폰 현장 입력 (QR)</text>
+        <text x="125" y="112">공시체 · 센서 · 동바리 확인</text>
+        <text x="125" y="152">데이터 폴더 CSV</text>
+        <text x="125" y="182">타설 · 기온 · 설치검측</text>
+        <text x="125" y="222">공정표 Excel / CSV</text>
+        <text x="125" y="262">Revit 모델</text>
+        <text x="125" y="292">층 · 구역 · 동바리 위치</text>
+      </g>
+      <rect x="290" y="10" width="300" height="175" rx="10" fill="#e3ecf2" stroke="#2f5d7c"/>
+      <text x="440" y="42" font-weight="700" fill="#2f5d7c">타설 전 존치 확인 (위층)</text>
+      <text x="440" y="80" font-size="17">아래 3개층 최근 '동바리 있음'</text>
+      <rect x="305" y="102" width="140" height="36" rx="18" fill="#e2f1e7"/><text x="375" y="126" font-size="16" fill="#2e7d4f" font-weight="700">타설 요청 가능</text>
+      <rect x="455" y="102" width="115" height="36" rx="18" fill="#f8e6dc"/><text x="512" y="126" font-size="16" fill="#b8562a" font-weight="700">타설 보류</text>
+      <text x="440" y="168" font-size="15" fill="#5d666b">'아니오' → 무단 해체 의심 (23:57 빌드 — 화면 확인 대기)</text>
+      <rect x="290" y="215" width="300" height="175" rx="10" fill="#e3ecf2" stroke="#2f5d7c"/>
+      <text x="440" y="247" font-weight="700" fill="#2f5d7c">판정 게이트 (해체)</text>
+      <text x="440" y="285" font-size="17">규칙 → 공시체 → 센서 구역 최소</text>
+      <rect x="315" y="307" width="120" height="36" rx="18" fill="#e2f1e7"/><text x="375" y="331" font-size="16" fill="#2e7d4f" font-weight="700">요청 가능</text>
+      <rect x="450" y="307" width="110" height="36" rx="18" fill="#f8e6dc"/><text x="505" y="331" font-size="16" fill="#b8562a" font-weight="700">존치</text>
+      <text x="440" y="373" font-size="15" fill="#5d666b">구역마다 · 근거 해시</text>
+      <rect x="640" y="10" width="250" height="380" rx="10" fill="#fff" stroke="#2f5d7c" stroke-width="2"/>
+      <text x="765" y="42" font-weight="700" fill="#2f5d7c">근거 원장 1–8</text>
+      <g font-size="16" text-anchor="start" fill="#1f2428">
+        <text x="665" y="82">1 설치검측</text><text x="665" y="114">2 작업계획서</text><text x="665" y="146">3 공시체</text>
+        <text x="665" y="178">4 해체전점검</text><text x="665" y="210">5 검측요청</text><text x="665" y="242">6 감리확인</text>
+        <text x="665" y="274">7 해체</text><text x="665" y="306">8 결과보고</text>
+      </g>
+      <text x="765" y="348" font-size="15" fill="#5d666b">종이가 원본 · 모델은 색인</text>
+      <text x="765" y="372" font-size="15" fill="#5d666b">SHA-256 · 해시 사슬</text>
+      <rect x="940" y="10" width="230" height="110" rx="10" fill="#fff" stroke="#9aa3a6"/>
+      <text x="1055" y="48" font-weight="700">검측요청서 초안</text>
+      <text x="1055" y="78" font-size="15" fill="#5d666b">현장 확인 3가지</text>
+      <text x="1055" y="100" font-size="15" fill="#5d666b">서명란 빈칸 · 마감 값</text>
+      <rect x="940" y="145" width="230" height="110" rx="10" fill="#fff" stroke="#9aa3a6"/>
+      <text x="1055" y="183" font-weight="700">층 표지 (A4)</text>
+      <text x="1055" y="213" font-size="15" fill="#5d666b">층 출입구 · QR</text>
+      <text x="1055" y="235" font-size="15" fill="#5d666b">"해체 금지 — 존치 n구역"</text>
+      <rect x="940" y="280" width="230" height="110" rx="10" fill="#fff" stroke="#9aa3a6"/>
+      <text x="1055" y="318" font-weight="700">4D · 웹 공유판</text>
+      <text x="1055" y="348" font-size="15" fill="#5d666b">Revit 없이 감리·발주처</text>
+      <text x="1055" y="370" font-size="15" fill="#5d666b">임대 계획 비교</text>
+      <g stroke="#2f5d7c" stroke-width="2.2" marker-end="url(#ar2)" fill="none">
+        <line x1="240" y1="100" x2="288" y2="100"/><line x1="240" y1="300" x2="288" y2="300"/>
+        <line x1="590" y1="100" x2="638" y2="100"/><line x1="590" y1="300" x2="638" y2="300"/>
+        <line x1="890" y1="65" x2="938" y2="65"/><line x1="890" y1="200" x2="938" y2="200"/><line x1="890" y1="335" x2="938" y2="335"/>
+      </g>
+    </g>
+  </svg>
+  <p class="xs" style="margin-top:.35em"><b>조사한 범위에서 찾지 못한 것</b>: 가이드라인 규칙의 층·구역 단위 판정 · 타설 전 존치 확인 · 센서 구역 최소 · 근거 원장 해시.
+  <span class="muted">검측요청서 자동 작성·IoT 양생·디지털 감리는 이미 있는 흐름(에어링크, POS-Icon, SH 스마트 감리 실증)이라 차별점으로 내세우지 않는다.</span></p>
+  <div class="src">출처: CLAUDE.md, HANDOFF.md 0-0, docs\direction_review_20261104.md §2 창의성·§4 과장 [N8·N9·N13]</div>
+  <div class="pno">6 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 2:20–2:45 · <b>겨냥</b> 창의성 40(차별점을 네 가지로 좁혀 말함)·적용가능성(리본 = 준비 → 설치 검측 → 타설·데이터 → 판정 → 승인·보고).<br>
+<b>말할 것</b>: 위 게이트가 화정형 경로(존치 확인), 아래 게이트가 해체 시점(강도). 두 결과가 근거 원장에 쌓이고, 요청서·층 표지·웹 공유판으로 나간다. "요청서를 자동으로 만든다" 는 우리만의 것이 아니다 — 비슷한 솔루션이 있다고 먼저 말한다.<br>
+<b>출처</b>: direction_review §4 과장 행(N8 에어링크 2026-08, N9 POS-Icon, N13 SH 마곡16단지 실증) — 모두 [부분 확인](기사). 이들이 강도 판정·하부층 존치 확인을 하는지는 [미확인].
+</aside>
+
+<!-- 7 ─────────────────────────────── -->
+<section class="slide" id="s7">
+  <div class="kicker">해결 ① 존치 확인 — 화정형 경로</div>
+  <h1>있다는 확인을 요구하고, 없어진 것은 드러낸다</h1>
+  <div class="cols c2">
+    <div>
+      <svg viewBox="0 0 520 300" role="img" aria-label="13층 타설 전 아래 3개층 동바리 확인">
+        <g font-size="19">
+          <rect x="20" y="10" width="300" height="50" rx="6" fill="#fff" stroke="#2f5d7c" stroke-dasharray="8 6" stroke-width="2"/>
+          <text x="170" y="42" text-anchor="middle" fill="#2f5d7c" font-weight="700">13F-B1 타설하려는 구역</text>
+          <g fill="#e9ecea" stroke="#9aa3a6">
+            <rect x="20" y="90" width="300" height="50" rx="6"/><rect x="20" y="170" width="300" height="50" rx="6"/><rect x="20" y="250" width="300" height="50" rx="6"/>
+          </g>
+          <g fill="#1f2428"><text x="40" y="122">12F-B1</text><text x="40" y="202">11F-B1</text><text x="40" y="282">10F-B1</text></g>
+          <g stroke="#7b8589" stroke-width="3">
+            <line x1="170" y1="60" x2="170" y2="90"/><line x1="260" y1="60" x2="260" y2="90"/>
+            <line x1="170" y1="140" x2="170" y2="170"/><line x1="260" y1="140" x2="260" y2="170"/>
+            <line x1="170" y1="220" x2="170" y2="250"/><line x1="260" y1="220" x2="260" y2="250"/>
+          </g>
+          <g font-weight="700" font-size="19" fill="#a3261e">
+            <text x="340" y="122">✕ → ○</text><text x="340" y="202">✕ → ○</text><text x="340" y="282">✕ → ○</text>
+          </g>
+        </g>
+      </svg>
+      <ul class="sm" style="margin-top:.4em">
+        <li>평면이 겹치는 아래 3개층 구역마다 최근 24 h <span class="tag t-as">가정</span> '동바리 있음' 확인</li>
+        <li>없음·'아니오'·해체 완료 → <span class="pill p-hold">타설 보류</span> 표시 · 셋 다 ○ → <span class="pill p-ok">타설 요청 가능</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h2>휴대폰 '아니오' → 층 표지 <span class="pill p-wait" style="font-size:.7em">화면 확인 대기</span></h2>
+        <p class="sm">감리 승인 기록(원장 6) 없이 '동바리 없음' 이 관측된 구역이 있으면, 그 층 표지 맨 위에</p>
+        <p style="margin:.3em 0 .5em"><span class="pill p-warn">무단 해체 의심 — 확인 필요</span></p>
+        <p class="xs muted">판정 결론은 그대로("요청 가능/존치"), 지시 문구 없이 확인 요청만. 같은 문구가 휴대폰·대시보드·요청서에도.</p>
+      </div>
+      <p class="xs" style="margin-top:.6em">기록이 없는 것을 '존치' 로 보지 않는다. 동바리 확인은 해체 판정에는 쓰지 않는다. 근거: 감리 세부기준 제17조① 다음 공정 착수 전 확인 <span class="tag t-ok">확정</span></p>
+    </div>
+  </div>
+  <div class="src">출처: shoring\pour_gate.py(HANDOFF 0-0 총괄 15:45), revit\screens\ux_review_12.md #2(타설 보류 실화면), docs\direction_review_20261104.md §1-1·개선 2(무단 해체 의심 — 작업 세션 23:57 빌드(화면 확인 대기)), docs\field_process_research.md §4.2 [S18]</div>
+  <div class="pno">7 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 2:45–3:15 · <b>겨냥</b> 창의성 40(해체가 아니라 <b>타설 단계</b>의 게이트, '없다는 기록 없음' 이 아니라 '있다는 확인')·적용가능성(화정형 경로).<br>
+<b>말할 것</b>: 해체하는 사람은 기록하지 않는다. 그래서 확인이 없으면 위층 타설 요청을 보류로 표시한다. 그리고 안전관리자가 '아니오' 를 누르면, 승인 기록이 없는 구역은 층 표지에 "무단 해체 의심 — 확인 필요" 로 드러낸다. 우리는 막지 않는다 — 보류 표시와 확인 요청까지.<br>
+<b>화면 확인 대기</b>: '무단 해체 의심' 은 작업 세션이 지금 만드는 기능(direction_review 개선 2). 발표 때 Revit 화면으로 못 보이면 이 슬라이드로만 설명하고, 시연 장면 ② 는 건너뛴다(demo_script.md).<br>
+<b>금지</b>: "막는다·차단" — "보류 표시·확인 요청" 으로.
+</aside>
+
+<!-- 8 ─────────────────────────────── -->
+<section class="slide" id="s8">
+  <div class="kicker">해결 ② 해체 판정 게이트</div>
+  <h1>규칙 → 공시체 → 센서 구역 최소, 순서대로</h1>
+  <div class="cols c21">
+    <div>
+      <table>
+        <tr><th>단계</th><th>무엇을 보나</th><th>기준값</th></tr>
+        <tr><td><b>규칙 게이트</b><br><span class="xs muted">구역마다</span></td>
+            <td class="sm">타설층 포함 존치 층수<br>지지 슬래브 강도 · 하중비</td>
+            <td class="sm">가이드라인 최소 3개층 <span class="tag t-ok">확정</span><br>≥ 14 MPa · 12.33 ≤ 15.50 <span class="tag t-ok">확정</span></td></tr>
+        <tr><td><b>현장양생 공시체</b><br><span class="xs muted">기준 근거</span></td>
+            <td class="sm">현장봉함·수중·기건만 셈<br>없으면 '공시체 시험 필요' — 요청 불가</td>
+            <td class="sm">평균 ≥ fck 24 MPa <span class="tag t-ok">확정</span> <span class="tag t-in">입력</span></td></tr>
+        <tr><td><b>센서 구역 최소</b><br><span class="xs muted">위치 근거</span></td>
+            <td class="sm">온도 이력 → 등가재령 → 구역 좌표로 보간, 구역 안 가장 낮은 값</td>
+            <td class="sm">≥ fck · 경계 3 m <span class="tag t-as">가정</span></td></tr>
+      </table>
+      <ul class="xs" style="margin-top:.5em">
+        <li>국토부 Q&amp;A: 온도이력 추종 센서는 <b>"가장 불리한 위치"</b> <span class="tag t-ok">확정</span> — 구역 <b>최소</b>를 쓰는 판단과 같은 방향</li>
+        <li>해체용 시험(KCS 14 20 12 표 3.3-1) ≠ 28일 품질검사(KCS 14 20 10 표 3.5-7, 연속 3회·최소 9개) — 이 제품은 앞의 것</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>9층, 2026-12-31 09:00 (시연 데이터)</h2>
+      <p class="sm">공시체 6구역 <b>모두 합격</b> — 평균 24.8–25.4 MPa. 그런데 북측 그늘:</p>
+      <table class="sm">
+        <tr><td>9F-A2</td><td class="num">23.90 &lt; 24</td><td><span class="pill p-hold">존치</span></td></tr>
+        <tr><td>9F-B2</td><td class="num">23.99 &lt; 24</td><td><span class="pill p-hold">존치</span></td></tr>
+        <tr><td>A1·B1·C1·C2</td><td class="num">≥ 24</td><td><span class="pill p-ok">요청 가능</span></td></tr>
+      </table>
+      <p class="xs muted" style="margin-top:.4em">10F 위는 위로 3개층이 아직 없어 존치. 센서가 없으면 공시체 + 기온만으로 판정한다.</p>
+    </div>
+  </div>
+  <div class="src">출처: CLAUDE.md, docs\presentation_outline.md §2 4행·§4 근거 3, docs\scenario_validation.md S1, docs\sample_request_20261231.html, docs\direction_review_20261104.md 개선 8 [N4·N5·N6]</div>
+  <div class="pno">8 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 3:15–3:45 · <b>겨냥</b> 창의성(점 센서를 구역 좌표로 보간해 공시체가 놓치는 위치를 잡음)·성실성(조항 매핑, 새 공식 근거).<br>
+<b>말할 것</b>: 강도 판정도 유지한다 — 사조위는 강도 미달도 원인으로 봤다. 공시체가 기준 근거, 센서는 '더 보수적인 쪽' 으로만 판정을 바꾼다. 국토부도 센서를 가장 불리한 위치에 두라고 안내한다 — 우리가 구역 최소를 쓰는 것과 같은 방향.<br>
+<b>숫자 출처</b>: 3개층·14 MPa·12.33 ≤ 15.50 = CLAUDE.md·outline §2 4행, 24.8–25.4·23.90·23.99 = outline §4 근거 3 / scenario_validation S1. 국토부 Q&amp;A "가장 불리한 위치" = direction_review N6 [확정 — 협회 게시 정부 Q&amp;A PDF], 연속 3회·최소 9개 = N5 [부분 확인]·N6.<br>
+<b>표현</b>: "법정 최소" 가 아니라 "가이드라인 최소 3개층". KCS 3.3.2(2) 원문은 "사전 구조검토로 결정, 필요하면 최소 3개층" [N4] — "기준이 틀렸다" 가 아니라 "최소값만 공정표에 넣으면 겨울에 모자란다".
+</aside>
+
+<!-- 9 ─────────────────────────────── -->
+<section class="slide" id="s9">
+  <div class="kicker">해결 ③ 근거 원장</div>
+  <h1>구역마다 "근거 n/8" — 빠진 서류가 보인다</h1>
+  <svg viewBox="0 0 1180 190" role="img" aria-label="근거 원장 8단계">
+    <g font-size="18" text-anchor="middle">
+      <g stroke="#fff" stroke-width="3">
+        <rect x="0" y="20" width="147" height="80" fill="#c8e6c8"/><rect x="147" y="20" width="147" height="80" fill="#b5d9b8"/>
+        <rect x="294" y="20" width="147" height="80" fill="#a2cca8"/><rect x="441" y="20" width="147" height="80" fill="#8ebf98"/>
+        <rect x="588" y="20" width="147" height="80" fill="#6faa7e"/><rect x="735" y="20" width="147" height="80" fill="#549566"/>
+        <rect x="882" y="20" width="147" height="80" fill="#428558"/><rect x="1029" y="20" width="147" height="80" fill="#227640"/>
+      </g>
+      <g fill="#1f2428" font-weight="700"><text x="73" y="55">1</text><text x="220" y="55">2</text><text x="367" y="55">3</text><text x="514" y="55">4</text></g>
+      <g fill="#fff" font-weight="700"><text x="661" y="55">5</text><text x="808" y="55">6</text><text x="955" y="55">7</text><text x="1102" y="55">8</text></g>
+      <g fill="#1f2428"><text x="73" y="84">설치검측</text><text x="220" y="84">작업계획서</text><text x="367" y="84">공시체</text><text x="514" y="84">해체전점검</text></g>
+      <g fill="#fff"><text x="661" y="84">검측요청</text><text x="808" y="84">감리확인</text><text x="955" y="84">해체</text><text x="1102" y="84">결과보고</text></g>
+      <g font-size="15" fill="#5d666b">
+        <text x="73" y="126">설치검측 기록</text><text x="220" y="126">사람이 추가</text><text x="367" y="126">현장양생만 자동</text><text x="514" y="126">사람이 추가</text>
+        <text x="661" y="126">요청 제출</text><text x="808" y="126">감리 승인 기록</text><text x="955" y="126">해체 완료</text><text x="1102" y="126">사람이 추가</text>
+      </g>
+      <text x="294" y="168" font-size="16" fill="#2e7d4f">← 시연 9F-B1: 3/8 에서 시작</text>
+      <text x="882" y="168" font-size="16" fill="#2e7d4f">④ 추가 + 요청 제출 → 5/8</text>
+    </g>
+  </svg>
+  <div class="cols c3" style="margin-top:.5em">
+    <div class="card sm"><h2>원본은 종이</h2>서명된 서류가 원본. 원장에는 <b>언제·어느 구역·어떤 서류</b>인지 색인과 파일 지문(SHA-256)만.</div>
+    <div class="card sm"><h2>순서 누락 경고</h2>"갖춘 근거" = 1부터 빈칸 없이 이어진 마지막 단계. 공시체 없이 검측요청이면 경고 <span class="tag t-as">가정</span></div>
+    <div class="card sm"><h2>고치면 드러난다</h2>승인 기록(5·6·7)은 해시 사슬 — 줄을 고치면 끊긴 줄 번호가 나온다. <b>막지는 못하고 드러낸다</b>.</div>
+  </div>
+  <div class="src">출처: shoring\evidence.py(STAGES·NEEDS·FROM_APPROVAL), HANDOFF.md 0-0(13차 근거 원장, 18:16 근거 색 식), docs\presentation_outline.md §3-1 2:00 행, revit\screens\ux_review_14.md</div>
+  <div class="pno">9 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 3:45–4:05 · <b>겨냥</b> 성실성(가이드라인 3.2·4.1·4.3 순서를 단계로)·창의성(근거 원장 해시 — 차별점 넷 중 하나).<br>
+<b>말할 것</b>: 사람이 넣는 건 2·4·8 세 가지뿐, 나머지는 이미 있는 기록에서 자동. 4D·웹 공유판에서 회색 → 진녹색.<br>
+<b>출처</b>: evidence.py 독스트링. 단계 순서 규칙 NEEDS 는 [가정]. 공유 매개변수 SHR_Ev* 는 보류 — 원장은 CSV 에서 읽는다(HANDOFF 17:20).<br>
+<b>약한 곳</b>: evidence.csv 자체는 사슬 밖 — 파일을 통째로 다시 쓰면 마감 값이 종이에 남아 있을 때만 드러난다(direction_review §1 12행).
+</aside>
+
+<!-- 10 ─────────────────────────────── -->
+<section class="slide" id="s10">
+  <div class="kicker">해결 ④ 감리에게 내는 서류</div>
+  <h1>동바리 해체 검측요청서 <span class="muted" style="font-size:.6em">(감리 검측요청 서식 준용)</span></h1>
+  <div class="cols c21">
+    <div class="card" style="font-size:.8em">
+      <div style="font-weight:700">동바리 해체 검측요청서 (초안)</div>
+      <div class="xs muted" style="margin-bottom:.4em">판정 기준 시각 2026-12-31 09:00 · 프로그램은 승인하지 않으며, 해체 여부는 감리가 확인·서명으로 결정</div>
+      <table class="xs">
+        <tr><th>구역</th><th>타설일</th><th>공시체 평균</th><th>구역 최소 추정</th><th>게이트</th><th>근거 해시</th></tr>
+        <tr><td>9F-B1</td><td>2026-11-26</td><td class="num">25.1</td><td class="num">24.5</td><td>OK</td><td>243a563ab8f6</td></tr>
+      </table>
+      <div class="xs" style="margin:.5em 0 .2em;font-weight:700">감리가 현장에서 확인할 3가지</div>
+      <table class="xs">
+        <tr><th>구역</th><th>근거</th><th>① 위 3개층 동바리 최근 확인</th><th>② 작업계획서</th><th>③ 해체전점검</th></tr>
+        <tr><td>9F-B1</td><td>5/8</td><td>✓ 확인 있음</td><td>✓ 2026-12-20</td><td>✓ 2026-12-31</td></tr>
+      </table>
+      <table class="xs" style="margin-top:.5em">
+        <tr><th>구분</th><th>소속</th><th>성명</th><th>서명</th><th>일시</th></tr>
+        <tr><td>요청 (시공사)</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>확인 (감리)</td><td></td><td></td><td></td><td></td></tr>
+      </table>
+      <div class="xs" style="margin-top:.4em">마감 값 <b>8자</b> — 서명할 때 종이에 함께 적어 둔다</div>
+    </div>
+    <div>
+      <ul class="sm">
+        <li>① 은 휴대폰 동바리 확인, ②③ 은 근거 원장에서 바로 채워진다 — 서류 작성이 아니라 <b>이 연결</b>이 핵심</li>
+        <li>✓ 는 기록이 있다는 뜻 — 감리는 <b>그 자리를 눈으로</b> 확인하고 서명한다. ✕ 면 현장에서 직접</li>
+        <li><b>서명란은 비운다</b>. 서명은 종이에서</li>
+        <li><b>마감 값</b> = 요청 구역 근거 해시 · 원장 단계 날짜 · 승인 기록 사슬 끝의 SHA-256 앞 8자. 근거가 나중에 바뀌면 값이 달라져 대조된다</li>
+      </ul>
+      <p class="xs muted">법령에 '해체 승인 요청서' 조문은 없다. 강제 조항은 산안규칙 제334조 4호(양생기간 준수) 등, 검측요청·감리 확인은 고시·시방서·가이드라인 절차.</p>
+    </div>
+  </div>
+  <div class="src">출처: docs\sample_request_20261231.html(9F-B1 행·해시), shoring\approval.py site_checks(마감 값 정의), HANDOFF.md 0-0(17:39·18:01, 총괄 17:20 법령 근거), docs\presentation_outline.md §3-1 2:25 행</div>
+  <div class="pno">10 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 4:05–4:20 · <b>겨냥</b> 적용가능성 30(감리 검측요청 절차와 같은 흐름, 서명 대상은 프로그램 결론이 아니라 근거 묶음).<br>
+<b>말할 것</b>: 감리는 Revit 을 쓰지 않는다 — 종이 한 장. "현장에서 확인할 3가지" 가 인력 부족한 감리에게 볼 곳을 가리킨다. 마감 값은 서명 종이에 남는 외부 고정점. 요청서 자동 작성 자체는 다른 솔루션도 한다(에어링크 등) — 우리 쪽은 ①–③ 칸이 존치 확인·근거 원장과 이어진다는 점만 말한다.<br>
+<b>숫자 출처</b>: 9F-B1 25.1·24.5·243a563ab8f6 = docs\sample_request_20261231.html, ✓ 줄(5/8·12-20·12-31) = outline §3-1 2:25 행(리허설로 확인할 것).<br>
+<b>금지 표현</b>: '법정 서식', '법정 승인 요청서', '감리 승인은 법적 의무'. 주택 감리업무 세부기준 제17조③ 별지 6호 / 공공 고시 제2026-360호 별지 36호를 '준용' 한다고만.
+</aside>
+
+<!-- 11 ─────────────────────────────── -->
+<section class="slide" id="s11">
+  <div class="kicker">라이브 시연 (4분) — 화정형 경로 세 장면</div>
+  <h1>보류 → 확인 → 드러냄 → 근거 묶음</h1>
+  <table class="sm">
+    <tr><th style="width:4.6em">시간</th><th>장면</th><th>보여 줄 것</th></tr>
+    <tr><td class="num">0:00</td><td>준비: 대시보드 [판정] (기준일 2026-12-31)</td><td>9층 A1·B1·C1·C2 요청 가능 / A2·B2 존치</td></tr>
+    <tr><td class="num">0:15</td><td><b>① 타설 전 존치 확인</b> — 13F-B1 칸 두 번</td><td><span class="pill p-hold">타설 보류</span> ✕ 12F·11F·10F-B1</td></tr>
+    <tr><td class="num">0:35</td><td>휴대폰 12·11·10F-B1 동바리 확인 <b>예</b> ×3 → 13F-B1 다시</td><td><span class="pill p-ok">타설 요청 가능</span> ○ ○ ○</td></tr>
+    <tr><td class="num">1:30</td><td><b>② 무단 해체 의심</b> <span class="pill p-wait" style="font-size:.75em">화면 확인 대기</span> — 휴대폰 9F-A2 '아니오' → [층 표지]</td><td>9F 표지 맨 위 <span class="pill p-warn" style="font-size:.85em">무단 해체 의심 — 확인 필요</span></td></tr>
+    <tr><td class="num">2:20</td><td><b>③ 근거 묶음</b> — 9F-B1 [근거 원장] 4 → [승인 기록] 요청 제출 → [보고서]</td><td>현장 확인 3가지 ✓✓✓ · 서명란 빈칸 · 마감 값</td></tr>
+    <tr><td class="num">3:30</td><td>[임대 계획 비교] (짧게)</td><td>3개층 고정 → 기준 미달 해체 11개층</td></tr>
+  </table>
+  <p class="xs muted" style="margin-top:.5em">데이터는 '시연용' 가상 값. ② 가 발표 전에 배포되지 않으면 건너뛰고 슬라이드 7 로 설명. Revit 이 멈추면 같은 엔진으로 내보낸 웹 공유판으로.</p>
+  <div class="src">출처: docs\presentation\demo_script.md, docs\direction_review_20261104.md 개선 5, docs\presentation_outline.md §3-0·§3-2</div>
+  <div class="pno">11 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 4:20–8:20 (시연 4:00) · <b>겨냥</b> 적용가능성(실제 동작)·창의성(한 이야기로 꿰인 세 장면).<br>
+<b>말할 것</b>: "이제 화정에서 고장 났던 경로를 Revit 에서 따라가겠습니다." 이 슬라이드를 띄운 채 Alt+Tab. 대본은 demo_script.md. ③ 의 ① ✓ 는 장면 ① 의 휴대폰 확인 3건에서 나온다 — 장면이 이어진다고 말한다.<br>
+<b>시연 전 필수</b>: python tools\make_demo_data.py revit\onsite_data_demo (지금 폴더 approvals.csv 에 19:11 리허설 기록 1건). 리허설 뒤 모델 저장 금지.<br>
+<b>말하지 않을 것</b>: "해체하세요", "승인됨", "타설하세요", "막는다".
+</aside>
+
+<!-- 12 ─────────────────────────────── -->
+<section class="slide" id="s12">
+  <div class="kicker">효과 — 겨울 공정 (첫 타설 2026-10-01, 7일 사이클, 15개층)</div>
+  <h1>날짜 관행은 본수가 적지만, 덜 굳은 층을 뺀다</h1>
+  <table class="sm">
+    <tr><th>운영</th><th class="num">최대 동시 본수</th><th class="num">본·일</th><th class="num">가열 층·일</th><th>마지막 해체일</th><th>기준 미달 해체</th></tr>
+    <tr><td><b>A</b> 3개층 고정 (날짜 관행)</td>
+        <td class="num"><span class="pill p-wait" style="font-size:.8em">결정 대기</span><br><span class="xs">1,248 (3개층) / 1,632 (4개층, 겹침 포함)</span></td>
+        <td class="num">138,312</td><td class="num">0</td><td>2027-01-14</td>
+        <td><span class="pill p-warn" style="font-size:.85em">11개층</span><br><span class="xs">5F 23.5 · 6F 23.0 · 7F 22.5 · 8F 22.2 … MPa</span></td></tr>
+    <tr><td><b>B</b> 보온 5 ℃ (계절 대응)</td><td class="num">2,040 (5개층)</td><td class="num">184,008</td><td class="num">0</td><td>2027-02-06</td><td>없음</td></tr>
+    <tr><td><b>C</b> 가열 15 ℃</td><td class="num">1,632 (4개층)</td><td class="num">149,328</td><td class="num">267</td><td>2027-01-26</td><td>없음</td></tr>
+  </table>
+  <div class="cols c3" style="margin-top:.7em;flex:none">
+    <div class="card sm"><h2>위험</h2>A 와 B·C 의 차이는 비용이 아니라 <b>위험</b> — A 는 11개층을 fck 24 MPa 미만에서 해체.</div>
+    <div class="card sm"><h2>시간</h2>C(가열)는 B(보온)보다 마지막 해체가 <b>11일</b> 빠르다 (02-06 → 01-26), 대신 가열 267 층·일.</div>
+    <div class="card sm"><h2>비용</h2><b>단가 입력 시</b> 계산 — costs.csv: 임대 원/본·일 · 가열 원/층·일 · 간접비 원/일. 기본 단가는 두지 않는다.</div>
+  </div>
+  <p class="xs muted" style="margin-top:.45em">층당 408본 <span class="tag t-in">입력</span> · 서울 평년 기온 <span class="tag t-as">가정</span> · 강도는 엔진 예측(공시체로 확인 필요). 여름(5/1 첫 타설)엔 가이드라인 최소 3개층으로 충분해 차이가 없다(S3).</p>
+  <div class="src">출처: docs\plan_cost.html(표 수치 그대로), HANDOFF.md 0-0 총괄 17:05 줄(1,248 = 3개층 × 416 기획 세션 값 vs 1,632 = 4개층 × 408 plan_cost 겹침 포함 — 사용자 결정 대기), docs\scenario_validation.md S3</div>
+  <div class="pno">12 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 8:20–8:50 · <b>겨냥</b> 적용가능성(현장 돈·공기와 연결)·창의성(최소값만 공정표에 넣으면 겨울에 모자람).<br>
+<b>말할 것</b>: "날짜 관행은 본수가 적어 보이지만 겨울엔 기준 미달로 해체하는 층이 생긴다 — 이 차이는 비용이 아니라 위험." 비용은 단가를 넣어야 나온다. 원 단위 숫자는 만들지 않는다.<br>
+<b>결정 대기 (사용자)</b>: A 행 최대 동시 본수 — 1,248(3개층 × 416, 기획 세션 보고서) vs 1,632(4개층 × 408, plan_cost — 다음 층 설치(타설 3일 전)와 최하층 해체 사이 겹침을 4개층으로 셈). 시연 화면에는 1,632 가 뜬다. 정해지기 전엔 "운영 방식에 따라 3–4개층분" 까지만 말한다.<br>
+<b>함께 볼 차이</b>: B 2,040(층당 408) vs 기획 세션 2,080(층당 416). 겨울 "6개층분"(S11, 10/1 시작 + 공시체 실적)과 "5개층분"(S3, 12/1 시작)은 섞지 않는다.<br>
+<b>숫자 출처</b>: docs\plan_cost.html, scenario_validation.md S3. 감리 확인 시간 단축은 측정하지 않았다 [미확인].
+</aside>
+
+<!-- 13 ─────────────────────────────── -->
+<section class="slide" id="s13">
+  <div class="kicker">검증 — 화면의 숫자는 어디서 나왔나</div>
+  <h1>시나리오 PASS 11 · FAIL 0 · 미실행 1</h1>
+  <div class="cols c2">
+    <div>
+      <table class="sm">
+        <tr><td>S2 화정형 (1개층만 존치)</td><td>15/15층 위반, 하중비 2.43–2.78</td></tr>
+        <tr><td>S3 겨울 첫 타설 12/1</td><td>필요 존치 5개층, 3개층이면 1–12층 위반</td></tr>
+        <tr><td>S4 공시체 미달 · S6 없음</td><td>존치 / '공시체 시험 필요', 요청 0</td></tr>
+        <tr><td>S5 공정표 해체일이 판정보다 빠름</td><td>9층 "… 이전입니다 → 존치" 경고</td></tr>
+        <tr><td>S8 KBIM 실모델 높이</td><td>1층 하부 5,900 mm → 수평연결재 · 시스템 동바리 · 기술사 구조계산</td></tr>
+        <tr><td>S9 1본 하중</td><td>1.2 m 11.4 kN ≤ 13.3 / 1.5 m 17.9 kN NG</td></tr>
+      </table>
+      <p class="xs muted" style="margin-top:.4em">미실행 1 = S10 RAVA3Pro 프리캐스트("동바리 대상 없음"이 나와야 하는 부정 시험) — Revit 확인 예정.</p>
+    </div>
+    <div>
+      <div class="card sm" style="margin-bottom:.6em"><h2>C# 이식본 = Python 기준 엔진</h2>판정표·요청서 HTML·승인 기록·임대 계획 비교를 같은 입력으로 바이트 단위 대조 — 일치 시험 통과, 현장 입력 서버 54/54</div>
+      <div class="card sm" style="margin-bottom:.6em"><h2>다른 모델: KBIM 10층 IFC</h2>업무시설, 그리드 없음, B1·PH 층 — 판정 요청 가능 54 · 존치 36 = Python 과 같음, 층별 동바리 725–788본</div>
+      <div class="card sm"><h2>화면 점검 17차</h2>Revit 안 실제 클릭으로 기능마다 통과·불합격 기록 (revit\screens\ux_review_*.md)</div>
+    </div>
+  </div>
+  <div class="src">출처: docs\scenario_validation.md(결과 줄·S2–S9), HANDOFF.md 0-0(Engine.Check·Field 54/54·WebExport 전체 일치), revit\screens\ux_review_17.md(KBIM 54/36)·ux_review_18.md</div>
+  <div class="pno">13 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 8:50–9:15 · <b>겨냥</b> 성실성 30(재현 가능한 검증)·적용가능성(다른 모델).<br>
+<b>말할 것</b>: 발표의 숫자는 이 검증표에서만 나온다. 리허설 날 python shoring\scenarios.py 를 다시 돌려 PASS 11 · FAIL 0 · 미실행 1 을 확인한다(outline 머리말).<br>
+<b>숫자 출처</b>: scenario_validation.md 결과 줄·S2·S3·S8·S9, ux_review_17.md #1·#4, HANDOFF 0-0(Field 54/54).<br>
+<b>주의</b>: scenario_validation.md 의 S3 제목은 "가이드라인 최소 3개층"으로 고쳐짐(11-05).<br>
+<b>약한 곳</b>: KBIM 은 업무시설, 판정도 '시연용' 가상 타설·공시체로 돌린 것.
+</aside>
+
+<!-- 14 ─────────────────────────────── -->
+<section class="slide" id="s14">
+  <div class="kicker">적용 범위 · 한계</div>
+  <h1>할 수 있는 것과, 정직하게 못 하는 것</h1>
+  <div class="cols c2">
+    <div class="card">
+      <h2>적용 범위</h2>
+      <ul class="sm">
+        <li>한국 RC 공동주택 — 다층 동바리 해체 판정, 위층 타설 전 존치 확인</li>
+        <li>센서가 없어도 <b>공시체 + 기온</b>만으로 판정·요청서·타설 전 확인·4D</li>
+        <li>Revit 2026 리본 애드인, 공정표 Excel/CSV, 휴대폰은 같은 Wi-Fi 브라우저</li>
+        <li>감리 검측요청 서식 준용: 주택 감리업무 세부기준 제17조③ 별지 6호 / 공공 고시 제2026-360호 별지 36호</li>
+        <li>그리드 없는 IFC 모델(KBIM)에서도 구역·판정 동작</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>한계</h2>
+      <ul class="sm">
+        <li><b>하중비교는 고정값</b> — 슬래브 210 mm · 마감 1.64 · 활하중 2.0 kN/㎡ <span class="tag t-as">가정</span>, 다른 모델에도 그대로 쓰인다</li>
+        <li>센서·공시체·타설 값은 <b>'시연용' 가상 데이터</b>, 현장 실무자 검토 기록 없음</li>
+        <li>기온 서울 평년값 · 24 h 확인 · 3 m 센서 범위 · 최상층 해석 <span class="tag t-as">가정</span></li>
+        <li>'무단 해체 의심' 표시는 23:57 빌드에 들어감(화면 확인 대기), 판넬 조기 탈형은 화면 확인 대기</li>
+        <li>해시·마감 값은 위조를 <b>막지 못하고 드러낸다</b></li>
+        <li>프로그램은 승인하지 않는다 — 결정은 감리</li>
+      </ul>
+    </div>
+  </div>
+  <div class="src">출처: docs\direction_review_20261104.md §1 7행·개선 6(engine.py 하중 고정값)·§2 성실성, docs\presentation_outline.md §2 8행·§5, HANDOFF.md 0-0(18:55 판넬 조기 탈형, 16:31 센서 없는 기본형), revit\screens\ux_review_18.md #5</div>
+  <div class="pno">14 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 9:15–9:40 · <b>겨냥</b> 성실성(한계를 먼저 말함)·적용가능성(도입 조건).<br>
+<b>말할 것</b>: 한계를 우리가 먼저 말한다 — 특히 하중비교 고정값, 가상 데이터, "프로그램은 승인하지 않는다".<br>
+<b>출처</b>: 하중비교 고정값 = direction_review 개선 6(engine.pour_load(t_slab=0.21), slab_spare(1.64, 2.0) [가정]) — KBIM 등 다른 두께에도 210 mm 로 계산. 모델 두께 반영(zones.csv slab_mm)은 다음 단계(개선 12). 서식 조항 = outline §2 8행. 승인 기록 시각이 실제 시계라 시연에서 순서 경고 1줄이 뜨는 점(outline §3-0 ③)은 질문 나오면.<br>
+<b>약한 곳</b>: 현장 실무자 인터뷰·검토가 없다는 점은 질문이 나오기 전에 먼저 말하는 편이 낫다.
+</aside>
+
+<!-- 15 ─────────────────────────────── -->
+<section class="slide" id="s15">
+  <div class="kicker">다음 단계</div>
+  <h1>현장 한 곳에서, 실측으로</h1>
+  <div class="cols c2">
+    <div>
+      <ul class="sm">
+        <li>실측 CSV 로 교체 — 형식 그대로 (공시체·센서·타설), 현장 실무자 검토</li>
+        <li>'무단 해체 의심' 표시 완성 — 휴대폰·대시보드·층 표지·요청서 같은 문구</li>
+        <li>하중비교에 모델 슬래브 두께 반영 (zones.csv slab_mm)</li>
+        <li>감리 승인 기록에 승인자·서명 시각·서명 종이 스캔 — 사후 서명 표시</li>
+        <li>해체 후 점검(가이드라인 4.3) 양식, 동바리 보유 수량 대비 부족 경고</li>
+        <li>공시체 채취 단위(타설구획·업체·차량번호·보관 위치), 기온은 기상청 API</li>
+        <li class="muted">확장: 구역별 양생 이력 = 슬래브 품질 기록 (준공 제출·하자 분쟁 증빙)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="wait-box sm" style="margin-bottom:.8em">
+        <b>결정 대기 (사용자)</b> — '3개층 고정' 최대 동바리 본수 표기<br>1,248 (3개층) vs 1,632 (4개층, 겹침 포함)
+      </div>
+      <div class="card">
+        <p class="lead" style="margin:0">프로그램은 결정하지 않는다.<br><b>감리가 현장에서 볼 곳을 정확히 가리킨다.</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처: docs\direction_review_20261104.md 개선 2·9·10·11·12·15, docs\field_process_research.md §4.1, docs\presentation_outline.md §2 8행(기상청 API), docs\문제정의_방향성.md §5-4, HANDOFF.md 0-0 총괄 17:05(결정 대기)</div>
+  <div class="pno">15 / 15</div>
+</section>
+<aside class="notes">
+<b>시간</b> 9:40–10:00 · <b>겨냥</b> 적용가능성(도입 경로)·창의성(확장성).<br>
+<b>말할 것</b>: 다음 단계는 기능 추가보다 실측 — 현장 한 곳에서 CSV 형식 그대로. 마지막 문장으로 끝낸다.<br>
+<b>출처</b>: direction_review §3 개선 목록(P1 2번, P2 9–12·15), 준공검사 때 타설 현황·품질시험 결과 제출 = direction_review N6. 결정 대기 상자는 사용자 결정 뒤 지운다.
+</aside>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  function cur(){var y=window.scrollY+window.innerHeight/3,i=0;slides.forEach(function(s,k){if(s.offsetTop<=y)i=k});return i}
+  document.addEventListener('keydown',function(e){
+    if(e.key==='n'||e.key==='N'){document.body.classList.toggle('hide-notes');return}
+    var d=(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')?1:(e.key==='ArrowLeft'||e.key==='PageUp')?-1:0;
+    if(!d)return;e.preventDefault();
+    var i=Math.max(0,Math.min(slides.length-1,cur()+d));
+    slides[i].scrollIntoView({block:'center'});
+  });
+})();
+</script>
+</body>
+</html>

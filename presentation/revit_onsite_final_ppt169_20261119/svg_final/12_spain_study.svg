@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">III. 판정과 존치 계획 (1/2)</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-12/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">III · Alvarado 외 (2016) · 스페인 마드리드</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">III. 판정이 존치 계획을 바꾸는 이유 (1/2)</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">같은 건물도 해체 방법과 존치 층수에 따라 9가지 계획이 나옵니다</text>
+  </g>
+  <g id="study-site" data-pptx-bounds="56 164 368 372">
+    <rect x="56" y="172" width="364" height="150" rx="4" fill="#E8EDF2" />
+    <text x="78" y="202" font-size="15" font-weight="bold" fill="#2E6DB4">연구 대상</text>
+    <text x="78" y="240" font-size="22" font-weight="bold" fill="#1D3557">마드리드 14층 아파트</text>
+    <text fill="#1E2329" font-size="18" x="78" y="274">슬래브 두께 22 cm</text><text fill="#1E2329" font-size="18" x="78" y="302">일주일에 1개 층씩 시공</text><g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="middle"><text x="241" y="362">2개 층</text><text x="311" y="362">3개 층</text><text x="381" y="362">4개 층</text></g>
+    <g font-size="15" fill="#1D3557"><text x="56" y="396">한 번에 해체</text><text x="56" y="436">클리어링</text><text x="56" y="476">재받침</text></g>
+    <g fill="#FFFFFF" stroke="#1D3557" stroke-width="1"><rect x="210" y="374" width="62" height="32" /><rect x="280" y="374" width="62" height="32" /><rect x="350" y="374" width="62" height="32" /><rect x="210" y="414" width="62" height="32" /><rect x="280" y="414" width="62" height="32" /><rect x="350" y="414" width="62" height="32" /><rect x="210" y="454" width="62" height="32" /><rect x="280" y="454" width="62" height="32" /><rect x="350" y="454" width="62" height="32" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="middle"><text x="241" y="395">1</text><text x="311" y="395">2</text><text x="381" y="395">3</text><text x="241" y="435">4</text><text x="311" y="435">5</text><text x="381" y="435">6</text><text x="241" y="475">7</text><text x="311" y="475">8</text><text x="381" y="475">9</text></g>
+    <text x="56" y="522" font-size="18" font-weight="bold" fill="#1D3557">3가지 방법 × 2·3·4개 층 = 9가지 계획</text>
+  </g>
+  <g id="methods" data-pptx-bounds="456 164 768 336">
+    <text x="456" y="190" font-size="20" font-weight="bold" fill="#1D3557">동바리를 빼는 3가지 방법</text>
+    <g fill="#E8EDF2"><rect x="456" y="206" width="768" height="88" rx="4" /><rect x="456" y="304" width="768" height="88" rx="4" /><rect x="456" y="402" width="768" height="88" rx="4" /></g>
+    <g fill="#1D3557"><circle cx="496" cy="250" r="20" /><circle cx="496" cy="348" r="20" /><circle cx="496" cy="446" r="20" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle"><text x="496" y="257">1</text><text x="496" y="355">2</text><text x="496" y="453">3</text></g>
+    <g font-size="20" font-weight="bold" fill="#1D3557"><text x="532" y="242">한 번에 해체</text><text x="532" y="340">클리어링 (스페인식)</text><text x="532" y="438">재받침</text></g>
+    <g font-size="18" fill="#1E2329"><text x="532" y="272">콘크리트가 충분히 굳은 뒤 동바리를 한꺼번에 뺀다</text><text x="532" y="370">타설 2일 뒤 동바리 절반 이상을 먼저 빼고, 나머지는 남겨 둔다</text><text x="532" y="468">동바리를 모두 뺀 뒤 며칠 안에 다시 받친다</text></g>
+  </g>
+  <g id="beta-rule" data-pptx-bounds="56 544 1168 100">
+    <rect x="56" y="548" width="1168" height="92" rx="4" fill="#1D3557" />
+    <text x="80" y="576" font-size="15" font-weight="bold" fill="#C5CDD6">판단 기준 β</text>
+    <text x="80" y="614" font-size="22" font-weight="bold" fill="#FFFFFF">β = 공사 중 슬래브가 받는 하중 ÷ 설계에서 정한 하중</text>
+    <rect x="720" y="566" width="228" height="56" rx="4" fill="#2E6DB4" />
+    <text x="834" y="601" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">β ≤ 1 → 해체 가능</text>
+    <rect x="964" y="566" width="244" height="56" rx="4" fill="#E8EDF2" />
+    <text x="1086" y="601" font-size="20" font-weight="bold" fill="#B23A2E" text-anchor="middle">β &gt; 1 → 쓸 수 없음</text>
+  </g>
+  <g id="source-note" data-pptx-bounds="56 650 760 18">
+    <text x="56" y="663" font-size="12" fill="#5B6673">출처: 참고문헌 [6] · 층별 하중 분담은 Calderón 외(2011) 간이해석법, Gasch 외(2014) 계측으로 검증</text>
+  </g>
+</svg>

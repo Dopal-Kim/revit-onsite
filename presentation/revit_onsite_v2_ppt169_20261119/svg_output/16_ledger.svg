@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 실제 화면: [승인 기록] 창 (9F-B1)</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">16 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">03 · Revit On-Site · 기록 · 책임</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">모든 단계가 원장에 남고, 고치면 드러납니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">설치 검측부터 결과 보고까지 한 원장에 쌓입니다</text>
+  </g>
+  <g id="shot-approve" data-pptx-bounds="56 186 444 470">
+    <rect x="56" y="190" width="436" height="375" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5"/>
+    <image href="../images/shot_17.png" x="64" y="198" width="420" height="361" preserveAspectRatio="xMidYMid meet"/>
+    <text x="56" y="594" font-size="15" font-weight="bold" fill="#1B2A41">[승인 기록] 창: 요청 제출, 감리 승인, 해체 완료</text>
+    <text x="56" y="620" font-size="15" fill="#5E6B7A">화면 문구: "프로그램은 승인하지 않습니다"</text>
+  </g>
+  <g id="ledger-chain" data-pptx-bounds="528 186 688 470">
+    <text x="528" y="212" font-size="15" font-weight="bold" fill="#5E6B7A">근거 원장 · 8단계 (evidence.csv)</text>
+    <g fill="#EEF3F9" stroke="#1F5FA8" stroke-width="1.5"><rect x="528" y="228" width="76" height="92" rx="6"/><rect x="616" y="228" width="76" height="92" rx="6"/><rect x="704" y="228" width="76" height="92" rx="6"/><rect x="792" y="228" width="76" height="92" rx="6"/><rect x="880" y="228" width="76" height="92" rx="6"/><rect x="968" y="228" width="76" height="92" rx="6"/><rect x="1056" y="228" width="76" height="92" rx="6"/><rect x="1144" y="228" width="72" height="92" rx="6"/></g>
+    <g stroke="#1F5FA8" stroke-width="2"><line x1="604" y1="274" x2="616" y2="274"/><line x1="692" y1="274" x2="704" y2="274"/><line x1="780" y1="274" x2="792" y2="274"/><line x1="868" y1="274" x2="880" y2="274"/><line x1="956" y1="274" x2="968" y2="274"/><line x1="1044" y1="274" x2="1056" y2="274"/><line x1="1132" y1="274" x2="1144" y2="274"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#1F5FA8" text-anchor="middle"><text x="566" y="276">1</text><text x="654" y="276">2</text><text x="742" y="276">3</text><text x="830" y="276">4</text><text x="918" y="276">5</text><text x="1006" y="276">6</text><text x="1094" y="276">7</text><text x="1180" y="276">8</text></g>
+    <g font-size="13" font-weight="bold" fill="#1B2A41" text-anchor="middle"><text x="566" y="304">설치검측</text><text x="654" y="304">작업계획서</text><text x="742" y="304">공시체</text><text x="830" y="304">해체전점검</text><text x="918" y="304">검측요청</text><text x="1006" y="304">감리확인</text><text x="1094" y="304">해체</text><text x="1180" y="304">결과보고</text></g>
+    <text x="528" y="352" font-size="15" fill="#5E6B7A">단계와 날짜, 파일 해시를 한 줄씩 남기고 구역마다 '근거 n/8'로 셉니다</text>
+    <rect x="528" y="380" width="688" height="124" rx="6" fill="#EEF3F9"/>
+    <use data-icon="tabler-outline/lock" x="552" y="404" width="32" height="32" fill="#1F5FA8" stroke-width="2"/>
+    <text x="600" y="420" font-size="20" font-weight="bold" fill="#1B2A41">승인 기록은 해시 사슬로 묶입니다</text>
+    <text x="600" y="452" font-size="18" fill="#1E2633">앞 기록과 묶여 있어 나중에 고치면 사슬이 끊어져<tspan x="600" dy="28">바로 드러납니다 (approvals.csv)</tspan></text>
+    <rect x="528" y="520" width="688" height="124" rx="6" fill="#1B2A41"/>
+    <use data-icon="tabler-outline/rosette-discount-check" x="552" y="544" width="32" height="32" fill="#FFFFFF" stroke-width="2"/>
+    <text x="600" y="560" font-size="20" font-weight="bold" fill="#FFFFFF">감리가 현장에서 직접 남깁니다</text>
+    <text x="600" y="592" font-size="18" fill="#EEF3F9">지금은 시공사가 종이 서명을 옮겨 적지만, 여기서는<tspan x="600" dy="28">감리 본인이 휴대폰으로 확인하고 서명 일시를 남깁니다</tspan></text>
+  </g>
+</svg>

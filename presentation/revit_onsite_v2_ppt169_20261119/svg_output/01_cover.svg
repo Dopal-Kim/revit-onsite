@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="cover" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#1B2A41"/>
+  <g id="hero-model" data-pptx-bounds="704 0 576 720">
+    <rect x="704" y="0" width="576" height="720" fill="#EEF3F9"/>
+    <text x="744" y="66" font-size="15" font-weight="bold" fill="#5E6B7A">실제 Revit 화면 · 판정 뒤 구역 색 (시연 모델)</text>
+    <image href="../images/cover_model.png" x="742" y="92" width="500" height="540" preserveAspectRatio="xMidYMid meet"/>
+    <g>
+      <rect x="744" y="652" width="14" height="14" rx="3" fill="#A2CA83"/><text x="766" y="664" font-size="15" fill="#1E2633">요청 가능</text>
+      <rect x="866" y="652" width="14" height="14" rx="3" fill="#F46D43"/><text x="888" y="664" font-size="15" fill="#1E2633">존치</text>
+      <rect x="958" y="652" width="14" height="14" rx="3" fill="#FEE08B"/><text x="980" y="664" font-size="15" fill="#1E2633">시험 필요</text>
+      <rect x="1080" y="652" width="14" height="14" rx="3" fill="#737373"/><text x="1102" y="664" font-size="15" fill="#1E2633">해체 완료</text>
+    </g>
+  </g>
+  <g id="affiliation" data-pptx-bounds="64 48 600 28">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#8FB4E3">경희대학교 건축공학과 · 건축공학시스템설계</text>
+  </g>
+  <g id="hook" data-pptx-bounds="64 196 600 132">
+    <rect x="64" y="204" width="48" height="6" fill="#1F5FA8"/>
+    <text x="64" y="262" font-size="36" font-weight="bold" fill="#EEF3F9">구역마다 기준을 확인하고<tspan x="64" dy="46">근거를 남깁니다</tspan></text>
+  </g>
+  <g id="cover-title" data-pptx-bounds="64 340 620 150">
+    <text x="64" y="420" font-size="78" font-weight="bold" fill="#FFFFFF">Revit On-Site</text>
+    <text x="64" y="470" font-size="24" fill="#D5DCE4">동바리 설치 · 해체 판정을 위한 Revit 애드인</text>
+  </g>
+  <g id="team" data-pptx-bounds="64 528 600 140">
+    <line x1="64" y1="532" x2="640" y2="532" stroke="#5E6B7A" stroke-width="1"/>
+    <g font-size="15" fill="#D5DCE4"><text x="64" y="562">담당 교수</text><text x="64" y="590">팀</text><text x="64" y="618">팀원</text></g>
+    <g font-size="18" fill="#FFFFFF"><text x="164" y="562">백장운 교수님</text><text x="164" y="590" font-weight="bold">Build Up</text><text x="164" y="618">김도영 · 이영준 · 최예준 · 최영윤</text></g>
+  </g>
+</svg>

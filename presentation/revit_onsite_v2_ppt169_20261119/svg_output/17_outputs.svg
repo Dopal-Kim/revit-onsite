@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 실제 결과물 (시연 자료)</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">17 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">03 · Revit On-Site · 결과물</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">검측요청서와 웹 공유판도 버튼 하나로 나옵니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">결과물은 모두 데이터 폴더에 파일로 남습니다</text>
+  </g>
+  <g id="shot-request" data-pptx-bounds="56 184 576 478">
+    <rect x="56" y="186" width="576" height="413" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5"/>
+    <image href="../images/shot_18_top.png" x="64" y="194" width="560" height="397" preserveAspectRatio="xMidYMid meet"/>
+    <text x="56" y="626" font-size="18" font-weight="bold" fill="#1B2A41">해체 검측요청서 (A4)</text>
+    <text x="56" y="652" font-size="15" fill="#5E6B7A">판정 근거와 감리 현장 확인 항목이 한 장에 있고, 서명란은 비워 둡니다</text>
+  </g>
+  <g id="shot-web" data-pptx-bounds="648 184 568 456">
+    <rect x="648" y="186" width="568" height="358" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5"/>
+    <image href="../images/shot_21.png" x="652" y="190" width="560" height="350" preserveAspectRatio="xMidYMid meet"/>
+    <text x="648" y="572" font-size="18" font-weight="bold" fill="#1B2A41">웹 공유판</text>
+    <text x="748" y="572" font-size="15" fill="#5E6B7A">Revit이 없어도 브라우저에서 4D로 봅니다</text>
+    <rect x="648" y="590" width="568" height="50" rx="6" fill="#EEF3F9"/>
+    <use data-icon="tabler-outline/cube" x="664" y="601" width="28" height="28" fill="#1F5FA8" stroke-width="2"/>
+    <text x="704" y="621" font-size="15" fill="#1E2633"><tspan font-weight="bold">IFC 내보내기</tspan> · 구역 판정과 근거를 속성으로 담아 무료 뷰어에서 엽니다</text>
+  </g>
+</svg>

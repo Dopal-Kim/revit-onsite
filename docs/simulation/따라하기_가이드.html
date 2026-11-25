@@ -1,0 +1,213 @@
+<!doctype html>
+<!--
+  따라하기 가이드 틀 (총괄 60차 지시) — 내용·캡처는 시뮬레이션 뒤에 채움. PDF: powershell -ExecutionPolicy Bypass -File tools\make_pdf.ps1 <html> <pdf>
+  자리 규칙:  = 글 (넣을 때 HTML 이스케이프),  = HTML 조각 그대로 (목록 줄·표 줄·<img>).
+  쪽 = 표지 1 + 단계 카드 2장씩 5쪽 + '막혔을 때' 반 쪽 = 7쪽. 단계 카드 n 의 자리: {{n.제목}} {{n.날}} {{n.누가}} {{n.어디서}} {{n.누를것:html}} {{n.나오는것}} {{n.그림:html}} {{n.주의}}
+  그림 = <img src="캡처.png" alt="…"> (칸에 맞춰 줄어듦). 디자인 = docs\help\quickstart.html 과 같은 글꼴·색.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revit On-Site 현장 따라하기 — 따라하기 가이드</title>
+<style>
+:root { color-scheme: light; --tx: #111; --sub: #555; --line: #bbb; --head: #eef1f4; --acc: #1f5c99; }
+@page { size: A4; margin: 10mm 11mm; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: var(--tx); font: 9.6pt/1.4 "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+.page { max-width: 188mm; margin: 0 auto; padding: 2mm 0; }
+.page + .page { break-before: page; page-break-before: always; }
+.run { display: flex; justify-content: space-between; font-size: 8pt; color: var(--sub); border-bottom: 1px solid var(--line); padding-bottom: .8mm; margin-bottom: 3mm; }
+h1 { font-size: 22pt; margin: 5mm 0 2mm; }
+h1 small { display: block; font-size: 11pt; color: var(--sub); font-weight: 400; margin-top: 2mm; }
+h2 { font-size: 11.5pt; margin: 3.5mm 0 1.2mm; padding: 1mm 2mm; background: var(--acc); color: #fff; border-radius: 1.5mm; }
+p, ol, ul { margin: 0 0 1.2mm; }
+ol, ul { padding-left: 5mm; }
+li { margin: 0 0 .6mm; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 1.5mm; }
+th, td { border: 1px solid var(--line); padding: 1mm 1.6mm; text-align: left; vertical-align: top; }
+th { background: var(--head); white-space: nowrap; }
+.b { display: inline-block; border: 1px solid #888; border-radius: 1mm; padding: 0 1.1mm; background: #f7f7f7; font-weight: 600; white-space: nowrap; }
+.note { color: var(--sub); font-size: 8.4pt; }
+.rule { border: 1px solid #c9a227; background: #fff8e1; border-radius: 1.5mm; padding: 1.2mm 2mm; margin: 1.5mm 0; font-size: 8.8pt; }
+/* 단계 카드: 한 쪽에 두 장 (높이 고정 — 글이 넘치면 그림 칸이 줄어듦) */
+.card { height: 126mm; border: 1px solid var(--line); border-radius: 2mm; padding: 2.5mm 3mm; display: flex; flex-direction: column; break-inside: avoid; }
+.card + .card { margin-top: 4mm; }
+.card header { display: flex; align-items: center; gap: 2.5mm; margin-bottom: 1.5mm; }
+.no { flex: none; width: 10mm; height: 10mm; border-radius: 50%; background: var(--acc); color: #fff; font: 800 14pt/10mm "Malgun Gothic", sans-serif; text-align: center; }
+.card h3 { font-size: 12pt; margin: 0; }
+.meta { display: grid; grid-template-columns: auto 1fr auto 1fr auto 1fr; gap: .5mm 2mm; font-size: 9pt; margin-bottom: 1.5mm; }
+.meta dt { color: var(--sub); }
+.meta dd { margin: 0; font-weight: 600; }
+.press { font-size: 10.5pt; font-weight: 700; margin-bottom: 1mm; }
+.press::before { content: "누를 것  "; font-weight: 400; color: var(--sub); font-size: 9pt; }
+.out { margin-bottom: 1.5mm; }
+.out::before { content: "나오는 것  "; color: var(--sub); font-size: 9pt; }
+.fig { flex: 1; min-height: 0; border: 1px dashed #999; border-radius: 1.5mm; display: flex; align-items: center; justify-content: center; overflow: hidden; color: #999; background: #fafafa; }
+.fig img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.warn { margin-top: 1.5mm; border-left: 3px solid #c9a227; background: #fff8e1; padding: .8mm 2mm; font-size: 9pt; }
+.warn::before { content: "주의  "; font-weight: 700; }
+.half { height: 128mm; }
+@media screen { body { background: #e9ecef; } .page { background: #fff; padding: 8mm 10mm; margin: 4mm auto; box-shadow: 0 1px 4px rgba(0,0,0,.2); } }
+@media screen and (max-width: 640px) { .page { padding: 4mm 16px; } .meta { grid-template-columns: auto 1fr; } .card { height: auto; } .fig { min-height: 50mm; } }
+</style>
+</head>
+<body>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>1 / 7</span></div>
+<h1>Revit On-Site 현장 따라하기<small>9F-B1 한 사이클 — 설치부터 해체 기록까지 10단계</small></h1>
+<p>한 구역(9F-B1)을 동바리 설치 → 타설 → 양생 → 해체 승인 요청 → 감리 확인 → 해체 → 해체 후 점검까지 따라가며, 단계마다 누가 어디서 무엇을 누르는지 보여 줍니다. 리허설 2회차(11-05) 실제 실행 기록을 바탕으로 썼습니다.</p>
+<div class="rule">결론은 <b>"해체 승인 요청 가능" / "존치"</b>, <b>"타설 요청 가능" / "타설 보류"</b>까지입니다. 프로그램은 해체·타설을 지시하거나 승인하지 않고, 요청서 서명란은 비어 있습니다 — 해체 여부는 감리 확인·서명을 거쳐 현장 책임자가 정합니다.</div>
+
+<h2>무대</h2>
+<table>
+<tr><th>모델</th><td>shoring_demo_check8.rvt (점검용 사본 — 원본은 건드리지 않음)</td></tr>
+<tr><th>데이터 폴더</th><td>revit\onsite_data_demo — python tools\make_demo_data.py revit\onsite_data_demo --sim (11-24 아침 시작 상태: 1–8F 타설, 9F 타설 전)</td></tr>
+<tr><th>주인공 구역</th><td>9F-B1 (보통 시멘트, 설계기준강도 fck 24 MPa)</td></tr>
+<tr><th>날짜</th><td>2026-11-24 → 2027-01-02 (단계마다 대시보드 &#x27;기준일&#x27;을 그날로 바꾸고 [판정])</td></tr>
+</table>
+
+<h2>역할 5명</h2>
+<table>
+<tr><th>역할</th><th>맡은 사람</th><th>하는 일</th><th>쓰는 것</th></tr>
+<tr><td>공무·BIM 담당</td><td>공무·BIM 담당</td><td>판정·결과물·4D</td><td>Revit (하루 1회)</td></tr>
+<tr><td>안전관리자</td><td>안전관리자</td><td>동바리 점검·동바리 확인·해체 후 점검</td><td>휴대폰 (현장 입력 QR)</td></tr>
+<tr><td>품질관리자</td><td>품질관리자</td><td>현장양생 공시체 입력</td><td>휴대폰 (현장 입력 QR)</td></tr>
+<tr><td>협력업체 반장</td><td>협력업체 반장</td><td>해체 신고 (&#x27;뺐음&#x27; / &#x27;다시 세움&#x27;)</td><td>휴대폰 (협력업체 신고 QR)</td></tr>
+<tr><td>감리</td><td>감리</td><td>검측요청서 확인·종이 서명</td><td>검측요청서·검측 패키지 (Revit 안 씀)</td></tr>
+</table>
+
+<h2>준비물</h2>
+<ul><li>Revit 2026 + Revit On-Site 애드인 (리본 &#x27;Revit On-Site&#x27; 탭)</li><li>현장 PC 와 같은 Wi-Fi 에 붙은 휴대폰 2대 이상 (관리자용·반장용)</li><li>Revit 옵션 › 색상 › 캔버스 테마 = 밝게 (색이 대시보드와 같게)</li><li>[프로젝트 설정]: 데이터 폴더·첫 타설일·양생 최저 온도(기본 5 ℃)</li></ul>
+
+<h2>순서 한눈에</h2>
+<table>
+<tr><th>#</th><th>날</th><th>누가</th><th>할 일</th></tr>
+<tr><td>1</td><td>시작 1회</td><td>공무·BIM</td><td>시작: 동바리 만들고 보기</td></tr>
+<tr><td>2</td><td>11-24</td><td>안전관리자</td><td>설치 검측 (타설 전)</td></tr>
+<tr><td>3</td><td>11-25</td><td>안전관리자 → 공무</td><td>타설 전 확인</td></tr>
+<tr><td>4</td><td>11-26</td><td>공무</td><td>타설 기록</td></tr>
+<tr><td>5</td><td>11-28</td><td>공무 (감리 설명용)</td><td>4D 로 시공 순서 보기</td></tr>
+<tr><td>6</td><td>12-30</td><td>품질관리자</td><td>공시체 입력</td></tr>
+<tr><td>7</td><td>12-31</td><td>공무</td><td>해체 판정과 근거 보기</td></tr>
+<tr><td>8</td><td>12-31</td><td>공무</td><td>검측 요청 서류 만들기</td></tr>
+<tr><td>9</td><td>12-31</td><td>감리 → 공무</td><td>감리 확인 기록</td></tr>
+<tr><td>10</td><td>01-02</td><td>반장 → 안전관리자 → 공무</td><td>해체 신고와 해체 후 점검</td></tr>
+</table>
+</section>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>2 / 7</span></div>
+<article class="card" aria-label="단계 1">
+<header><span class="no">1</span><h3>시작: 동바리 만들고 보기</h3></header>
+<dl class="meta"><dt>날</dt><dd>시작 1회</dd><dt>누가</dt><dd>공무·BIM</dd><dt>어디서</dt><dd>Revit</dd></dl>
+<div class="press"><b>[프로젝트 설정] 확인</b> → <b>[구역·동바리 생성] 9F</b> → 결과 창 [생성한 동바리 보기]</div>
+<div class="out">&#x27;Revit On-Site 동바리&#x27; 뷰 — 9F 동바리 408본만, 흰 판 글자 &#x27;9F 408&#x27;</div>
+<div class="fig"><img src="reh2_01.png" alt="시작: 동바리 만들고 보기"></div>
+<div class="warn">설정 창 [확인] 뒤 남은 결과 창은 [닫기]</div>
+</article>
+<article class="card" aria-label="단계 2">
+<header><span class="no">2</span><h3>설치 검측 (타설 전)</h3></header>
+<dl class="meta"><dt>날</dt><dd>11-24</dd><dt>누가</dt><dd>안전관리자</dd><dt>어디서</dt><dd>휴대폰 [동바리 점검]</dd></dl>
+<div class="press">단계 &#x27;설치 검측&#x27; → <b>[전부 OK]</b> → 문제 항목만 NG → 평면에서 문제 동바리 누름 → <b>[저장]</b> — 조치 뒤 같은 항목 OK 로 다시 [저장]</div>
+<div class="out">NG 동안 그 구역 &#x27;존치 (설치 결함 기록)&#x27;·타설 보류, OK 로 풀리면 근거 원장 1 설치검측</div>
+<div class="fig"><img src="reh2_02.png" alt="설치 검측 (타설 전)"></div>
+<div class="warn">사진은 받지 않음 — 문제 동바리는 평면에서 점으로</div>
+</article>
+</section>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>3 / 7</span></div>
+<article class="card" aria-label="단계 3">
+<header><span class="no">3</span><h3>타설 전 확인</h3></header>
+<dl class="meta"><dt>날</dt><dd>11-25</dd><dt>누가</dt><dd>안전관리자 → 공무</dd><dt>어디서</dt><dd>휴대폰 [동바리 확인] → Revit</dd></dl>
+<div class="press">아래 3개층(8·7·6F-B1) 각각 &#x27;예&#x27; → Revit 기준일 11-25 → <b>[판정]</b> → 9F-B1 칸 두 번 누름</div>
+<div class="out">9F-B1 &#x27;타설 요청 가능 · 아래 3개층 동바리 최근 확인 있음&#x27;</div>
+<div class="fig"><img src="reh2_03.png" alt="타설 전 확인"></div>
+<div class="warn">24시간 안 &#x27;예&#x27;가 하나라도 없으면 &#x27;타설 보류&#x27; — 어느 층이 비었는지 줄에 나옴</div>
+</article>
+<article class="card" aria-label="단계 4">
+<header><span class="no">4</span><h3>타설 기록</h3></header>
+<dl class="meta"><dt>날</dt><dd>11-26</dd><dt>누가</dt><dd>공무</dd><dt>어디서</dt><dd>Revit</dd></dl>
+<div class="press">기준일 11-26 → <b>[타설 등록]</b> → 구역 9F-B1 · 11-26 08:00 · 보통 · 24 → <b>[기록]</b></div>
+<div class="out">pours.csv 한 줄 · 판정 다시 계산 (9F-B1 &#x27;존치 — 위로 0개층&#x27;)</div>
+<div class="fig"><div style="color:#777;font-size:9pt;padding:18px;border:1px dashed #bbb;text-align:center">화면 그림 없음 — 아래 '나오는 것' 글로 확인</div></div>
+<div class="warn">이미 타설된 구역은 목록에 안 나옴</div>
+</article>
+</section>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>4 / 7</span></div>
+<article class="card" aria-label="단계 5">
+<header><span class="no">5</span><h3>4D 로 시공 순서 보기</h3></header>
+<dl class="meta"><dt>날</dt><dd>11-28</dd><dt>누가</dt><dd>공무 (감리 설명용)</dd><dt>어디서</dt><dd>대시보드 4D</dd></dl>
+<div class="press"><b>[4D 타임라인]</b> → <b>[하루 ▶] 두 번</b></div>
+<div class="out">&#x27;9F 타설&#x27; → &#x27;9F 벽 거푸집 해체 · 10F 벽 거푸집 설치&#x27; (벽 5 MPa 도달일)</div>
+<div class="fig"><img src="reh2_04.png" alt="4D 로 시공 순서 보기"></div>
+<div class="warn">[사건 ▶|] 로 타설·해체·경고 날만 건너뛰기</div>
+</article>
+<article class="card" aria-label="단계 6">
+<header><span class="no">6</span><h3>공시체 입력</h3></header>
+<dl class="meta"><dt>날</dt><dd>12-30</dd><dt>누가</dt><dd>품질관리자</dd><dt>어디서</dt><dd>휴대폰 [공시체]</dd></dl>
+<div class="press">구역 9F-B1 → 현장양생 3개 강도 → <b>[저장]</b></div>
+<div class="out">cylinders.csv · 같은 값을 또 넣으면 &#x27;같은 공시체 기록이 이미 있습니다&#x27; 로 막힘</div>
+<div class="fig"><div style="color:#777;font-size:9pt;padding:18px;border:1px dashed #bbb;text-align:center">화면 그림 없음 — 아래 '나오는 것' 글로 확인</div></div>
+<div class="warn">판정은 위로 3개층(10·11·12F)이 타설돼야 요청 가능 — 시뮬레이션에선 [타설 등록]으로 위층을 넣음</div>
+</article>
+</section>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>5 / 7</span></div>
+<article class="card" aria-label="단계 7">
+<header><span class="no">7</span><h3>해체 판정과 근거 보기</h3></header>
+<dl class="meta"><dt>날</dt><dd>12-31</dd><dt>누가</dt><dd>공무</dd><dt>어디서</dt><dd>Revit</dd></dl>
+<div class="press">기준일 12-31 → <b>[판정]</b> → 9F-B1 칸 두 번 누름 (판정 근거 창)</div>
+<div class="out">&#x27;9F-B1 검측 결과 — 해체 승인 요청 가능&#x27; · 공시체 25.1 ≥ 24.0 MPa ✓ · 존치 3 ≥ 3 ✓ · 지지층 ✓ · 하중비 0.83 ✓ · ⚠ 경고 줄</div>
+<div class="fig"><img src="reh2_05.png" alt="해체 판정과 근거 보기"></div>
+<div class="warn">기준값·단위·출처는 [프로젝트 설정] › 적용 기준</div>
+</article>
+<article class="card" aria-label="단계 8">
+<header><span class="no">8</span><h3>검측 요청 서류 만들기</h3></header>
+<dl class="meta"><dt>날</dt><dd>12-31</dd><dt>누가</dt><dd>공무</dd><dt>어디서</dt><dd>Revit 리본 &#x27;승인&#x27;·&#x27;보고·공유&#x27;</dd></dl>
+<div class="press"><b>[근거 원장] 2 작업계획서·4 해체 전 점검 추가</b> → <b>[승인 기록] 요청 제출</b> → <b>[검측요청서]</b> → <b>[검측 패키지]</b></div>
+<div class="out">해체검측요청서_20261231.html (A4 4쪽) · 검측패키지_20261231 폴더 (파일마다 SHA-256)</div>
+<div class="fig"><div style="color:#777;font-size:9pt;padding:18px;border:1px dashed #bbb;text-align:center">화면 그림 없음 — 아래 '나오는 것' 글로 확인</div></div>
+<div class="warn">작업계획서(2)를 안 넣으면 근거가 &#x27;연속 1/8&#x27;에서 끊김</div>
+</article>
+</section>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>6 / 7</span></div>
+<article class="card" aria-label="단계 9">
+<header><span class="no">9</span><h3>감리 확인 기록</h3></header>
+<dl class="meta"><dt>날</dt><dd>12-31</dd><dt>누가</dt><dd>감리 → 공무</dd><dt>어디서</dt><dd>종이 서명 → Revit [승인 기록]</dd></dl>
+<div class="press">감리가 검측요청서 확인·서명 → <b>[승인 기록] 감리 승인 기록 (감리 성명·서명 일시)</b> → <b>[층 표지]</b></div>
+<div class="out">층 표지 9F-B1 &#x27;감리 확인 기록 있음 (12-31)&#x27; · 근거 원장 6</div>
+<div class="fig"><div style="color:#777;font-size:9pt;padding:18px;border:1px dashed #bbb;text-align:center">화면 그림 없음 — 아래 '나오는 것' 글로 확인</div></div>
+<div class="warn">서명 스캔은 [근거 원장] 6 파일로 남김</div>
+</article>
+<article class="card" aria-label="단계 10">
+<header><span class="no">10</span><h3>해체 신고와 해체 후 점검</h3></header>
+<dl class="meta"><dt>날</dt><dd>01-02</dd><dt>누가</dt><dd>반장 → 안전관리자 → 공무</dd><dt>어디서</dt><dd>휴대폰 신고 QR·[동바리 점검] → Revit</dd></dl>
+<div class="press">반장 &#x27;이 구역 동바리를 뺐음&#x27; → 안전관리자 해체 후 점검 [전부 OK] → <b>[판정]</b> → <b>[슬래브 이력서]</b></div>
+<div class="out">&#x27;감리 승인 기록 있음: 해체 시각 기록됨&#x27; · 근거 원장 7·8 · 슬래브이력서 9F-B1 한 장</div>
+<div class="fig"><div style="color:#777;font-size:9pt;padding:18px;border:1px dashed #bbb;text-align:center">화면 그림 없음 — 아래 '나오는 것' 글로 확인</div></div>
+<div class="warn">승인 기록 없이 &#x27;뺐음&#x27; → 대시보드 맨 위 &#x27;무단 해체 의심&#x27; 빨강</div>
+</article>
+</section>
+
+<section class="page">
+<div class="run"><span>Revit On-Site 현장 따라하기 · 따라하기 가이드</span><span>7 / 7</span></div>
+<div class="half">
+<h2>막혔을 때</h2>
+<table>
+<tr><th>증상</th><th>먼저 볼 것</th><th>그래도 안 되면</th></tr>
+<tr><td>휴대폰에서 주소가 안 열림</td><td>PC 와 휴대폰이 같은 Wi-Fi 인지, 처음 켤 때 방화벽 &#x27;개인 네트워크&#x27; 허용</td><td>[현장 입력] 창 [새 주소] 로 QR 다시</td></tr><tr><td>판정이 &#x27;타설 보류&#x27;</td><td>판정 근거 창에서 비어 있는 층 — 24시간 안 동바리 확인 &#x27;예&#x27;</td><td>그 층 [동바리 확인] &#x27;예&#x27; 뒤 [판정]</td></tr><tr><td>&#x27;존치 (설치 결함 기록)&#x27; 이 안 풀림</td><td>[동바리 점검]에서 NG 였던 같은 항목을 OK 로 다시 저장했는지</td><td>같은 날짜까지 기준일로 [판정] 다시</td></tr><tr><td>근거가 &#x27;n/8&#x27;에서 끊김</td><td>[근거 원장] 빠진 단계(작업계획서 2 등)</td><td>그 단계 서류를 [근거 원장]에 추가</td></tr><tr><td>색이 대시보드와 다르게 보임</td><td>Revit 캔버스 테마가 어둡게</td><td>옵션 › 색상 › 캔버스 테마 = 밝게</td></tr><tr><td>[판정]이 오래 걸림</td><td>저장 안내 등 다른 창이 떠 있는지</td><td>그 창을 닫으면 곧 실행</td></tr>
+</table>
+<p class="note">리허설에서 남은 것: 타설 전 구역의 설치 검측 NG 가 3D 에서 빨강으로 아직 안 보임(기록·판정은 정상), 검측요청서 &#x27;요청 구역&#x27; 수가 해체 완료 구역까지 셈 — 다음 빌드에서 고침.</p>
+</div>
+</section>
+
+</body>
+</html>

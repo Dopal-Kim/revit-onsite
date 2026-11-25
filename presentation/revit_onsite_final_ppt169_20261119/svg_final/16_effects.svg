@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">V. 기대효과 · 한눈에</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-16/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">V · 기술 적용의 기대효과</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">V. 기대효과</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">프로그램이 직접 만드는 효과부터, 확실한 순서로</text>
+  </g>
+  <g id="certainty-axis" data-pptx-bounds="980 160 244 22">
+    <text x="1102" y="176" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="middle">확실성</text>
+  </g>
+  <g id="effect-safety" data-pptx-bounds="56 186 1168 104">
+    <rect x="56" y="188" width="1168" height="100" fill="#FFFFFF" />
+    <rect x="56" y="188" width="8" height="100" fill="#2E6DB4" />
+    
+  <g transform="translate(88, 222) scale(1.33333)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06" />
+    <path d="M15 19l2 2l4 -4" />
+  </g>
+    <text x="136" y="248" font-size="24" font-weight="bold" fill="#1D3557">안전</text>
+    <text x="320" y="246" font-size="20" fill="#1E2329">해체 전에 강도 · 존치 층수를 판정하고, 승인 없이 빼면 바로 빨강</text>
+    <g fill="#2E6DB4"><circle cx="1010" cy="239" r="10" /><circle cx="1040" cy="239" r="10" /><circle cx="1070" cy="239" r="10" /></g>
+    <text x="1094" y="246" font-size="20" font-weight="bold" fill="#2E6DB4">확실</text>
+  </g>
+  <g id="effect-record" data-pptx-bounds="56 300 1168 104">
+    <rect x="56" y="302" width="1168" height="100" fill="#FFFFFF" />
+    <rect x="56" y="302" width="8" height="100" fill="#2E6DB4" />
+    
+  <g transform="translate(88, 336) scale(1.33333)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+    <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" />
+    <path d="M3 14a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+    <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" />
+  </g>
+    <text x="136" y="362" font-size="24" font-weight="bold" fill="#1D3557">기록 · 책임</text>
+    <text x="320" y="360" font-size="20" fill="#1E2329">누가 언제 판정 · 승인 · 해체했는지가 결과물로 남음</text>
+    <g fill="#2E6DB4"><circle cx="1010" cy="353" r="10" /><circle cx="1040" cy="353" r="10" /><circle cx="1070" cy="353" r="10" /></g>
+    <text x="1094" y="360" font-size="20" font-weight="bold" fill="#2E6DB4">확실</text>
+  </g>
+  <g id="effect-cost" data-pptx-bounds="56 414 1168 104">
+    <rect x="56" y="416" width="1168" height="100" fill="#FFFFFF" />
+    <rect x="56" y="416" width="8" height="100" fill="#2E6DB4" fill-opacity="0.45" />
+    
+  <g transform="translate(88, 450) scale(1.33333)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+    <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+    <path d="M12 7v10" />
+  </g>
+    <text x="136" y="476" font-size="24" font-weight="bold" fill="#1D3557">자재 · 비용</text>
+    <text fill="#1E2329" font-size="20" x="320" y="462">"3개 층으로 충분한가"의 근거를 줌</text><text fill="#5B6673" font-size="18" x="320" y="492">4개 층씩 두던 현장에서만 줄어듦</text><g fill="#2E6DB4"><circle cx="1010" cy="467" r="10" /><circle cx="1040" cy="467" r="10" /></g>
+    <circle cx="1070" cy="467" r="9" fill="none" stroke="#2E6DB4" stroke-width="2" />
+    <text x="1094" y="474" font-size="20" font-weight="bold" fill="#2E6DB4">조건부</text>
+  </g>
+  <g id="effect-schedule" data-pptx-bounds="56 528 1168 104">
+    <rect x="56" y="530" width="1168" height="100" fill="#E8EDF2" />
+    <rect x="56" y="530" width="8" height="100" fill="#C5CDD6" />
+    
+  <g transform="translate(88, 564) scale(1.33333)" fill="none" stroke="#5B6673" stroke-width="2">
+    <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12" />
+    <path d="M16 3v4" />
+    <path d="M8 3v4" />
+    <path d="M4 11h16" />
+    <path d="M11 15h1" />
+    <path d="M12 15v3" />
+  </g>
+    <text x="136" y="590" font-size="24" font-weight="bold" fill="#5B6673">공정</text>
+    <text fill="#1E2329" font-size="20" x="320" y="576">강도가 난 구역을 바로 알려 줌</text><text fill="#5B6673" font-size="18" x="320" y="606">공시체를 언제 시험하느냐에 달림</text><circle cx="1010" cy="581" r="10" fill="#5B6673" />
+    <g fill="none" stroke="#5B6673" stroke-width="2"><circle cx="1040" cy="581" r="9" /><circle cx="1070" cy="581" r="9" /></g>
+    <text x="1094" y="588" font-size="20" font-weight="bold" fill="#5B6673">가능성</text>
+  </g>
+</svg>

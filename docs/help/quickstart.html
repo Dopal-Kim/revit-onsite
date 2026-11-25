@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revit On-Site 빠른 시작</title>
+<!-- 한 장 인쇄용 빠른 시작 (A4 2쪽, 역할별) — 1쪽 공무·BIM 담당(Revit), 2쪽 품질·안전관리자·협력업체 반장(휴대폰)·감리에게 가는 것.
+     버튼 이름 = 리본 이름 그대로 (패널 › 버튼), 결과물 = 데이터 폴더 파일 이름. 자세한 설명은 index.html (같은 폴더). 코드 없음, 인쇄 전용 -->
+<style>
+:root { color-scheme: light; --tx: #111; --sub: #555; --line: #bbb; --head: #eef1f4; --acc: #1f5c99; }
+@page { size: A4; margin: 10mm 11mm; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: var(--tx); font: 9.3pt/1.38 "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+.page { max-width: 188mm; margin: 0 auto; padding: 4mm 0; }
+.page + .page { break-before: page; page-break-before: always; font-size: 8.9pt; }   /* 2쪽: 동바리 점검·단계 해체 줄이 들어가 한 장에 맞게 조금 작게 */
+h1 { font-size: 15pt; margin: 0 0 1mm; }
+h1 small { font-size: 9pt; color: var(--sub); font-weight: 400; }
+h2 { font-size: 11.5pt; margin: 3.2mm 0 1.2mm; padding: 1mm 2mm; background: var(--acc); color: #fff; border-radius: 1.5mm; }
+h3 { font-size: 10pt; margin: 2.4mm 0 1mm; }
+p, ol, ul { margin: 0 0 1.2mm; }
+ol, ul { padding-left: 5mm; }
+li { margin: 0 0 .5mm; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 1.5mm; }
+th, td { border: 1px solid var(--line); padding: .8mm 1.4mm; text-align: left; vertical-align: top; }
+th { background: var(--head); white-space: nowrap; }
+td:first-child { white-space: nowrap; }                 /* 단계·종류 이름이 글자마다 줄바꿈되지 않게 */
+.flow td:last-child { width: 30%; }
+.b { display: inline-block; border: 1px solid #888; border-radius: 1mm; padding: 0 1.1mm; background: #f7f7f7; font-weight: 600; white-space: nowrap; }
+code { font: 8.6pt Consolas, "D2Coding", monospace; background: #f3f3f3; padding: 0 .6mm; border-radius: .6mm; }
+.note { color: var(--sub); font-size: 8.4pt; }
+.rule { border: 1px solid #c9a227; background: #fff8e1; border-radius: 1.5mm; padding: 1.2mm 2mm; margin: 1.5mm 0; font-size: 8.8pt; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+@media screen and (max-width: 640px) { .two { grid-template-columns: 1fr; } .page { padding: 4mm 16px; } th { white-space: normal; } }
+</style>
+</head>
+<body>
+
+<section class="page">
+<h1>Revit On-Site 빠른 시작 <small>동바리 타설·해체 검측 · 1쪽 공무·BIM 담당 (Revit) · 2쪽 휴대폰(품질·안전관리자 / 협력업체 반장)·동바리 보기·단계 해체·감리</small></h1>
+<p class="note">버튼은 모두 리본 <span class="b">Revit On-Site</span> 탭에 있습니다 — 패널 순서 = 업무 순서: 준비 → 설치 검측 → 타설·데이터 → 판정 → 승인 → 보고·공유 → 타임라인. 버튼 위에서 <b>F1</b> = 도움말 그 항목. 결과물은 [프로젝트 설정]의 <b>데이터 폴더</b>에 남고 <code>YYYYMMDD</code> = 마지막 판정 기준일.</p>
+<div class="rule">결론은 <b>"해체 승인 요청 가능" / "존치"</b>, <b>"타설 요청 가능" / "타설 보류"</b>까지입니다. 프로그램은 해체·타설을 지시하거나 승인하지 않고, 요청서 서명란은 비어 있습니다 — 해체 여부는 감리 확인·서명을 거쳐 현장 책임자가 정합니다.</div>
+
+<h2>공무·BIM 담당 — 프로젝트 시작할 때 한 번</h2>
+<ol>
+  <li>Revit 옵션 › 색상 › 캔버스 테마 = <b>밝게</b> (상태 색이 대시보드와 같게 보임)</li>
+  <li><span class="b">준비 › 프로젝트 설정</span> — 첫 타설일(착공일 아님)·사이클·최소 존치 층수·배합·fck·양생 최저 온도·기상 관측소·<b>데이터 폴더</b> (선택: 예측일에 현장 보정 쓰기 · 층 높이 보정 쓰기)</li>
+  <li><span class="b">준비 › 매개변수 연결</span> → <span class="b">준비 › 뷰·필터 준비</span> → <span class="b">준비 › 모델 진단</span> (IFC 모델이면 꼭) → <span class="b">준비 › 구역 나누기</span>(열 때 확인 창으로도 — 구역만) → <span class="b">동바리 › 층 입력 뷰</span>에서 놓기·구역 이동·구역 해체·3개층 확인</li>
+  <li>날짜는 직접: 동바리 세운 날 <span class="b">동바리 › 동바리 사양</span>(설치일), 타설한 날 <span class="b">타설·데이터 › 타설 등록</span> (v6 — 공정표 가져오기 없음)</li>
+  <li>층마다 동바리 설치 뒤 <span class="b">설치 검측 › 설치 검측</span> — 설치 서류는 <span class="b">승인 › 근거 원장</span> 1 설치검측</li>
+</ol>
+
+<h2>공무·BIM 담당 — 하루 흐름 (층마다 반복)</h2>
+<table class="flow">
+  <tr><th>단계</th><th>누르는 것</th><th>나오는 것</th></tr>
+  <tr><td><b>1 아침 판정</b></td><td>(파일이 있으면) <span class="b">타설·데이터 › 데이터 가져오기 ▾ › 센서 자료 / 기상 자료</span> → <span class="b">타설·데이터 › 일정 다시 계산</span> → <span class="b">판정 › 해체 판정</span> (기준일 오늘) → <span class="b">판정 › 대시보드</span> 맨 위 <b>오늘 볼 것</b></td><td><code>판정표_YYYYMMDD.csv</code> · 구역 색·값 · <code>eval_log.csv</code></td></tr>
+  <tr><td><b>2 휴대폰 받기</b></td><td><span class="b">타설·데이터 › 현장 입력</span> 을 켜 둠 — 창 <b>[현장 입력]</b> 탭 QR 을 관리자에게, <b>[협력업체 신고]</b> 탭에서 층을 골라 QR 을 반장에게 (2쪽)</td><td>받은 값은 데이터 폴더 CSV·<code>사진\</code> 에, 판정 바로 갱신</td></tr>
+  <tr><td><b>3 타설 전 확인</b></td><td>관리자의 휴대폰 <b>동바리 확인</b>(아래 3개층) 뒤 <span class="b">판정 › 대시보드</span> 타설할 구역 칸 두 번 → <b>타설 전 확인</b>. 타설한 날은 <span class="b">타설·데이터 › 타설 등록</span></td><td>"타설 요청 가능" / "타설 보류"</td></tr>
+  <tr><td><b>4 요청서·패키지</b></td><td>연두(요청 가능) 구역: 대시보드 칸 두 번으로 근거 확인 → <span class="b">보고·공유 › 검측요청서</span> → <span class="b">승인 › 승인 기록</span> <b>요청 제출</b> → (IFC 도 묶으려면 <span class="b">보고·공유 › IFC 내보내기</span> 먼저) <span class="b">보고·공유 › 검측 패키지</span> · <span class="b">보고·공유 › 층 표지</span> 인쇄 게시</td><td><code>해체검측요청서_YYYYMMDD.html</code> · <code>검측패키지_YYYYMMDD\</code> · <code>층표지_YYYYMMDD.html</code> · <code>approvals.csv</code></td></tr>
+  <tr><td><b>5 감리 뒤</b></td><td>서명을 받으면 <span class="b">승인 › 승인 기록</span> <b>감리 승인 기록</b> (서명한 감리·일시), 서명 스캔은 <span class="b">승인 › 근거 원장</span> 6 감리확인</td><td><code>approvals.csv</code> (해시 사슬) · <code>evidence.csv</code> — 상태 6</td></tr>
+  <tr><td><b>6 해체</b></td><td>반장 신고(2쪽)를 확인하고 <span class="b">승인 › 승인 기록</span> <b>해체 완료</b>(7) / <b>재받침</b>(8). 감리 승인 기록 없이 '뺐음' 신고 → 오늘 볼 것 맨 위 <b>무단 해체 의심</b> — 현장 확인</td><td><code>shore_checks.csv</code> · 근거 원장 7 해체(실제 시각)</td></tr>
+  <tr><td><b>7 해체 후</b></td><td>관리자의 <b>해체 후 점검</b>(2쪽) 뒤 결과보고서를 <span class="b">승인 › 근거 원장</span> 8 결과보고</td><td><code>after_check.csv</code> · <code>evidence.csv</code></td></tr>
+</table>
+
+<h3>주간·필요할 때</h3>
+<ul>
+  <li><span class="b">타임라인 › 강도 타임라인</span> — 층별 추정 강도(참고)가 14 MPa·fck 에 언제 닿을지, 그날까지 공시체 실측</li>
+  <li><span class="b">보고·공유 › 슬래브 이력서</span> → <code>슬래브이력서_YYYYMMDD.html</code>·<code>.csv</code> · <span class="b">보고·공유 › 품질 대장</span> → <code>품질대장_YYYYMMDD.html</code></li>
+  <li><span class="b">보고·공유 › IFC 내보내기</span> → <code>RevitOnSite_YYYYMMDD.ifc</code> (+ <code>_근거.csv</code>·<code>_Pset.txt</code>) · <span class="b">보고·공유 › 웹 공유판</span> → <code>&lt;모델 이름&gt;_4d.html</code> · <span class="b">승인 ▾ › 감사 기록</span> → <code>감사기록_YYYYMMDD.csv</code></li>
+</ul>
+<p class="note">센서가 없어도 됩니다 — 현장양생 공시체 + 기온만으로 판정·요청서·승인 기록·타설 전 확인이 모두 동작합니다(센서는 구역 안 가장 낮은 강도를 더하는 위치 근거).</p>
+</section>
+
+<section class="page">
+<h2>품질·안전관리자 — 휴대폰 (현장 입력)</h2>
+<p><b>여는 법</b>: 현장 PC 의 <span class="b">현장 입력</span> 창 <b>[현장 입력]</b> 탭 QR 을 휴대폰 카메라로 찍습니다 (현장 PC 와 같은 Wi-Fi). 주소는 12시간 뒤 만료 — PC 에서 <span class="b">새 주소</span>. 입력자 이름은 처음 한 번.</p>
+<p><b>순서</b>: 층 → 구역 타일(색 = 지금 판정) → 측정 종류 → 값 → <span class="b">저장</span>. 저장하면 그 구역의 판정과 사유가 바로 보입니다.</p>
+<table>
+  <tr><th>측정 종류</th><th>언제</th><th>넣는 것</th><th>판정에서</th></tr>
+  <tr><td><b>공시체</b> (현장양생)</td><td>시험한 날</td><td>구역·시험일·양생 방법·강도 3개 MPa (채취 정보는 선택)</td><td>기준 근거 — 없으면 "공시체 시험 필요"</td></tr>
+  <tr><td><b>온도 / 강도 센서</b></td><td>매일 또는 센서 앱 기록 붙여넣기</td><td>센서 ID·위치·시각·값</td><td>위치 근거 (구역 최소)</td></tr>
+  <tr><td><b>반발경도</b></td><td>필요할 때</td><td>구역·위치·R 값</td><td>참고만</td></tr>
+  <tr><td><b>동바리 확인</b></td><td><b>다음 층 타설 전</b>·매일</td><td>구역(그 아래 동바리)·확인 시각·지금 서 있나 예/아니오 · <b>사진 1장</b>(선택)</td><td>타설 전 확인 (최근 24 h '예' <span class="note">[가정]</span>)</td></tr>
+  <tr><td><b>해체 후 점검</b></td><td>해체 뒤</td><td>점검일·5항목 예/아니오 (하부 3개층·상하 정렬·연직도·자재 변형·콘크리트 면) · <b>사진 1장</b></td><td>참고 — 근거 원장 8 결과보고와 묶음</td></tr>
+  <tr><td><b>동바리 점검</b></td><td>설치 뒤·매일·해체 전·해체 후</td><td>단계 → 항목 OK/NG (<span class="b">전부 OK</span>, NG 로 고른 항목은 그대로) → NG 면 구역 평면에서 <b>문제 동바리를 눌러 여러 개</b> (두 손가락 확대) · 사진 없음 · 이름 <code>구역-R행C열</code></td><td><b>설치 검측</b> NG 미해결 → "존치 (설치 결함 기록)"·"타설 보류" (다시 OK 면 풀림), 다른 단계 = 기록·Revit 빨강</td></tr>
+</table>
+<ul>
+  <li><b>사진</b>: 원본 그대로 데이터 폴더 <code>사진\YYYYMMDD\{구역}_{종류}_{시각}_{해시}.jpg</code> 에 저장되고 해시(SHA-256)가 기록에 남습니다 — JPEG·PNG, 8 MB 이하 <span class="note">[가정]</span>.</li>
+  <li><b>전파가 약하면</b>: 기록은 휴대폰에 "기기에만 저장 · 시각" 으로 남고 연결되면 자동으로 보냅니다(같은 기록은 한 번만). 사진은 기기에 3장까지 <span class="note">[가정]</span> — 넘으면 "사진은 연결된 뒤 다시".</li>
+  <li>맨 위 <b>오늘 볼 것</b>: 무단 해체 의심 → 타설 보류 → 시험 필요 → 상태 바뀜 → 입회 없음 — 눌러서 그 구역으로.</li>
+</ul>
+
+<div class="two">
+<div>
+<h2>협력업체 반장 — 해체 신고 QR</h2>
+<ol>
+  <li>현장 담당자가 보여 주는 <b>신고 QR</b>(층마다)을 찍습니다. 층 표지에 붙은 QR 은 <b>보기 전용</b>(신고 안 됨).</li>
+  <li>이름(필수)·소속(선택)은 처음 한 번. 사진을 붙이려면 사진 칸에서 찍습니다(1장, 다음 신고에 붙음).</li>
+  <li>동바리를 뺀 구역에서 <span class="b">이 구역 동바리를 뺐음</span>, 다시 세웠으면 <span class="b">다시 세움</span> → 확인 창에서 [확인].</li>
+  <li>화면 문구: "신고 저장됨 — 감리 승인 기록 있음: 해체 시각 기록됨" 또는 "… 감리 승인 기록 없음: 현장 확인 요청됨"(현장 담당자에게 알림이 갑니다).</li>
+  <li>지하처럼 전파가 약하면 "기기에만 저장" — 연결되면 자동 전송, 기록 시각은 서버가 받은 시각.</li>
+</ol>
+<p class="note">층 화면의 "해체 금지 — 존치", "해체 금지 — 감리 확인 전 (해체 승인 요청 가능)" 는 판정 기록을 옮긴 것입니다. 해체 여부는 감리 확인을 거쳐 현장 책임자가 정합니다.</p>
+<h2>공무·BIM — 동바리 보기·단계 해체·전용</h2>
+<ul>
+  <li><b>동바리 보기</b>: 생성 결과 창 <span class="b">생성한 동바리 보기</span> · 대시보드 <span class="b">색 ▾ 동바리 상태 (검측 뷰)</span> — 상태 색, NG 동바리 빨강 테두리</li>
+  <li><b>판넬 단계</b>: 판정 근거 창 ①–④ → <span class="b">보고·공유 › 조기 탈형 검토서</span>(초안) → 책임기술자 서명 → <span class="b">승인 › 근거 원장</span> 구조검토서 → 판넬만 탈형(필러 존치)</li>
+</ul>
+</div>
+<div>
+<h2>감리에게 가는 것</h2>
+<ul>
+  <li><b>해체 검측요청서</b> <code>해체검측요청서_YYYYMMDD.html</code> — A4 4쪽 서식(요청서·결과 통보 / 근거표 / 4.1·4.2·4.3 체크리스트 / 실명부) 인쇄·PDF, <b>서명·결과·합불 칸 빈칸</b>. 현장 확인 ① 위 3개층 동바리 존치(최근 24 h) ② 작업계획서 ③ 해체 전 체크리스트, 마감 값 8자(서명 종이에 적어 대조).</li>
+  <li><b>검측 패키지</b> <code>검측패키지_YYYYMMDD\</code> — 요청서·이력서·감사 기록·근거 원장·첨부(현장 사진 포함)를 한 묶음으로, <code>목록.csv</code>·<code>index.html</code> 에 파일마다 SHA-256 (받은 쪽이 다시 계산해 같으면 보낸 그대로).</li>
+  <li><b>층 표지</b> <code>층표지_YYYYMMDD.html</code> — 층 입구 게시, QR = 보기 전용 층 화면.</li>
+  <li>서명 뒤: 공무가 <span class="b">승인 › 승인 기록</span> 에 <b>감리 승인 기록</b>(서명한 감리 성명·일시)을 남깁니다.</li>
+  <li><b>강도 타임라인으로 설명 듣기</b>: 공무가 <span class="b">타임라인 › 강도 타임라인</span> <span class="b">사건 ▶|</span> 로 층 타설 → 추정 14 MPa·fck 도달(참고) → 공시체 시험 날을 차례로 보여 줌. 판정은 공시체 실측.</li>
+</ul>
+<h3>막혔을 때</h3>
+<ul class="note">
+  <li>휴대폰이 안 열림 → 같은 Wi-Fi·방화벽 '개인 네트워크' 허용, 창의 다른 주소</li>
+  <li>"접속 주소가 만료" → PC 에서 <span class="b">새 주소</span></li>
+  <li>판정이 안 바뀜 → 값을 넣은 뒤 <span class="b">판정 › 해체 판정</span> 다시</li>
+  <li>자세히: 같은 폴더 <code>index.html</code> (버튼 위 F1)</li>
+</ul>
+</div>
+</div>
+</section>
+
+</body>
+</html>

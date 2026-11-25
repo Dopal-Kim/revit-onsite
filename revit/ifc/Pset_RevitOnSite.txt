@@ -1,0 +1,30 @@
+#
+# Revit On-Site — IFC 사용자 정의 속성 세트 (Revit IFC 내보내기 "사용자 정의 속성 세트 내보내기" 파일) — 총괄 초안 11-05 (direction_log 3판 D3)
+# 목적: 감리·발주자가 Revit 없이 무료 IFC 뷰어(BIMvision 등)에서 구역별 결론·사유·예측 해체 가능일을 본다.
+# 대상: 구역 DirectShape (일반 모델 → IfcBuildingElementProxy). 값은 모델 SHR_ 공유 매개변수 그대로 (revit\SHR_SharedParameters.txt, GUID 바꾸지 않음).
+# 날짜 정수 매개변수(SHR_PourDate·SHR_DueDate·SHR_InspectDate)는 yyyymmdd 정수 그대로 나감 — 뷰어에서 20261231 로 보임.
+# 아직 매개변수가 아니라 못 내보내는 값: 근거 원장 n/8 · 마감 값 · 판정 시각 · 무단 해체 의심 → 공유 매개변수 SHR_Ev* 보류(브랜치 정리) 중.
+#   임시 대안(작업 세션 판단): 내보낸 IFC 옆에 같은 이름 .csv(zone_id, evidence_stage, seal, eval_at, warnings) 를 같이 씀.
+# 형식 (Revit IFC 도움말): PropertySet: <이름> <I|T> <IFC 요소>, 다음 줄부터 탭 + <속성 이름> <데이터 형식> [<Revit 매개변수 이름>]
+#
+PropertySet:	Pset_RevitOnSite_Zone	I	IfcBuildingElementProxy
+	ZoneID	Text	SHR_ZoneID
+	Floor	Integer	SHR_Floor
+	Decision	Text	SHR_Decision
+	Reason	Text	SHR_Reason
+	Status	Integer	SHR_Status
+	PredictedDue	Integer	SHR_DueDate
+	PourDate	Integer	SHR_PourDate
+	Mix	Text	SHR_Mix
+	fck_MPa	Real	SHR_fck
+	fCyl_MPa	Real	SHR_fCyl
+	fEstMin_MPa	Real	SHR_fEst
+	LevelsRequired	Integer	SHR_LevelsReq
+	GeneratedBy	Text	SHR_GenBy
+#
+# 동바리(SHR_Type = 동바리) — 설치 검측 결과
+# 동바리는 [IFC 내보내기]가 내보내는 동안만 IfcExportAs = IfcMember 로 바꿔(되돌림) 구역 세트(프록시)와 겹치지 않게 함 (22차 점검: 구역 세트 906개)
+PropertySet:	Pset_RevitOnSite_Shore	I	IfcMember
+	ShoreType	Text	SHR_Type
+	InspectDate	Integer	SHR_InspectDate
+	InspectResult	Integer	SHR_InspectResult

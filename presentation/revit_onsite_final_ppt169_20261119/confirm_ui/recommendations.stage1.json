@@ -1,0 +1,21 @@
+{
+  "stage": "stage1",
+  "lang": "ko",
+  "primary_language": "ko-KR",
+  "revision": 1,
+  "recommend": { "canvas": "ppt169" },
+  "audience": { "value": "건축공학시스템설계 담당 교수님(백장운 교수님)과 수강생 — 콘크리트·거푸집 공사와 BIM(Revit) 기본 지식이 있고, 실제 현장 적용성과 근거의 정확성을 봄" },
+  "communication_intent": { "value": "먼저 동바리 해체 판단이 왜 위험한 문제인지(사고 사례·기준 분산·경험 의존)를 보이고, 다음으로 Revit On-Site가 기준과 실측값으로 구역마다 판정하고 근거를 남기는 방식을 설명·시연으로 입증한 뒤, 기대효과를 확실성 순서로 제시하고 한계와 보완 계획을 정직하게 밝힌다" },
+  "audience_outcome": { "value": "청중이 판정 흐름(강도·존치 층수·지지층 강도·하중비 → '해체 승인 요청 가능' 또는 '존치' → 감리 최종 승인)을 설명할 수 있고, 어떤 효과가 확실하고 어떤 효과가 조건부인지 구분해 이 도구의 현장 적용 가치를 평가할 수 있다" },
+  "core_message": { "value": "날짜가 아닌 기준으로 판단하고, 그 근거를 기록한다 — 판정은 프로그램이, 결정은 감리가 한다" },
+  "delivery_context": { "value": "주: 발표자가 진행하는 수업 프로젝트 발표(중간에 시연 영상 3분 52초 재생) 후 질의응답 / 부: 발표 뒤 평가자가 파일을 다시 읽어 보는 용도" },
+  "artifact_afterlife": { "value": "과목 제출·평가 자료로 보관(참고문헌·출처 포함)" },
+  "content_divergence": { "value": "기존 내용을 보완하고 수준 높게" },
+  "template_options": {
+    "schema_version": 1,
+    "phase": "template",
+    "lang": "ko",
+    "default_mode": "free_design",
+    "explicit_workspace_roots": []
+  }
+}

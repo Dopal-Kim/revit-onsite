@@ -1,0 +1,11 @@
+[18:47:28] [INFO] confirm_ui: running at http://127.0.0.1:5050
+[18:47:28] [INFO] confirm_ui: project: C:\Users\admin\Desktop\시스템2\build-up-2\presentation\revit_onsite_final_ppt169_20261119
+[18:47:28] [INFO] confirm_ui: idle timeout: 900s (0 = disabled)
+ * Serving Flask app 'server'
+ * Debug mode: off
+[18:47:28] [INFO] confirm_ui: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5050
+[18:47:28] [INFO] confirm_ui: Press CTRL+C to quit
+[18:47:29] [INFO] confirm_ui: 127.0.0.1 - - [19/Nov/2026 18:47:29] "GET /api/health HTTP/1.1" 200 -
+[18:48:50] [INFO] confirm_ui: 127.0.0.1 - - [19/Nov/2026 18:48:50] "POST /api/shutdown HTTP/1.1" 200 -
+[18:48:50] [INFO] confirm_ui: shutting down (step4-cleanup)

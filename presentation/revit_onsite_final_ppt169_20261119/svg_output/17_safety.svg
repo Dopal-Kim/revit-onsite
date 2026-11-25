@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">V. 기대효과 · 안전</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-17/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">V · 기대효과 ① · 확실</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">V. 기대효과: 안전</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">위층을 부을 때는 아래 3개 층이 받쳐 줘야 합니다</text>
+  </g>
+  <g id="case-collapse" data-pptx-bounds="56 164 572 488">
+    <text x="76" y="190" font-size="20" font-weight="bold" fill="#B23A2E">화정 아파트 (2022)</text>
+    <g stroke="#2E6DB4" stroke-width="5"><line x1="110" y1="226" x2="110" y2="330" /><line x1="174" y1="226" x2="174" y2="330" /><line x1="238" y1="226" x2="238" y2="330" /><line x1="302" y1="226" x2="302" y2="330" /><line x1="366" y1="226" x2="366" y2="330" /><line x1="430" y1="226" x2="430" y2="330" /></g>
+    <g stroke="#B23A2E" stroke-width="3" stroke-dasharray="6,4"><line x1="110" y1="342" x2="110" y2="446" /><line x1="174" y1="342" x2="174" y2="446" /><line x1="238" y1="342" x2="238" y2="446" /><line x1="302" y1="342" x2="302" y2="446" /><line x1="366" y1="342" x2="366" y2="446" /><line x1="430" y1="342" x2="430" y2="446" /><line x1="110" y1="458" x2="110" y2="562" /><line x1="174" y1="458" x2="174" y2="562" /><line x1="238" y1="458" x2="238" y2="562" /><line x1="302" y1="458" x2="302" y2="562" /><line x1="366" y1="458" x2="366" y2="562" /><line x1="430" y1="458" x2="430" y2="562" /></g>
+    <rect x="86" y="214" width="368" height="12" fill="#E07A1F" />
+    <g fill="#1D3557"><rect x="86" y="330" width="368" height="12" /><rect x="86" y="446" width="368" height="12" /></g>
+    <rect x="86" y="562" width="368" height="12" fill="#5B6673" />
+    <text x="472" y="262" font-size="18" font-weight="bold" fill="#1D3557">타설 중<tspan x="472" dy="24" font-size="15" font-weight="normal" fill="#5B6673">젖은 콘크리트 무게</tspan></text>
+    <g font-size="18" font-weight="bold" fill="#B23A2E"><text x="472" y="400">받침을 먼저 뺌</text><text x="472" y="516">받침을 먼저 뺌</text></g>
+    <rect x="76" y="592" width="540" height="52" rx="4" fill="#B23A2E" fill-opacity="0.1" />
+    <text x="96" y="624" font-size="18" fill="#B23A2E">무게를 받을 층이 없어 아래로 연달아 무너졌습니다</text>
+  </g>
+  <g id="case-hold" data-pptx-bounds="660 164 564 488">
+    <text x="680" y="190" font-size="20" font-weight="bold" fill="#2E6DB4">Revit On-Site로 판정하면</text>
+    <g stroke="#2E6DB4" stroke-width="5"><line x1="714" y1="226" x2="714" y2="330" /><line x1="778" y1="226" x2="778" y2="330" /><line x1="842" y1="226" x2="842" y2="330" /><line x1="906" y1="226" x2="906" y2="330" /><line x1="970" y1="226" x2="970" y2="330" /><line x1="1034" y1="226" x2="1034" y2="330" /><line x1="714" y1="342" x2="714" y2="446" /><line x1="778" y1="342" x2="778" y2="446" /><line x1="842" y1="342" x2="842" y2="446" /><line x1="906" y1="342" x2="906" y2="446" /><line x1="970" y1="342" x2="970" y2="446" /><line x1="1034" y1="342" x2="1034" y2="446" /><line x1="714" y1="458" x2="714" y2="562" /><line x1="778" y1="458" x2="778" y2="562" /><line x1="842" y1="458" x2="842" y2="562" /><line x1="906" y1="458" x2="906" y2="562" /><line x1="970" y1="458" x2="970" y2="562" /><line x1="1034" y1="458" x2="1034" y2="562" /></g>
+    <rect x="690" y="214" width="368" height="12" fill="#E07A1F" />
+    <g fill="#1D3557"><rect x="690" y="330" width="368" height="12" /><rect x="690" y="446" width="368" height="12" /></g>
+    <rect x="690" y="562" width="368" height="12" fill="#5B6673" />
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="18" font-weight="bold" fill="#2E6DB4"><text x="1076" y="284">받침 1</text><text x="1076" y="400">받침 2</text><text x="1076" y="516">받침 3</text></g>
+    <rect x="680" y="592" width="544" height="52" rx="4" fill="#2E6DB4" fill-opacity="0.1" />
+    <text x="700" y="624" font-size="18" fill="#1D3557">3개 층이 다 있기 전엔 <tspan font-weight="bold" fill="#2E6DB4">'존치'</tspan> — 해체 요청이 안 나갑니다</text>
+  </g>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">V. 기대효과 · 자재·비용 (2/2)</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-20/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">V · 기대효과 ③ · 조건부 · Alvarado 외 (2016)</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">V. 기대효과: 자재 · 비용 (2/2)</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">실제로 4개 층을 3개 층으로 줄인 현장의 숫자</text>
+  </g>
+  <g id="cost-table" data-pptx-bounds="56 164 1168 340">
+    <g font-size="18" font-weight="bold"><text x="56" y="196" font-weight="normal" font-size="15" fill="#5B6673">스페인 14층 아파트 · 단위 유로(€)</text><text x="400" y="196" fill="#1D3557">4개 층 받침</text><text x="780" y="196" fill="#2E6DB4">3개 층 받침</text></g>
+    <line x1="56" y1="212" x2="1224" y2="212" stroke="#1D3557" stroke-width="2" />
+    <rect x="56" y="422" width="1168" height="76" fill="#2E6DB4" fill-opacity="0.1" />
+    <g stroke="#C5CDD6" stroke-width="1"><line x1="56" y1="282" x2="1224" y2="282" /><line x1="56" y1="352" x2="1224" y2="352" /><line x1="56" y1="422" x2="1224" y2="422" /></g>
+    <line x1="56" y1="498" x2="1224" y2="498" stroke="#1D3557" stroke-width="1.5" />
+    <g font-size="22" font-weight="bold" fill="#1D3557"><text x="76" y="256">동바리</text><text x="76" y="326">띠장</text><text x="76" y="396">공기</text><text x="76" y="470">총공사비</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="36" font-weight="bold" fill="#5B6673"><text x="400" y="260">6,439</text><text x="400" y="330">7,083</text><text x="400" y="400">101일</text><text x="400" y="474">129,217</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="36" font-weight="bold" fill="#2E6DB4"><text x="780" y="260">5,151</text><text x="780" y="330">5,666</text><text x="780" y="400">101일</text><text x="780" y="474">126,513</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#E07A1F"><text x="1040" y="258">−20%</text><text x="1040" y="328">−20%</text><text x="1040" y="472">−2.09%</text></g>
+    <text x="1040" y="398" font-size="22" font-weight="bold" fill="#5B6673">그대로</text>
+  </g>
+  <g id="where-it-works" data-pptx-bounds="56 520 560 124">
+    <rect x="56" y="526" width="6" height="112" fill="#2E6DB4" />
+    <text x="80" y="552" font-size="18" font-weight="bold" fill="#2E6DB4">줄어드는 현장</text>
+    <text x="80" y="586" font-size="18" fill="#1E2329">습관적으로 4개 층 이상 받치던 현장<tspan x="80" dy="28">— 하중비로 3개 층이면 된다는 근거가 생김</tspan></text>
+  </g>
+  <g id="where-it-doesnt" data-pptx-bounds="664 520 560 124">
+    <rect x="664" y="526" width="6" height="112" fill="#E07A1F" />
+    <text x="688" y="552" font-size="18" font-weight="bold" fill="#E07A1F">안 줄어드는 현장</text>
+    <text x="688" y="586" font-size="18" fill="#1E2329">이미 기준 최소인 3개 층 현장,<tspan x="688" dy="28">겨울에 강도가 안 나 '존치'가 길어지는 현장</tspan></text>
+  </g>
+</svg>

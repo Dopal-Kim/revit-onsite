@@ -1,0 +1,235 @@
+<!--
+  프로젝트 설정 대화상자 (ui_spec §7-1) — design\wpf_preview\ProjectSetupWindow.xaml 이식.
+  값은 ProjectSettings(PRJ_*) 와 주고받는다 (코드 비하인드). 배합 목록 = 엔진 ShoringEngine.Mixes (코드에서 채움).
+  화면에는 출처 태그·파일 이름을 쓰지 않고 회색 보조 글만 (ux_review M5). Enter = 확인, Esc = 취소, F1·[?] = 도움말.
+-->
+<Window x:Class="RevitOnSite.ProjectSetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="프로젝트 설정" WindowStartupLocation="CenterOwner" Style="{DynamicResource OnSite.DialogWindow}" Language="ko-KR">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RevitOnSite;component/Wpf/OnSiteDialog.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!-- 한 줄 = 레이블 + 입력, 줄 사이 6 px -->
+            <Style x:Key="Row" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+            <!-- 값이 잘못되면 칸 바로 아래 빨간 한 줄 (레이블 폭만큼 들여씀) -->
+            <Style x:Key="Error" TargetType="TextBlock" BasedOn="{StaticResource OnSite.ValidationText}">
+                <Setter Property="Margin" Value="118,-1,0,3"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+            <!-- 칸 아래 회색 설명 한 줄 -->
+            <Style x:Key="Note" TargetType="TextBlock" BasedOn="{StaticResource OnSite.HintText}">
+                <Setter Property="Margin" Value="118,-1,0,3"/>
+            </Style>
+            <!-- 적용 기준 표 칸: 줄바꿈 (35차: 항목·출처 열 잘림) -->
+            <Style x:Key="WrapCell" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Margin" Value="2,1"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="Help" Executed="Help"/>
+    </Window.CommandBindings>
+
+    <Border Background="{DynamicResource OnSite.Brush.Background}" Padding="12">
+        <DockPanel>
+            <!-- 아래 버튼: 왼쪽 [?], 오른쪽 [확인][취소] — 늘 보이게 고정 (35차: 창 1003 px > 화면이면 [확인]이 화면 밖), 본문만 스크롤 -->
+            <DockPanel DockPanel.Dock="Bottom" Margin="0,12,0,0" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Style="{StaticResource OnSite.HelpButton}" Command="Help"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="취소" IsCancel="True"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="확인" IsDefault="True" x:Name="OkButton" Click="Ok"/>
+            </DockPanel>
+            <ScrollViewer x:Name="Body" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Focusable="False">
+        <StackPanel>
+            <!-- 11-12 서류 머리 자동 입력·정보 출처: 시공사·감리단 → 검토서 머리·작성 소속, 관리자 역할 → '기본 사항·출처' 표의 입력자 옆 -->
+            <GroupBox Header="현장·관리자 (서류에 자동으로 들어감)" Margin="0,0,0,8">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="시공사:" Target="{Binding ElementName=Contractor}"/>
+                        <TextBox x:Name="Contractor" Width="200" MaxLength="40"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="감리단:" Target="{Binding ElementName=SupFirm}"/>
+                        <TextBox x:Name="SupFirm" Width="200" MaxLength="40"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="관리자 역할:" Target="{Binding ElementName=Roles}"/>
+                        <TextBox x:Name="Roles" Width="200" Height="54" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" TextWrapping="NoWrap"
+                                 ToolTip="한 줄에 한 명: 이름=역할 (예: 김현장=공무, 박품질=품질관리자). 서류 '기본 사항·출처' 표에 '김현장 (공무)'로 나옵니다."/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="한 줄에 '이름=역할'" Margin="6,0,0,0" VerticalAlignment="Top"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="공정">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="첫 타설일(_F):" Target="{Binding ElementName=FirstPour}"/>
+                        <DatePicker x:Name="FirstPour" SelectedDateChanged="Changed" ToolTip="가장 아래층(지하층이 있으면 지하) 슬래브를 처음 타설하는 날. 공정 계획의 기준일입니다"/>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource Note}" Text="가장 아래층(지하층이 있으면 지하) 슬래브를 처음 타설하는 날. 공정 계획의 기준일입니다"/>
+                    <TextBlock x:Name="FirstPourError" Style="{StaticResource Error}" Text="첫 타설일을 고르세요."/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="타설 사이클(_C):" Target="{Binding ElementName=Cycle}"/>
+                        <TextBox x:Name="Cycle" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="일"/>
+                    </StackPanel>
+                    <TextBlock x:Name="CycleError" Style="{StaticResource Error}" Text="타설 사이클은 1–30 일 사이의 정수로 입력하세요."/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="최소 존치 층수(_K):" Target="{Binding ElementName=Keep}"/>
+                        <TextBox x:Name="Keep" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="개층"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(KCS 14 20 12 3.3.2(2))"/>
+                    </StackPanel>
+                    <TextBlock x:Name="KeepError" Style="{StaticResource Error}" Text="최소 존치 층수는 3–10 개층 사이의 정수로 입력하세요. (타설층 포함 3개층 이상)"/>
+                    <!-- 총괄 83차: 최상층 = 데이터 폴더 options.json top_floor (새 공유 매개변수 없음). [구역 나누기]가 모델 맨 위 슬래브 층을 자동으로 넣음 -->
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="최상층(_T):" Target="{Binding ElementName=TopFloor}"/>
+                        <TextBox x:Name="TopFloor" Style="{StaticResource OnSite.NumberBox}" TextChanged="TopChanged" AutomationProperties.Name="최상층 층 번호"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="층"/>
+                        <CheckBox x:Name="TopConfirmed" Content="실제 최상층으로 확인함" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="10,0,0,0" Padding="4,3,4,3" MinHeight="24"/>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource Note}" TextWrapping="Wrap" MaxWidth="400" HorizontalAlignment="Left" Text="[구역 나누기]가 모델 맨 위 슬래브 층을 넣습니다. 건물 일부만 모델링했다면 실제 최상층 번호로 고치세요 — 이 층까지 타설되면 '3개층 존치' 대신 '최상층까지 타설'로 봅니다. 확인하지 않은 자동값이면 판정 근거에 '확인 필요'가 붙습니다. 비우면 이 예외를 쓰지 않습니다."/>
+                    <TextBlock x:Name="TopFloorError" Style="{StaticResource Error}" Text="최상층은 1–200 사이의 층 번호(정수)로 입력하거나 비우세요."/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="콘크리트" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="배합(_M):" Target="{Binding ElementName=Mix}"/>
+                        <ComboBox x:Name="Mix" Width="130"/>
+                        <Label Content="fck" Margin="16,0,6,0"/>
+                        <TextBox x:Name="Fck" Style="{StaticResource OnSite.NumberBox}" Width="40" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="MPa"/>
+                    </StackPanel>
+                    <TextBlock x:Name="FckError" Style="{StaticResource Error}" Text="fck 는 18–60 MPa 사이 숫자로 입력하세요."/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="양생 최저 온도(_E):" Target="{Binding ElementName=MinTemp}"/>
+                        <TextBox x:Name="MinTemp" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="°C"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(보온 양생 5, 가열 양생 15)"/>
+                    </StackPanel>
+                    <TextBlock x:Name="MinTempError" Style="{StaticResource Error}" Text="양생 최저 온도는 -10–30 °C 사이 숫자로 입력하세요."/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="설치 검측" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="상하 정렬 허용값(_A):" Target="{Binding ElementName=AlignTol}"/>
+                        <TextBox x:Name="AlignTol" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed"
+                                 ToolTip="바로 아래층 동바리까지 수평 거리 허용값 (현장이 정하는 값). 비우면 [설치 검측]이 편차만 보여 줍니다."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="mm"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(비우면 편차만 — 규정 수치 없음 [입력])"/>
+                    </StackPanel>
+                    <TextBlock x:Name="AlignTolError" Style="{StaticResource Error}" Text="상하 정렬 허용값은 비우거나 1–1000 mm 사이 숫자로 입력하세요."/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- v6.2 (W12·W9·W11): 현장 기준 [가정] — 데이터 폴더 options.json (Python evaluate·alerts 와 같은 파일), 비우면 기본값 -->
+            <!-- 11-12 2-5 (Revit #11): 자주 안 바꾸는 현장 기준·데이터는 접힌 채 시작 — 값이 잘못되거나 기본 폴더를 넣었으면 코드가 펼침 -->
+            <Expander x:Name="SiteBox" Header="현장 기준 (바꿀 수 있음) — 비우면 기본값" Margin="0,8,0,0" AutomationProperties.Name="현장 기준">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="시공하중(_L):" Target="{Binding ElementName=LiveLoad}"/>
+                        <TextBox x:Name="LiveLoad" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed" ToolTip="하중비교 식 1.6 × 시공하중. 기본·최소 2.5 (가이드라인 예제·KDS 21 50 00 작업하중) — 자재 적재·장비가 많으면 크게."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="kN/m²"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(기본 2.5, 낮출 수 없음)"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="지지층 마감하중:" Target="{Binding ElementName=SupportSdl}"/>
+                        <TextBox x:Name="SupportSdl" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed" ToolTip="하중비교 지지 슬래브 여유 = 1.2 × 마감하중 + 1.6 × 설계활하중. 구조계산서 값. 비우면 가이드라인 예제값 1.64 [가정]."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="kN/m²"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(구조계산서 · 비우면 예제 1.64)"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="지지층 설계활하중:" Target="{Binding ElementName=SupportLl}"/>
+                        <TextBox x:Name="SupportLl" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed" ToolTip="구조계산서 설계활하중 (공동주택 거실 2.0 등). 비우면 가이드라인 예제값 2.0 [가정]."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="kN/m²"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(구조계산서 · 비우면 예제 2.0)"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="순찰 확인 간격(_P):" Target="{Binding ElementName=PatrolHours}"/>
+                        <TextBox x:Name="PatrolHours" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed" ToolTip="이 시간 안에 동바리 확인 기록이 없는 층은 '오늘 볼 것'에 순찰 확인 없음."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="시간"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(기본 24)"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="범위 밖 슬래브(_S):" Target="{Binding ElementName=ScopeSlab}"/>
+                        <TextBox x:Name="ScopeSlab" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed" ToolTip="이보다 두꺼운 슬래브 구역은 판정 근거에 '범위 밖 가능 — 구조기술자 검토' 표시 (결론은 그대로)."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="mm 초과"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(기본 300)"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="층 표지 유효 시간(_G):" Target="{Binding ElementName=SignHours}"/>
+                        <TextBox x:Name="SignHours" Style="{StaticResource OnSite.NumberBox}" TextChanged="Changed" ToolTip="층 표지 머리의 '인쇄 후 n시간 지나면 QR 화면으로 현재 상태 확인' 시간."/>
+                        <TextBlock Style="{StaticResource OnSite.UnitText}" Text="시간"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="(기본 24)"/>
+                    </StackPanel>
+                    <TextBlock x:Name="SiteRuleError" Style="{StaticResource Error}" Text="현장 기준은 비우거나 0 보다 큰 숫자로 입력하세요 (시공하중은 2.5 이상)."/>
+                    <TextBlock Style="{StaticResource Note}" TextWrapping="Wrap" MaxWidth="400" HorizontalAlignment="Left" Text="동바리 높이 5 m 이상·지하층은 늘 '범위 밖 가능' (5 m = 건설기술진흥법 시행령 제101조의2, 바꾸지 않음)."/>
+                </StackPanel>
+            </Expander>
+
+            <Expander x:Name="DataBox" Header="데이터 (폴더·기상 관측소·보정)" Margin="0,8,0,0" AutomationProperties.Name="데이터">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="기상 관측소(_W):" Target="{Binding ElementName=Station}"/>
+                        <ComboBox x:Name="Station" Width="160">
+                            <ComboBoxItem Content="108 서울"/>
+                            <ComboBoxItem Content="112 인천"/>
+                            <ComboBoxItem Content="119 수원"/>
+                            <ComboBoxItem Content="159 부산"/>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="데이터 폴더(_D):" Target="{Binding ElementName=Folder}"/>
+                        <TextBox x:Name="Folder" Width="260" TextChanged="FolderChanged"/>
+                        <Button Content="찾아보기(_B)…" Margin="6,0,0,0" Click="Browse"/>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource Note}" Text="타설 기록·센서·공시체·기상 자료가 있는 폴더"/>
+                    <!-- 87차 (총괄): 아직 저장한 폴더가 없으면 기본값 = 모델 옆 onsite_data_<파일 이름> — [확인] 하면 저장하고 없으면 만듦 -->
+                    <TextBlock x:Name="FolderDefaultNote" Style="{StaticResource Note}" TextWrapping="Wrap" MaxWidth="400" HorizontalAlignment="Left" Visibility="Collapsed"
+                               Text="저장한 데이터 폴더가 없어 기본값(모델 옆 onsite_data_파일이름)을 넣었습니다 — [확인] 하면 이 폴더로 저장하고, 없으면 만듭니다."/>
+                    <!-- 사진 폴더 용량 (F15 뒤, 총괄 11-05): 데이터 폴더\사진 의 MB·장 수 — 자동 삭제는 하지 않음 (근거 자료) -->
+                    <TextBlock x:Name="PhotoUsage" Style="{StaticResource Note}" AutomationProperties.Name="사진 폴더 용량"/>
+                    <!-- G2 (총괄 11-05): 예측 해체 가능일에 현장 보정 곡선 — 데이터 폴더 options.json (Python evaluate 와 같은 파일), 기본 꺼짐 -->
+                    <CheckBox x:Name="CalibrateDue" Margin="0,6,0,0" Content="예측일에 현장 보정 쓰기(_R)"
+                              ToolTip="같은 배합 현장양생 공시체가 3건 이상이면 그 결과로 강도 곡선을 보정해 '예측 해체 가능일'만 다시 셉니다 (판정·결론·추정 강도는 그대로). 사유 끝에 '예측일: 현장 보정 곡선 (공시체 n건, s=…) [보정]' 또는 '기본 곡선 [가정]'. 데이터 폴더 options.json 에 저장 — 다음 [판정]부터."/>
+                    <!-- v6 (2026-11-08 사용자 확정): 층 높이 보정 — 기상 기온으로 셈하는 강도(참고)·예측일에 −0.65 ℃/100 m [가정], options.json, 기본 꺼짐 -->
+                    <CheckBox x:Name="HeightCorrect" Margin="0,4,0,0" Content="층 높이 보정 쓰기(_H)"
+                              ToolTip="센서가 없어 기상 기온으로 셈하는 강도(참고)와 예측 해체 가능일에 높이만큼 기온을 낮춥니다: 층 × 층고 3 m × 0.65 ℃/100 m [가정] (노출 보정 없음 [가정]). 센서·공시체 값은 그대로. 근거 끝에 '층 높이 보정 −0.20 °C [가정]'. 데이터 폴더 options.json 에 저장 — 다음 [판정]부터."/>
+                    <TextBlock x:Name="SampleWarn" Style="{StaticResource Error}" TextWrapping="Wrap" MaxWidth="360" HorizontalAlignment="Left"
+                               Text="shoring\sample 은 회귀 시험 기준 자료입니다. 현장 입력이 이 파일에 기록되므로 사본 폴더(예: revit\onsite_data_demo)를 고르세요."/>
+                </StackPanel>
+            </Expander>
+
+            <!-- 적용 기준 (34차 사용자 요청 B): 기준 이름·항목·값·단위·출처를 한 곳에 — 판정 근거 창은 비교 줄만, 출처는 여기 (Engine.Standards) -->
+            <Expander x:Name="StandardsBox" Header="적용 기준 (판정에 쓰는 기준값·단위·출처)" Margin="0,8,0,0" AutomationProperties.Name="적용 기준">
+                <StackPanel Margin="0,4,0,0">
+                    <TextBlock x:Name="StandardNames" Style="{StaticResource Note}" TextWrapping="Wrap" MaxWidth="520" HorizontalAlignment="Left"/>
+                    <DataGrid x:Name="StandardsGrid" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" Width="520" HorizontalAlignment="Left"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                              RowHeight="NaN" MinRowHeight="18"
+                              GridLinesVisibility="Horizontal" CanUserSortColumns="False" CanUserResizeColumns="False" Margin="0,4,0,0" FontSize="11">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="항목" Binding="{Binding What}" Width="2*" ElementStyle="{StaticResource WrapCell}"/>
+                            <DataGridTextColumn Header="값·단위" Binding="{Binding Value}" Width="3*" ElementStyle="{StaticResource WrapCell}"/>
+                            <DataGridTextColumn Header="출처" Binding="{Binding Source}" Width="3*" ElementStyle="{StaticResource WrapCell}"/>
+                            <DataGridTextColumn Header="표시" Binding="{Binding Tag}" Width="44" ElementStyle="{StaticResource WrapCell}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Expander>
+
+        </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</Window>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 시나리오 검증표 S1 · S11 (시연용 가상 자료, 판정 2026-12-31 09:00)</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">13 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">03 · Revit On-Site · 위치 근거</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">같은 층이라도 그늘진 구역은 늦게 굳습니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">센서 위치를 함께 보면 층 안에서도 결론이 갈립니다</text>
+  </g>
+  <g id="floor-plan" data-pptx-bounds="64 188 624 468">
+    <text x="64" y="212" font-size="15" font-weight="bold" fill="#5E6B7A">9층 평면 · 6구역 · 센서 6개</text>
+    <text x="664" y="212" font-size="15" font-weight="bold" fill="#1B2A41" text-anchor="end">▲ 북</text>
+    <g fill="#E8613C" fill-opacity="0.18" stroke="#E8613C" stroke-width="2"><rect x="64" y="228" width="196" height="196"/><rect x="264" y="228" width="196" height="196"/></g>
+    <g fill="#5FA83A" fill-opacity="0.18" stroke="#5FA83A" stroke-width="2"><rect x="464" y="228" width="196" height="196"/><rect x="64" y="428" width="196" height="196"/><rect x="264" y="428" width="196" height="196"/><rect x="464" y="428" width="196" height="196"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold"><text x="84" y="268" fill="#E8613C">A2</text><text x="284" y="268" fill="#E8613C">B2</text><text x="484" y="268" fill="#3E7D22">C2</text><text x="84" y="468" fill="#3E7D22">A1</text><text x="284" y="468" fill="#3E7D22">B1</text><text x="484" y="468" fill="#3E7D22">C1</text></g>
+    <g font-size="15" fill="#1E2633"><text x="84" y="300">구역 최소 23.90 MPa</text><text x="284" y="300">구역 최소 23.99 MPa</text></g>
+    <g font-size="15" font-weight="bold"><text x="84" y="402" fill="#E8613C">존치 → 01-01</text><text x="284" y="402" fill="#E8613C">존치 → 01-01</text><text x="484" y="402" fill="#3E7D22">요청 가능 12-30</text><text x="84" y="602" fill="#3E7D22">요청 가능 12-30</text><text x="284" y="602" fill="#3E7D22">요청 가능 12-30</text><text x="484" y="602" fill="#3E7D22">요청 가능 12-30</text></g>
+    <g fill="#1B2A41"><circle cx="160" cy="340" r="6"/><circle cx="360" cy="340" r="6"/><circle cx="560" cy="330" r="6"/><circle cx="160" cy="530" r="6"/><circle cx="360" cy="530" r="6"/><circle cx="560" cy="530" r="6"/></g>
+    <text x="64" y="646" font-size="13" fill="#5E6B7A">● 센서 · 구역 최소 강도 = 센서 값을 위치로 보간한 그 구역의 가장 낮은 값</text>
+  </g>
+  <g id="location-logic" data-pptx-bounds="720 188 496 468">
+    <text x="720" y="236" font-size="15" font-weight="bold" fill="#5E6B7A">공시체만 보면</text>
+    <text x="720" y="280" font-size="24" font-weight="bold" fill="#1B2A41">6구역 모두 기준 이상</text>
+    <text x="720" y="312" font-size="18" fill="#1E2633">공시체 평균 24.8 MPa 이상 ≥ 24 MPa</text>
+    <line x1="720" y1="344" x2="1216" y2="344" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="720" y="384" font-size="15" font-weight="bold" fill="#5E6B7A">센서 위치까지 보면</text>
+    <text x="720" y="428" font-size="24" font-weight="bold" fill="#E8613C">북측 그늘 A2 · B2는 존치</text>
+    <text x="720" y="460" font-size="18" fill="#1E2633">구역 최소 23.90 · 23.99 &lt; 24 MPa</text>
+    <rect x="720" y="500" width="496" height="140" rx="6" fill="#EEF3F9"/>
+    <text x="744" y="536" font-size="15" font-weight="bold" fill="#1F5FA8">처음 '요청 가능'이 된 날</text>
+    <text x="744" y="576" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#3E7D22">12-30</text>
+    <text x="844" y="574" font-size="18" fill="#1E2633">A1 · B1 · C1 · C2</text>
+    <text x="744" y="618" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#E8613C">01-01</text>
+    <text x="844" y="616" font-size="18" fill="#1E2633">A2 · B2 (같은 층 · 같은 타설일)</text>
+  </g>
+</svg>

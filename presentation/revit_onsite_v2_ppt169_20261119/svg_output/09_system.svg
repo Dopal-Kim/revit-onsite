@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <defs>
+    <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><polygon points="0,0 10,5 0,10" fill="#1F5FA8"/></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">09 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">03 · Revit On-Site · 구성</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">판정은 Revit에서, 입력은 현장 휴대폰으로</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">현장 서버가 둘 사이를 잇고, Revit이 5분마다 가져와 다시 판정합니다</text>
+  </g>
+  <g id="phones" data-pptx-bounds="64 192 300 400">
+    <text x="64" y="212" font-size="15" font-weight="bold" fill="#5E6B7A">현장 · 휴대폰 (QR)</text>
+    <g fill="#EEF3F9"><rect x="64" y="228" width="300" height="172" rx="6"/><rect x="64" y="416" width="300" height="172" rx="6"/></g>
+    <use data-icon="tabler-outline/device-mobile" x="84" y="248" width="40" height="40" fill="#1F5FA8" stroke-width="2"/>
+    <use data-icon="tabler-outline/qrcode" x="84" y="436" width="40" height="40" fill="#1F5FA8" stroke-width="2"/>
+    <g font-size="20" font-weight="bold" fill="#1B2A41"><text x="136" y="276">품질·안전관리자</text><text x="136" y="464">협력업체 반장</text></g>
+    <g font-size="18" fill="#1E2633"><text x="84" y="324">공시체 · 센서 · 반발경도<tspan x="84" dy="28">동바리 확인 · 점검</tspan><tspan x="84" dy="28">사진 1장</tspan></text><text x="84" y="512">층 QR → '뺐음' · '다시 세움'<tspan x="84" dy="28">해체 신고</tspan><tspan x="84" dy="28">사진 1장</tspan></text></g>
+  </g>
+  <g id="server" data-pptx-bounds="372 192 300 400">
+    <line x1="372" y1="314" x2="446" y2="370" stroke="#1F5FA8" stroke-width="2" marker-end="url(#arrowAccent)"/>
+    <line x1="372" y1="502" x2="446" y2="414" stroke="#1F5FA8" stroke-width="2" marker-end="url(#arrowAccent)"/>
+    <circle cx="530" cy="392" r="78" fill="#EEF3F9" stroke="#1F5FA8" stroke-width="2"/>
+    <use data-icon="tabler-outline/cloud" x="500" y="348" width="60" height="60" fill="#1F5FA8" stroke-width="2"/>
+    <text x="530" y="438" font-size="15" font-weight="bold" fill="#1B2A41" text-anchor="middle">현장 서버</text>
+    <text x="530" y="502" font-size="15" fill="#5E6B7A" text-anchor="middle">인터넷 · 열쇠는 QR로만</text>
+    <text x="530" y="524" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="middle">revit-onsite-field.vercel.app</text>
+  </g>
+  <g id="sync" data-pptx-bounds="680 294 120 190">
+    <text x="740" y="322" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#1F5FA8" text-anchor="middle">5분</text>
+    <text x="740" y="344" font-size="15" fill="#5E6B7A" text-anchor="middle">마다</text>
+    <line x1="684" y1="372" x2="792" y2="372" stroke="#1F5FA8" stroke-width="2" marker-end="url(#arrowAccent)"/>
+    <line x1="796" y1="412" x2="688" y2="412" stroke="#1F5FA8" stroke-width="2" marker-end="url(#arrowAccent)"/>
+    <text x="740" y="440" font-size="13" fill="#5E6B7A" text-anchor="middle">입력 가져오기 →</text>
+    <text x="740" y="460" font-size="13" fill="#5E6B7A" text-anchor="middle">← 판정 올리기</text>
+  </g>
+  <g id="revit" data-pptx-bounds="808 192 216 400">
+    <rect x="808" y="228" width="216" height="360" rx="6" fill="#1B2A41"/>
+    <use data-icon="tabler-outline/cube" x="832" y="252" width="44" height="44" fill="#FFFFFF" stroke-width="2"/>
+    <text x="832" y="330" font-size="24" font-weight="bold" fill="#FFFFFF">Revit</text>
+    <text x="832" y="358" font-size="15" fill="#D5DCE4">공무 · BIM 담당</text>
+    <line x1="832" y1="378" x2="1000" y2="378" stroke="#5E6B7A" stroke-width="1"/>
+    <g font-size="18" fill="#FFFFFF"><text x="832" y="412">하루 1회 판정</text><text x="832" y="444">구역마다 다시 계산</text><text x="832" y="476">검측요청서 작성</text><text x="832" y="508">승인 기록</text></g>
+    <text x="832" y="560" font-size="15" fill="#D5DCE4">결과물은 데이터 폴더에</text>
+  </g>
+  <g id="outputs" data-pptx-bounds="1032 192 184 400">
+    <line x1="1032" y1="408" x2="1056" y2="408" stroke="#1F5FA8" stroke-width="2" marker-end="url(#arrowAccent)"/>
+    <text x="1064" y="212" font-size="15" font-weight="bold" fill="#5E6B7A">결과물</text>
+    <g fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1"><rect x="1064" y="228" width="152" height="60" rx="6"/><rect x="1064" y="296" width="152" height="60" rx="6"/><rect x="1064" y="364" width="152" height="60" rx="6"/><rect x="1064" y="432" width="152" height="60" rx="6"/><rect x="1064" y="500" width="152" height="60" rx="6"/></g>
+    <g font-size="15" font-weight="bold" fill="#1B2A41"><text x="1080" y="264">판정표 · 대시보드</text><text x="1080" y="332">검측요청서</text><text x="1080" y="400">층 표지 QR</text><text x="1080" y="468">슬래브 이력서</text><text x="1080" y="536">IFC · 근거 원장</text></g>
+    <text x="1064" y="584" font-size="13" fill="#5E6B7A">결론은 두 문구뿐</text>
+  </g>
+</svg>

@@ -1,0 +1,4 @@
+ui-ux-pro-max: nextlevelbuilder/ui-ux-pro-max-skill @ 6ae86f61f520d6ca229d2f40e070410638c908c5 (MIT)
+web-design-guidelines: vercel-labs/agent-skills @ 1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62, rules vercel-labs/web-interface-guidelines @ 434b7f91364665f2f733b310ec54809bf8f37937 (MIT)
+fetched 2026-11-11, data only (md/csv) — scripts not downloaded or run
+humanizer: blader/humanizer @ b48c832f0f809c1b5658edbb838c2521b72f2413 (MIT) — SKILL.md·LICENSE only, fetched 2026-11-12

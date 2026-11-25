@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 85차 레이아웃 시험 (총괄 R21): 애드인 대시보드 XAML 을 그대로 화면 밖 창에 띄워 강도 그림이 첫 화면(스크롤 0) 안인지 확인. 실패면 종료 코드 1.
+       어셈블리 이름 = RevitOnSite: 대시보드가 병합하는 "/RevitOnSite;component/Wpf/…" 리소스 사전을 애드인 원본에서 링크로 함께 컴파일 (Revit DLL 불필요) -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>RevitOnSite</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Page Include="..\RevitOnSite\Wpf\StatusColors.xaml" Link="Wpf\StatusColors.xaml" />
+    <Page Include="..\RevitOnSite\Wpf\OnSiteTheme.Light.xaml" Link="Wpf\OnSiteTheme.Light.xaml" />
+    <Page Include="..\RevitOnSite\Wpf\OnSiteStyles.xaml" Link="Wpf\OnSiteStyles.xaml" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 실제 화면: [판정 근거] 창 9F-B1, 시연용 가상 자료</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">11 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">03 · Revit On-Site · 판정 근거</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">판정은 비교 한 줄씩, 근거와 함께 나옵니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">기준값과 실측값을 한 줄에 나란히 보여 줍니다</text>
+  </g>
+  <g id="evidence-shot" data-pptx-bounds="56 194 680 314">
+    <rect x="56" y="200" width="678" height="304" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5"/>
+    <image href="../images/shot_15_lines.png" x="64" y="210" width="662" height="286" preserveAspectRatio="xMidYMid meet"/>
+    <g fill="#1F5FA8" fill-opacity="0.08"><rect x="64" y="279" width="662" height="22"/><rect x="64" y="307" width="662" height="22"/><rect x="64" y="336" width="662" height="22"/><rect x="64" y="363" width="662" height="76"/><rect x="64" y="444" width="662" height="22"/></g>
+  </g>
+  <g id="evidence-pins" data-pptx-bounds="736 194 480 314">
+    <g fill="#1F5FA8"><circle cx="752" cy="287" r="12"/><circle cx="752" cy="315" r="12"/><circle cx="752" cy="344" r="12"/><circle cx="752" cy="398" r="12"/><circle cx="752" cy="452" r="12"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle"><text x="752" y="292">1</text><text x="752" y="320">2</text><text x="752" y="349">3</text><text x="752" y="403">4</text><text x="752" y="457">5</text></g>
+    <g font-size="15" fill="#1E2633"><text x="776" y="292"><tspan font-weight="bold">공시체</tspan> 25.1 ≥ 24.0 MPa (기준 근거)</text><text x="776" y="320"><tspan font-weight="bold">센서 구역 최소</tspan> 24.5 MPa (위치 근거)</text><text x="776" y="349"><tspan font-weight="bold">존치 층수</tspan> 3 ≥ 3 (위로 타설된 층)</text><text x="776" y="403"><tspan font-weight="bold">지지층</tspan> 10F · 11F · 12F 모두 ≥ 14 MPa</text><text x="776" y="457"><tspan font-weight="bold">하중비</tspan> 0.83 ≤ 1.00</text></g>
+    <text x="776" y="236" font-size="15" font-weight="bold" fill="#5E6B7A">화면 속 근거</text>
+  </g>
+  <g id="verdict-band" data-pptx-bounds="56 528 1160 128">
+    <rect x="64" y="532" width="1152" height="120" rx="6" fill="#EEF3F9"/>
+    <rect x="92" y="560" width="244" height="44" rx="22" fill="#5FA83A"/>
+    <text x="214" y="589" font-size="20" font-weight="bold" fill="#FFFFFF" text-anchor="middle">해체 승인 요청 가능</text>
+    <text x="360" y="580" font-size="20" fill="#1E2633">다섯 줄이 모두 ✓이면 요청 가능, 하나라도 ✗이면 <tspan font-weight="bold" fill="#E8613C">'존치'</tspan></text>
+    <text x="360" y="614" font-size="18" fill="#5E6B7A">근거 조항도 함께 나오고, 여기서 바로 조기 탈형 검토서를 만들 수 있습니다</text>
+  </g>
+</svg>

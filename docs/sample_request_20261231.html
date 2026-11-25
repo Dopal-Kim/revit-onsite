@@ -1,0 +1,21 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>해체 검측요청서 (초안) Revit On-Site 데모 — RC 공동주택 15층 2026-12-31</title>
+<style>@page{size:A4;margin:16mm}body{font:10.5pt 'Malgun Gothic',sans-serif;color:#111}h1{font-size:16pt;margin:0 0 4px}
+table{border-collapse:collapse;width:100%;margin:8px 0}th,td{border:1px solid #888;padding:4px 6px;text-align:left;vertical-align:top}
+th{background:#eee}td:nth-child(-n+2){white-space:nowrap}.sign td{height:46px}.note{color:#444;font-size:9pt}.warn{color:#a00}</style></head><body>
+<h1>동바리 해체 검측요청서 (초안)</h1>
+<div class="note">감리 검측요청 서식 준용</div>
+<div>Revit On-Site 데모 — RC 공동주택 15층 · 판정 기준 시각 2026-12-31 09:00 · 작성 Revit On-Site</div>
+<p class="note">이 문서는 감리 검측요청에 붙이는 근거 자료입니다. 프로그램은 승인하지 않으며, 해체 여부는 감리(책임기술인)가 확인·서명으로 결정합니다.
+함께 낼 것: 해체 작업계획서 · 해체 전 체크리스트(가이드라인 4.1) · 해체 후 결과보고(가이드라인 4.3).</p>
+<h2>해체 승인 요청 가능 구역 (4)</h2>
+<table><tr><th>구역</th><th>타설일</th><th>재령(일)</th><th>기준 MPa</th><th>현장양생 공시체 평균 MPa</th>
+<th>구역 최소 추정 MPa (위치 근거)</th><th>규칙 게이트</th><th>근거 해시</th></tr><tr><td>9F-A1</td><td>2026-11-26</td><td>35.0</td><td>24</td><td>24.8 (현장봉함, 2026-12-30)</td><td>24.1<br><small>온도 센서 6개 IDW (가까운 센서 없음 — 층 전체 센서) 24.4·기상 예측(하한 없음) 24.1 중 최소</small></td><td>OK</td><td><small>8e2d70c10ffa</small></td></tr><tr><td>9F-B1</td><td>2026-11-26</td><td>35.0</td><td>24</td><td>25.1 (현장봉함, 2026-12-30)</td><td>24.5<br><small>센서 2개 IDW</small></td><td>OK</td><td><small>243a563ab8f6</small></td></tr><tr><td>9F-C1</td><td>2026-11-26</td><td>35.0</td><td>24</td><td>25.4 (현장봉함, 2026-12-30)</td><td>24.4<br><small>센서 2개 IDW</small></td><td>OK</td><td><small>148ad0745147</small></td></tr><tr><td>9F-C2</td><td>2026-11-26</td><td>35.0</td><td>24</td><td>25.4 (현장봉함, 2026-12-30)</td><td>24.5<br><small>센서 1개 IDW</small></td><td>OK</td><td><small>cc96aa44542f</small></td></tr></table>
+<h2>존치 구역 (2)</h2><ul><li>9F-A2 — 존치 (구역 최소 강도 미달): 구역 최소 추정 23.90 &lt; 24 MPa (좌표 (0.25, 9.25))</li><li>9F-B2 — 존치 (구역 최소 강도 미달): 구역 최소 추정 23.99 &lt; 24 MPa (좌표 (14.75, 17.75))</li></ul>
+<p class="note">근거: 산안규칙 제334조 4호(양생기간 준수) / 감리 검측 절차(고시) / KCS 14 20 12 / 해체 가이드라인 3.2 (국토교통부 2023.1, 작성 한국콘크리트학회·국가건설기준센터).
+판정 규칙: 다층 동바리 fck 이상, 타설층 포함 3개층 존치, 지지 슬래브 14 MPa · 우선순위 규칙 게이트 → 현장양생 공시체(고시 제2024-879호) → 센서 구역 최소.
+근거 해시 = 이 표의 판정 행 해시 (승인 기록 approvals.csv 의 evidence_sha 와 대조).</p>
+
+<table class="sign"><tr><th>구분</th><th>소속</th><th>성명</th><th>서명</th><th>일시</th></tr>
+<tr><td>요청 (시공사 현장대리인)</td><td></td><td></td><td></td><td></td></tr>
+<tr><td>확인 (감리)</td><td></td><td></td><td></td><td></td></tr></table>
+</body></html>

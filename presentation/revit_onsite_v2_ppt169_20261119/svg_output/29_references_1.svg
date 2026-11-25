@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">29 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">부록 · 참고문헌</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">참고문헌 (1/2)</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">기준 · 지침 · 선행 연구</text>
+  </g>
+  <g id="refs" data-pptx-bounds="64 176 1152 480" font-size="15" fill="#1E2633">
+    <text x="64" y="198">[1] 국토교통부, KCS 14 20 12:2024 거푸집 및 동바리, 2024.12.31 (고시 제2024-879호 개정 반영).</text>
+    <text x="64" y="228">[2] 국토교통부, 거푸집 및 동바리 해체 가이드라인, 2023.1 (작성: 한국콘크리트학회).</text>
+    <text x="64" y="258">[3] 국토교통부, KDS 21 50 00:2024 거푸집 및 동바리 설계기준, 2024.9.27.</text>
+    <text x="64" y="288">[4] ACI Committee 347, ACI PRC-347.2-17(25) Guide for Shoring/Reshoring of Concrete Multistory Buildings, 2017 (reapproved 2025).</text>
+    <text x="64" y="318">[5] 천성철, 탁소영, 이성호, 소광호, 하태훈, "동바리 되세우기를 실시한 다층 건축구조물 바닥판의 시공하중 평가,"<tspan x="64" dy="34">한국콘크리트학회 논문집, vol. 26, no. 3, pp. 385–392, 2014, doi: 10.4334/JKCI.2014.26.3.385.</tspan></text>
+    <text x="64" y="370">[6] Y. Alvarado, I. Gasch, P. Calderón, B. Torres, "Study of technical and economical alternatives of a shoring and striking process<tspan x="64" dy="34">during the construction of a building with reinforced concrete slab floors," Rev. Ing. Constr., vol. 31, no. 2, pp. 117–126, 2016,</tspan><tspan x="64" dy="34">doi: 10.4067/S0718-50732016000200005.</tspan></text>
+    <text x="64" y="444">[7] M. Hamooni, M. Maghrebi, J. Majrouhi Sardroud, S. Kim, "Extending BIM interoperability for real-time concrete formwork process<tspan x="64" dy="34">monitoring," Appl. Sci., vol. 10, no. 3, 1085, 2020, doi: 10.3390/app10031085.</tspan></text>
+    <text x="64" y="496">[8] F. Iqbal et al., "BIM-IoT integration for remote real-time concrete compressive strength monitoring," Ain Shams Eng. J.,<tspan x="64" dy="34">vol. 15, no. 7, 102863, 2024, doi: 10.1016/j.asej.2024.102863.</tspan></text>
+    <text x="64" y="548">[9] 서형석, 박교식, 장재호, 봉기환, 임하나, "콘크리트 양생 중 하중변화를 실시간으로 감지하는 지능형 동바리 시스템 개발에 관한 연구,"<tspan x="64" dy="34">안전문화연구, no. 34, pp. 175–191, 2024, doi: 10.52902/kjsc.2024.34.175.</tspan></text>
+    <text x="64" y="600">[10] 김오형, 차희성, "건축 공사현장 유형별 최적 거푸집 공법선정을 위한 정량적 의사결정 지원모델 개발," 한국건설관리학회 논문집,<tspan x="64" dy="34">vol. 20, no. 4, pp. 56–68, 2019, doi: 10.6106/KJCEM.2019.20.4.056.</tspan></text>
+  </g>
+</svg>

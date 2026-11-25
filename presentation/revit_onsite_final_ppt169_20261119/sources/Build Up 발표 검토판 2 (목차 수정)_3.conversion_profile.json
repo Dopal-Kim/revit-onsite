@@ -1,0 +1,28 @@
+{
+  "schema": "ppt-master.source_to_md.profile.v1",
+  "converter": "ppt_to_md.py",
+  "conversion_type": "pptx",
+  "source": {
+    "path": "C:/Users/admin/Documents/카카오톡 받은 파일/Build Up 발표 검토판 2 (목차 수정)_3.pptx",
+    "name": "Build Up 발표 검토판 2 (목차 수정)_3.pptx",
+    "suffix": ".pptx",
+    "kind": "file",
+    "exists": true,
+    "size_bytes": 3401861
+  },
+  "outputs": {
+    "markdown": "Build Up 발표 검토판 2 (목차 수정)_3.md",
+    "asset_dir": "Build Up 발표 검토판 2 (목차 수정)_3_files",
+    "image_manifest": "Build Up 발표 검토판 2 (목차 수정)_3_files/image_manifest.json",
+    "image_count": 26
+  },
+  "markdown": {
+    "line_count": 242,
+    "char_count": 5399,
+    "heading_count": 53,
+    "table_count": 0,
+    "image_ref_count": 26,
+    "link_count": 0
+  },
+  "warnings": []
+}

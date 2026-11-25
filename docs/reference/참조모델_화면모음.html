@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>참조 모델 화면 모음</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--sub:#5b6270;--line:#d9dde3;--accent:#1f6feb;--ok:#1a7f37;--tag:#eef2f7}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--ink:#e8eaee;--sub:#9aa3b2;--line:#2a2f3a;--accent:#58a6ff;--ok:#3fb950;--tag:#222836}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 'Malgun Gothic',system-ui,sans-serif}
+header,main{max-width:1180px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:8px 0 4px}
+h2{font-size:18px;margin:28px 0 8px;padding-top:8px;border-top:1px solid var(--line)}
+p.lead{color:var(--sub);margin:0 0 8px}
+nav a{display:inline-block;margin:4px 8px 4px 0;color:var(--accent);text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.card h3{font-size:16px;margin:0}
+.tags span{display:inline-block;background:var(--tag);border-radius:999px;padding:1px 8px;font-size:12px;margin-right:4px}
+.shots{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.shots a{flex:0 0 auto}
+.shots img{height:220px;max-width:320px;object-fit:contain;border:1px solid var(--line);border-radius:6px;background:#fff}
+.shots .miss{display:flex;align-items:center;justify-content:center;height:220px;width:160px;border:1px dashed var(--line);border-radius:6px;color:var(--sub);font-size:12px;text-align:center;padding:6px}
+dl{margin:0;display:grid;grid-template-columns:72px 1fr;gap:2px 8px;font-size:14px}
+dt{color:var(--sub)}
+dd{margin:0}
+.borrow{border-left:3px solid var(--ok);padding:4px 8px;background:var(--tag);border-radius:4px;font-size:14px}
+table{border-collapse:collapse;width:100%;background:var(--card);font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--tag)}
+iframe{width:100%;height:760px;border:1px solid var(--line);border-radius:8px;background:#fff}
+small{color:var(--sub)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<header>
+<h1>참조 모델 화면 모음</h1>
+<p class="lead">구역별 입력 탭, 서류 머리 자동 입력, 값마다 출처 표시. 지금 건설 현장에서 쓰는 앱 13개에서 이 세 가지를 어떻게 하는지 모았고, 우리 애드인에 무엇을 가져올지 적었습니다. 이미지는 각 업체 공식 사이트·도움말·앱스토어에 올라온 것을 링크로만 보여 줍니다(내려받지 않음). 2026-11-12 조사.</p>
+<nav><a href="#apply">우리 적용 요약</a><a href="#concrete">콘크리트 강도·탈형</a><a href="#zone">구역 입력·보고서 출처</a><a href="#kr">국내</a><a href="#ours">우리 검토서 (새 출처 표)</a></nav>
+</header>
+<main>
+
+<h2 id="apply">우리 적용 요약</h2>
+<table>
+<tr><th style="width:150px">무엇</th><th>참조</th><th>우리 애드인에서</th><th style="width:110px">상태</th></tr>
+<tr><td>값마다 출처</td><td>Procore 항목별 활동 기록, ACC 활동 로그, PlanRadar 저널</td><td>조기 탈형 검토서 붙임 쪽에 '기본 사항·출처' 표 (본문은 A4 한 장 그대로): 항목·값·입력자(역할)·입력 시각·경로(Revit 창 / 현장 입력 기기 / 파일 기록 / 승인 기록 해시 사슬)</td><td>이번에 넣음</td></tr>
+<tr><td>서류 머리 자동 입력</td><td>ACC 스마트 필드, PlanRadar 보고서 머리</td><td>[프로젝트 설정]의 시공사·감리단이 검토서 머리와 작성 소속 칸에 들어감. 관리자 역할(이름=역할)이 출처 표에 붙음</td><td>이번에 넣음</td></tr>
+<tr><td>층×구역 매트릭스 입력</td><td>Dalux 범위 매트릭스 (셀 색 = 상태, 셀 → 오른쪽 입력 칸, 끌어서 여러 칸)</td><td>대시보드 층×구역 표 칸을 누르면 구역 정보 창이 열림. 끌어서 여러 구역 고르기는 아직 없음</td><td>다음 후보</td></tr>
+<tr><td>타설 입력 순서</td><td>Maturix (타설 시작·배합·해체 목표 강도), Doka (예측 도달 시각)</td><td>타설 등록 창: 타설일·시각·배합·fck·묶음·입회 감리·감시자. 예측 해체 가능일은 판정 근거 창에 있음</td><td>대부분 있음</td></tr>
+<tr><td>모델 색칠</td><td>Converge (BIM 안에서 타설 구역을 강도 진행 색으로)</td><td>검측 3D 뷰 구역 상태 색 0–9, 대시보드 범례가 활성 뷰 색을 따라감</td><td>있음</td></tr>
+<tr><td>승인 뒤 잠금·서명 도장</td><td>Fieldwire (서명 일시·기기·소속·직위, 승인 뒤 잠김)</td><td>승인 기록은 해시 사슬로 고칠 수 없음. 감리 서명에 기기·직위 기록은 아직 없음 (D2 감리 PIN 결정과 묶음)</td><td>결정 대기</td></tr>
+<tr><td>국내 단계 이름</td><td>클라우드랩·콘업: 요청 → 접수 → 검측/재검측 → 감리 서명 반송</td><td>요청 제출 → 감리 계획서 확인 → 최종 확인 / 보완 요청. 단계 이름을 국내 앱과 맞출지 감리 협의</td><td>협의 후보</td></tr>
+</table>
+
+<h2 id="concrete">콘크리트 강도·탈형 앱</h2>
+<div class="grid">
+
+<div class="card"><h3>Giatec SmartRock / Roller</h3><div class="tags"><span>강도·탈형</span><span>보고서</span></div>
+<div class="shots">
+<a href="https://www.giatecscientific.com/education/level-up-your-project-reports-with-giatec-360-part-2/"><img loading="lazy" alt="Giatec 배합 성숙도 보고서" src="https://www.giatecscientific.com/wp-content/uploads/2022/04/image-22.png"></a>
+<a href="https://www.giatecscientific.com/education/level-up-your-project-reports-with-giatec-360-part-2/"><img loading="lazy" alt="Giatec 센서별 PDF 보고서" src="https://www.giatecscientific.com/wp-content/uploads/2022/04/image-23.png"></a>
+<a href="https://www.giatecscientific.com/solutions/concrete-strength-and-maturity/"><img loading="lazy" alt="SmartRock 앱 화면" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/23/d3/22/23d322ba-f21c-9a9b-d399-807b2f6ad5ce/f93d05cc-02d3-4d5e-89a3-2278ea6255e8_iOSStore_5.5-01.png/392x696bb.png"></a>
+</div>
+<dl><dt>입력</dt><dd>프로젝트 → 타설 구간, QR로 센서 연결. 강도·온도 그래프에 기준선</dd><dt>출처</dt><dd>PDF 서명란, 웹은 사용자 활동 기록·역할 권한. 칸마다 입력자는 없음</dd></dl>
+<div class="borrow">보정 곡선·기준선·서명란을 한 장에. 조기 탈형 검토서 구성과 같은 방향.</div></div>
+
+<div class="card"><h3>Doka Concremote</h3><div class="tags"><span>강도·탈형</span></div>
+<div class="shots">
+<a href="https://www.doka.com/en/system-groups/doka-system-components/concremote-hardware/index"><img loading="lazy" alt="Concremote 모니터링" src="https://www.doka.com/revolution/webapp/cache/assets/654a615e08305898d039839020228b11/concremote-monitoring-.jpg"></a>
+<a href="https://www.doka.com/en/system-groups/doka-system-components/concremote-hardware/index"><img loading="lazy" alt="Concremote 앱 화면" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/73/0e/e9/730ee933-19c6-946c-fd73-0319eb57b5db/pr_source.png/600x0w.jpg"></a>
+</div>
+<dl><dt>입력</dt><dd>측정마다 마법사(배합 고르기), 목표 강도 도달 알림, 배합별 예측 비교</dd><dt>출처</dt><dd>모든 시각을 현장 시간대로, 보고서를 준공 근거로 보관</dd></dl>
+<div class="borrow">예측 해체 가능 시각을 실측 강도 옆에. 시각은 현장 시간대 하나로.</div></div>
+
+<div class="card"><h3>Maturix Nova</h3><div class="tags"><span>강도·탈형</span><span>구역 입력</span></div>
+<div class="shots">
+<a href="https://maturix.com/help/software/maturix-nova"><img loading="lazy" alt="Maturix Nova 화면 1" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f9/a5/c4/f9a5c434-e0cf-8ac1-de43-82df6e81212b/1.jpg/320x480bb.jpg"></a>
+<a href="https://maturix.com/help/software/maturix-nova"><img loading="lazy" alt="Maturix Nova 화면 2" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d1/ca/e3/d1cae3a1-13a7-b110-ca40-f402655f612c/2.jpg/320x480bb.jpg"></a>
+</div>
+<dl><dt>입력</dt><dd>아래 탭 4개(근처 장치·타설·배합·설정). 타설 = 프로젝트·배합·시작 시각·측정 지점·해체 목표</dd><dt>출처</dt><dd>역할 3단계(보기·입력·관리)</dd></dl>
+<div class="borrow">구역 입력 순서를 이 순서로. 감리는 보기 전용 역할.</div></div>
+
+<div class="card"><h3>Converge ConcreteDNA</h3><div class="tags"><span>강도·탈형</span><span>BIM</span></div>
+<div class="shots">
+<a href="https://www.converge.io/intelligence-platform/concrete-dna"><img loading="lazy" alt="Converge 강도 그래프" src="https://cdn.prod.website-files.com/61001ee69d834411a6a4a180/6582b98c2c1cd3f0e5d8cffe_iPad%20Mini.webp"></a>
+<a href="https://www.converge.io/intelligence-platform/cure"><img loading="lazy" alt="Converge 앱 화면" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/09/fb/30/09fb3021-e7ec-1192-dcb3-d30edb0a0a1d/d12b5b06-ca6d-4505-aedf-cd07d78843b6_phone-old-1.jpg/392x696bb.jpg"></a>
+</div>
+<dl><dt>입력</dt><dd>BIM 모델 안에서 타설 구역을 강도 진행 색으로, 강도 곡선 위 단계 표시</dd><dt>출처</dt><dd>품질 감사 기록(업체 설명)</dd></dl>
+<div class="borrow">Revit 구역 상태 색과 가장 가까운 사례. 지금 방식 유지.</div></div>
+
+<div class="card"><h3>Concrete Sensors (구 Hilti) · Transtec COMMAND Center</h3><div class="tags"><span>강도·탈형</span></div>
+<div class="shots">
+<a href="https://concretesensors.com/"><img loading="lazy" alt="Concrete Sensors 앱" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/37/ac/76/37ac7665-a670-0f2f-f111-2529701f4cf4/6.png/320x480bb.jpg"></a>
+<a href="https://concretesensors.com/"><img loading="lazy" alt="온도 화면" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/67/60/12/6760128f-ce2a-087b-ce1e-e42b3718b46b/5177a8bc-4dec-4d85-8b39-1f650a32c817_2355_Temperature_Screenshot_iPhone_5.5_1242x2208-01.png/392x696bb.png"></a>
+</div>
+<dl><dt>입력</dt><dd>'거푸집 이동' 같은 단계 알림</dd></dl>
+<div class="borrow">위 제품과 같은 방식이라 새로 가져올 것은 없음.</div></div>
+</div>
+
+<h2 id="zone">구역 입력·보고서 출처</h2>
+<div class="grid">
+
+<div class="card"><h3>Procore Inspections</h3><div class="tags"><span>출처</span><span>구역</span></div>
+<div class="shots">
+<a href="https://support.procore.com/products/online/user-guide/project-level/inspections"><img loading="lazy" alt="Procore 서명 보기" src="https://en-gb.support.procore.com/@api/deki/files/17198/clipboard_e5630b6424ddd229df275bd12a7e1ae80.png"></a>
+<a href="https://support.procore.com/products/online/user-guide/project-level/inspections"><img loading="lazy" alt="Procore 변경 이력" src="https://en-gb.support.procore.com/@api/deki/files/4604/view-inspection-change-history.png"></a>
+</div>
+<dl><dt>입력</dt><dd>다단 위치(동·층·구역)를 점검과 항목마다. 도면·위치에서 바로 만들기</dd><dt>출처</dt><dd>항목마다 활동 기록, 점검 전체 변경 이력, PDF에 이력 넣기 켜고 끄기</dd></dl>
+<div class="borrow">출처를 가장 촘촘히 보여 줌. 우리 '기본 사항·출처' 표의 기준.</div></div>
+
+<div class="card"><h3>Autodesk Build (ACC) Forms</h3><div class="tags"><span>출처</span><span>머리 자동</span></div>
+<div class="shots">
+<a href="https://help.autodesk.com/cloudhelp/ENG/Build-Forms/files/use/fill-forms/Forms_Submit_PDF.html"><img loading="lazy" alt="ACC 양식 상세" src="https://help.autodesk.com/cloudhelp/ENU/Build-Forms/images/submit_pdf_form.png"></a>
+</div>
+<dl><dt>입력</dt><dd>양식 머리: 날짜·위치(프로젝트 위치 목록)·자동 번호·기한·담당. PDF 서식의 스마트 필드가 프로젝트명·날짜 자동 입력</dd><dt>출처</dt><dd>양식마다 시간순 활동 로그(사용자·일시), 이벤트 종류 고정</dd></dl>
+<div class="borrow">서류 머리를 프로젝트 자료로 자동 채움 → 시공사·감리단 칸으로 넣음.</div></div>
+
+<div class="card"><h3>Fieldwire</h3><div class="tags"><span>출처</span><span>도면 핀</span></div>
+<div class="shots">
+<a href="https://www.fieldwire.com/construction-forms/"><img loading="lazy" alt="Fieldwire 보고서 (모바일)" src="https://images.eu.ctfassets.net/hhrr8k5zoywj/4C0RfafE1DpZ9zzhXbIdfH/6e6c83583acb68e5b31087ed2f80a6fa/Report_-_Mobile.jpg"></a>
+</div>
+<dl><dt>입력</dt><dd>도면에 핀 → 검측 요청 양식 연결. 위치·날짜 필수, 요청자·참조 도면</dd><dt>출처</dt><dd>서명마다 일시·기기·소속·직위, 승인 뒤 잠금(관리자만 되돌림)</dd></dl>
+<div class="borrow">감리 서명에 기기·직위 도장 — 감리 PIN(D2) 결정 때 같이.</div></div>
+
+<div class="card"><h3>Dalux Field</h3><div class="tags"><span>구역 입력</span></div>
+<div class="shots">
+<a href="https://support.dalux.com/hc/en-us/articles/22361849983772-How-to-plan-extent-in-Test-plans-and-Inspection-plans"><img loading="lazy" alt="Dalux 도면 (휴대폰)" src="https://www.dalux.com/wp-content/uploads/2024/09/15_Drawings_phone_v1.png"></a>
+<a href="https://www.dalux.com/solutions/quality-control-and-assurance/"><img loading="lazy" alt="Dalux 현장 분석" src="https://www.dalux.com/wp-content/uploads/2024/09/28_Field-Analytics_v2-1-1024x576.png"></a>
+</div>
+<dl><dt>입력</dt><dd>범위 매트릭스: 왼쪽 구역·층, 위쪽 점검 항목, 칸을 누르면 오른쪽 입력 칸, 끌어서 여러 칸, 완료 초록·계획 회색</dd><dt>출처</dt><dd>층·방·구역이 기록에 자동으로 붙음</dd></dl>
+<div class="borrow">층×구역 표와 거의 같음. 칸 누름 → 구역 정보, 끌어서 여러 구역은 다음 후보.</div></div>
+
+<div class="card"><h3>PlanRadar</h3><div class="tags"><span>출처</span><span>보고서</span></div>
+<div class="shots">
+<a href="https://help.planradar.com/en/tickets/"><img loading="lazy" alt="PlanRadar 도면 핀" src="https://help.planradar.com/img/en/tickets/viewing-tickets.webp"></a>
+<a href="https://help.planradar.com/en/tickets/"><img loading="lazy" alt="PlanRadar PDF 보고서" src="https://help.planradar.com/img/en/tickets/reports-based-on-tickets.webp"></a>
+<a href="https://help.planradar.com/en/track-activity-on-a-ticket-in-the-journal/"><img loading="lazy" alt="PlanRadar 저널" src="https://help.planradar.com/img/en/track-activity-on-a-ticket-in-the-journal/example.webp"></a>
+</div>
+<dl><dt>입력</dt><dd>모든 기록이 위치(층 폴더·도면)에 속함, 도면 핀 선택</dd><dt>출처</dt><dd>저널에 모든 변경(사용자·시각), 보고서에 서명·저널 넣기</dd></dl>
+<div class="borrow">슬래브 이력서 = 구역 하나의 시간순 기록. 다음 후보: 이력서에도 출처 표.</div></div>
+</div>
+
+<h2 id="kr">국내</h2>
+<div class="grid">
+<div class="card"><h3>클라우드랩 스마트현장관리 V2</h3><div class="tags"><span>검측요청</span></div>
+<div class="shots">
+<a href="https://safetymanager.kr/siteManagement/feature"><img loading="lazy" alt="간편한 승인 과정" src="https://safetymanager.kr/static/assets/image/siteManagement_feature_img02.png"></a>
+<a href="https://apps.apple.com/us/app/id6526468972"><img loading="lazy" alt="앱 화면" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/2a/6d/b0/2a6db0bb-47bc-7997-8cc6-37edf1bfc30e/04f04d0c-8b88-412e-9355-02049208c9c8_Simulator_Screenshot_-_iPhone_15_Plus_-_2024-07-09_at_15.11.37.png/600x0w.jpg"></a>
+</div>
+<dl><dt>흐름</dt><dd>공종별 완료 등록 → 검측 요청 → 접수 → 검측·재검측 → 레미콘 타설 신청, 단계마다 출력물 자동</dd></dl>
+<div class="borrow">국내 감리가 익숙한 단계 이름. 우리 단계 이름 맞출지 감리 협의.</div></div>
+
+<div class="card"><h3>씨엠엑스 콘업 / 아키엠 V2</h3><div class="tags"><span>시공자↔감리</span></div>
+<div class="shots">
+<a href="https://www.conup.co.kr/"><img loading="lazy" alt="아키엠 V2 화면 1" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/14/48/e0/1448e098-4ad4-beec-37a3-728dcf9e5db5/082033dd-6ff1-4625-b82c-495bf330074b_6.5.png/600x0w.jpg"></a>
+<a href="https://apps.apple.com/kr/app/id1533194649"><img loading="lazy" alt="아키엠 V2 화면 2" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/39/83/ff/3983ff6b-278b-7bb2-f83c-059dbf97f9f8/957b5ca2-aa95-48bc-bc2d-5797016bfed1_20231127_114100_-__Ubcf5_Uc0ac_Ubcf8.png/600x0w.jpg"></a>
+</div>
+<dl><dt>흐름</dt><dd>시공자가 휴대폰으로 체크리스트·타설 계획서·검측 요청서 작성 → 감리 검토·서명 → 반송</dd></dl>
+<div class="borrow">체크리스트를 채우면 그게 곧 서류. 우리 근거 원장 → 요청서와 같은 방향.</div></div>
+
+<div class="card"><h3>국내 콘크리트 양생 모니터링</h3><div class="tags"><span>강도·탈형</span></div>
+<div class="shots"><div class="miss">공식 화면 이미지를 확인하지 못함</div></div>
+<dl><dt>제품</dt><dd>네이블 SMARTRI (공시체 대 부재 적산온도 비교, 탈형 5 MPa 도달 예측), 비엘 강도계측, 데키스트 스마트 양생, 길솔루션 ConTI, 대우건설 BaroQ(2018, 지금도 제공하는지 모름)</dd></dl>
+<div class="borrow">공시체 실측과 추정을 나란히 — 우리 판정 원칙(실측 공시체 기준)과 같음.</div></div>
+</div>
+
+<h2 id="ours">우리 검토서 — 새 '기본 사항·출처' 표</h2>
+<p class="lead">시연 자료 9F-B1, 시공사·감리단·관리자 역할은 시연 값입니다. 머리 줄과 '작성 (시공사)' 소속 칸이 자동으로 채워지고, 붙임 쪽 표에 값마다 누가 어떤 경로로 넣었는지 나옵니다. 성명·서명·일시 칸은 비워 둡니다.</p>
+<iframe src="예시_조기탈형검토서_9F-B1.html" title="조기 탈형 검토서 예시 9F-B1"></iframe>
+<p><small>조사 범위: 업체 공식 페이지·도움말·앱스토어. 이미지 내용은 페이지 글과 파일 이름으로 확인했고, 일부(Dalux 분석·Fieldwire 보고서·Converge 두 번째)는 내용이 다를 수 있습니다. Bentley SYNCHRO Field는 확인하지 못했습니다.</small></p>
+</main>
+<script>
+document.querySelectorAll('.shots img').forEach(function(img){img.addEventListener('error',function(){var d=document.createElement('div');d.className='miss';d.textContent='이미지를 불러오지 못함 — 눌러서 원문 보기';img.replaceWith(d);});});
+</script>
+</body>
+</html>

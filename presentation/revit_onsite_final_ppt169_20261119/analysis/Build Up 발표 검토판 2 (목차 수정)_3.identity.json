@@ -1,0 +1,83 @@
+{
+  "source": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\sources\\Build Up 발표 검토판 2 (목차 수정)_3.pptx",
+  "slide_count": 26,
+  "canvas": {
+    "width_px": 1280,
+    "height_px": 720,
+    "aspect": 1.7778
+  },
+  "theme": {
+    "palette": {
+      "background": "#F5F8FC",
+      "background_alt": "#DFE1E5",
+      "text": "#141413",
+      "text_alt": "#4C4D4D",
+      "hyperlink": "#0563C1",
+      "accent1": "#9AA0A6",
+      "accent2": "#6E6F70",
+      "accent3": "#909193",
+      "accent4": "#B2B4B6",
+      "accent5": "#C8CACD",
+      "accent6": "#363636",
+      "primary": "#9AA0A6"
+    },
+    "fonts": {
+      "title": {
+        "latin": "Arial",
+        "scripts": {
+          "Jpan": "游ゴシック Light",
+          "Hang": "맑은 고딕",
+          "Hans": "等线 Light",
+          "Hant": "新細明體"
+        }
+      },
+      "body": {
+        "latin": "Arial",
+        "scripts": {
+          "Jpan": "游ゴシック",
+          "Hang": "맑은 고딕",
+          "Hans": "等线",
+          "Hant": "新細明體"
+        }
+      }
+    },
+    "sizes": {
+      "title": 44.0,
+      "body": 32.0,
+      "body_levels": [
+        32.0,
+        28.0,
+        24.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0,
+        20.0
+      ]
+    }
+  },
+  "observed": {
+    "fonts": {
+      "latin": [],
+      "ea": []
+    },
+    "sizes_pt": [],
+    "colors": [
+      {
+        "value": "#F5F8FC",
+        "count": 20
+      },
+      {
+        "value": "#F3F6FA",
+        "count": 6
+      }
+    ]
+  },
+  "layout_sizes_pt": [
+    {
+      "value": 16.0,
+      "count": 1
+    }
+  ]
+}

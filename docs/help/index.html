@@ -1,0 +1,1331 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revit On-Site 도움말</title>
+<style>
+:root {
+  color-scheme: light;
+  --tx: #1e1e1e; --sub: #555; --line: #d6d6d6; --bg: #ffffff; --side: #f5f6f8;
+  --blue: #2b78c5; --sel: #2b7bb3; --pale: #eef4fb; --warn: #fff6da; --warnline: #f2b705; --red: #d7302a;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 12px; }
+body { margin: 0; background: var(--bg); color: var(--tx); font: 15px/1.65 "Malgun Gothic", "맑은 고딕", "Segoe UI", sans-serif; }
+a { color: var(--blue); }
+code { font-family: Consolas, "Malgun Gothic", monospace; font-size: 0.88em; background: #f1f1f1; border: 1px solid #e2e2e2; border-radius: 3px; padding: 0 4px; overflow-wrap: anywhere; }
+.wrap { display: flex; min-height: 100vh; }
+nav { width: 270px; flex: none; background: var(--side); border-right: 1px solid var(--line); padding: 16px 14px 40px; position: sticky; top: 0; height: 100vh; overflow-y: auto; font-size: 13.5px; }
+nav h1 { font-size: 17px; margin: 0 0 2px; }
+nav .ver { color: var(--sub); font-size: 12px; margin: 0 0 12px; }
+nav ul { list-style: none; margin: 0; padding: 0; }
+nav li { margin: 0; }
+nav a { display: block; padding: 2px 6px; border-radius: 3px; text-decoration: none; color: var(--tx); }
+nav a:hover { background: #e3e8ef; }
+nav .grp { margin: 12px 0 2px; font-weight: bold; color: var(--sub); font-size: 12.5px; }
+nav .sub a { padding-left: 16px; }
+main { flex: 1; min-width: 0; max-width: 960px; padding: 24px 40px 80px; }
+h2 { font-size: 22px; border-bottom: 2px solid var(--tx); padding-bottom: 4px; margin: 44px 0 14px; }
+h2:first-child { margin-top: 0; }
+h3 { font-size: 18px; margin: 0 0 4px; }
+h4 { font-size: 15px; margin: 16px 0 4px; color: #2a2a2a; }
+.cmd { border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 4px; padding: 14px 18px 10px; margin: 16px 0; }
+.cmd:target, .anchor:target { border-left-color: var(--sel); background: var(--pale); }
+.meta { color: var(--sub); font-size: 13px; margin: 0 0 6px; }
+.tip { margin: 4px 0 8px; padding: 6px 10px; background: #f7f7f7; border-radius: 3px; }
+.tip b { margin-right: 6px; }
+table { border-collapse: collapse; width: 100%; margin: 6px 0 8px; font-size: 14px; }
+th, td { border: 1px solid var(--line); padding: 5px 8px; text-align: left; vertical-align: top; }
+th { background: #f0f0f0; font-weight: bold; }
+ol, ul.plain { margin: 4px 0 8px; padding-left: 24px; }
+dl.msg { margin: 4px 0 8px; }
+dl.msg dt { font-weight: bold; margin-top: 8px; }
+dl.msg dt::before { content: "안내 "; font-weight: normal; color: var(--sub); font-size: 12px; border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; margin-right: 6px; }
+dl.msg dd { margin: 2px 0 0 0; padding-left: 14px; border-left: 2px solid var(--line); }
+.note { background: var(--warn); border: 1px solid var(--warnline); border-radius: 4px; padding: 8px 12px; margin: 10px 0; }
+.stop { background: #fdecea; border: 1px solid var(--red); border-radius: 4px; padding: 8px 12px; margin: 10px 0; }
+.tag { display: inline-block; font-size: 12px; border-radius: 3px; padding: 0 5px; margin: 0 2px; border: 1px solid; white-space: nowrap; }
+.t-ok { color: #1a7a40; border-color: #8fcfa5; background: #eef8f1; }
+.t-part { color: #8a5a00; border-color: #e7c66b; background: #fff8e2; }
+.t-as { color: #6b4d8f; border-color: #c3b2d9; background: #f5f0fa; }
+.t-in { color: #1f5f99; border-color: #9fc2e3; background: #eef5fc; }
+.t-un { color: #9b2c24; border-color: #e3a19c; background: #fcefee; }
+.sw { display: inline-block; width: 34px; height: 18px; border: 1px solid #555; border-radius: 2px; vertical-align: middle; }
+.flow { counter-reset: step; list-style: none; padding-left: 0; }
+.flow > li { counter-increment: step; position: relative; padding: 6px 0 6px 40px; border-bottom: 1px dashed var(--line); }
+.flow > li::before { content: counter(step); position: absolute; left: 0; top: 6px; width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: #fff; text-align: center; line-height: 26px; font-weight: bold; font-size: 13px; }
+kbd { font-family: "Malgun Gothic", sans-serif; font-size: 0.9em; border: 1px solid #b9b9b9; border-bottom-width: 2px; border-radius: 3px; padding: 0 5px; background: #fafafa; }
+.btn { font-weight: bold; white-space: nowrap; }
+.btn::before { content: "["; color: var(--sub); font-weight: normal; }
+.btn::after { content: "]"; color: var(--sub); font-weight: normal; }
+@media (max-width: 860px) { .wrap { display: block; } nav { position: static; width: auto; height: auto; } main { padding: 16px; } }
+@media print { nav { display: none; } main { max-width: none; } .cmd { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav aria-label="목차">
+  <h1>Revit On-Site 도움말</h1>
+  <p class="ver">Revit 2026 · 동바리 타설·해체 검측<br>기준 문서: 화면 명세 ui_spec (2026-11-04)</p>
+  <ul>
+    <li><a href="#start">처음 쓰는 순서 (현장 하루 흐름)</a></li>
+    <li><a href="#status">상태 색 범례 (0–9)</a></li>
+    <li><a href="#terms">용어</a></li>
+    <li><a href="#not-do">프로그램이 하지 않는 일</a></li>
+    <li><a href="#common">모든 버튼에 공통인 안내</a></li>
+    <li class="grp">① 준비</li>
+    <li class="sub"><a href="#CmdProjectSetup">프로젝트 설정</a></li>
+    <li class="sub"><a href="#CmdZoneSplit">구역 나누기</a></li>
+<li class="sub"><a href="#CmdDiagnose">모델 진단</a></li>
+    <li class="sub"><a href="#CmdBindParams">매개변수 연결</a></li>
+    <li class="sub"><a href="#CmdPrepareViews">뷰·필터 준비</a></li>
+    <li class="grp">② 설치 검측</li>
+    <li class="sub"><a href="#CmdInstallCheck">설치 검측</a></li>
+    <li class="sub"><a href="#CmdCheckHeight">높이·이음</a></li>
+    <li class="sub"><a href="#CmdCheckBrace">수평연결재</a></li>
+    <li class="sub"><a href="#CmdCheckLoad">1본 하중</a></li>
+    <li class="grp">동바리 (v6)</li>
+    <li class="sub"><a href="#CmdShoreFloorView">층 입력 뷰</a></li>
+    <li class="sub"><a href="#CmdShoreSpec">동바리 사양</a></li>
+    <li class="sub"><a href="#CmdShorePlaceOne">놓기 ▾</a></li>
+    <li class="sub"><a href="#CmdShoreZoneMove">구역 이동</a> · <a href="#CmdShoreZoneRemove">구역 해체</a></li>
+    <li class="sub"><a href="#CmdShoreTable">3개층 확인</a></li>
+    <li class="sub"><a href="#CmdGenerate">예시로 채우기</a></li>
+    <li class="grp">③ 타설·데이터</li>
+    <li class="sub"><a href="#CmdFieldInput">현장 입력</a></li>
+    <li class="sub"><a href="#CmdServerLink">서버 연동</a></li>
+    <li class="sub"><a href="#CmdPour">타설 등록</a></li>
+    <li class="sub"><a href="#SplitImport">데이터 가져오기 ▾</a></li>
+    <li class="sub"><a href="#CmdImportSensors">└ 센서 자료</a></li>
+    <li class="sub"><a href="#CmdImportCylinders">└ 공시체 결과</a></li>
+    <li class="sub"><a href="#CmdImportWeather">└ 기상 자료</a></li>
+    <li class="grp">④ 판정</li>
+    <li class="sub"><a href="#CmdEvaluate">해체 판정</a></li>
+    <li class="sub"><a href="#CmdDashboard">대시보드</a></li>
+    <li class="sub"><a href="#TglShowStatus">표시: 상태</a></li>
+    <li class="sub"><a href="#TglShowStrength">표시: 강도</a></li>
+    <li class="sub"><a href="#TglShowSchedule">표시: 일정</a></li>
+    <li class="sub"><a href="#CmdReason">판정 근거</a></li>
+    <li class="sub"><a href="#CmdLegend">색 범례</a></li>
+    <li class="sub"><a href="#CmdCriteria">판정 기준 보기</a></li>
+    <li class="grp">⑤ 승인</li>
+    <li class="sub"><a href="#CmdApprove">승인 기록</a></li>
+    <li class="sub"><a href="#CmdEvidence">근거 원장</a></li>
+    <li class="sub"><a href="#CmdAuditLog">감사 기록</a></li>
+    <li class="grp">⑥ 보고·공유</li>
+    <li class="sub"><a href="#CmdReport">검측요청서</a></li>
+    <li class="sub"><a href="#CmdPackage">검측 패키지</a></li>
+    <li class="sub"><a href="#CmdFloorSign">층 표지</a></li>
+    <li class="sub"><a href="#CmdSlabRecord">슬래브 이력서</a></li>
+    <li class="sub"><a href="#CmdResultReport">해체 결과보고</a></li>
+    <li class="sub"><a href="#CmdQualityLedger">품질 대장</a></li>
+    <li class="sub"><a href="#CmdExportIfc">IFC 내보내기</a></li>
+    <li class="sub"><a href="#CmdExportWeb">웹 공유판</a></li>
+    <li class="grp">⑦ 타임라인</li>
+    <li class="sub"><a href="#CmdTimeline">강도 타임라인</a></li>
+    <li class="grp">선택하면 나타나는 탭</li>
+    <li class="sub"><a href="#ctx-zone">수정 | 동바리 구역</a></li>
+    <li class="sub"><a href="#ctx-shore">수정 | 동바리</a></li>
+    <li class="grp">부록</li>
+    <li class="sub"><a href="#sources">근거 문서와 표시 뜻</a></li>
+  </ul>
+</nav>
+
+<main>
+<h2 id="start" class="anchor">처음 쓰는 순서 (역할별 하루 흐름)</h2>
+<p>Revit On-Site 는 슬래브 동바리를 <b>언제 빼도 되는지 감리에게 승인 요청할 수 있는 상태인지</b>를 층·구역별로 판정하고, 그 근거 서류를 Revit 안에서 만드는 도구입니다. 모든 버튼은 리본의 <span class="btn">Revit On-Site</span> 탭에 있고, 패널 순서가 현장 업무 순서입니다(준비 → 설치 검측 → 타설·데이터 → 판정 → 승인 → 보고·공유, 끝에 타임라인). 결과물은 모두 [프로젝트 설정]의 <b>데이터 폴더</b>에 남고, 파일 이름의 <code>YYYYMMDD</code> 는 마지막 판정 기준일입니다.</p>
+<p>버튼에 마우스를 올려 두면 설명과 그림이 나오고, 그 상태에서 <kbd>F1</kbd> 을 누르면 이 페이지의 해당 항목이 열립니다. 한 장으로 인쇄해 현장에 두려면 <a href="quickstart.html">빠른 시작 (A4 2쪽, 역할별)</a>.</p>
+
+<h4>누가 무엇을 쓰나요 — 세 갈래</h4>
+<table>
+  <tr><th>역할</th><th>쓰는 곳</th><th>하는 일</th></tr>
+  <tr><td><b>공무·BIM 담당</b></td><td>Revit — 리본 <span class="btn">Revit On-Site</span> 탭, 하루 1회 아침</td><td>판정, 검측요청서·검측 패키지, 승인 기록, 현장 입력 켜기</td></tr>
+  <tr><td><b>품질·안전관리자</b></td><td>휴대폰 — <span class="btn">타설·데이터</span> › <a href="#CmdFieldInput">현장 입력</a> 창의 <b>[현장 입력]</b> 탭 QR (12시간 <span class="tag t-as">가정</span> 뒤 [새 주소])</td><td>공시체·센서·반발경도·동바리 확인·해체 후 점검 입력, <b>동바리 점검</b>(단계별 항목 OK/NG·문제 동바리를 평면에서 고름), 사진 1장</td></tr>
+  <tr><td><b>협력업체 반장</b></td><td>휴대폰 — 같은 창의 <b>[협력업체 신고]</b> 탭 QR (층마다, 만료 없음) · 층 표지 QR(보기 전용)</td><td>구역마다 [이 구역 동바리를 뺐음]·[다시 세움] 신고, 사진 1장</td></tr>
+</table>
+
+<h4>프로젝트를 시작할 때 한 번 (공무·BIM 담당)</h4>
+<ol class="flow">
+  <li>Revit <b>옵션 › 색상 › 캔버스 테마 = 밝게</b> — 어두운 캔버스에서는 Revit 이 3D 색을 어둡게 바꿔 연노랑이 올리브처럼 보입니다(대시보드 칸 색과 같게 보려면 밝게).</li>
+  <li><span class="btn">준비</span> › <a href="#CmdProjectSetup">프로젝트 설정</a> — <b>첫 타설일</b>(착공일 아님), 타설 사이클, 최소 존치 층수, 배합·fck, 양생 최저 온도, 기상 관측소, <b>데이터 폴더</b>(사진 폴더 용량이 아래에 보임). 선택: 예측일에 현장 보정 쓰기.</li>
+  <li><span class="btn">준비</span> › <a href="#CmdBindParams">매개변수 연결</a> → <span class="btn">준비</span> › <a href="#CmdPrepareViews">뷰·필터 준비</a> — 검측용 매개변수와 상태 색 뷰.</li>
+  <li>모델을 열 때 구역이 없으면 <b>구역 나누기</b> 확인 창이 한 번 뜹니다 → [구역 나누기] (나중에는 <span class="btn">준비</span> › <a href="#CmdZoneSplit">구역 나누기</a>) — 매개변수 연결·설정 기본값·구역만(동바리 0)을 한 번에.</li>
+<li><span class="btn">준비</span> › <a href="#CmdDiagnose">모델 진단</a> — 층·슬래브를 제대로 인식했는지 먼저 봅니다(모델은 바뀌지 않음). IFC 로 가져온 모델이면 꼭.</li>
+  <li><span class="btn">동바리</span> › <a href="#CmdGenerate">예시로 채우기</a> (슬라이드아웃) — 층마다 구역(해체 단위)과 예시 동바리. 실제 동바리는 <a href="#CmdShoreFloorView">층 입력 뷰</a>에서 직접 놓고 고칩니다 (v6). 결과 창 <span class="btn">생성한 동바리 보기</span> = 이번에 만든 층의 동바리만 층마다 색·층별 본수로 보는 3D 뷰(뷰 설정만 바뀜).</li>
+  <li>날짜는 공정표 없이 직접 넣습니다 (v6): 동바리를 세운 날 <span class="btn">동바리</span> › <a href="#CmdShoreSpec">동바리 사양</a>(설치일 포함), 타설한 날 <a href="#CmdPour">타설 등록</a>.</li>
+  <li>층마다 동바리 설치 뒤 <span class="btn">설치 검측</span> › <a href="#CmdInstallCheck">설치 검측</a> — 이음·높이·수평연결재·1본 하중을 한 번에. 설치 서류는 <span class="btn">승인</span> › <a href="#CmdEvidence">근거 원장</a> 1 설치검측.</li>
+</ol>
+
+<h4>하루 흐름 (층마다 반복)</h4>
+<table>
+  <tr><th>단계</th><th>누가</th><th>누르는 것</th><th>나오는 것 (데이터 폴더)</th></tr>
+  <tr><td><b>1 아침 판정</b></td><td>공무·BIM</td><td>(센서·기상 파일이 있으면) <span class="btn">타설·데이터</span> › <a href="#SplitImport">데이터 가져오기 ▾ › 센서 자료 / 기상 자료</a> → <span class="btn">타설·데이터</span> › <a href="#CmdReplan">일정 다시 계산</a> → <span class="btn">판정</span> › <a href="#CmdEvaluate">해체 판정</a> (기준일 오늘) → <span class="btn">판정</span> › <a href="#CmdDashboard">대시보드</a> 맨 위 <b>오늘 볼 것</b></td><td><code>판정표_YYYYMMDD.csv</code>, 모델 구역 색·값, <code>eval_log.csv</code> 한 줄</td></tr>
+  <tr><td><b>1-1 동바리 상태 보기</b></td><td>공무·BIM</td><td><span class="btn">판정</span> › <a href="#CmdDashboard">대시보드</a> <b>[색 ▾ 동바리 상태 (검측 뷰)]</b> — 검측 뷰에서 동바리마다 기록 기준 상태 색(서 있어야 함·해체 승인 요청 가능·감리 확인·해체됨 윤곽·무단 해체 의심 깜빡임), 설치 검측 필요/NG 구역 테두리, <b>NG 동바리</b> 빨강 테두리. 이 모드에선 판정 색이 회색으로 흐려짐 <span class="tag t-as">가정</span></td><td>화면만 (판정은 그대로) — 판정 색 흐리게·되돌림은 실행 취소 목록에 한 줄</td></tr>
+  <tr><td><b>2 휴대폰 확인·입력</b></td><td>품질·안전관리자</td><td>PC 에서 <span class="btn">타설·데이터</span> › <a href="#CmdFieldInput">현장 입력</a> 을 켜 둠 → [현장 입력] 탭 QR → 휴대폰: 층 → 구역 → 공시체 / 온도·강도 센서 / 반발경도 / 동바리 확인 (사진 1장 선택)</td><td><code>cylinders.csv</code> · <code>sensors.csv</code> · <code>sensor_strength.csv</code> · <code>rebound.csv</code> · <code>shore_checks.csv</code> · <code>사진\YYYYMMDD\…</code> — 저장하면 그 구역 판정이 바로 갱신</td></tr>
+  <tr><td><b>2-1 동바리 점검</b></td><td>품질·안전관리자</td><td>휴대폰: 층 → 구역 → <a href="#CmdFieldInput"><b>동바리 점검</b></a> → 단계(<b>설치 검측</b> · 일상 점검 · 해체 전 · 해체 후) → 항목마다 OK/NG (<b>[전부 OK]</b> 한 번에 — NG 로 고른 항목은 그대로) → NG 항목은 구역 평면에서 문제 동바리를 눌러 여러 개(두 손가락 확대·＋－) — 사진 없음. 동바리 이름 = <code>구역-R행C열</code>, 위치는 PC 에서 [현장 입력]을 켤 때 모델 동바리로 만들어짐</td><td><code>install_inspection.csv</code> (단계·동바리 열) · <code>shores.csv</code>. <b>설치 검측</b> NG 가 풀리지 않은 구역 = "존치 (설치 결함 기록)"(상태 2)·"타설 보류" — 같은 항목을 다시 점검해 OK 로 기록하면 풀림. 다른 단계는 기록·빨강 표시만</td></tr>
+  <tr><td><b>3 타설 전 확인</b></td><td>안전관리자 → 공무</td><td>휴대폰 <b>동바리 확인</b>: 타설할 구역 아래 3개층 구역마다 지금 서 있는지 예/아니오 → <span class="btn">판정</span> › <a href="#CmdDashboard">대시보드</a> 타설할 구역 칸 두 번 → <b>타설 전 확인</b></td><td>"타설 요청 가능"/"타설 보류" (파일 없음 — 근거는 <code>shore_checks.csv</code>). 타설한 날은 <span class="btn">타설·데이터</span> › <a href="#CmdPour">타설 등록</a> (→ <code>pours.csv</code>)</td></tr>
+  <tr><td><b>4 요청서·패키지</b></td><td>공무·BIM</td><td>연두(해체 승인 요청 가능) 구역: 대시보드 칸 두 번으로 근거 확인 → <span class="btn">보고·공유</span> › <a href="#CmdReport">검측요청서</a> → <span class="btn">승인</span> › <a href="#CmdApprove">승인 기록</a> <b>요청 제출</b> → (IFC 도 묶으려면 <span class="btn">보고·공유</span> › <a href="#CmdExportIfc">IFC 내보내기</a> 먼저) <span class="btn">보고·공유</span> › <a href="#CmdPackage">검측 패키지</a> · <span class="btn">보고·공유</span> › <a href="#CmdFloorSign">층 표지</a> 인쇄 게시</td><td><code>해체검측요청서_YYYYMMDD.html</code> (서명란 빈칸) · <code>approvals.csv</code> · <code>검측패키지_YYYYMMDD\</code> (index.html·목록.csv·첨부\사진\) · <code>층표지_YYYYMMDD.html</code></td></tr>
+  <tr><td><b>4-1 판넬 단계 (선택)</b></td><td>공무·BIM → 책임기술자</td><td>대시보드 칸 두 번 → 판정 근거 창 <b>판넬 단계 ①–④</b>(① 14 MPa ② 10 ℃ 이상 4일 ③ 위층 하중비 ≤ 1.0 ④ 구조검토서 기록) → [조기 탈형 검토서 만들기] 또는 <span class="btn">보고·공유</span> › <a href="#CmdEarlyFormReview">조기 탈형 검토서</a> → 책임기술자 검토·서명 → <span class="btn">승인</span> › <a href="#CmdEvidence">근거 원장</a>에 구조검토서 기록 → 판넬만 탈형(필러 동바리 존치). 필러 해체는 1·4·5 흐름 그대로</td><td><code>조기탈형검토서_&lt;구역&gt;_YYYYMMDD.html</code> (초안, 서명란 빈칸 — 해체 지시 아님)</td></tr>
+  <tr><td><b>5 감리</b></td><td>감리(책임기술인) → 공무</td><td>감리가 요청서의 현장 확인 ①②③을 보고 종이에 서명 → <span class="btn">승인</span> › <a href="#CmdApprove">승인 기록</a> <b>감리 승인 기록</b>(서명한 감리·일시) · 서명 스캔은 <span class="btn">승인</span> › <a href="#CmdEvidence">근거 원장</a> 6 감리확인</td><td><code>approvals.csv</code> (해시 사슬) · <code>evidence.csv</code> — 구역 상태 6</td></tr>
+  <tr><td><b>6 해체 신고</b></td><td>협력업체 반장</td><td>공무가 현장 입력 창 [협력업체 신고] 탭에서 층을 골라 QR 을 보여 줌 → 반장 휴대폰: 이름(처음 한 번) → 구역 [이 구역 동바리를 뺐음] / [다시 세움] (사진 1장 선택). 공무는 <span class="btn">승인</span> › <a href="#CmdApprove">승인 기록</a> <b>해체 완료</b>(7) / <b>재받침</b>(8)</td><td><code>shore_checks.csv</code> (협력업체 신고) · <code>사진\…</code> → 근거 원장 7 해체(실제 시각). 감리 승인 기록 없이 '뺐음'이면 <b>오늘 볼 것</b> 맨 위 '무단 해체 의심'</td></tr>
+  <tr><td><b>7 해체 후 점검</b></td><td>안전관리자</td><td>휴대폰 <b>해체 후 점검</b> 5항목 예/아니오 (사진 1장 선택) · 결과보고서는 <span class="btn">승인</span> › <a href="#CmdEvidence">근거 원장</a> 8 결과보고</td><td><code>after_check.csv</code> · <code>사진\…</code> · <code>evidence.csv</code></td></tr>
+</table>
+<p class="sub">결론은 언제나 "해체 승인 요청 가능"/"존치"·"타설 요청 가능"/"타설 보류"까지입니다. 해체·타설 지시와 승인은 하지 않습니다 — 해체 여부는 감리 확인·서명을 거쳐 현장 책임자가 정합니다.</p>
+
+<div class="note"><b>센서가 없어도 됩니다.</b> 현장양생 공시체 + 기온만으로 해체 판정·한중 경고·요청서·승인 기록·타설 전 확인·공정 계획이 모두 동작합니다. 센서는 구역마다 <b>위치 근거</b>(구역 안 가장 낮은 추정 강도)를 더하는 선택 기능이고, 센서가 없는 구역의 근거는 "기상 예측(센서 없음)"으로 표시되고, 뒤에 실제로 쓴 기온의 출처(기상 기록 <span class="tag t-in">입력</span> / 평년 기온 <span class="tag t-as">가정</span>)와 양생 하한 온도 <span class="tag t-as">가정</span>가 붙습니다. 기준 근거는 어느 경우든 공시체입니다.</div>
+
+<h4>주간·필요할 때</h4>
+<ul class="plain">
+  <li><span class="btn">타임라인</span> › <a href="#CmdTimeline">강도 타임라인</a> 으로 날짜를 움직여 층별 <b>추정 강도</b>(참고 · 판정에 안 씀)가 14 MPa·fck 에 언제 닿을지와 그날까지의 공시체 실측을 함께 봅니다. <span class="btn">|◀ 사건</span> <span class="btn">사건 ▶|</span> = 층 타설·추정 14 MPa·fck 도달·공시체 시험 날. 감리·발주처 설명에 그대로 씁니다.</li>
+  <li><span class="btn">보고·공유</span> › <a href="#CmdSlabRecord">슬래브 이력서</a> → <code>슬래브이력서_YYYYMMDD.html</code>·<code>.csv</code> (준공 때 발주처) · <span class="btn">보고·공유</span> › <a href="#CmdQualityLedger">품질 대장</a> → <code>품질대장_YYYYMMDD.html</code>.</li>
+  <li><span class="btn">보고·공유</span> › <a href="#CmdExportIfc">IFC 내보내기</a> → <code>RevitOnSite_YYYYMMDD.ifc</code> + <code>_근거.csv</code>·<code>_Pset.txt</code> · <span class="btn">보고·공유</span> › <a href="#CmdExportWeb">웹 공유판</a> → <code>&lt;모델 이름&gt;_4d.html</code> (저장 위치를 고름).</li>
+  <li><span class="btn">승인</span> › <a href="#CmdAuditLog">감사 기록</a> (승인 패널 ▾) → <code>감사기록_YYYYMMDD.csv</code> — 누가 언제 무엇을 넣었는지 시각 순.</li>
+</ul>
+
+<h2 id="status" class="anchor">상태 색 범례 (SHR_Status 0–9)</h2>
+<p>뷰 필터·대시보드·웹 공유판에서 같은 색을 씁니다. 6·7·8 은 <b>사람이 기록한 값</b>(<a href="#CmdApprove">승인 기록</a>, 데이터 폴더 <code>approvals.csv</code>)이라 해체 판정을 다시 돌려도 덮어쓰지 않습니다 — 구역마다 마지막 기록이 판정 상태보다 우선합니다.</p>
+<table>
+  <tr><th>코드</th><th>색</th><th>상태</th><th>뜻</th><th>어떻게 이 상태가 되나</th></tr>
+  <tr><td>0</td><td><span class="sw" style="background:rgb(160,160,160)"></span> 회색</td><td>미검측</td><td>설치 전·검측 전</td><td>구역·동바리 생성 직후</td></tr>
+  <tr><td>1</td><td><span class="sw" style="background:rgb(171,190,209)"></span> 회청</td><td>설치 검측 합격</td><td>타설 전 설치 검측 통과</td><td>설치 검측</td></tr>
+  <tr><td>2</td><td><span class="sw" style="background:rgb(215,48,39)"></span> 빨강</td><td>설치 결함</td><td>설치 검측 불합격</td><td>설치 검측</td></tr>
+  <tr><td>3</td><td><span class="sw" style="background:rgb(69,117,180)"></span> 파랑</td><td>양생 중</td><td>타설 후 기준 미달 (예측 해체 가능일 전)</td><td>타설 등록 / 해체 판정이 "존치"이고 기준일이 예측일 전</td></tr>
+  <tr><td>4</td><td><span class="sw" style="background:rgb(254,224,139)"></span> 노랑</td><td>공시체 시험 필요</td><td>공시체 결과가 없음 (추정 강도가 기준 미달이어도 이 상태)</td><td>해체 판정</td></tr>
+  <tr><td>5</td><td><span class="sw" style="background:rgb(145,207,96)"></span> 연두</td><td>해체 승인 요청 가능</td><td>프로그램 기준을 모두 충족. 감리에게 승인 요청을 할 수 있는 상태</td><td>해체 판정</td></tr>
+  <tr><td>6</td><td><span class="sw" style="background:rgb(26,152,80)"></span> 초록</td><td>감리 승인 기록</td><td>감리 승인 결과가 기록됨 (프로그램이 승인한 것이 아님)</td><td>승인 기록 (사람이 입력)</td></tr>
+  <tr><td>7</td><td><span class="sw" style="background:rgb(115,115,115)"></span> 진회색</td><td>해체 완료</td><td>동바리 해체가 기록됨</td><td>승인 기록 (사람이 입력)</td></tr>
+  <tr><td>8</td><td><span class="sw" style="background:rgb(128,100,162)"></span> 보라</td><td>재받침</td><td>재받침(리쇼어링) 기록</td><td>사람이 입력</td></tr>
+  <tr><td>9</td><td><span class="sw" style="background:rgb(244,109,67)"></span> 주황</td><td>존치 연장 경고</td><td>예측 해체 가능일이 지났는데 아직 기준 미달로 존치</td><td>해체 판정이 "존치"이고 기준일이 예측일 이후</td></tr>
+</table>
+<p>존치 층수 조건을 못 맞춰 "존치"인 경우도 같은 규칙(예측일 전 3, 이후 9)을 따릅니다.</p>
+
+<h2 id="terms" class="anchor">용어</h2>
+<table>
+  <tr><th style="width:170px">용어</th><th>뜻</th></tr>
+  <tr><td><b>첫 타설일</b><br>(≠ 착공일)</td><td>골조의 <b>첫 슬래브 콘크리트를 타설하는 날</b>입니다 — 지하층이 있으면 가장 아래 지하층 슬래브 타설일. 프로그램은 이 날부터 타설 사이클만큼씩 더해 층별 타설일을 자동 계획합니다.<br><b>착공일과 다릅니다.</b> 착공일은 계약상 공사를 시작하는 날(터파기·기초부터)이라 골조 첫 타설까지 몇 달 차이가 납니다. 착공일을 넣으면 타설·해체 일정 전체가 그만큼 앞당겨져 계산되고, 판정 기준일과 예측 해체 가능일이 모두 틀어집니다.<br>현재 시험판의 프로젝트 설정 창에 칸 이름이 "착공일"로 보이면, 그 칸에도 <b>첫 타설일</b>을 넣으세요(모델에는 <code>PRJ_StartDate</code> 로 저장됨).</td></tr>
+  <tr><td><b>존치</b></td><td>동바리를 빼지 않고 그대로 두는 것. 판정 결과 "존치"는 <b>지금은 해체 승인을 요청할 수 없다</b>는 뜻이며, 항상 사유(무엇이 미달인지)와 예측 도달일이 함께 표시됩니다.</td></tr>
+  <tr><td><b>존치 층수</b></td><td>동바리를 남겨 두는 층 수. 연속 다층 구조는 <b>타설층 포함 최소 3개 층</b>을 존치하거나 재설치해야 합니다 <span class="tag t-ok">확정</span> KCS 14 20 12:2024 3.3.2(2).</td></tr>
+  <tr><td><b>해체 승인 요청 가능</b></td><td>프로그램이 쓰는 두 결론 중 하나. 존치 층수·지지층·공시체·센서 기준을 모두 충족해 <b>감리에게 해체 승인을 요청할 수 있는 상태</b>라는 뜻입니다. 해체 허가나 해체 지시가 아닙니다. 해체는 감리 승인 후에만 합니다.</td></tr>
+  <tr><td><b>공시체</b></td><td>타설한 콘크리트로 만든 원기둥 시험체. 압축강도 시험 값이 해체 판단의 기준 근거입니다. 해체 시기는 <b>현장양생 공시체</b>(현장과 같은 조건에서 양생, KCI-CT 118)로 확인합니다 <span class="tag t-ok">확정</span> KCS 14 20 12:2024 3.3.1. 현장양생 공시체 시험(하루 1회·층별·구획별, 용도 "동바리 해체 시기 결정")은 고시 제2024-879호로 정해졌습니다 <span class="tag t-part">부분 확인</span> 국토부 보도자료 2024-12-17(전재본) — 2025.1.1 부터 적용되는 것은 강우·한중 조항뿐입니다. 센서 값만으로는 해체 승인 요청을 할 수 없습니다.</td></tr>
+  <tr><td><b>fck</b></td><td>설계기준 압축강도(MPa). 다층 동바리 해체 기준은 fck 이상입니다. 데모 값 24 MPa <span class="tag t-as">가정</span>, 실제는 구조도면 값 <span class="tag t-in">입력</span>.</td></tr>
+  <tr><td><b>지지층</b></td><td>새로 타설한 슬래브의 하중을 동바리를 통해 받쳐 주는 아래층 슬래브. 각 지지층 강도가 14 MPa 이상이어야 합니다 <span class="tag t-ok">확정</span> 가이드라인 2.1.2(2)⑧.</td></tr>
+  <tr><td><b>재받침</b></td><td>동바리를 해체한 뒤 다시 받치는 것(리쇼어링). 상태 8.</td></tr>
+  <tr><td><b>구역</b></td><td>동바리 해체 단위. 층마다 그리드 칸(없으면 기둥열·벽·지정 크기)으로 나눈 상자이며 이름은 <code>11F-A2</code> 처럼 층-구역입니다.</td></tr>
+  <tr><td><b>기준일</b></td><td>"이 날짜에 판정하면 어떤가"를 정하는 날짜. 보통 오늘. 미래 날짜를 넣으면 예측 판정이 됩니다.</td></tr>
+  <tr><td><b>예측 해체 가능일</b></td><td>강도 추정으로 기준에 도달할 것으로 계산된 날(<code>SHR_DueDate</code>). 실제 판정은 공시체 결과가 있어야 합니다.</td></tr>
+  <tr><td><b>강도 추정 (성숙도)</b></td><td>기온·센서 온도로 온도 보정 재령을 구하고 KDS 14 20 10 강도식으로 강도를 추정합니다. 센서 사이 위치는 거리 가중(IDW)으로 보간해 구역 안의 <b>가장 낮은 값</b>을 씁니다.</td></tr>
+</table>
+
+<h2 id="not-do" class="anchor">프로그램이 하지 않는 일</h2>
+<div class="stop">
+<ul class="plain" style="margin:0">
+  <li><b>승인하지 않습니다.</b> 결론은 "해체 승인 요청 가능" 또는 "존치"까지입니다. "승인" 상태(6)는 감리가 승인한 결과를 사람이 기록한 것입니다.</li>
+  <li><b>해체를 지시하지 않습니다.</b> 동바리 해체는 감리 확인 후에 합니다. 해체 계획서 → 감리 승인 → 해체 전 체크리스트 → 감리 최종 승인 순서이며 시공자가 임의로 해체하지 않습니다 <span class="tag t-ok">확정</span> 해체 가이드라인 2023.1 3.2 (가이드라인 자체는 구속력 없음, 3.2.7). 서면 검측요청·감리 확인은 주택 감리업무 세부기준 제17조③ 별지 6호, 공공 업무수행지침(고시 제2026-360호) 제56·86조 별지 36호, 건축공사 감리세부기준 2.5.4 의 절차입니다. 시방서도 책임기술인 검토·확인 후 공사감독자 승인을 요구합니다 <span class="tag t-ok">확정</span> KCS 21 50 05:2023 3.9.1(6), KCS 14 20 12:2024 3.3.1(2).</li>
+  <li><b>서명하지 않습니다.</b> 검측요청서의 서명란은 비어 있습니다.</li>
+  <li><b>타설을 지시하지 않습니다.</b> 타설 전 확인의 결론은 "타설 요청 가능" 또는 "타설 보류"까지입니다.</li>
+</ul>
+</div>
+<p>그 밖에 하지 않는 일:</p>
+<ul class="plain">
+  <li>동바리 구조설계(부재 좌굴 해석) — 구조기술사 영역. 허용하중 같은 결과값만 입력받습니다.</li>
+  <li>깔판·받침목, 못 2개소, 볼트 체결, 가새 각도 검사 — 모델로 알 수 없어 현장 체크리스트로 기록합니다(산업안전보건기준에 관한 규칙 제332조, 고시 제9·12조).</li>
+  <li>타설 중 침하 허용값 판단 — 규정 수치가 없어 구조검토서 값을 씁니다 <span class="tag t-in">입력</span>.</li>
+  <li>하중비교법이 맞지 않는 경우의 판단 — 하부 동바리를 제거·재설치했거나 하중이 지지층에 고르게 가지 않으면 정밀해석이 필요합니다 <span class="tag t-ok">확정</span> 가이드라인 2.1.2(2)①·2.1.2(3). 해체 후 전체 하중이 설계하중을 넘으면 존치기간과 관계없이 구조계산으로 확인해야 합니다 <span class="tag t-ok">확정</span> KCS 14 20 12 3.3.1(6).</li>
+  <li>캔틸레버·차양·지하주차장 부위 구분 — 이 부위는 fck 100 % 확인 전 동바리 해체 금지입니다 <span class="tag t-ok">확정</span> 가이드라인 3.2 지지용 동바리 ⑥. 프로그램이 이 부위를 자동으로 가려내지 못할 수 있으니 직접 확인하세요.</li>
+  <li>실시간 센서 서버 연결 — 센서 업체 파일(CSV)을 가져오는 방식입니다.</li>
+  <li>벽체 거푸집 측압 — 슬래브 동바리만 다룹니다.</li>
+</ul>
+<p>가이드라인과 법령·표준시방서가 다르면 법령·시방서가 우선합니다 <span class="tag t-ok">확정</span> 가이드라인 1.1(1).</p>
+
+<h2 id="common" class="anchor">모든 버튼에 공통인 안내</h2>
+<ul class="plain">
+  <li><b>버튼이 회색</b>이면 지금 쓸 수 없는 상태입니다. 각 항목의 "쓸 수 있을 때" 조건(예: 구역이 없으면 해체 판정 회색)을 먼저 맞추세요.</li>
+  <li><b>되돌리기</b>: 버튼 한 번 = 실행 취소 한 번. 실행 취소 목록에 "Revit On-Site: 버튼 이름" 으로 나옵니다. <kbd>Ctrl</kbd>+<kbd>Z</kbd> 한 번으로 그 버튼이 한 일 전체가 취소됩니다.</li>
+  <li><b>요소를 고르라는 안내</b>가 상태 표시줄에 나오면 모델에서 클릭하고, 그만두려면 <kbd>Esc</kbd>.</li>
+  <li>대화상자는 <span class="btn">확인</span> <span class="btn">취소</span>, 왼쪽 아래 <span class="btn">?</span> 가 이 도움말입니다. 값이 잘못되면 칸 아래 빨간 한 줄 안내가 나오고 확인 버튼이 꺼집니다.</li>
+  <li><b>결과 창</b> ("Revit On-Site — 결과"): 해체 판정·구역·동바리 생성·승인 기록·근거 원장이 끝나면 맨 위 한 줄 요약과 내용, 아래에 어느 명령의 몇 시 결과인지가 나옵니다. 열어 둔 채 Revit 작업·대시보드 <span class="btn">판정</span> 을 계속할 수 있고, 새 결과가 오면 같은 창의 내용이 바뀝니다. 창을 띄워도 키보드는 Revit 뷰에 남습니다 — 창을 누른 뒤 <kbd>Esc</kbd> 또는 <span class="btn">닫기</span>. 오류·실패 알림과 확인 질문은 지금처럼 닫아야 계속할 수 있는 창입니다.</li>
+</ul>
+<dl class="msg">
+  <dt>"프로젝트 파일(.rvt)을 연 상태에서 눌러 주세요."</dt>
+  <dd>패밀리 편집기나 빈 화면에서는 동작하지 않습니다. 프로젝트 모델을 열고 다시 누르세요.</dd>
+</dl>
+
+<!-- ============================================================ ① 준비 -->
+<h2>① 준비</h2>
+
+<section class="cmd" id="CmdProjectSetup">
+<h3>프로젝트 설정 <code>CmdProjectSetup</code></h3>
+<p class="meta">처음 한 번 패널 · 큰 버튼 · 쓸 수 있을 때: 프로젝트 문서 · 권장 단축키 RS</p>
+<p class="tip"><b>툴팁</b>착공일·사이클·존치 기준을 정합니다.</p>
+<h4>무엇을 하나요</h4>
+<p>이 프로젝트의 공정·콘크리트·데이터 기본값을 정합니다: 첫 타설일, 타설 사이클(일), 최소 존치 층수, 배합·fck, 양생 최저 온도, 기상 관측소, 데이터 폴더. 값은 Revit 프로젝트 정보(<code>PRJ_</code> 매개변수)에 저장됩니다.</p>
+<p><b>적용 기준</b>(창 아래 접는 칸 — 판정에 쓰는 기준값·단위·출처를 한 곳에. 판정 근거 창은 비교 줄만 보여 주고 이 표를 가리킵니다). 기준: KCS 14 20 12:2024 거푸집 및 동바리 · 거푸집 및 동바리 해체 가이드라인 (국토교통부, 2023.1) · KDS 21 50 00:2024 · 고시 제2024-879호. fck 는 이 창의 설계기준강도 값(아래는 24 MPa 일 때):</p>
+<table><tr><th>항목</th><th>값·단위</th><th>출처</th><th>표시</th></tr>
+<tr><td>다층 동바리 해체 (구역 강도)</td><td>공시체·센서 ≥ fck = 24 MPa</td><td>KCS 14 20 12:2024 표 3.3-1 · 해체 가이드라인 표 2.1.1</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>존치 층수</td><td>타설층 포함 3개층 이상</td><td>KCS 14 20 12:2024 3.3.2(2) · 해체 가이드라인 2.1.2(1)④</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>지지 슬래브 (다음 타설을 받치는 층)</td><td>≥ 14 MPa</td><td>해체 가이드라인 2.1.2(2)⑧</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>하중비 (위층 타설 하중 ÷ 지지층 여유)</td><td>≤ 1.00</td><td>해체 가이드라인 2.1.2(2) 하중비교 예제식 (× √(f/fck) 감소는 보수 측 [가정])</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>측면 거푸집 (벽·기둥)</td><td>≥ 5 MPa</td><td>KCS 14 20 12:2024 표 3.3-1</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>판넬 조기 탈형 (필러 존치)</td><td>≥ 14 MPa · 10 ℃ 이상 4일 · 구조검토서</td><td>해체 가이드라인 2.1.1(2)① · KCS 14 20 12:2024 3.3.1(5)</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>강도 확인 (기준 근거)</td><td>현장양생 공시체 3개 평균 (현장봉함·현장수중·현장기건)</td><td>KCS 14 20 12:2024 · 고시 제2024-879호</td><td><span class="tag t-ok">확정</span></td></tr>
+<tr><td>센서 (위치 근거)</td><td>센서가 있는 구역(평면 + 3 m) = 센서 구역 최소 추정 ≥ 해체 기준 · 3 m 안 센서가 없는 구역의 먼 센서·기상 예측 = 예상 (참고, 판정에 안 씀)</td><td>사용자 결정 11-05 (판정은 실측 — 센서는 3 m 안일 때만)</td><td><span class="tag t-as">가정</span></td></tr>
+<tr><td>동바리 1본 허용 하중</td><td>≤ 13.3 kN/본 (압축 성능 40 kN ÷ 안전율 3)</td><td>KDS 21 50 00:2024 표 2.6-1 · 표 1.8-1</td><td><span class="tag t-ok">확정</span></td></tr>
+</table>
+<h4>언제 쓰나요</h4>
+<p>프로젝트를 시작할 때 가장 먼저 한 번. 사이클이 바뀌었거나(동절기 등) 존치 층수를 늘리기로 했을 때 다시.</p>
+<h4>순서</h4>
+<ol>
+  <li>리본 <span class="btn">Revit On-Site</span> 탭 › <span class="btn">준비</span> 패널 › <span class="btn">프로젝트 설정</span> 을 누릅니다.</li>
+  <li><b>첫 타설일</b> 달력에서 골조 첫 슬래브 타설일을 고릅니다. <b>착공일이 아닙니다</b>(<a href="#terms">용어</a> 참고).</li>
+  <li><b>타설 사이클</b>에 층당 골조 공정 일수를 넣습니다(예: 7 일).</li>
+  <li><b>최소 존치 층수</b>는 기본 3 개층. 겨울철에는 더 늘릴지 검토합니다(아래 근거 참고).</li>
+  <li><b>배합</b>과 <b>fck</b>(MPa), <b>양생 최저 온도</b>(°C)를 넣습니다.</li>
+  <li><b>기상 관측소</b>(예: 108 서울)와 <b>데이터 폴더</b>(<span class="btn">찾아보기…</span>)를 정합니다. 데이터 폴더 아래에 사진 폴더 용량(MB·장 수)이 보입니다(자동 삭제 없음). 아직 정한 폴더가 없으면 모든 명령이 모델 파일 옆 <code>onsite_data_&lt;파일 이름&gt;</code> 을 씁니다(모델 폴더 자체는 쓰지 않음 — 같은 폴더의 다른 모델과 자료가 섞이지 않게). 창에 그 안내 한 줄이 보이고, <span class="btn">확인</span> 하면 그 폴더로 저장하고 없으면 만듭니다. <a href="#CmdEvaluate">판정</a>·타설·공시체·센서·기상·근거·동바리 입력도 기본 폴더가 없으면 만들고 결과 창에 경로를 한 줄 적습니다.</li>
+  <li>(선택) <b>예측일에 현장 보정 쓰기</b>: 같은 배합 현장양생 공시체가 3건 이상 <span class="tag t-as">가정</span> 이면 그 결과로 강도 곡선을 보정해 <b>예측 해체 가능일만</b> 다시 셉니다. 판정·결론·구역 최소 추정은 그대로이고, 사유 끝에 "예측일: 현장 보정 곡선 (공시체 n건, s=…) [보정]" 또는 "기본 곡선 [가정] (보정 자료 부족 …)" 이 붙습니다. 설정은 데이터 폴더 <code>options.json</code> 에 저장되어 다음 [판정]부터 쓰입니다(기본 꺼짐).</li>
+  <li><b>현장 기준 [가정]</b> (v6.2, 비우면 기본값 — 데이터 폴더 options.json): <b>시공하중</b> kN/m²(하중비교 식 1.6 × 시공하중, 기본·최소 2.5 — 자재 적재·장비가 많으면 크게, 판정 근거 창 하중 줄·조기 탈형 검토서에 "시공하중 2.5 kN/m² [가정] — 자재 적재·장비 집중하중 미반영"), <b>순찰 확인 간격</b> 시간(기본 24), <b>범위 밖 슬래브</b> mm 초과(기본 300) — 이 구역과 동바리 높이 5 m 이상(건설기술진흥법 시행령 제101조의2 <span class="tag t-ok">확정</span>, 바꾸지 않음)·지하층 구역은 판정 사유 끝에 "⚠ 범위 밖 가능 (…) — 구조기술자 검토 (재받침·층간 하중 분배 미계산)"(결론은 그대로, 검측요청서 ⑥ 현장 경고·구역 정보에도). 동바리 높이는 [판정] 때 모델에서 재어 데이터 폴더 zones.csv shore_mm 열에 넣습니다.</li>
+  <li><b>층 표지 유효 시간</b>(기본 24시간 [가정]): <a href="#CmdFloorSign">층 표지</a> 머리에 인쇄 시각과 "인쇄 후 n시간 지나면 QR 화면으로 현재 상태를 확인하세요"가 크게 나오고, QR 로 연 층 화면에 "표지 인쇄 후 n시간 · 표지와 지금 상태 다른 구역 m개" 띠가 붙습니다.</li>
+  <li><b>구역 본수 모드</b> (v6.2): 동바리를 모델에 한 본씩 두지 않은 구역은 [동바리 사양]의 X·Y 간격으로 본수를 셉니다 — ⌊구역 면적 ÷ (X×Y)⌋ "(사양 계산)". 3개층 확인 표·구역 정보 본수·설치 검측 1본 하중(부담 면적 X×Y)이 이 값을 쓰고, 이음·높이 같은 본 단위 검사는 "본 단위 모델 없음 — 현장 확인"입니다.</li>
+  <li><b>여러 사람이 함께 쓸 때</b> (v6.2): 데이터 폴더 CSV 는 쓰는 동안 잠금 파일(<code>파일.lock</code>)을 두어 두 PC 가 같은 파일에 동시에 써도 줄이 사라지지 않습니다(5초 안에 못 쓰면 "다른 PC·프로그램이 쓰는 중" 안내 — 아무것도 쓰지 않음). 중앙 모델(워크셰어링)에서 [판정]은 다른 사용자가 가진 요소는 건너뛰고 결과 창에 "다른 사용자가 가진 요소 n개 — 소유: 이름"을 적습니다(판정 결과는 데이터 폴더 판정표에 그대로). 데이터 폴더는 네트워크 공유 폴더여도 됩니다.</li>
+  <li>(선택) <b>층 높이 보정 쓰기</b> (v6): 센서가 없어 기상 기온으로 셈하는 강도(참고)와 예측 해체 가능일에 높이만큼 기온을 낮춥니다 — 층 × 층고 3 m × 0.65 ℃/100 m <span class="tag t-as">가정</span>, 노출 보정 없음 <span class="tag t-as">가정</span>. 센서·공시체 값과 결론 규칙은 그대로. 근거 끝에 "층 높이 보정 −0.20 °C [가정]". 데이터 폴더 <code>options.json</code> 에 저장(층고·노출 값도 그 파일), 다음 <a href="#CmdEvaluate">해체 판정</a>부터.</li>
+  <li><span class="btn">확인</span> 을 누릅니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 프로젝트 정보의 <code>PRJ_</code> 값만 바꿉니다(형상은 그대로). 필요한 공유 매개변수가 없으면 함께 연결합니다. 실행 취소 한 번으로 되돌릴 수 있습니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>기본값</th><th>근거</th></tr>
+  <tr><td>최소 존치 층수</td><td>3 개층 (타설층 포함)</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 3.3.2(2) — 연속 다층은 타설층 포함 최소 3개 층 존치 또는 재설치</td></tr>
+  <tr><td>타설 사이클</td><td>7 일</td><td><span class="tag t-in">입력</span> 현장 값. 참고: LH 공사기간 산정지침 시스템 거푸집 7일/층(작업일), 국토부 실무가이드 지상 일반층 8일/층, 동절기 +1일/층 <span class="tag t-part">부분 확인</span></td></tr>
+  <tr><td>양생 최저 온도</td><td>5 °C (보온) / 15 °C (가열)</td><td><span class="tag t-as">가정</span> 이보다 낮은 기온은 이 값으로 계산</td></tr>
+  <tr><td>기상 관측소</td><td>108 서울</td><td><span class="tag t-in">입력</span> 기상청 ASOS 지점</td></tr>
+  <tr><td>fck · 배합</td><td>24 MPa · 보통</td><td><span class="tag t-as">가정</span> 데모 값. 구조도면·배합표 값으로 바꾸세요 <span class="tag t-in">입력</span></td></tr>
+</table>
+<div class="note">3개층은 가이드라인의 <b>최소</b>입니다. 이 프로그램의 엔진 계산으로는 10월 1일 시작·7일 사이클·보통 시멘트일 때 3개층 존치로는 5–12층이 해체 시점에 fck 에 못 미치고, 5개층이면 위반이 없었습니다(정의서 §4.3, 엔진 계산값). 겨울을 지나는 공정이면 존치 층수를 늘리는 것을 검토하세요. 어떤 값을 넣든 해체 판정은 강도로 다시 확인합니다.</div>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl class="msg">
+  <dt>"프로젝트 설정을 저장했습니다."</dt><dd>정상입니다. 다음은 <a href="#CmdBindParams">매개변수 연결</a> 또는 <a href="#CmdGenerate">예시로 채우기</a>.</dd>
+  <dt>"프로젝트 설정 저장 실패: …"</dt><dd>뒤에 붙은 이유를 확인하세요. 대부분 매개변수 문제이므로 <a href="#CmdBindParams">매개변수 연결</a> 을 먼저 실행하고 다시 시도합니다.</dd>
+  <dt>"프로젝트 파일(.rvt)을 연 상태에서 눌러 주세요."</dt><dd>프로젝트 모델을 열고 다시 누르세요.</dd>
+  <dt>칸 이름이 "착공일"로 보임</dt><dd>현재 시험판의 표기입니다. <b>첫 타설일</b>을 넣으세요. 계약 착공일을 넣으면 모든 일정이 앞당겨집니다.</dd>
+</dl>
+</section>
+
+<section class="cmd" id="CmdShoreFloorView">
+<h3>층 입력 뷰 <code>CmdShoreFloorView</code></h3>
+<p class="meta">가끔 패널 · 큰 버튼 · 쓸 수 있을 때: 프로젝트 파일</p>
+<p class="tip"><b>툴팁</b>층을 골라 그 층 동바리만 보이는 평면 입력 뷰를 엽니다.</p>
+<h4>무엇을 하나요</h4>
+<p>층을 고르면 'Revit On-Site 동바리 입력 – 층' 평면을 만들거나 엽니다: 그 층 슬래브 레벨, 자름면은 슬래브 두께 가운데(구역 상자가 잘려 보임), 아래는 동바리가 서는 레벨, 자름 상자 = 그 층 슬래브 + 2 m, 다른 층 동바리·구역은 뷰 필터로 숨김, 바닥은 숨김. 그 층 사양이 없으면 <a href="#CmdShoreSpec">동바리 사양</a> 창이 먼저 뜹니다.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">동바리</span> › <span class="btn">층 입력 뷰</span>.</li><li>층을 고르고 <span class="btn">열기</span> (두 번 눌러도 됨).</li><li>그 뷰에서 <a href="#CmdShorePlaceOne">놓기 ▾</a>·<a href="#CmdShoreZoneMove">구역 이동</a>·<a href="#CmdShoreZoneRemove">구역 해체</a>.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>예 — 처음 한 번 뷰와 '다른 층 숨김' 필터를 만듭니다. 부재는 그대로입니다.</p>
+</section>
+
+<section class="cmd" id="CmdShoreSpec">
+<h3>동바리 사양 <code>CmdShoreSpec</code></h3>
+<p class="meta">가끔 패널 · 큰 버튼 · 쓸 수 있을 때: 프로젝트 파일</p>
+<p class="tip"><b>툴팁</b>층(·구역) 동바리 종류·규격·간격·이음·설치일을 기록하고 봅니다.</p>
+<h4>무엇을 하나요</h4>
+<p>창 위에 그 층에 넣은 사양이 보이고(조회), 아래에서 새로 넣습니다: 구역(층 전체 또는 구역 — 구역 줄이 있으면 그 구역 우선), 종류(파이프 서포트·시스템 동바리), 규격, X·Y 간격 mm(조립도 값), 이음 수, 설치일. 데이터 폴더 <code>shore_spec.csv</code> 에 한 줄 — 휴대폰 입력과 같은 검사. 설치일은 공정표 대신 직접 넣는 두 날짜 중 하나입니다(다른 하나는 <a href="#CmdPour">타설 등록</a>).</p>
+<h4>순서</h4>
+<ol><li>층 입력 뷰에서 <span class="btn">동바리 사양</span> (다른 뷰면 층을 고름).</li><li>값을 넣고 <span class="btn">기록</span>. 틀리면 창 아래 빨간 한 줄.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 판정에 쓰지 않는 기록입니다 — 놓기 간격·형식, <a href="#CmdShoreTable">3개층 확인</a>, 휴대폰 층 화면에서 씁니다. 같은 층·구역은 한 번만 받으며 고치려면 <code>shore_spec.csv</code> 를 직접 고칩니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl>
+  <dt>"… 사양 기록이 이미 있습니다 (설치일 …)"</dt><dd>같은 층·구역은 한 번만 받습니다. 틀렸으면 파일의 그 줄을 고칩니다.</dd>
+  <dt>"동바리 설치일 … 이 타설일 … 보다 뒤입니다"</dt><dd>동바리는 타설 전에 섭니다. 층 전체면 그 층에서 가장 이른 타설일과 비교합니다.</dd>
+</dl>
+</section>
+
+<section class="cmd" id="CmdShorePlaceOne">
+<h3>놓기 ▾ (한 본씩 · 줄로 · 구역 채우기 · 위층으로 복사 · 도면(CAD)에서 · 기존 부재 등록) <code>CmdShorePlaceOne</code></h3>
+<p class="meta">가끔 패널 · 분할 버튼 · 쓸 수 있을 때: 층 입력 뷰</p>
+<p class="tip"><b>툴팁</b>누르는 점마다 동바리 한 본 (Esc 로 끝).</p>
+<h4>무엇을 하나요</h4>
+<p><b>한 본씩</b>: 점을 누를 때마다 한 본 (Esc 로 끝). <b id="CmdShorePlaceLine">줄로</b>: 시작점·끝점 사이를 사양 X 간격으로(두 끝 포함). <b id="CmdShoreFillZone">구역 채우기</b>: 고른 구역 상자 안을 사양 X·Y 간격 격자로(가장자리에서 간격의 반만큼 띄움). <b id="CmdShoreCopyUp">위층으로 복사</b>: 이 층 동바리 평면 위치를 바로 위 구조 슬래브 층에. 높이는 늘 아래 슬래브 윗면 ~ 그 층 슬래브 밑면, 형식은 사양, 구역 번호는 위치로 정합니다. 슬래브 밖·기존 동바리 옆은 건너뜁니다.</p>
+<p><b id="CmdShorePlaceCad">도면(CAD)에서</b>: 시공사 동바리 배치도(DWG)를 층 입력 뷰에 <span class="btn">삽입(Insert)</span> › <span class="btn">CAD 링크(Link CAD)</span>(<b>현재 뷰만</b> 체크, 원점 대 원점 — 어긋나면 링크 뒤 [이동]으로 그리드에 맞춤)로 넣고 누르면, 도면의 <b>원</b>(닫힌 원·반원 둘)과 <b>블록</b>을 종류·레이어·크기(10 mm 단위 <span class="tag t-as">가정</span>)로 묶어 보여 줍니다. 크기 30–300 mm 묶음은 동바리 기호로 보고 처음부터 체크합니다 <span class="tag t-as">가정</span> — 그리드 기호·기둥 같은 다른 묶음은 빼고 <span class="btn">놓기</span>. 원은 중심, 블록은 평면 상자 가운데에 한 본씩 놓고, 기존 동바리 50 mm 안 자리는 건너뜁니다. 도면이 여러 개면 먼저 배치도를 누릅니다. 선만 있는 도면은 읽지 못하니 [한 본씩]·[줄로]로 놓습니다.</p>
+<p><b id="CmdShoreRegister">기존 부재 등록</b>: 시공사가 파이프·구조 기둥·기둥·일반 모델로 그려 둔 동바리를 고르면(미리 골라도 됨) 각 부재 평면 가운데에 SHR_PipeSupport 를 놓습니다. 세운 부재(높이 ≥ 평면 폭 × 2 <span class="tag t-as">가정</span>)이고 가운데 높이가 이 층 동바리 높이 ± 300 mm <span class="tag t-as">가정</span> 안인 것만. 원래 부재는 <b>그대로 두기</b>(겹쳐 보임 — 판정·3개층 표·휴대폰은 동바리만 셈) 또는 <b>지우기</b>(동바리를 놓은 부재만, 실행 취소 한 번에 둘 다 되돌림) 중 고릅니다.</p>
+<h4>순서</h4>
+<ol><li>층 입력 뷰에서 <span class="btn">놓기 ▾</span> › 도구를 고릅니다 (사양이 없으면 사양 창부터).</li><li>안내 줄에 따라 점·구역을 누릅니다 (도면에서 = 묶음 고르기 창, 기존 부재 등록 = 부재 고르고 [마침(Finish)]).</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>예 — 동바리를 더합니다 (SHR_GenBy = 입력, 기존 부재 등록에서 '지우기'를 고르면 원래 부재도 지움). 한 본씩은 한 본마다, 나머지는 한 번에 실행 취소됩니다. CAD 링크 자체는 바꾸지 않습니다.</p>
+</section>
+
+<section class="cmd" id="CmdShoreZoneMove">
+<h3>구역 이동 <code>CmdShoreZoneMove</code></h3>
+<p class="meta">가끔 패널 · 작은 버튼 · 쓸 수 있을 때: 층 입력 뷰</p>
+<p class="tip"><b>툴팁</b>고른 구역의 동바리를 함께 옮깁니다.</p>
+<h4>무엇을 하나요</h4>
+<p>구역을 누르고 기준점·놓을 곳을 누르면 그 구역 동바리를 한꺼번에 옮기고, 구역 번호를 옮긴 위치의 구역으로 다시 적습니다.</p>
+<h4>순서</h4>
+<ol><li>층 입력 뷰에서 <span class="btn">구역 이동</span>.</li><li>구역 → 기준점 → 놓을 곳.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>예 — 동바리 위치 (실행 취소 한 번).</p>
+</section>
+
+<section class="cmd" id="CmdShoreZoneRemove">
+<h3>구역 해체 <code>CmdShoreZoneRemove</code></h3>
+<p class="meta">가끔 패널 · 작은 버튼 · 쓸 수 있을 때: 층 입력 뷰</p>
+<p class="tip"><b>툴팁</b>고른 구역 동바리를 모델에서 지우고 해체 기록을 남깁니다.</p>
+<h4>무엇을 하나요</h4>
+<p>구역을 누르고 확인하면 그 구역 동바리를 모델에서 지우고, 동바리 ID·위치·해체일을 데이터 폴더 <code>shore_removed.csv</code> 에 남깁니다(휴대폰·보고서 이력). 해체 지시·승인이 아니라 모델 정리 기록입니다 — 승인 기록(해체 완료)은 <a href="#CmdApprove">승인 기록</a>에서 따로 남깁니다.</p>
+<h4>순서</h4>
+<ol><li>층 입력 뷰에서 <span class="btn">구역 해체</span>.</li><li>구역을 누르고 확인 창에서 <span class="btn">예</span>.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>예 — 동바리 삭제. 실행 취소하면 모델은 돌아오지만 기록 줄은 남으므로 그 줄은 파일에서 지웁니다.</p>
+</section>
+
+<section class="cmd" id="CmdShoreTable">
+<h3>3개층 확인 <code>CmdShoreTable</code></h3>
+<p class="meta">가끔 패널 · 슬라이드아웃 · 쓸 수 있을 때: 구역 있음</p>
+<p class="tip"><b>툴팁</b>층마다 설치·해체·지금 본수와 3개층 존치를 봅니다.</p>
+<h4>무엇을 하나요</h4>
+<p>층마다 지금(모델 동바리)·해체(<code>shore_removed.csv</code>)·설치 누적 본수를 보여 주고, 타설된 맨 위층부터 아래로 3개층(타설층 포함 <span class="tag t-ok">확정</span>)에 동바리가 없으면 빨강(■)으로 표시합니다.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">동바리</span> 패널 › ▾ › <span class="btn">3개층 확인</span>.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 판정은 바꾸지 않습니다(3개층 규칙은 판정 게이트가 봄). 데이터 폴더 <code>shores.csv</code> 를 모델 위치로 다시 씁니다.</p>
+</section>
+
+<section class="cmd" id="CmdGenerate">
+<h3>구역·동바리 생성 <code>CmdGenerate</code></h3>
+<p class="meta">처음 한 번 패널 · 큰 버튼 · 쓸 수 있을 때: 프로젝트 설정 완료 · 권장 단축키 RG</p>
+<p class="tip"><b>툴팁</b>층마다 구역을 나누고 동바리를 배치합니다.</p>
+<h4>무엇을 하나요</h4>
+<p>구조 바닥(슬래브)이 있는 레벨을 찾아 층마다 구역(해체 단위 상자)을 만들고, 동바리를 지정 간격으로 배치합니다. 구역은 그리드 칸 → (그리드가 없으면) 기둥열 → 콘크리트 벽 → 지정 크기 순으로 나누고, 작은 칸은 합칩니다. 동바리는 바로 아래 구조 슬래브 위에 서며, 슬래브 외곽 안쪽에만 놓습니다. 슬래브 두께는 요소에서 읽습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>프로젝트 설정과 모델 진단 뒤 한 번. 구조 모델이 바뀌었거나 동바리 간격(조립도)이 바뀌었을 때 다시.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">준비</span> 패널 › <span class="btn">구역·동바리 생성</span> 을 누릅니다.</li>
+  <li>창에서 <b>동바리 간격 X × Y (m)</b>(조립도 값), <b>구역 크기 X × Y (m)</b>(그리드가 없을 때만 사용)를 확인합니다.</li>
+  <li><b>동바리 놓을 층</b>을 고릅니다. 구역 상자는 모든 층에 만들지만 동바리는 층당 수백 본이라 필요한 층만 고르세요.</li>
+  <li><span class="btn">확인</span> 을 누르고 결과 창에서 층별 구역 수·동바리 본수를 확인합니다.</li>
+  <li>결과 창 <span class="btn">생성한 동바리 보기</span> — 3D 뷰 <b>"Revit On-Site 동바리"</b> 가 열려 이번에 만든 층의 동바리만 보입니다(단면 상자 = 그 층 + 1 m, 다른 층 동바리·구역 상자 숨김, 슬래브·벽은 회색 반투명). 층마다 색이 다르고, 층 옆에 "9F 416" 처럼 층별 본수(결과 창과 같은 수)가 그려집니다. 뷰 설정만 바꾸며(실행 취소 "동바리 보기" 한 번) 동바리·구역 값은 그대로입니다.</li>
+  <li>판정 색으로 보려면 <a href="#CmdPrepareViews">뷰·필터 준비</a> 에서 만든 "Revit On-Site 검측" 3D 뷰로 봅니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 구역 상자(일반 모델)와 동바리 패밀리 인스턴스를 만들고 구역 번호(<code>SHR_ZoneID</code>)를 기입합니다. <b>다시 실행하면 이전에 이 버튼으로 만든 구역 전부와 이번에 고른 층의 동바리를 지우고 새로 만듭니다 — 손으로 고친 것도 지워집니다.</b> 고르지 않은 층의 동바리는 그대로 둡니다(아무 층도 안 고르면 구역만 다시 만듦). 다만 칸 크기·그리드가 바뀌어 그 동바리의 구역 번호가 새 구역에 없으면 지우고 결과 창에 알립니다. 층 목록에는 층마다 지금 있는 동바리 수가 보입니다. 실행 취소 목록 이름: "Revit On-Site: 구역·동바리 생성".</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>값</th><th>근거</th></tr>
+  <tr><td>동바리 간격</td><td>데모 1.2 m × 1.2 m</td><td><span class="tag t-in">입력</span> 조립도 값</td></tr>
+  <tr><td>구조 슬래브 인식</td><td>바닥·지붕 중 콘크리트층 120 mm 이상, 윗면이 레벨 ±300 mm 안</td><td><span class="tag t-as">가정</span> 팀 규칙(시험 모델 분석으로 정함)</td></tr>
+  <tr><td>구역 나누는 순서</td><td>그리드 → 기둥열(콘크리트 기둥 4개 이상) → 콘크리트 벽 → 지정 크기</td><td><span class="tag t-as">가정</span> 팀 규칙</td></tr>
+</table>
+<p>이 버튼은 판정을 하지 않습니다. 동바리 1본 하중 검사는 <a href="#CmdCheckLoad">1본 하중</a>.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl class="msg">
+  <dt>"슬래브(바닥)가 있는 레벨을 찾지 못했습니다. 구조 바닥을 먼저 모델링하거나, IFC 라면 바닥이 '바닥' 카테고리로 들어왔는지 확인하세요."</dt>
+  <dd><a href="#CmdDiagnose">모델 진단</a> 으로 레벨·슬래브 인식 결과를 보세요. IFC 변환 모델은 바닥이 다른 카테고리로 들어오는 경우가 있습니다. 프리캐스트 중공 슬래브처럼 현장 타설이 아닌 바닥은 동바리 대상이 아닐 수 있습니다.</dd>
+  <dt>"nF: 아래에 설 레벨이 없어 건너뜀" / "nF: 동바리 높이 … mm 가 너무 작아 건너뜀"</dt>
+  <dd>그 층 아래에 받칠 구조 슬래브가 없거나 층고가 너무 낮다는 뜻입니다. 레벨 고도와 슬래브 윗면 높이를 확인하세요.</dd>
+  <dt>"동바리 패밀리 … 를 찾지도 로드하지도 못했습니다. 애드인 폴더에 파일이 있는지 확인하세요."</dt>
+  <dd>애드인 설치 폴더에 동바리 패밀리(.rfa)가 빠졌습니다. 설치를 다시 하거나 담당자에게 문의하세요.</dd>
+  <dt>"주의: SHR_ZoneID 매개변수가 없어 구역 번호를 못 썼습니다 → '프로젝트 설정'을 먼저 누르세요"</dt>
+  <dd><a href="#CmdProjectSetup">프로젝트 설정</a> 또는 <a href="#CmdBindParams">매개변수 연결</a> 을 실행한 뒤 다시 생성하세요.</dd>
+  <dt>"일반 모델 카테고리를 찾을 수 없습니다."</dt>
+  <dd>템플릿에 일반 모델 카테고리가 없는 특수한 파일입니다. 일반 구조 템플릿으로 만든 프로젝트에서 실행하세요.</dd>
+</dl>
+</section>
+
+<section class="cmd" id="CmdZoneSplit">
+<h3>구역 나누기 <code>CmdZoneSplit</code></h3>
+<p class="meta">처음 한 번 패널 · 큰 버튼 · 쓸 수 있을 때: 프로젝트 (모델을 처음 열 때 구역이 없으면 같은 일을 확인 창으로 한 번 묻습니다)</p>
+<p class="tip"><b>툴팁</b>층마다 동바리 구역만 나눕니다 (동바리 0) — 처음 나누기·다시 나누기.</p>
+<h4>무엇을 하나요</h4>
+<p>한 번에(실행 취소 한 번): ① 검측용 매개변수 연결(새 공유 매개변수 없음) ② 프로젝트 설정 기본값 — 데이터 폴더가 비어 있으면 모델 파일 옆 <code>onsite_data_&lt;파일 이름&gt;</code>(저장 안 한 모델·클라우드 모델은 문서\Revit On-Site 아래 — 다른 명령도 같은 기본값), 나머지 값은 있으면 그대로 ③ 구역만 만들기 — 구조 슬래브 층마다 그리드 칸 → (없으면) 기둥열 → 10 × 9 m 타일 <span class="tag t-as">가정</span>, 작은 칸은 이웃과 합침(레벨·그리드 이름과 무관). 동바리는 만들지 않습니다 — <a href="#CmdShoreFloorView">층 입력 뷰</a> 에서 놓습니다.</p>
+<p>다시 나누면 옛 구역은 지우고 새로 만들지만 <b>동바리는 지우지 않고</b> 위치로 구역 번호를 다시 적습니다(어느 구역에도 안 들어가면 목록으로 알림). 데이터 폴더 기록(타설·공시체·사양 등)의 옛 구역 ID 가 새 구역에 없으면 경고만 하고 고치지 않습니다. 모델을 바꿉니다: 매개변수·프로젝트 정보·구역 상자. 저장은 하지 않습니다.</p>
+<p><b>최상층</b>: 확인 창의 <b>최상층</b> 칸에 모델 맨 위 구조 슬래브 층 번호가 들어 있습니다 <span class="tag t-as">가정</span>. 건물 일부(아래 몇 개 층)만 모델링했다면 그 자리에서 실제 최상층 번호로 고치세요(고치면 '실제 최상층으로 확인함'이 켜짐) — 맞으면 '확인함'만 체크. 값은 데이터 폴더 <code>options.json</code> 에 저장되고 [프로젝트 설정] › 공정 › 최상층에서도 고칩니다. 판정은 이 층까지 타설되면 '타설층 포함 3개층 존치' 대신 '최상층까지 타설'로 봅니다 — 1층짜리 건물도 요청 가능이 나올 수 있게. 확인하지 않은 자동값으로 이 예외를 쓴 구역은 판정 근거에 '⚠ 최상층 자동 판단 [가정] — 확인 필요'가 붙습니다(결론은 그대로). 재료로 콘크리트인지 판단 못 한 바닥(회반죽·기본값·구조 에셋 없음)은 <b>재료 불명 — 콘크리트로 가정</b>으로 넣고 확인 창·[모델 진단]에 개수를 보입니다. 목재·금속이 확실한 바닥·지붕, 경사 지붕은 뺍니다.</p>
+<h4>언제 쓰나요</h4>
+<p>새 모델을 처음 쓸 때 — 열 때 뜨는 확인 창("층 n개 · 구역 기준 · 예상 구역 m개")에서 [구역 나누기]를 누르면 같습니다. [나중에]를 누르면 그 파일을 닫을 때까지 다시 묻지 않습니다. 구조 슬래브가 없는 모델(프리캐스트·목조 등)은 창 대신 '동바리 대상 구조 슬래브 없음' 안내가 한 번 뜹니다 — 이유는 <a href="#CmdDiagnose">모델 진단</a>. 예시 동바리까지 채우려면 <a href="#CmdGenerate">예시로 채우기</a>.</p>
+</section>
+
+<section class="cmd" id="CmdDiagnose">
+<h3>모델 진단 <code>CmdDiagnose</code></h3>
+<p class="meta">처음 한 번 패널 · 작은 버튼 · 쓸 수 있을 때: 항상</p>
+<p class="tip"><b>툴팁</b>이 모델에서 층·슬래브를 어떻게 인식했는지 보여 줍니다.</p>
+<h4>무엇을 하나요</h4>
+<p>레벨·슬래브·벽·기둥 개수와 인식에 실패한 항목(IFC 변환 모델 포함)을 보여 줍니다. 타설층 줄마다 동바리 높이(그 층 슬래브 밑면 − 아래 구조 슬래브 윗면)와 경고 — 3.5 m 초과 수평연결재, 1.5 m 미만은 '중간층(메자닌) 위인지 확인' <span class="tag t-as">가정</span> — 와 '재료 불명 — 콘크리트로 가정' 개수가 붙습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>새 모델을 처음 열었을 때, 구역·동바리 생성 전에. 생성 결과가 이상할 때.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">준비</span> 패널 › <span class="btn">모델 진단</span>.</li>
+  <li>결과 창에서 층 목록(낮은 레벨부터)과 층별 슬래브 수·두께를 확인합니다.</li>
+  <li>인식 실패 항목이 있으면 해당 요소의 카테고리·두께·레벨을 고친 뒤 다시 진단합니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 읽기만 합니다.</p>
+<h4>판정 기준과 근거</h4>
+<p>판정하지 않습니다. 인식 규칙은 <a href="#CmdGenerate">예시로 채우기</a> 의 표와 같습니다 <span class="tag t-as">가정</span>.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>전용 안내 문구가 아직 정해지지 않았습니다. 슬래브가 0개로 나오면 IFC 바닥 카테고리와 콘크리트 두께를 확인하세요.</p>
+</section>
+
+<section class="cmd" id="CmdBindParams">
+<h3>매개변수 연결 <code>CmdBindParams</code></h3>
+<p class="meta">처음 한 번 패널 · 작은 버튼 · 쓸 수 있을 때: 항상</p>
+<p class="tip"><b>툴팁</b>검측용 매개변수를 연결합니다. (공유 매개변수 파일 기준 44개)</p>
+<h4>무엇을 하나요</h4>
+<p>공유 매개변수 파일의 <code>SHR_</code>(구역·동바리), <code>SNS_</code>(센서), <code>PRJ_</code>(프로젝트 정보) 매개변수를 모델에 연결합니다. 이미 있으면 건너뜁니다.</p>
+<h4>언제 쓰나요</h4>
+<p>새 모델에서 처음 한 번. 매개변수가 없다는 안내가 나왔을 때.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">준비</span> 패널 › <span class="btn">매개변수 연결</span>.</li>
+  <li>결과 창에서 새로 연결한 개수를 확인합니다. 다시 눌러도 안전합니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 매개변수 정의를 추가합니다. 요소 형상과 값은 바꾸지 않습니다.</p>
+<h4>판정 기준과 근거</h4>
+<p>판정하지 않습니다. 날짜는 Revit 에 날짜 형식이 없어 정수 <code>YYYYMMDD</code>(예: 20261101)로 저장됩니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl class="msg">
+  <dt>"…개를 새로 연결했습니다."</dt><dd>정상입니다.</dd>
+  <dt>"공유 매개변수 파일을 열 수 없습니다: …"</dt><dd>애드인 폴더의 공유 매개변수 파일(<code>SHR_SharedParameters.txt</code>)이 없거나 다른 프로그램이 열고 있습니다.</dd>
+  <dt>"(매개변수 종류가 다릅니다. 공유 매개변수 파일을 확인하세요)"</dt><dd>같은 이름의 매개변수가 다른 형식으로 이미 모델에 있습니다. 관리 › 프로젝트 매개변수에서 그 매개변수를 확인하세요.</dd>
+</dl>
+</section>
+
+<section class="cmd" id="CmdPrepareViews">
+<h3>뷰·필터 준비 <code>CmdPrepareViews</code></h3>
+<p class="meta">처음 한 번 패널 · 작은 버튼 · 쓸 수 있을 때: 매개변수 연결됨</p>
+<p class="tip"><b>툴팁</b>검측 3D 뷰와 상태 색 필터를 만듭니다.</p>
+<h4>무엇을 하나요</h4>
+<p>"On-Site 검측" 3D 뷰, 상태별 뷰 필터 7개(<a href="#status">상태 색</a>), 일람표 2개를 만듭니다.</p>
+<h4>언제 쓰나요</h4>
+<p>매개변수 연결 뒤 한 번. 뷰나 필터를 실수로 지웠을 때 다시.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">준비</span> 패널 › <span class="btn">뷰·필터 준비</span>.</li>
+  <li>프로젝트 탐색기에서 "On-Site 검측" 3D 뷰를 엽니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 뷰·필터·일람표를 추가합니다. 건물 요소는 바꾸지 않습니다.</p>
+<h4>판정 기준과 근거</h4>
+<p>판정하지 않습니다. 색은 <a href="#status">상태 색 범례</a> 와 같습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>버튼이 회색이면 <a href="#CmdBindParams">매개변수 연결</a> 을 먼저 하세요.</p>
+</section>
+
+<!-- ============================================================ ② 설치 검측 -->
+<h2>② 설치 검측</h2>
+
+<section class="cmd" id="CmdInstallCheck">
+<h3>설치 검측 <code>CmdInstallCheck</code></h3>
+<p class="meta">설치 가끔 패널 · 큰 버튼 · 쓸 수 있을 때: 동바리 있음</p>
+<p class="tip"><b>툴팁</b>타설 전 동바리 설치 상태를 검사합니다. (안전보건규칙 제332조의2)</p>
+<h4>무엇을 하나요</h4>
+<p>모델의 동바리로 자동 검사할 수 있는 항목(이음 수·높이·수평연결재·1본 하중·상하층 수직선 일치)을 한 번에 검사하고, 현장에서 눈으로 확인한 체크리스트 결과를 함께 기록합니다. 결과는 구역 색으로 표시됩니다: 합격 = 회청(1), 결함 = 빨강(2).</p>
+<p><b>상하 정렬</b> (해체 가이드라인 4.3, 각 층 같은 위치 설치): 결과 창 아래에 층 쌍마다 "바로 아래층 동바리 중 가장 가까운 것까지 수평 거리"의 최대·95% 값이 나옵니다. 규정 허용값이 없어 <b>편차만 표시</b>합니다 — 허용값은 현장이 정할 값 <span class="tag t-in">입력</span>이고, 지어내지 않습니다. <b>연직도</b>는 모델로 잴 수 없어 데이터 폴더 <code>install_inspection.csv</code> 의 수동 항목(item_code <code>SHR-V</code>)으로 받습니다: OK·NG 는 그대로, 빈칸·기록 없음은 <b>확인 필요</b>.</p>
+<h4>언제 쓰나요</h4>
+<p>층마다 동바리·슬래브 거푸집을 설치한 뒤, 감리 검측 요청과 타설 전에.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">설치 검측</span> 패널 › <span class="btn">설치 검측</span>.</li>
+  <li>검측할 층(또는 구역)을 고릅니다.</li>
+  <li>자동 검사 결과 목록에서 불합격 항목을 확인합니다. 항목을 누르면 모델에서 해당 동바리가 선택됩니다.</li>
+  <li>수기 항목(깔판·받침목, 못, 볼트 체결, 가새 각도)의 현장 확인 결과를 입력하거나 체크리스트 CSV 를 불러옵니다.</li>
+  <li><span class="btn">확인</span> 으로 기록합니다. 빨간 구역이 없어야 타설 단계로 갑니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 동바리의 검측 결과(<code>SHR_InspectResult</code>)와 구역 상태(1 또는 2)를 기록합니다. 형상은 바꾸지 않습니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>기준</th><th>근거</th></tr>
+  <tr><td>파이프서포트 이음</td><td>3개 이상 이어 쓰지 않음, 이음은 볼트 4개 이상. 고시: 원칙적으로 이어 쓰지 않고 불가피하면 2개 이하 → 모델 검사: 이음 수 ≤ 1</td><td><span class="tag t-ok">확정</span> 산업안전보건기준에 관한 규칙 제332조의2, 고시 2025-78</td></tr>
+  <tr><td>수평연결재</td><td>높이 3.5 m 초과 시 2 m 이내마다 2방향</td><td><span class="tag t-ok">확정</span> 제332조의2</td></tr>
+  <tr><td>시스템 동바리 전환</td><td>높이 4 m 초과 또는 타설 두께 1 m 초과</td><td><span class="tag t-ok">확정</span> 고시 제9조</td></tr>
+  <tr><td>기술사 구조계산</td><td>높이 5 m 이상이면 표시</td><td><span class="tag t-ok">확정</span> 건설기술 진흥법 시행령 제101조의2</td></tr>
+  <tr><td>상하층 수직선 일치</td><td>상·하부 동바리가 같은 수직선. 허용 편차는 현장 값 — <a href="#CmdProjectSetup">프로젝트 설정</a> › 설치 검측 › 정렬 허용 편차(mm, 비우면 편차만 표시)</td><td><span class="tag t-ok">확정</span> 제332조 3호 / 편차 <span class="tag t-in">입력</span></td></tr>
+  <tr><td>1본당 하중</td><td>지지 면적 × 설계 하중 ≤ 허용압축력 (<a href="#CmdCheckLoad">1본 하중</a>)</td><td><span class="tag t-ok">확정</span> KDS 21 50 00:2024</td></tr>
+  <tr><td>조립도</td><td>구조검토 후 작성, 재질·단면·간격·이음 명시. 모델과 비교</td><td><span class="tag t-ok">확정</span> 제331조</td></tr>
+  <tr><td>설치 서류</td><td><code>install_inspection.csv</code> 선택 열 — 조립도 번호(assembly_dwg_no) · 구조검토서 번호(struct_review_no) · 관계전문가 확인(expert_confirm, 예/아니오 — 동바리 높이 5 m 이상일 때만) · 지지 방식(support_method, 기록). 빈칸이면 "필요" — 네 열이 하나도 없으면 세지 않고 결과 창에 안내 한 줄만</td><td>조립도 [미확인] (제331조 2차 인용, 조문 미대조) · 구조검토서·관계전문가 <span class="tag t-ok">확정</span> 건진법 시행령 제101조의2 · 지지 방식 <span class="tag t-in">입력</span></td></tr>
+  <tr><td>깔판·받침목, 못 2개소, 볼트 체결, 가새 각도</td><td>자동 검사 불가 → 체크리스트 수기 입력</td><td><span class="tag t-ok">확정</span> 제332조, 고시 제9·12조</td></tr>
+</table>
+<p>세부 수치는 KCS 21 50 05:2023 이 인용하는 KCS 14 20 12:2024 3.2.1 과도 맞춰 확인했습니다 <span class="tag t-ok">확정</span>.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>버튼이 회색이면 <a href="#CmdGenerate">예시로 채우기</a> 으로 동바리를 먼저 만드세요. 불합격이 나오면 해당 항목(<a href="#CmdCheckHeight">높이·이음</a>, <a href="#CmdCheckBrace">수평연결재</a>, <a href="#CmdCheckLoad">1본 하중</a>)의 기준을 보세요. 동바리마다 이음 수는 동바리를 골라 속성 창의 <code>SHR_Splices</code>, 높이는 속성 '높이'를 고친 뒤 다시 검사합니다.</p>
+</section>
+
+<section class="cmd" id="CmdCheckHeight">
+<h3>높이·이음 (설치 검측 항목)</h3>
+<p class="meta">따로 누르는 버튼은 없습니다 (57차 정리) — <a href="#CmdInstallCheck">설치 검측</a> 이 높이·이음·수평연결재·1본 하중을 한 번에 검사합니다. 아래는 그 항목의 기준입니다.</p>
+<h4>무엇을 하나요</h4>
+<p>설치 검측 중 높이·이음 항목만 따로 검사합니다. 동바리 높이 = 아래 슬래브 윗면부터 위 슬래브 밑면까지.</p>
+<h4>언제 쓰나요</h4>
+<p>층고가 높은 층(1층, 필로티, 지하층)이나 이음 수를 현장에서 바꿨을 때.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">설치 검측</span> 패널 › <span class="btn">설치 검측</span>.</li><li>결과 목록에서 높이·이음 표시가 붙은 동바리를 확인합니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p><a href="#CmdInstallCheck">설치 검측</a> 과 같음.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>기준</th><th>근거</th></tr>
+  <tr><td>이음 수</td><td>이음 수 ≤ 1 (3개 이상 이어 쓰기 금지, 볼트 4개 이상)</td><td><span class="tag t-ok">확정</span> 규칙 제332조의2, 고시 2025-78</td></tr>
+  <tr><td>높이 4 m 초과</td><td>시스템 동바리로 바꿔야 함</td><td><span class="tag t-ok">확정</span> 고시 제9조</td></tr>
+  <tr><td>높이 5 m 이상</td><td>기술사 구조계산 대상 표시</td><td><span class="tag t-ok">확정</span> 건진법 시행령 제101조의2</td></tr>
+</table>
+<p>예: 시험 모델(업무시설)의 기준층 동바리 높이 3,950 mm, 1층 하부 5,900 mm, 2층 하부 4,650 mm 는 수평연결재·시스템 동바리·기술사 구조계산 표시 대상이었습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>이음 수는 동바리를 골라 Revit 속성 창의 <code>SHR_Splices</code> 칸에 넣고 <a href="#CmdInstallCheck">설치 검측</a> 을 다시 누릅니다.</p>
+</section>
+
+<section class="cmd" id="CmdCheckBrace">
+<h3>수평연결재 (설치 검측 항목)</h3>
+<p class="meta">따로 누르는 버튼은 없습니다 (57차 정리) — <a href="#CmdInstallCheck">설치 검측</a> 이 높이·이음·수평연결재·1본 하중을 한 번에 검사합니다. 아래는 그 항목의 기준입니다.</p>
+<h4>무엇을 하나요</h4>
+<p>높이가 3.5 m 를 넘는 동바리에 수평연결재(<code>SHR_HorizBrace</code> = 예)가 있는지 확인합니다.</p>
+<h4>언제 쓰나요</h4>
+<p>층고가 높은 층의 설치 검측 때.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">설치 검측</span> 패널 › <span class="btn">설치 검측</span>.</li><li>표시된 동바리의 현장 수평연결재 설치 여부를 확인합니다 — 휴대폰 <a href="#CmdFieldInput">동바리 점검</a> 설치 검측 SHR-B 수평연결재로 문제 동바리를 기록할 수 있습니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>검사 결과만 기록합니다(형상은 그대로).</p>
+<h4>판정 기준과 근거</h4>
+<p>높이 3.5 m 초과 시 높이 2 m 이내마다 수평연결재를 2개 방향으로 설치 <span class="tag t-ok">확정</span> 산업안전보건기준에 관한 규칙 제332조의2.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>현장에서 설치했으면 동바리 속성 <code>SHR_HorizBrace</code> = 예 로 고치고 <a href="#CmdInstallCheck">설치 검측</a> 을 다시 누릅니다.</p>
+</section>
+
+<section class="cmd" id="CmdCheckLoad">
+<h3>1본 하중 (설치 검측 항목)</h3>
+<p class="meta">따로 누르는 버튼은 없습니다 (57차 정리) — <a href="#CmdInstallCheck">설치 검측</a> 이 높이·이음·수평연결재·1본 하중을 한 번에 검사합니다. 아래는 그 항목의 기준입니다.</p>
+<h4>무엇을 하나요</h4>
+<p>동바리 1본이 받는 하중(지지 면적 × 설계 연직하중)이 허용압축력 이하인지 확인합니다. 슬래브 두께는 모델에서 읽습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>동바리 간격을 넓혔거나 슬래브가 두꺼운 구간이 있을 때, 제품 시험성적서를 받았을 때.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">설치 검측</span> 패널 › <span class="btn">설치 검측</span>.</li><li>결과에서 1본 하중 초과 동바리를 확인합니다(제품 시험성적서 값이 기본 허용하중보다 작으면 그 값으로 검토).</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>동바리의 1본 하중·허용하중 값(<code>SHR_Load</code>, <code>SHR_Allowable</code>)과 검사 결과를 기록합니다. 형상은 그대로입니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>값</th><th>근거</th></tr>
+  <tr><td>콘크리트 단위중량</td><td>24 kN/m³ (철근 포함)</td><td rowspan="5"><span class="tag t-ok">확정</span> KDS 21 50 00:2024 §1.6</td></tr>
+  <tr><td>거푸집</td><td>0.4 kN/m² 이상</td></tr>
+  <tr><td>작업하중</td><td>타설 높이 0.5 m 미만 2.5 / 0.5–1.0 m 3.5 / 1.0 m 이상 5.0 kN/m²</td></tr>
+  <tr><td>고정 + 작업 최소</td><td>5.0 kN/m²</td></tr>
+  <tr><td>수평하중</td><td>고정하중의 2 % 와 1.5 kN/m 중 큰 값, X·Y 각각</td></tr>
+  <tr><td>허용압축력 (파이프서포트)</td><td>압축성능 40 kN ÷ 안전율 3 = <b>13.3 kN/본</b>. 40 kN 은 극한값이므로 허용하중으로 쓰지 않습니다</td><td><span class="tag t-ok">확정</span> KDS 21 50 00 표 2.6-1 · 표 1.8-1 · §3.2.1(3)</td></tr>
+  <tr><td>제품 성적서</td><td>시험성적서 값이 더 작으면 그 값</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 1.6.3(9) / 값 <span class="tag t-in">입력</span></td></tr>
+</table>
+<p>예(슬래브 210 mm, 간격 1.2 m × 1.2 m): 고정하중 24 × 0.21 + 0.4 = 5.44, 작업하중 2.5 → 7.94 kN/m² (≥ 5.0) → 1본당 7.94 × 1.44 = <b>11.4 kN ≤ 13.3 kN</b> 적합.</p>
+<p>참고: KCS 14 20 12:2024 1.6.3 에는 활하중 2.5 kN/m²(전동카트 3.75) 문구가 남아 있어 KDS 와 다릅니다. 이 프로그램은 KDS 값을 씁니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>초과가 나오면 동바리 간격을 줄이거나 허용하중이 큰 제품·시스템 동바리를 검토하고, <a href="#CmdGenerate">예시로 채우기</a> 을 새 간격으로 다시 실행합니다.</p>
+</section>
+
+<!-- ============================================================ ③ 타설·데이터 -->
+<h2>③ 타설·데이터</h2>
+
+<section class="cmd" id="CmdFieldInput">
+<h3>현장 입력 <code>CmdFieldInput</code></h3>
+<p class="meta">현장 입력 패널 · 큰 버튼 · 쓸 수 있을 때: 구역 있음</p>
+<p class="tip"><b>툴팁</b>휴대폰으로 공시체·센서 실측값을 받습니다.</p>
+<h4>무엇을 하나요</h4>
+<p>인터넷 현장 서버(<a href="#CmdServerLink">서버 연동</a>) 주소·키가 설정돼 있으면 서버 연동을 켜고 그 QR 창을 엽니다 — 인터넷만 되면 어디서나 찍습니다(판정은 Revit 동기화 5분마다 뒤). 설정이 없으면(인터넷 안 되는 현장) 현장 PC 에서 입력 서버를 켜고 접속 QR 코드를 보여 줍니다. 같은 Wi-Fi 에 있는 엔지니어가 휴대폰으로 QR 을 찍으면 입력 화면이 열리고, <b>층 → 구역 → 측정 종류 → 값</b> 순서로 입력합니다. 받은 값은 데이터 폴더의 기록 파일에 한 줄씩 더해지고, 그 구역의 판정·대시보드·검측 3D 색·센서 표식이 바로 바뀝니다. 연결이 끊긴 휴대폰은 값을 모아 두었다가 다시 연결되면 자동으로 보냅니다(같은 값은 두 번 저장되지 않음).</p>
+<h4>측정 종류</h4>
+<table>
+  <tr><th>종류</th><th>입력</th><th>판정에서</th></tr>
+  <tr><td>현장양생 공시체</td><td>구역, 시험일, 양생 방법, 3개 강도 MPa</td><td><span class="tag t-ok">확정</span> 기준 근거 — 없으면 "공시체 시험 필요"</td></tr>
+  <tr><td>온도(성숙도) 센서</td><td>센서 ID·위치, 시각, 온도 °C (센서 앱 기록 붙여넣기 가능)</td><td>위치 근거: 온도 → 등가재령 → 강도 → 구역 최소</td></tr>
+  <tr><td>무선 강도 센서</td><td>센서 ID·위치, 시각, 추정 강도 MPa</td><td>위치 근거 <span class="tag t-as">가정</span> 장비 보정곡선은 제조사 값</td></tr>
+  <tr><td>반발경도</td><td>구역, 위치, R 값</td><td>조회만 — 판정에 쓰지 않음</td></tr>
+  <tr><td>해체 후 점검</td><td>구역, 점검일, 5항목 예/아니오(AC-1 하부 3개층 동바리 · AC-2 상하 정렬 · AC-3 연직도 · AC-4 자재 변형·침하 · AC-5 콘크리트 면 결함 — 고른 항목만 저장), 사진 파일 이름(선택)</td><td>판정에 쓰지 않음 — 가이드라인 4.3 <span class="tag t-ok">확정</span>. <a href="#CmdEvidence">근거 원장</a> 8 결과보고가 있는데 점검이 없거나 '아니오' 항목이 있으면 "해체 후 점검 미완" 경고(대시보드 근거 줄·휴대폰 카드·검측요청서 현장 경고)</td></tr>
+  <tr><td>동바리 확인</td><td>구역(그 아래 동바리), 확인 시각, 지금 서 있는지 예/아니오, 사진 파일 이름(선택)</td><td>해체 판정에는 쓰지 않음 — <b>타설 전 확인</b> 에 씀: 다음 층을 타설하기 전 아래 3개층 구역마다 최근 24시간 안 "예" 확인이 있어야 "타설 요청 가능" <span class="tag t-as">가정</span></td></tr>
+  <tr><td>동바리 점검</td><td>구역, 단계(설치 검측·일상 점검·해체 전·해체 후), 점검 시각, 항목마다 OK/NG(<b>[전부 OK]</b> 한 번에), NG 면 구역 평면에서 문제 동바리를 눌러 여러 개(두 손가락 확대) — 사진 없음. 동바리 이름 = <code>구역-R행C열</code>(예 9F-A2-R03C05, 행 = 남→북 · 열 = 서→동)</td><td><b>설치 검측</b> NG 가 풀리지 않은 구역은 "존치 (설치 결함 기록)"·타설 전 확인 "타설 보류" — 같은 항목을 다시 점검해 OK 로 기록하면 풀림. 다른 단계는 기록만. Revit [색] 동바리 상태에서 문제 동바리 빨강 테두리. 항목 기준: 수평연결재·이음 <span class="tag t-ok">확정</span> 안전보건규칙 제332조의2, 상하 정렬 <span class="tag t-ok">확정</span> 가이드라인 4.3, 나머지는 시공계획서 값 <span class="tag t-in">입력</span></td></tr>
+</table>
+<p>구역 판정에는 <b>구역 경계에서 3 m 안의 센서</b>만 씁니다 <span class="tag t-as">가정</span>. 가까운 센서가 없으면 그 층 센서 전체를 쓰고 근거에 "가까운 센서 없음"을 붙입니다 — 구역마다 센서를 하나 이상 두는 것을 권합니다.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">타설·데이터</span> 패널 › <span class="btn">현장 입력</span>. 창에 QR 코드와 주소가 뜹니다.</li>
+  <li>처음 한 번 Windows 방화벽 창이 뜨면 <b>개인 네트워크</b>만 허용합니다(프로그램이 대신 누르지 않습니다).</li>
+  <li>휴대폰 카메라로 QR 을 찍습니다(현장 PC 와 같은 Wi-Fi). 입력자 이름을 한 번 적으면 기억합니다.</li>
+  <li>층 → 구역 타일(색 = 지금 판정) → 측정 종류 → 값 → <span class="btn">저장</span>. 저장하면 그 구역의 판정과 사유가 바로 보입니다.</li>
+  <li>창을 닫으면 서버가 꺼지고, 다음에 켤 때 주소의 토큰이 바뀝니다(옛 QR 은 쓸 수 없음). <span class="btn">닫고 입력 끄기</span> 는 끄기 전에 확인을 묻습니다(기본 아니요 — 다른 프로그램에 치던 Enter 로 꺼지지 않게).</li>
+  <li>휴대폰 맨 위 <b>오늘 볼 것</b>: 무단 해체 의심 → 타설 보류 → <b>순찰 확인 없음</b>(동바리가 서 있는 판정 구역에 순찰 확인 간격 [가정, 기본 24시간] 안 동바리 확인 기록이 없으면 층마다 한 줄 "9F 순찰 확인 없음 5구역 (… · 마지막 확인 n시간 전) — 구역 목록", 협력업체 신고는 안 셈) → <b>감리 확인 못 넣음</b>(웹 서버 감리 직접 확인을 동기화 때 Revit 검사에서 넣지 못한 이유) → 시험 필요 → 상태 바뀜 → 입회 없음(판정일까지 타설했는데 pours.csv 의 supervisor_present·watcher 가 빈 구역 — 두 열이 없으면 세지 않음, KCS 14 20 12 3.2(11) 타설 중 감시자 배치 <span class="tag t-ok">확정</span>) 순서로 개수가 보이고, 누르면 목록·구역으로 갑니다(판정은 바꾸지 않음). 대시보드 맨 위에도 같은 한 줄이 나옵니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 받은 값으로 구역·동바리의 판정 매개변수를 갱신하고, 센서는 <code>SNS_Sensor</code> 표식을 슬래브 윗면에 놓고 최근 값을 기록합니다. 실행 취소 목록에는 "Revit On-Site: 현장 입력 반영" 으로 남습니다. 원 자료는 데이터 폴더의 <code>cylinders.csv</code>·<code>sensors.csv</code>·<code>sensor_strength.csv</code>·<code>rebound.csv</code>·<code>shore_checks.csv</code> 에 입력자·시각과 함께 쌓입니다. 동바리 확인은 판정에 쓰이지 않아 모델을 바꾸지 않습니다(실행 취소 기록 없음). 휴대폰 구역 타일은 모델 구역과 같습니다 — 데이터 폴더 <code>zones.csv</code> 에 없는 모델 구역은 켤 때 끝에 더해집니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<ul>
+  <li><b>휴대폰에서 "접속 주소가 만료됐습니다 (12시간)"</b> — 주소는 만든 뒤 12시간 동안만 열립니다 <span class="tag t-as">가정</span>. PC 의 현장 입력 창에서 <span class="btn">새 주소</span> 를 누르고 새 QR 을 찍으세요. 서버를 다시 켰을 때도 새 QR 을 찍습니다.</li>
+  <li><b>여러 네트워크(유선·Wi-Fi·VPN)</b> — 창 위 목록에서 휴대폰과 같은 망의 주소를 고르면 그 주소로만 다시 켭니다("모든 망"은 0.0.0.0).</li>
+  <li><b>휴대폰이 열리지 않음</b> — 같은 Wi-Fi 인지, 방화벽에서 개인 네트워크를 허용했는지 확인하세요. 창의 "다른 LAN 주소"를 써 볼 수 있습니다.</li>
+  <li><b>"같은 시각 값이 이미 있습니다"</b> — 같은 센서·같은 시각은 한 번만 저장됩니다. 시각을 확인하세요.</li>
+</ul>
+<h4>현장 사진 (근거로 남김)</h4>
+<p><b>동바리 확인</b>·<b>해체 후 점검</b>·<b>협력업체 해체 신고</b>에 사진 1장을 붙일 수 있습니다(선택). 사진 칸을 누르면 휴대폰 카메라가 열리고, 찍은 사진은 <b>원본 그대로</b>(바이트를 바꾸지 않음) 데이터 폴더 <code>사진\YYYYMMDD\{구역}_{종류}_{시분초}_{해시 앞 8자}.jpg</code> 에 저장됩니다 — 이름은 서버가 정합니다. 기록 줄의 <code>photo</code> 칸에 그 경로, <code>photo_sha256</code> 칸에 SHA-256 이 남아 <a href="#CmdSlabRecord">슬래브 이력서</a> '현장 사진' 줄·<a href="#CmdPackage">검측 패키지</a> <code>첨부\사진\</code>(요청 구역 사진 + 검측요청서 현장 확인 ① 위 3개층 구역의 최근 24 h 동바리 확인 사진)·<a href="#CmdAuditLog">감사 기록</a>(경로 · sha 앞 12자, 줄 해시)·<a href="#CmdEvidence">근거 원장</a> 7 해체(신고 사진)에 들어갑니다.</p>
+<ul>
+  <li>받는 사진: JPEG·PNG, 8 MB 이하 <span class="tag t-as">가정</span>. 종류는 파일 앞 바이트로 확인합니다 — 이름만 .jpg 인 다른 파일은 받지 않습니다.</li>
+  <li>같은 날 같은 구역·종류에 같은 사진을 다시 보내면 새 파일을 만들지 않고 그 파일을 씁니다.</li>
+  <li>전파가 약해 기기에 저장된 기록은 사진도 함께 담아 두지만, 기기에 담는 사진은 3장까지 <span class="tag t-as">가정</span>(휴대폰 브라우저 저장 공간). 넘으면 "사진은 연결된 뒤 다시" — 화면을 연 동안은 사진도 함께 보내고, 화면을 닫으면 기록만 갑니다.</li>
+  <li>설치 검측은 휴대폰 입력이 아니어서(<code>install_inspection.csv</code>) 사진은 <a href="#CmdEvidence">근거 원장</a> 1 설치검측 서류(파일 + SHA-256)로 붙입니다.</li>
+</ul>
+<h4>협력업체 해체 신고 (신고 QR)</h4>
+<p>동바리는 협력업체가 빼는데 그 사실이 기록에 잘 남지 않습니다. 현장 입력 창의 <b>협력업체 해체 신고 QR (반장에게 따로)</b>(접혀 있음)를 펼쳐 층을 고르면, 해체하는 반장에게 보여 줄 QR 이 나옵니다. 반장이 찍으면 <a href="#CmdFloorSign">층 표지</a>의 층 화면과 같은 화면에 구역마다 <span class="btn">이 구역 동바리를 뺐음</span>·<span class="btn">다시 세움</span> 버튼과 이름(필수)·소속(선택) 칸이 붙습니다. 버튼을 누르고 확인 창에서 [확인]하면 <code>shore_checks.csv</code> 에 그 시각(서버 시각)·이름이 <code>source</code> = 협력업체 신고 로 한 줄 남습니다(소속은 <code>company</code> 열).</p>
+<ul>
+  <li>감리 승인 기록 없이 '뺐음' → 반장 화면 "신고 저장됨 — 감리 승인 기록 없음: 현장 확인 요청됨", 대시보드·휴대폰 <b>오늘 볼 것</b> 맨 위에 <b>무단 해체 의심</b>(기존 규칙 그대로 — 아래층 동바리 '없음' 기록이라 그 위층 타설 전 확인에도 들어감).</li>
+  <li>감리 승인 기록 뒤 '뺐음' → "신고 저장됨 — 감리 승인 기록 있음: 해체 시각 기록됨", 경고 없음. <a href="#CmdEvidence">근거 원장</a> 7 해체에 실제 시각이 근거로 들어갑니다.</li>
+  <li>'다시 세움' → 동바리 확인 '예' 한 줄. 무단 해체 의심은 기존처럼 [승인 기록]의 '재받침' 기록 뒤 '예' 확인이 있어야 풀립니다.</li>
+  <li><b>전파가 약한 곳(지하 등)</b> — 보내지 못한 신고는 휴대폰에 "기기에만 저장 · 누른 시각" 으로 남고, 연결되면 자동으로 다시 보냅니다(같은 신고는 한 번만 저장). 기록 시각은 <b>서버가 받은 시각</b>이고, 누른 시각(휴대폰 시계)은 메모(<code>note</code>)에 "기기 시각 … (오프라인 저장 뒤 전송)" 으로 따로 남습니다 — 휴대폰 시계를 바꿔 시각을 앞당길 수 없게.</li>
+</ul>
+<p>신고 주소는 <b>신고 토큰</b>(데이터 폴더 <code>report_token.txt</code>, 만료 없음)만 담고 있어 신고 말고는 저장할 수 없고, 층 표지 QR(보기 토큰)·입력 QR(입력 토큰)로는 신고가 안 됩니다. 신고 주소를 바꾸려면 <code>report_token.txt</code> 를 지우고 현장 입력을 다시 켭니다. 화면 문구는 신고 확인까지이며 해체를 지시하지 않습니다.</p>
+<p>입력 형식 상세: 저장소 <code>docs/field_input_spec.md</code>.</p>
+</section>
+<section class="cmd" id="CmdServerLink">
+<h3>서버 연동 <code>CmdServerLink</code></h3>
+<p class="meta">현장 입력 패널 · 큰 버튼 (누를 때마다 켬·끔, 켜면 글자 '서버 연동 켬') · 쓸 수 있을 때: 프로젝트</p>
+<p class="tip"><b>툴팁</b>현장 서버(인터넷)와 휴대폰 입력·판정을 주고받기를 켜고 끕니다.</p>
+<h4>무엇을 하나요</h4>
+<p>켜면 바로 한 번, 그 뒤 5분마다 <span class="tag t-as">가정</span>: ① 현장 서버에 쌓인 휴대폰 입력을 <b>가져와</b> 데이터 폴더 CSV 에 넣고(<a href="#CmdFieldInput">현장 입력</a> 과 같은 검사·같은 열·사진 저장, 같은 client_id 는 한 번만) ② 서버에 <b>확인</b>을 보내 다시 안 받게 하고 ③ 데이터 폴더로 다시 판정한 결과를 <b>올립니다</b> — 휴대폰은 인터넷만 되면 같은 와이파이가 아니어도 됩니다. 받은 입력이 있으면 현장 입력과 같이 판정을 다시 계산해 구역 값·센서 표식·대시보드·강도 타임라인에 반영합니다. 통신은 뒤에서 하므로 Revit 을 기다리게 하지 않습니다.</p>
+<p>서버는 판정하지 않습니다 — 휴대폰 저장 답은 "저장됨 — 판정은 Revit 동기화 뒤 반영"이고, 다음 동기화 뒤 휴대폰에 새 판정이 보입니다. 서버 검사 뒤 데이터 폴더가 바뀌어 받을 수 없게 된 입력은 거부하고 사유를 결과 창·대시보드 기록에 남깁니다(휴대폰엔 '저장됨'으로 남음). 파일이 Excel 등으로 잠겨 있으면 그 입력은 다음 동기화 때 다시 받습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>현장 PC 와 휴대폰이 같은 와이파이에 없을 때(층이 높거나 PC 가 사무실에 있을 때). 지하·인터넷 없는 곳은 <a href="#CmdFieldInput">현장 입력</a>(같은 와이파이)을 씁니다 — 둘을 같이 켜도 됩니다.</p>
+<h4>순서</h4>
+<ol><li>처음 한 번: 서버를 만든 사람에게 받은 서버 주소·동기화 키·휴대폰 토큰을 Windows <b>사용자 환경 변수</b> <code>FIELD_SERVER_URL</code> · <code>FIELD_SYNC_KEY</code> · <code>FIELD_TOKEN</code>(입력) · <code>FIELD_VIEW_TOKEN</code>(층 보기) · <code>FIELD_REPORT_TOKEN</code>(협력업체 신고) 에 넣습니다. 동기화 키는 화면·기록 어디에도 보이지 않고, 휴대폰 토큰은 QR 과 QR 창 주소 글자에만 나옵니다 (기록·파일 이름에 안 씀).</li><li><span class="btn">타설·데이터</span> › <span class="btn">서버 연동</span>. <b>휴대폰 QR 창</b>(입력 QR + 층 고르기 → 층 보기·협력업체 신고 QR, 모두 서버 주소)이 뜨고, 첫 동기화 결과 창이 이어서 뜹니다 (가져옴: 저장·이미 있음·거부 / 올림: n개 층 판정). QR 창을 닫아도 연동은 계속됩니다.</li><li>켜진 채 다시 누르면 <b>휴대폰 QR 보기</b> / <b>서버 연동 끄기</b> 를 고릅니다. 연동 중 만든 <a href="#CmdFloorSign">층 표지</a> QR 도 서버 층 보기 주소입니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>받은 입력이 있을 때만: 구역·동바리 판정 값, 센서 표식 ("Revit On-Site: 서버 연동 반영" 실행 취소 1건). 데이터 폴더 CSV 에 줄을 더합니다.</p>
+<h4>판정 기준과 근거</h4>
+<p><a href="#CmdEvaluate">해체 판정</a> 과 같습니다. 계산은 <code>tools/server_sync.py</code> 와 같은 결과(C# 바이트 대조 시험 — RevitOnSite.Field.Check 5절).</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>"서버 주소·동기화 키가 없습니다" — 환경 변수를 넣고 다시 누릅니다. "서버 403: 동기화 키가 맞지 않습니다" — 키를 다시 받습니다. "서버에 연결하지 못했습니다" — 인터넷·주소를 확인합니다 (연동은 켜 둔 채 5분 뒤 다시 합니다).</p>
+</section>
+<section class="cmd" id="CmdPour">
+<h3>타설 등록 <code>CmdPour</code></h3>
+<p class="meta">현장 입력 패널 · 큰 버튼 · 쓸 수 있을 때: 구역 있음</p>
+<p class="tip"><b>툴팁</b>구역을 고르고 타설일·배합·fck 를 기록합니다.</p>
+<h4>무엇을 하나요</h4>
+<p>타설한 구역에 타설일·시각·배합·fck 를 데이터 폴더 <code>pours.csv</code> 에 한 줄씩 더합니다 — 휴대폰 <a href="#CmdFieldInput">현장 입력</a> 과 같은 검사(없는 구역·이미 타설 기록이 있는 구역·미래 날짜·시각 HH:MM·배합·fck 18–60 MPa)이고, 여러 구역 중 하나라도 틀리면 아무것도 쓰지 않습니다. 판정 기준일이 있으면 그 시각으로 판정을 다시 계산합니다(상태가 양생 중 등으로 바뀜). 타설일은 강도 타임라인·웹 공유판의 추정 강도 시작점입니다.</p>
+<p><b>타설 묶음</b>(선택, 예: <code>P-9F-1</code>): 한 번에 같이 친 구역들에 같은 묶음 번호를 넣으면 <a href="#CmdImportCylinders">공시체 결과</a>를 묶음으로 한 번 넣어 묶음의 모든 구역에 씁니다(현장에서 공시체는 타설 로트마다 뜸). 같은 묶음은 같은 날·같은 배합·같은 fck 만 — 다르면 거절합니다.</p>
+<h4>언제 쓰나요</h4>
+<p>타설한 날(또는 다음 날 아침). 계획과 다른 날 타설했으면 반드시.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">타설·데이터</span> 패널 › <span class="btn">타설 등록</span>.</li>
+  <li>창의 구역 목록(타설 기록이 없는 구역, 층 순)에서 이번에 타설한 구역을 고릅니다(Ctrl·Shift 로 여러 개). 모델에서 구역을 먼저 고르고 누르면 미리 골라져 있습니다 — 구역 상자를 고르면 나오는 탭의 <a href="#ctx-pour">타설 등록</a> 도 같은 창.</li>
+  <li>타설일(달력)·타설 시각(기본 08:00)·배합·fck 를 확인합니다(프로젝트 설정 값이 미리 채워짐). 입력자는 기록에 남습니다.</li>
+  <li><span class="btn">기록</span>. 틀린 값이 있으면 창 아래 빨간 한 줄로 알리고 창은 그대로입니다. 결과 창에 기록한 구역과 판정 다시 계산 여부가 나옵니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예 — 판정 기준일이 있으면 판정을 다시 계산해 구역·동바리 판정 값을 고칩니다(실행 취소 "Revit On-Site: 타설 등록" 한 번). 기록 자체는 데이터 폴더 <code>pours.csv</code> 입니다. 잘못 넣은 줄은 [구역 정보] 창의 [타설 기록 취소]·[공시체 기록 취소] (사유)로 지우고 다시 넣습니다 — 원래 줄은 파일에 남고 취소 줄이 덧붙습니다(추가만). 요청·승인 기록이 있는 구역의 타설은 취소할 수 없습니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>내용</th><th>근거</th></tr>
+  <tr><td>배합 종류</td><td>보통 · 조강 · 슬래그 미분말 · 슬래그·FA 3성분 (강도 발현 계수가 다름)</td><td>강도식 <span class="tag t-ok">확정</span> KDS 14 20 10 / 슬래그 계열 계수 <span class="tag t-as">가정</span></td></tr>
+  <tr><td>한중 콘크리트 혼화재 상한</td><td>일평균 4 ℃ 이하 등 한중 조건이면 고로슬래그 미분말 30 %, 플라이애시 15 %, 혼합 합계 30 % 이하</td><td><span class="tag t-ok">확정</span> KCS 14 20 40:2024 2.1(6) 표 2.1-1</td></tr>
+  <tr><td>타설 공종 감리 입회</td><td>감리원 입회 확인 필수, 검측요청서 제출 후 확인</td><td><span class="tag t-ok">확정</span> 주택건설공사 감리업무 세부기준 제17조③</td></tr>
+  <tr><td>타설 중</td><td>작업 전 변형·침하 점검, 감시자 배치, 편심 타설 금지. 강우 3 mm/h 이상이면 타설 중지(KOSHA)</td><td><span class="tag t-ok">확정</span> 산업안전보건기준에 관한 규칙 제334조</td></tr>
+</table>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl class="msg">
+  <dt>"… 에 zones.csv 와 pours.csv 가 있어야 합니다"</dt><dd>프로젝트 설정의 데이터 폴더에 두 파일이 있는지 확인하세요. 빈 양식은 <code>shoring\templates\</code> 에 있습니다.</dd>
+  <dt>"pours.csv 의 mix 값 … 은 쓸 수 없음. 가능한 값: …"</dt><dd>배합 이름을 안내에 나온 이름 중 하나로 똑같이 적으세요(예: 보통).</dd>
+  <dt>"pours.csv 의 zone_id 가 zones.csv 에 없음: …"</dt><dd>구역 번호 표기(예: <code>11F-A2</code>)가 모델과 다릅니다. 대시보드나 구역 특성에서 번호를 확인하세요.</dd>
+  <dt>"n층 타설일 … 이 아래층(…)보다 빠르거나 같습니다"</dt><dd>날짜를 잘못 적었을 가능성이 큽니다. 위층은 아래층보다 늦게 타설됩니다.</dd>
+</dl>
+</section>
+
+
+<section class="cmd" id="SplitImport">
+<h3>데이터 가져오기 ▾ <code>SplitImport</code></h3>
+<p class="meta">현장 입력 패널 · 분할 버튼 · 쓸 수 있을 때: 구역 있음</p>
+<h4>무엇을 하나요</h4>
+<p>센서·공시체·기상 세 가지 가져오기를 묶은 분할 버튼입니다. 버튼 아래 ▾ 를 누르면 목록이 펼쳐지고, 마지막에 쓴 항목이 버튼 위에 올라옵니다.</p>
+<h4>언제 쓰나요</h4>
+<p>매일 아침(센서·기상), 공시체 시험 결과가 나온 날.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">데이터 가져오기 ▾</span> 의 ▾ 를 누릅니다.</li><li>가져올 자료를 고릅니다: <a href="#CmdImportSensors">센서 자료</a> · <a href="#CmdImportCylinders">공시체 결과</a> · <a href="#CmdImportWeather">기상 자료</a>.</li><li>파일을 <span class="btn">찾아보기…</span> 로 고르고 <span class="btn">확인</span>.</li></ol>
+<h4>모델을 바꾸나요</h4><p>각 항목을 보세요.</p>
+<h4>판정 기준과 근거</h4><p>각 항목을 보세요.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>파일은 UTF-8(BOM 포함) CSV 를 씁니다. Excel 에서 저장할 때 "CSV UTF-8" 형식을 고르세요.</p>
+</section>
+
+
+<section class="cmd" id="CmdImportSensors">
+<h3>센서 자료 (업체 내보내기 CSV 가져오기) <code>CmdImportSensors</code></h3>
+<p class="meta">데이터 가져오기 ▾ 항목 · 쓸 수 있을 때: 구역 있음</p>
+<p class="tip"><b>툴팁</b>센서 업체 내보내기 CSV 를 읽어 데이터 폴더의 센서 기록에 합칩니다.</p>
+<h4>무엇을 하나요</h4>
+<p>센서 업체가 내보낸 CSV(CP949·UTF-8, 열 이름이 업체마다 달라도 됨)를 손으로 옮기지 않고 데이터 폴더의 <code>sensors.csv</code>(온도)·<code>sensor_strength.csv</code>(강도 열이 있으면)에 합칩니다. 열은 이름 일부로 찾습니다: <b>센서</b>(센서·sensor·serial·device·id), <b>시각</b>(시각·일시·날짜·시간·time·date), <b>온도</b>(온도·temp·°C), <b>강도</b>(강도·MPa·strength), 위치 <b>층·x·y</b>(있으면). 시각은 2026-11-26 8:00 · 2026/11/26 08:00:00 같은 모양을 읽어 분 단위로 맞춥니다.</p>
+<ul>
+  <li>위치가 파일에 없으면 이미 아는 같은 센서 ID 의 위치를 씁니다. <b>처음 보는 센서</b>는 가져오지 않고 "위치 없음" 으로 알려 줍니다 — <a href="#CmdFieldInput">현장 입력</a>에서 그 센서 위치를 먼저 넣은 뒤 다시 가져오세요.</li>
+  <li>같은 센서·같은 시각은 한 줄입니다(값이 다르면 새 값, 같은 파일을 다시 가져와도 늘지 않음). 시각을 못 읽거나 값이 빈 줄은 건너뛰고 수를 알려 줍니다.</li>
+</ul>
+<h4>언제 쓰나요</h4>
+<p>타설 후 매일, 센서 업체 앱·웹에서 받은 파일을 그대로 넣습니다. 계산은 다음 <a href="#CmdEvaluate">해체 판정</a> 때 합니다.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">데이터 가져오기 ▾</span> › <span class="btn">센서 자료</span>.</li><li>업체 CSV 를 고릅니다.</li><li>결과 창 "n줄 — 온도 a줄 새로 · b줄 바뀜 · 강도 … · 위치 없음 k" 를 확인하고 [판정].</li></ol>
+<p>열 이름으로 못 찾는 파일은 <code>python shoring\sensor_import.py &lt;파일&gt; &lt;데이터 폴더&gt; --map "열 이름=역할"</code>(역할: sensor_id·timestamp·temp_c·mpa·floor·x·y)로 가져옵니다.</p>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 데이터 폴더의 <code>sensors.csv</code>·<code>sensor_strength.csv</code> 만 바꿉니다(다른 열·줄 순서는 그대로). 다음 [판정] 때 센서·구역 값(<code>SNS_*</code>·<code>SHR_fEst</code>)이 갱신됩니다. 계산은 <code>shoring/sensor_import.py</code> 와 같습니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>내용</th><th>근거</th></tr>
+  <tr><td>강도식</td><td>f(t) = (fck + Δf)·exp{s[1 − √(28/t)]}, Δf = 4 (fck ≤ 40)</td><td><span class="tag t-ok">확정</span> KDS 14 20 10</td></tr>
+  <tr><td>재령</td><td>온도 보정 재령 (기온·센서 온도로 계산)</td><td>식 <span class="tag t-ok">확정</span> / 배합 계수 일부 <span class="tag t-as">가정</span></td></tr>
+  <tr><td>공간 보간</td><td>IDW(p = 2), 0.5 m 격자 → 구역 최소</td><td><span class="tag t-as">가정</span> 팀 방법</td></tr>
+  <tr><td>정확도 한계</td><td>성숙도 보정곡선 ±10 % 관리 (WisDOT)</td><td>문헌 (정의서 §3.3)</td></tr>
+</table>
+<p>센서 값은 <b>위치 근거</b>입니다. 센서만으로는 해체 승인 요청을 할 수 없고, 공시체 결과가 있어야 합니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>"센서·시각·온도(또는 강도) 열을 찾지 못함" — 위 --map 으로 가져오세요. 판정 근거에 "[엔진] 강도 예측 — 공시체 시험으로 확인 필요"가 보이면 그 구역은 공시체 시험 결과를 기다리는 중입니다.</p>
+</section>
+
+<section class="cmd" id="CmdImportCylinders">
+<h3>공시체 결과 <code>CmdImportCylinders</code></h3>
+<p class="meta">데이터 가져오기 ▾ 항목 · 쓸 수 있을 때: 타설 기록 있음 (구역 상자를 고르면 나오는 탭의 "공시체 입력"과 같은 창)</p>
+<p class="tip"><b>툴팁</b>현장양생 공시체 시험 결과를 기록합니다.</p>
+<h4>무엇을 하나요</h4>
+<p>현장양생 공시체 압축강도 시험 결과(3개 값)를 데이터 폴더 <code>cylinders.csv</code> 에 더하고, 평균을 해체 판정의 기준 근거로 씁니다 — 휴대폰 <a href="#CmdFieldInput">현장 입력</a> [공시체]와 같은 창 항목·검사(타설일 이후·미래 아님·현장양생 방법·강도 0 초과–100 MPa, 선택 채취 정보). 판정 기준일이 있으면 판정을 다시 계산합니다. [프로젝트 설정]에서 예측일 현장 보정을 켜면 공시체 3건 이상부터 예측일 곡선도 맞춥니다.</p>
+<p><b>타설 묶음</b>: 창 위 <b>타설 묶음</b> 칸에서 묶음(<a href="#CmdPour">타설 등록</a> 때 넣은 번호)을 고르면 구역 목록이 꺼지고, 한 줄(구역 빈칸 + 묶음 번호)로 묶음의 <b>모든 구역</b>에 같은 시험을 씁니다. 같은 시험일에 그 구역 자기 기록이 있으면 자기 기록이 우선입니다. 판정 근거 줄에 <code>공시체 (타설 P-9F-1 · 6구역 공통) 25.1 MPa</code>, 검측요청서 근거표·조기 탈형 검토서·슬래브 이력서에 같은 묶음 표기가 붙습니다. 현장양생 보정 곡선은 묶음 시험을 구역 수만큼 세지 않고 1건으로 셉니다. <a href="#ctx-zone_info">구역 정보</a> 창에서도 '타설 묶음 전체에'를 체크해 같은 기록을 넣을 수 있습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>공시체 시험 결과가 나온 날마다. 대시보드에 노랑(공시체 시험 필요) 구역이 있으면 그 구역 시험을 먼저 하세요.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">데이터 가져오기 ▾</span> › <span class="btn">공시체 결과</span> (또는 구역 상자를 고르고 탭의 <span class="btn">공시체 입력</span>).</li><li>구역 하나(타설 기록이 있는 구역)·시험일·양생 방법(현장봉함·현장수중·현장기건)·강도 3개 MPa 를 넣습니다. 채취 정보(타설 번호·채취 시각·레미콘 회사·차량 번호·보관 위치)는 선택.</li><li><span class="btn">기록</span>. 틀리면 창 아래 빨간 한 줄.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>예 — 판정 기준일이 있으면 판정을 다시 계산해 구역·동바리 판정 값을 고칩니다(실행 취소 "Revit On-Site: 공시체 결과" 한 번). 기록 자체는 데이터 폴더 <code>cylinders.csv</code>.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>내용</th><th>근거</th></tr>
+  <tr><td>강도 확인 근거</td><td>현장양생 공시체 (KCI-CT 118) 또는 타설 콘크리트 압축강도 시험</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 3.3.1(3)(4), KCS 21 50 05:2023 3.9.2(2)</td></tr>
+  <tr><td>시험 빈도</td><td>하루 1회·층별·구획별, 용도 "동바리 해체 시기 결정" — 현장양생 공시체 의무(고시 제2024-879호)</td><td><span class="tag t-part">부분 확인</span> 국토부 보도자료 2024-12-17 전재본</td></tr>
+  <tr><td>해체 기준</td><td>공시체 평균 ≥ fck (다층)</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 표 3.3-1</td></tr>
+</table>
+<p>참고: 공시체는 실제 부재보다 빨리 식을 수 있습니다(문헌: 7일 −19 %, Kim 2024). 그래서 센서 구역 최소값도 함께 봅니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl class="msg">
+  <dt>"[실적] … 공시체 미달 → 재시험 필요"</dt><dd>그 날짜 시험값이 기준에 못 미쳤습니다. 다음 재령에 다시 시험해 결과를 넣으세요. 그 전까지 구역은 존치입니다.</dd>
+  <dt>"[실적] 공시체 … 기준 충족"</dt><dd>공시체 근거를 충족했습니다. 나머지 조건은 <a href="#CmdEvaluate">해체 판정</a> 이 확인합니다.</dd>
+</dl>
+</section>
+
+<section class="cmd" id="CmdImportWeather">
+<h3>기상 자료 (기상청 ASOS 파일 가져오기) <code>CmdImportWeather</code></h3>
+<p class="meta">데이터 가져오기 ▾ 항목</p>
+<p class="tip"><b>툴팁</b>일평균 기온(기상청 ASOS)을 읽습니다.</p>
+<h4>무엇을 하나요</h4>
+<p>기상청 기상자료개방포털에서 내려받은 <b>ASOS 일자료 또는 시간자료 CSV</b>(CP949·UTF-8 모두)를 골라 날짜별 평균기온을 데이터 폴더 <code>weather.csv</code>(date, avgTa, source)에 합칩니다. 시간자료는 날짜별 평균(소수 1자리)으로 바꿉니다. 같은 날짜가 이미 있으면 새 값으로 바꾸고, 출처 열(source)에 "기상청 ASOS 지점번호 지점명 [입력]"을 남깁니다. 출처가 한 값이면 판정 근거의 "기상 예측(센서 없음)" 뒤에 그 출처 이름이 붙습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>매일 아침. 센서가 없는 구역은 기온으로만 강도를 예측합니다.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">데이터 가져오기 ▾</span> › <span class="btn">기상 자료</span>.</li><li>ASOS CSV 파일을 고릅니다 (열: 지점·지점명·일시·평균기온(°C) 또는 기온(°C)).</li><li>결과 창 "기상청 ASOS 108 서울 [입력]: n일 — a일 새로 · b일 바뀜" 을 확인합니다. 다음 [판정] 부터 반영됩니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 데이터 폴더의 <code>weather.csv</code> 만 바꿉니다(강도 추정에 쓰는 기온 자료).</p>
+<h4>판정 기준과 근거</h4>
+<p>양생 최저 온도(보온 5 °C / 가열 15 °C) 아래 기온은 그 값으로 계산합니다 <span class="tag t-as">가정</span>. 일평균 4 ℃ 이하 등은 한중 콘크리트 조건입니다 <span class="tag t-ok">확정</span> KCS 14 20 40:2024 1.1(2).</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>"열을 찾지 못함" — ASOS 일자료(평균기온)·시간자료(기온) CSV 가 아닙니다. 포털에서 형식 CSV 로 다시 받으세요. 판정 근거에 "기상 예측(센서 없음)"이 보이면 그 구역은 센서 없이 기온으로만 추정한 값입니다.</p>
+</section>
+
+
+<section class="cmd" id="CmdEarlyFormReview">
+<h3>조기 탈형 검토서 <code>CmdEarlyFormReview</code></h3>
+<p class="meta">보고·공유 패널 이름 옆 ▾ · 쓸 수 있을 때: 판정 있음</p>
+<p>고른 구역(없으면 필러 동바리 판정 "해체 승인 요청 가능" 구역, 그것도 없으면 판정된 최상층 구역 — 검토 결과라 판넬 존치여도 만듭니다)마다 조기 탈형 구조 검토서 초안 A4 한 장(<code>조기탈형검토서_&lt;구역&gt;_YYYYMMDD.html</code>): ① 14 MPa ② 10 ℃ 이상 4일 ③ 위층 하중비 ≤ 1.0 ④ 구조검토서 기록, 판넬 탈형 가능일(예측), 필러 본수(모델), 빈 서명란. 대시보드 판정 근거에도 "판넬 단계" 한 줄이 보이고, 판정 근거 창의 [조기 탈형 검토서 만들기]·대시보드 칸 우클릭 [조기 탈형 검토서 (이 구역)]으로도 만듭니다(구역을 고르면 리본이 '수정' 탭으로 바뀌므로). 판정표에는 넣지 않습니다. 초안이며 해체 지시·승인이 아닙니다.</p>
+</section>
+
+<!-- ============================================================ ④ 판정 -->
+<h2>④ 판정</h2>
+
+<section class="cmd" id="CmdEvaluate">
+<h3>해체 판정 <code>CmdEvaluate</code></h3>
+<p class="meta">판정 패널 · 큰 버튼 · 쓸 수 있을 때: 타설 기록 있음</p>
+<p class="tip"><b>툴팁</b>기준일에 어느 구역 동바리를 해체 승인 요청할 수 있는지 판정합니다.</p>
+<h4>무엇을 하나요</h4>
+<p>기준일에 대해 모든 구역을 아래 순서로 판정하고, 결론("해체 승인 요청 가능" / "존치")과 사유·예측 도달일을 구역에 기입한 뒤 색을 칠합니다.</p>
+<ol>
+  <li><b>규칙</b> (구역마다): ① 기준일 이전 날짜의 타설만 셉니다(공정 계획 행은 빼고). ② 이 구역과 평면이 겹치는 위층 구역이 모두 타설된 층을 층 순서로 세어(B1 → 1F 도 1개층) 존치 층수 ≥ 3(타설층 포함), 또는 최상층까지 타설 완료. ③ 그 지지층들이 다음 타설을 받칠 때 각각 ≥ 14 MPa, 하중비 ≤ 1.0 — 강도는 기준일의 구역 최소 추정값(보수 측) <span class="tag t-as">가정</span>. ③ 미달이면 게이트 "NG(지지층)" → 존치</li>
+  <li><b>공시체(기준 근거)</b>: 그 층·구역 현장양생 공시체 평균 ≥ 기준(다층 = fck)</li>
+  <li><b>센서(위치 근거)</b>: 센서 보간 구역 최소 강도 ≥ 기준</li>
+</ol>
+<p>1–3 모두 충족 → <b>해체 승인 요청 가능</b>(연두). 하나라도 미달 → <b>존치</b>(파랑 또는 주황) + 사유 + 예측 도달일. 공시체가 없으면 → <b>공시체 시험 필요</b>(노랑): 센서만으로는 요청할 수 없습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>매일 데이터를 넣은 뒤. 해체 검측요청서를 만들기 직전.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">판정</span> 패널 › <span class="btn">해체 판정</span> (또는 대시보드의 <span class="btn">판정</span>).</li>
+  <li><b>기준일</b>을 고릅니다(<span class="btn">오늘</span> 이 기본). 미래 날짜를 고르면 예측 판정입니다.</li>
+  <li><span class="btn">확인</span>.</li>
+  <li>결과 창에서 "해체 승인 요청 가능" 구역 목록과 경고를 확인합니다.</li>
+  <li>구역을 골라 <a href="#CmdReason">판정 근거</a> 로 사유를 봅니다.</li>
+</ol>
+<h4>판정표 파일과 슬래브 두께(slab_mm)</h4>
+<p>[판정] 을 하면 데이터 폴더에 <code>판정표_YYYYMMDD.csv</code>(구역별 결론·사유·강도·규칙 게이트, <code>shoring/evaluate.py</code> 판정표와 같은 열·바이트)를 쓰고 판정 이력 <code>eval_log.csv</code> 에 한 줄을 더합니다. 시연 샘플 폴더(<code>shoring\sample</code>)에는 쓰지 않습니다.</p>
+<p>하중 비교에 쓰는 슬래브 두께는 <code>zones.csv</code> 의 <code>slab_mm</code> 열입니다. [판정] 때 모델에서 구역 평면과 겹치는 그 층 구조 슬래브 두께(최댓값)를 읽어, 열이 없으면 열을 더하고 빈칸만 채웁니다(있는 값은 그대로). 못 찾으면 빈칸 → 210 mm <span class="tag t-as">가정</span>. 판정 사유에 "슬래브 n mm (모델)" 처럼 출처가 붙습니다.</p>
+<h4>모델을 바꾸나요</h4>
+<p>예. 구역의 상태(<code>SHR_Status</code> 3·4·5·9), 사유(<code>SHR_Reason</code>), 예측 해체 가능일(<code>SHR_DueDate</code>), 필요 존치 층수를 기입합니다. 하중비(<code>SHR_LoadRatio</code>)는 아직 쓰지 않습니다 — 지지층 검토에서 미달일 때만 사유 글에 하중비가 나옵니다. 사람이 기록한 6(감리 승인 기록)·7(해체 완료)·8(재받침)은 덮어쓰지 않습니다. 실행 취소 한 번으로 되돌릴 수 있습니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>기준</th><th>근거</th></tr>
+  <tr><td>다층 동바리 해체 (슬래브 밑면)</td><td>fck 이상 (fck 24 → 24 MPa)</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 표 3.3-1</td></tr>
+  <tr><td>존치 층수</td><td>타설층 포함 3개층 이상 (또는 재설치)</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 3.3.2(2)</td></tr>
+  <tr><td>지지 슬래브</td><td>각 지지층 14 MPa 이상</td><td><span class="tag t-ok">확정</span> 해체 가이드라인 2023.1 2.1.2(2)⑧ (하중비교법 적용 조건)</td></tr>
+  <tr><td>하중비교</td><td>타설 하중 1.2(5.44 + 0.5·n) + 1.6·2.5 (n = 존치 층수; n = 3 이면 12.33 kN/m²) ≤ 지지층 여유 합 (1.2·1.64 + 1.6·2.0 = 5.17 /층; 3개층 15.50) → 하중비 ≤ 1.0</td><td><span class="tag t-ok">확정</span> 가이드라인 2.1.2(2) 사례. 0.5 kN/m²/층(동바리 자중)과 설계 하중은 예제 가정치 → 구조계산서 값 <span class="tag t-in">입력</span></td></tr>
+  <tr><td>지지층 여유 감소</td><td>지지층 여유에 √(f/fck) 를 곱해 보수적으로 줄임</td><td><span class="tag t-as">가정</span> 가이드라인에 없는 팀 추가 (보수 측)</td></tr>
+  <tr><td>강도 근거</td><td>현장양생 공시체 (센서는 위치 근거, 보조)</td><td><span class="tag t-ok">확정</span> KCS 14 20 12:2024 3.3.1</td></tr>
+  <tr><td>캔틸레버·차양·지하주차장</td><td>fck 100 % 확인 전 동바리 해체 금지</td><td><span class="tag t-ok">확정</span> 가이드라인 3.2 지지용 동바리 ⑥</td></tr>
+  <tr><td>중간 보조판 거푸집</td><td>바꾸어 세움 없이 28일 존치</td><td><span class="tag t-ok">확정</span> 가이드라인 3.2.8(1)⑥</td></tr>
+</table>
+<p>참고 기준 (이 버튼의 결론에는 쓰지 않음): 측면 거푸집 5 MPa(내구성 중요 시 10), 단층 슬래브 밑면 2/3 fck 이상 그리고 14 MPa 이상(fck 24 → 16 MPa) <span class="tag t-ok">확정</span> KCS 14 20 12:2024 표 3.3-1.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<dl class="msg">
+  <dt>"해체 승인 요청 가능: …"</dt><dd>목록의 구역은 감리에게 승인 요청을 할 수 있습니다. <a href="#CmdReport">검측요청서</a> 를 만들고, 감리 승인 전에는 해체하지 않습니다.</dd>
+  <dt>"존치 (공시체 미달)" — "공시체 평균 x < 24 MPa"</dt><dd>공시체 평균이 기준 미만입니다. 다음 재령 공시체 결과를 넣고 다시 판정하세요.</dd>
+  <dt>"존치 (구역 최소 강도 미달)" — "구역 최소 추정 x < 24 MPa (좌표 …)"</dt><dd>공시체는 충족했지만 구역 안 불리한 위치(그늘·단부 등)의 추정 강도가 낮습니다. 좌표 위치의 센서 값을 확인하세요.</dd>
+  <dt>"공시체 시험 결과 없음" → 공시체 시험 필요 (노랑)</dt><dd>강도 추정과 무관하게 현장양생 공시체 결과가 없으면 이 상태입니다(추정이 미달이면 사유에 함께 표시). 그 구역 현장양생 공시체 시험을 하고 <a href="#CmdImportCylinders">공시체 결과</a> 를 넣으세요.</dd>
+  <dt>"위로 n개층만 타설됨 (타설층 포함 3개층 존치 필요)"</dt><dd>존치 층수 조건입니다. 위층 타설이 진행되면 자동으로 풀립니다.</dd>
+  <dt>"n층 타설 때 아래 슬래브 부족: 하중비 …, 지지 최소 강도 … MPa → 아래층 동바리 해체를 늦추거나 재받침"</dt><dd>위층 타설 하중을 아래 지지층들이 감당하지 못합니다. 존치 기간 연장이나 재받침을 감리·구조 검토자와 협의하세요.</dd>
+  <dt>주황(존치 연장 경고)</dt><dd>예측 해체 가능일이 지났는데 아직 기준 미달입니다. 공시체 시험 일정과 양생 조건(보온·가열)을 점검하세요.</dd>
+</dl>
+</section>
+
+<section class="cmd" id="CmdDashboard">
+<h3>대시보드 <code>CmdDashboard</code></h3>
+<p class="meta">판정 패널 · 큰 버튼 · 쓸 수 있을 때: 항상</p>
+<p class="tip"><b>툴팁</b>층·구역 현황 창을 열거나 닫습니다.</p>
+<h4>무엇을 하나요</h4>
+<p>특성 창처럼 붙였다 뗄 수 있는 "Revit On-Site" 창을 열거나 닫습니다. 위에서부터:</p>
+<ol>
+  <li><b>오늘 할 일</b> 줄 (v6.2): <span class="btn">① 판정</span> → <span class="btn">② 오늘 볼 것</span>(목록 펼침) → <span class="btn">③ 요청서</span>(리본 검측요청서와 같음) → <span class="btn">④ 층 표지</span> 순서로 누르면 하루 일이 끝납니다. 오른쪽 <b>역할 보기</b>: 전체·공무 = 모두, 안전 = 무단 해체 의심·타설 보류·순찰 확인 없음·감리 확인 못 넣음 줄과 ②④, 품질 = 시험 필요·입회 없음·상태 바뀜·감리 확인 못 넣음 줄과 ①②③ — 보이는 것만 바뀌고 판정·기능은 같습니다(이 PC 에 기억).</li>
+  <li><b>기준일</b> 줄: 날짜 선택 + <span class="btn">오늘</span> + <span class="btn">판정</span></li>
+  <li><b>요약 칩</b>: 해체 승인 요청 가능 n구역 · 존치 n구역 · 공시체 시험 필요 n구역, 승인 기록이 있으면 감리 승인 기록 · 해체 완료 · 재받침 n구역</li>
+  <li><b>층 × 구역 격자</b>: 위층이 위, 칸 색 = <a href="#status">상태 색</a>, 칸 글자 = 상태 약자(미검·합격·!결함·양생·공시·요청·감리·완료·재받침·존치 — 색만으로 구분하지 않게) + 예측 해체일(MM-DD)</li>
+  <li><b>강도 예측 타임라인</b>: 날짜 슬라이더 + ▶ 재생 / ❚❚ / 속도(1일·1주/초) + 강도 예측 그림 (<a href="#CmdTimeline">강도 타임라인</a>)</li>
+  <li><b>경고 목록</b>: 심각한 것부터 기호와 함께 — ■ 무단 해체 의심 → ▲ 타설 보류 → ▲ 존치(사유) → ● 그 밖(재계획 등). 한 줄이 길면 두 줄까지, 전체는 올려 두면 보입니다.</li>
+</ol>
+<p><b>오늘 볼 것</b>(요약 칩 위 빨간 줄)을 누르면 <b>층별 토글</b>이 펼쳐집니다 — 층 줄(예: "13F ▸ ■ 무단 해체 의심 1 · 요청 가능 3 · 존치 2", 위층부터)을 누르면 그 층의 알림 줄과 요청 가능 구역 줄이 펼쳐지고, 줄을 누르거나 Space·Enter 를 누르면 그 구역을 선택·확대합니다. ■·▲ 알림이 있는 층은 맨 위에 두고 처음 나올 때 펼칩니다(무단 해체 의심이 처음 나오면 목록 자체도 펼침). 펼침·접힘은 날짜를 옮기거나 새로 고쳐도 고른 대로 남습니다. 대시보드는 위에서 아래로 한 줄로 굴러갑니다 — 기준일 → 강도 예측 타임라인(재생·사건 단추) → <b>강도 그림(높이 고정, 늘 첫 화면)</b> → 그날 줄 → 오늘 볼 것·요약 → 색·범례 → 층×구역 격자 → 동바리 표시 → 경고. 창이 낮으면 그림은 그대로 두고 아래 칸이 내려가므로 스크롤하세요(격자·경고는 칸 안에서 먼저 스크롤). 결과 창은 맨 위 굵은 요약 → ▲ 경고 → 접는 <b>상세</b> 순서입니다.</p>
+<h4>언제 쓰나요</h4>
+<p>매일. 현장 회의나 감리 협의 때 화면에 띄워 둡니다.</p>
+<h4>순서</h4>
+<ol>
+  <li><span class="btn">판정</span> 패널 › <span class="btn">대시보드</span>. 오른쪽(특성 창 옆)에 창이 열립니다.</li>
+  <li>칸을 한 번 누르면 모델에서 그 구역이 선택·확대됩니다.</li>
+  <li>칸을 두 번 누르면 그 구역의 <b>판정 근거</b>(판정·예측 해체일·사유·판정 규칙 근거 한 줄 — 휴대폰 구역 카드에도 같은 줄), <b>판넬 조기 탈형</b>, <b>한중 초기양생 경고</b>(있을 때), <b>입력 점검 경고</b>(pours.csv fck 가 프로젝트 기본 fck 와 다름 · 판정에 쓰는 공시체 3개의 범위가 평균의 15 % 를 넘음 <span class="tag t-as">가정</span> — 경고만, 판정은 그대로), <b>무단 해체 관측</b>(감리 승인 기록 없이 동바리 없음 — 확인 필요), <b>타설 전 확인</b>, <b>근거 n/8</b> 이 열립니다.</li>
+  <li>다시 누르면 창이 닫힙니다.</li>
+</ol>
+<p>버튼은 키보드(<kbd>Tab</kbd> → <kbd>Space</kbd>/<kbd>Enter</kbd>)와 화면 읽기 프로그램으로도 누를 수 있습니다. 마우스로 누르면 처리 뒤 키보드 포커스가 Revit 뷰로 돌아가 단축키를 그대로 쓸 수 있습니다.</p>
+<h4>판넬 조기 탈형 (칸 두 번 누르기)</h4>
+<p>슬래브 거푸집 판넬만 먼저 떼고 필러 동바리는 남기는 단계(매 사이클 타설 3–4일 뒤 결정)를 따로 보여 줍니다. 판정표·판정 근거 창 '판넬 조기 탈형' 줄은 강도 ①만 봅니다: 구역 최소 추정 강도와 현장양생 공시체(있으면) 중 낮은 값이 14 MPa 이상이면 "14 MPa 도달 — 판넬 조기 탈형 4조건 검토 대상", 아니면 "14 MPa 미달 — 판넬 존치" <span class="tag t-ok">확정</span> 정의서 §3.2, 가이드라인(구조계산 + 14 MPa 이상). <b>"판넬 탈형 요청 가능 (필러 존치)"</b>은 아래 '판넬 단계' 줄의 4조건(① 14 MPa ② 10 ℃ 이상 4일 ③ 위층 하중비 ≤ 1.0 ④ 구조검토서 기록)을 모두 갖췄을 때만 나옵니다. 동바리 해체 판정과는 별개입니다.</p>
+<p><b>② 10 ℃ 이상 4일의 온도</b> (v6.2): 구역 3 m 안 온도 센서의 날마다 평균(센서가 여럿이면 낮은 값)을 먼저 쓰고, 센서 기록이 없는 날만 기상 자료(weather.csv) → 평년 기온 <span class="tag t-as">가정</span> 순입니다. 센서 날은 실측이라 양생 최저 온도(보온 가정)를 더하지 않습니다 — 가열 보양 현장은 센서를 달면 실제 양생 온도로 셉니다. 근거 줄 끝에 "(온도: 센서 S1·S2 일평균)"처럼 출처가 붙고, 벽·기둥 측면 무시험 일수의 평균기온도 같은 규칙입니다.</p>
+<h4>근거 n/8 (칸 두 번 누르기)</h4>
+<p>근거 줄 끝에는 <b>타설 입회</b>가 붙습니다: pours.csv 에 supervisor_present(예/아니오)·watcher(이름) 열이 있으면 그 구역 기록이 빈 경우 "입회: 타설 입회 기록 없음 — …", 두 열이 없으면 "참고: 타설 입회 — pours.csv 에 supervisor_present·watcher 열을 넣으면 점검합니다". 판정은 바꾸지 않습니다.</p>
+<p>마지막 판정일(없으면 오늘)까지 그 구역이 갖춘 해체 절차 서류 단계입니다. 예: "근거 연속 3/8 (12-31 기준) · 갖춘 단계: 1 설치검측 11-23 · 2 작업계획서 12-20 · 3 공시체 12-30 · 5 검측요청 12-31". 연속 n = 1 부터 빈칸 없이 이어진 마지막 단계(위 예는 4 해체전점검이 없어 3). 순서가 빠지면 "경고: 해체(12-31) 전에 감리확인 기록 없음" 처럼 한 줄 더 나옵니다. 서류는 <a href="#CmdEvidence">근거 원장</a> 에서 넣습니다.</p>
+<h4>타설 전 확인 (칸 두 번 누르기)</h4>
+<p>이름: 휴대폰에서 넣는 것은 <b>동바리 확인</b>(입력, <code>shore_checks.csv</code>), 대시보드에서 보는 것은 <b>타설 전 확인</b>(결과)입니다.</p>
+<p>그 구역을 <b>지금 타설하려 할 때</b> 아래 3개층에서 평면이 겹치는 구역마다 동바리가 서 있는지 봅니다. 기준 시각은 마지막 판정일 09:00 입니다.</p>
+<ul>
+  <li>○ = 최근 24시간 안에 휴대폰 <b>동바리 확인</b> "예" 가 있음. ✕ = 확인 없음·24시간 넘음·"아니오" 기록·<b>해체 완료</b> 기록(재받침 기록 없이는 지지 안 됨).</li>
+  <li>모두 ○ 이면 "타설 요청 가능", 하나라도 ✕ 이면 "타설 보류" 와 구역별 사유. 이미 타설된 구역은 "이미 타설됨".</li>
+  <li>'없다는 기록이 없음'이 아니라 '있다는 최근 확인'을 요구합니다 — 해체는 협력업체가 해서 기록이 비기 쉽기 때문입니다(화정 2022 사조위: 결정적 단계는 하부 동바리가 빠진 상태의 상층 타설) <span class="tag t-ok">확정</span>. 24시간은 매일 확인 운영 기준 <span class="tag t-as">가정</span>.</li>
+</ul>
+<h4>지표 (요약 칩 위 한 줄)</h4>
+<p>판정 뒤 대시보드 요약 칩 위(오늘 볼 것 위)에 <b>지표</b> 한 줄이 나오고, 올려 두면 다섯 줄이 보입니다: 감리 확인 시간(요청 제출 → 감리 승인 기록, 서명 일시가 있으면 그 시각 — 중앙값·구역별) · 타설 전 동바리 확인(다음 층 타설 전 대상 구역 중 최근 24시간 "예" 비율) · 무단 해체 의심 구역 수 · 요청 가능 구역 근거 원장 평균 n/8 · 판정 근거에 [가정] 이 든 구역 수. 기존 기록을 세기만 하며 판정은 바꾸지 않습니다(docs/impact_map.md 1절). 툴팁 아래에는 최근 5회 판정의 <b>추이</b>(판정 이력 <code>eval_log.csv</code> 의 판정 시각마다 다시 잰 값, 예: 타설 전 확인 0/18 → 3/18 · [가정] 18/24 → 18/24)가 붙습니다(<code>shoring/kpi_trend.py</code> 와 같음).</p>
+<p>타임라인 영역의 <b>범례</b>는 색 견본 칩 줄입니다 — 추정 강도 ÷ fck 구간(참고) 또는 근거 단계 0–8. 층×구역 격자는 처음 열 때 판정된 최상층 바로 위 층이 맨 위에 오도록 굴려 둡니다(그 뒤 직접 굴린 위치는 그대로).</p>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 창을 여닫기만 합니다. <span class="btn">판정</span> 을 누르면 <a href="#CmdEvaluate">해체 판정</a> 과 같이 기입합니다. 슬라이더는 뷰 색을 임시로만 바꿉니다.</p>
+<h4>판정 기준과 근거</h4>
+<p><a href="#CmdEvaluate">해체 판정</a> 과 같습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>경고 예: "2026-10-23 에 동바리 5개층분 동시 필요" — 강도가 늦게 나와 동바리가 더 오래 서 있어야 한다는 뜻입니다 (공정 계획 경고).</p>
+</section>
+
+<section class="cmd" id="TglShowStatus">
+<h3>표시: 상태 <code>TglShowStatus</code></h3>
+<p class="meta">판정 패널 · 라디오 토글(상태 / 강도 / 일정 중 하나) · 쓸 수 있을 때: 3D·평면 뷰</p>
+<p class="tip"><b>툴팁</b>활성 뷰의 구역 색을 바꿉니다 (임시 재지정, 모델은 그대로).</p>
+<h4>무엇을 하나요</h4>
+<p>활성 뷰의 구역을 <a href="#status">상태 색</a>(0–9)으로 칠합니다.</p>
+<h4>언제 쓰나요</h4>
+<p>판정 결과를 모델에서 볼 때. 기본 표시입니다.</p>
+<h4>순서</h4>
+<ol><li>3D 또는 평면 뷰를 활성화합니다.</li><li><span class="btn">판정</span> 패널 › <span class="btn">상태 표시</span>.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 뷰의 임시 그래픽 재지정입니다.</p>
+<h4>판정 기준과 근거</h4>
+<p>색 기준은 <a href="#status">상태 색 범례</a>.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>회색이면 일람표·시트 뷰입니다. 3D 또는 평면 뷰로 바꾸세요.</p>
+</section>
+
+<section class="cmd" id="TglShowStrength">
+<h3>표시: 강도 <code>TglShowStrength</code></h3>
+<p class="meta">판정 패널 · 라디오 토글 · 쓸 수 있을 때: 3D·평면 뷰</p>
+<p class="tip"><b>툴팁</b>활성 뷰의 구역 색을 바꿉니다 (임시 재지정, 모델은 그대로).</p>
+<h4>무엇을 하나요</h4>
+<p>활성 뷰의 구역을 강도 값(공시체·센서 추정)에 따라 칠합니다. 같은 층 안에서 그늘·단부 구역이 늦게 올라오는 것을 볼 수 있습니다.</p>
+<h4>언제 쓰나요</h4>
+<p>어느 구역이 기준에 가까운지, 센서·공시체 위치를 정할 때.</p>
+<h4>순서</h4>
+<ol><li>3D 또는 평면 뷰를 활성화합니다.</li><li><span class="btn">판정</span> 패널 › <span class="btn">강도 표시</span>.</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 임시 재지정입니다.</p>
+<h4>판정 기준과 근거</h4><p>색 구간은 아직 명세에 정해지지 않았습니다. 판정 기준값(fck, 14 MPa)은 <a href="#CmdEvaluate">해체 판정</a>.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>강도 값이 없는 구역은 색이 바뀌지 않습니다. <a href="#CmdFieldInput">현장 입력</a>(공시체·센서)이나 <a href="#CmdImportSensors">데이터 가져오기 ▾ › 센서 자료</a>로 값을 먼저 넣고 [해체 판정]을 다시 하세요.</p>
+</section>
+
+<section class="cmd" id="TglShowSchedule">
+<h3>표시: 일정 <code>TglShowSchedule</code></h3>
+<p class="meta">판정 패널 · 라디오 토글 · 쓸 수 있을 때: 3D·평면 뷰</p>
+<p class="tip"><b>툴팁</b>활성 뷰의 구역 색을 바꿉니다 (임시 재지정, 모델은 그대로).</p>
+<h4>무엇을 하나요</h4>
+<p>활성 뷰의 구역을 일정(타설일·예측 해체 가능일)에 따라 칠합니다.</p>
+<h4>언제 쓰나요</h4>
+<p>다음 주 해체 승인 요청이 예상되는 구역을 미리 볼 때.</p>
+<h4>순서</h4>
+<ol><li>3D 또는 평면 뷰를 활성화합니다.</li><li><span class="btn">판정</span> 패널 › <span class="btn">일정 표시</span>.</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 임시 재지정입니다.</p>
+<h4>판정 기준과 근거</h4><p>색 구간은 아직 명세에 정해지지 않았습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>예측 해체일이 없는 구역(판정 전)은 색이 바뀌지 않습니다. <a href="#CmdEvaluate">해체 판정</a> 을 먼저 하세요.</p>
+</section>
+
+<section class="cmd" id="CmdReason">
+<h3>판정 근거 <code>CmdReason</code></h3>
+<p class="meta">판정 패널 슬라이드아웃(패널 이름 옆 ▾) · 작은 버튼 · 쓸 수 있을 때: 구역 선택 · 수정 | 동바리 구역 탭·우클릭 메뉴 "판정 근거"에도 있음</p>
+<p class="tip"><b>툴팁</b>선택한 구역의 공시체·센서·존치 층수 근거를 보여 줍니다.</p>
+<h4>무엇을 하나요</h4>
+<p>선택한 구역의 <b>검측 결과</b>를 비교 줄로만 보여 줍니다 (대시보드 칸 두 번 누르기·우클릭, 리본·상황별 탭 [판정 근거] 모두 같은 창). 맨 위 = 결론 한 줄, 그 아래 "측정값 ≥ 기준 ✓/✕":
+공시체(현장양생 3개 평균) · 센서 구역 최소(구역 3 m 안 센서가 있을 때만) · 존치 층수(위로 타설된 층) · 지지층마다 그 층 최소 구역 강도 · 하중비 · 판넬 단계 ①–④. 공시체가 없으면 측정 칸은 비우고 "예상 … MPa (양생 추정, 참고)".
+경고(무단 해체 의심 등)는 ⚠ 한 줄씩. 기준값·단위·출처는 매번 쓰지 않고 <a href="#CmdProjectSetup">프로젝트 설정</a> › 적용 기준 한 곳에 있습니다. [조기 탈형 검토서 만들기] 로 그 구역 검토서 초안.</p>
+<h4>언제 쓰나요</h4>
+<p>해체 승인 요청 전, 감리가 근거를 물을 때, 존치 사유를 확인할 때.</p>
+<h4>순서</h4>
+<ol><li>모델이나 대시보드에서 구역을 하나 고릅니다.</li><li><a href="#ctx-zone">수정 | 동바리 구역</a> 탭 › <span class="btn">판정 근거</span> (또는 <span class="btn">판정</span> 패널 이름 옆 ▾ › 판정 근거, 우클릭 › 판정 근거 보기, 대시보드 칸 두 번 클릭).</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 보기만 합니다.</p>
+<h4>판정 기준과 근거</h4><p><a href="#CmdEvaluate">해체 판정</a> 의 표와 같습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>버튼이 회색이면 구역을 먼저 하나 고르세요(동바리가 아니라 구역 상자).</p>
+</section>
+
+<section class="cmd" id="CmdLegend">
+<h3>색 범례 <code>CmdLegend</code></h3>
+<p class="meta">판정 패널 슬라이드아웃(패널 이름 옆 ▾) · 작은 버튼 · 쓸 수 있을 때: 뷰</p>
+<p class="tip"><b>툴팁</b>상태 색 범례를 뷰에 배치합니다.</p>
+<h4>무엇을 하나요</h4><p><a href="#status">상태 색 범례</a> 를 활성 뷰(또는 시트)에 놓습니다.</p>
+<h4>언제 쓰나요</h4><p>제출용 시트를 만들 때.</p>
+<h4>순서</h4><ol><li>범례를 놓을 뷰를 엽니다.</li><li><span class="btn">판정</span> 패널 이름 옆 ▾ › <span class="btn">색 범례</span>, 놓을 위치를 클릭합니다.</li></ol>
+<h4>모델을 바꾸나요</h4><p>예. 뷰에 범례 요소를 추가합니다(건물 요소는 그대로).</p>
+<h4>판정 기준과 근거</h4><p>판정하지 않습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>전용 안내 문구가 아직 정해지지 않았습니다.</p>
+</section>
+
+<section class="cmd" id="CmdCriteria">
+<h3>판정 기준 보기</h3>
+<p class="meta">버튼은 없앴습니다 (57차 정리) — 기준값·단위·출처는 <a href="#CmdProjectSetup">프로젝트 설정</a> › <b>적용 기준</b> 한 곳에 있습니다 (판정 근거 창 아래 줄도 그곳을 가리킴).</p>
+<h4>무엇을 하나요</h4>
+<p>프로그램이 지금 쓰는 기준값(존치 층수, fck, 14 MPa, 하중비교 값 등)과 출처·조항, 그리고 값의 성격(확정 / 부분 확인 / 가정 / 입력)을 보여 줍니다. 이 도움말의 <a href="#sources">근거 문서</a> 와 같은 내용입니다.</p>
+<h4>언제 쓰나요</h4><p>감리·안전 점검 때 기준의 출처를 보여 줘야 할 때.</p>
+<h4>순서</h4><ol><li><span class="btn">준비</span> › <span class="btn">프로젝트 설정</span>.</li><li><b>적용 기준</b> 을 펼칩니다.</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요.</p>
+<h4>판정 기준과 근거</h4><p><a href="#CmdEvaluate">해체 판정</a>, <a href="#CmdInstallCheck">설치 검측</a>, <a href="#CmdCheckLoad">1본 하중</a> 의 표를 보세요.</p>
+</section>
+
+<!-- ============================================================ ⑤ 승인 -->
+<h2>⑤ 승인</h2>
+
+<section class="cmd" id="CmdApprove">
+<h3>승인 기록 <code>CmdApprove</code></h3>
+<p class="meta">승인 패널 · 큰 버튼(맨 왼쪽) · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>감리 승인 결과와 해체 완료를 기록합니다. (프로그램은 승인하지 않습니다)</p>
+<h4>무엇을 하나요</h4>
+<p>사람이 한 일 네 가지를 구역마다 기록합니다: <b>요청 제출</b>(감리에게 요청서를 냄), <b>감리 승인 기록</b>(상태 6, 초록), <b>해체 완료</b>(상태 7, 진회색), <b>재받침</b>(상태 8). 입력자·메모·시각과 함께, 그때 판정 근거의 해시와 앞 기록의 해시가 묶여 남습니다 — 기록을 고치거나 지우면 다음 기록·검측요청서에서 "사슬 손상"으로 드러납니다. <b>프로그램이 승인하는 것이 아닙니다.</b></p>
+<p><b>기록 시각</b>은 실제 시계입니다. 다만 마지막 판정 기준일(대시보드 기준일)이 오늘보다 미래인 <b>시연 자료</b>일 때만 그 판정 시각(09:00)으로 고정하고, 창·결과 줄과 <code>approvals.csv</code> 메모 끝에 "(시연 시각 — 판정 기준일 고정)"을 남깁니다 — 현장 입력 서버의 기준 시각과 같은 규칙입니다. 실제 프로젝트(판정 기준일 ≤ 오늘)는 늘 실제로 넣은 시각이 남습니다. 판정·휴대폰·타설 전 확인·층 표지는 <b>판정일까지(날짜 단위)</b>의 승인 기록만 반영합니다 — 판정일 뒤 날짜의 기록은 그 판정에 나오지 않습니다.</p>
+<p><b>감리 승인 기록</b>에는 종이에 서명한 <b>감리 성명·서명 일시</b>(YYYY-MM-DD 또는 YYYY-MM-DD HH:MM)를 적을 수 있습니다(비워도 됨). 적으면 해시 사슬에 묶여 나중에 지우거나 바꾸면 드러납니다. 서명 일시보다 앞서 같은 구역에 휴대폰 동바리 확인 '아니오'가 있으면 "서명 전 해체 관측" 경고가 근거 원장 경고(대시보드 근거 줄·휴대폰 카드)에 남습니다 — 판정은 바꾸지 않습니다.</p>
+<p><b>감리 승인의 근거는 서명한 종이입니다.</b> 행위를 <b>감리 승인 기록</b>으로 고르면 창에 "서명한 종이 스캔을 근거 원장 6 감리확인 파일로 남기세요 — [근거 원장]" 안내와 <span class="btn">근거 원장 열기…</span> 버튼이 나옵니다. 누르면 같은 구역·단계 6 감리확인·판정 기준일 날짜로 <a href="#CmdEvidence">근거 원장</a> 창이 열리고, 스캔 파일(PDF 등)을 고르면 경로와 SHA-256 이 <code>evidence.csv</code> 에 남습니다(추가한 결과는 승인 기록 창 안에 한 줄). 승인 기록(<code>approvals.csv</code>, 해시 사슬)의 형식은 그대로입니다 — 서명 원본은 종이, 승인 기록은 '언제 누가 기록했나', 근거 원장은 '어떤 서류 파일인가'를 남깁니다.</p>
+<h4>언제 쓰나요</h4>
+<p>감리에게 요청서를 낸 뒤, 감리 승인 서류를 받은 뒤, 동바리 해체가 끝난 뒤, 다시 받친 뒤.</p>
+<h4>순서</h4>
+<ol>
+  <li>검측 3D 뷰에서 구역(또는 그 동바리)을 고르거나 대시보드 칸을 누릅니다. 여러 구역을 한 번에 골라도 됩니다.</li>
+  <li><span class="btn">승인</span> 패널 › <span class="btn">승인 기록</span>.</li>
+  <li>행위를 고르고 입력자 이름과 메모(서류 번호 등)를 넣습니다.</li>
+  <li><span class="btn">기록</span>. 기록한 구역과 기록하지 않은 구역(이유)이 표시됩니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>예. 데이터 폴더 <code>approvals.csv</code> 에 한 줄씩 이어 쓰고, 감리 승인 기록·해체 완료·재받침이면 구역·동바리 상태(6·7·8)를 바꿉니다(실행 취소 "Revit On-Site: 승인 기록"). 이 상태는 해체 판정이 덮어쓰지 않습니다 — 판정할 때도 <code>approvals.csv</code> 의 마지막 기록이 우선합니다. 근거 = 마지막 판정 기준일 09:00 의 판정 행. 대시보드 칩에 "감리 승인 기록 n구역"·"해체 완료 n구역"·"재받침 n구역" 으로, 판정 결과 창에도 같은 이름으로 표시됩니다. 웹 공유판은 그 기록 시각부터 같은 상태 색을 씁니다.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>내용</th><th>근거</th></tr>
+  <tr><td>강제 조항</td><td>해체 때 양생기간 준수, 관리감독자 직무 — 법령에 "해체 승인 요청서" 제출 조문은 없음</td><td><span class="tag t-ok">확정</span> 산업안전보건기준에 관한 규칙 제334조 4호·제333조 1항·제35조 별표2 제8호</td></tr>
+  <tr><td>승인 절차</td><td>해체 계획서 → 감리 승인 → 해체 전 체크리스트 → 감리 최종 승인. 시공자 임의 해체 금지</td><td><span class="tag t-ok">확정</span> 해체 가이드라인 2023.1 3.2 (구속력 없음, 3.2.7)</td></tr>
+  <tr><td>승인 주체</td><td>책임기술인 검토·확인 후 공사감독자 승인 / 책임기술자 승인</td><td><span class="tag t-ok">확정</span> KCS 21 50 05:2023 3.9.1(6), KCS 14 20 12:2024 3.3.1(2)</td></tr>
+  <tr><td>서식 — 공동주택(주택법 감리)</td><td>별지 제5호 검측점검표, 별지 제6호 검측요청·결과 통보내용</td><td><span class="tag t-ok">확정</span> 주택건설공사 감리업무 세부기준 제17조③ (검측요청 별지 6호)</td></tr>
+  <tr><td>서식 — 공공(건진법)</td><td>별지 제36호 검측요청·결과 통보내용</td><td><span class="tag t-ok">확정</span> 건설공사 사업관리방식 검토기준 및 업무수행지침(고시 제2026-360호) 제56·86조</td></tr>
+  <tr><td>서식 — 건축공사</td><td>감리 검측</td><td><span class="tag t-ok">확정</span> 건축공사 감리세부기준 2.5.4</td></tr>
+  <tr><td>해체 체크리스트</td><td>해체 전 / 해체 중 / 해체 후 (서식 번호 없음)</td><td><span class="tag t-ok">확정</span> 가이드라인 4.1–4.3</td></tr>
+</table>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<table>
+  <tr><th>안내 문구</th><th>뜻과 해결</th></tr>
+  <tr><td>"9F-A2 판정이 '존치 (구역 최소 강도 미달)' — 해체 승인 요청 가능일 때만 감리 승인 기록"</td><td>요청 제출·감리 승인 기록은 연두(해체 승인 요청 가능) 구역만 받습니다. 감리 서류와 판정 근거를 다시 확인하세요.</td></tr>
+  <tr><td>"승인 기록이 손상돼 이어 쓰지 않음 — approvals.csv 2번째 기록 …: 내용이 기록 뒤에 바뀜"</td><td>누군가 파일을 고쳤거나 줄을 지웠습니다. 더 쓰지 않고 멈춥니다. 백업에서 되돌리고 관리자에게 알리세요.</td></tr>
+  <tr><td>"판정 기록이 없습니다"</td><td><a href="#CmdEvaluate">해체 판정</a> 을 먼저 하세요 — 기록에 그때 판정 근거가 함께 남습니다.</td></tr>
+</table>
+</section>
+
+<section class="cmd" id="CmdEvidence">
+<h3>근거 원장 <code>CmdEvidence</code></h3>
+<p class="meta">승인 패널 · 큰 버튼 · 쓸 수 있을 때: 구역 있음</p>
+<p class="tip"><b>툴팁</b>고른 구역에 해체 절차 서류(작업계획서·해체전점검·결과보고 등)를 기록합니다.</p>
+<h4>무엇을 하나요</h4>
+<p>해체 절차 8단계 — <b>1 설치검측 · 2 작업계획서 · 3 공시체 · 4 해체전점검 · 5 검측요청 · 6 감리확인 · 7 해체 · 8 결과보고</b> — 의 서류를 구역·날짜에 묶어 "그날 어느 구역이 어느 근거까지 갖췄나"를 봅니다. 모델은 서명 원본이 아니라 위치·시점 색인입니다: 원본은 서명된 서류이고, 원장에는 파일 경로와 SHA-256 만 남아 파일을 바꾸면 값이 달라져 드러납니다.</p>
+<p>사람이 넣는 단계는 주로 2·4·8 입니다. 나머지는 자동으로 읽습니다: 3 = 현장양생 공시체 결과(시험일), 5·6·7 = <a href="#CmdApprove">승인 기록</a> 의 요청 제출·감리 승인 기록·해체 완료(기록 사슬이 손상되면 쓰지 않음), 1 = 데이터 폴더에 설치검측표(<code>install_inspection.csv</code>)가 있으면 구역의 모든 항목이 OK 인 마지막 날.</p>
+<p><b>무단 해체 관측 경고</b>: 어떤 구역에 '동바리 없음' 관측(휴대폰 <b>동바리 확인</b> '아니오' 또는 승인 기록 <b>해체 완료</b>)이 들어왔는데 그 시각까지 그 구역의 <b>감리 승인 기록</b>이 없으면 "승인 기록 없이 동바리 없음 관측 — 구역 MM-dd HH:mm 입력자" 경고가 남습니다. 대시보드 칸 경고·근거 줄, 휴대폰 구역 카드, 검측요청서 현장 확인 표 ①("⚠ 무단 해체 의심 — 확인 필요"), <a href="#CmdFloorSign">층 표지</a> 상태 줄(빨강)에 보입니다. 그 뒤 <b>재받침</b> 기록 다음에 '예' 확인이 들어오면 사라집니다. 판정·결론은 바꾸지 않는 경고이고, 사실 확인은 현장에서 합니다 (화정 2022: 하부 3개층 동바리가 승인 없이 빠진 채 타설).</p>
+<h4>언제 쓰나요</h4>
+<p>해체 작업계획서를 낸 날, 해체 전 점검을 한 날, 해체 결과 보고를 낸 날. 감리·발주처에게 구역별 서류 진행을 보여 줄 때는 <a href="#CmdDashboard">대시보드</a> 칸을 두 번 눌러 "근거 n/8" 줄을 봅니다.</p>
+<h4>순서</h4>
+<ol>
+  <li>검측 3D 뷰에서 구역(또는 그 동바리)을 고르거나 대시보드 칸을 누릅니다. 여러 구역을 한 번에 골라도 됩니다(같은 서류를 구역마다 한 줄씩).</li>
+  <li><span class="btn">승인</span> 패널 › <span class="btn">근거 원장</span>. 창 위에 구역마다 지금 갖춘 근거가 보입니다.</li>
+  <li>단계·날짜(처음 값 = 대시보드 기준일, 판정 기준일이 미래인 시연 자료면 결과 줄에 "(시연 시각 — 판정 기준일 고정)")·문서번호·결과·입력자를 넣고, 서명된 원본 파일(스캔·PDF 등)을 <span class="btn">찾아보기…</span> 로 고릅니다(파일은 비워도 됨).</li>
+  <li><span class="btn">추가</span>. 기록 번호(E0001…)·파일 SHA-256·갖춘 근거·순서 경고가 표시됩니다.</li>
+</ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 데이터 폴더 <code>evidence.csv</code> 에 한 줄씩 이어 씁니다(고치지 않고 추가만). 넣은 줄은 고칠 수 없고, 단계마다 <b>가장 이른 날짜</b>를 씁니다 — 날짜를 너무 이르게 넣었으면 관리자에게 알리세요.</p>
+<h4>판정 기준과 근거</h4>
+<table>
+  <tr><th>항목</th><th>내용</th><th>근거</th></tr>
+  <tr><td>절차 단계</td><td>해체 계획서 → 감리 승인 → 해체 전 체크리스트 → 감리 최종 승인 → 해체 → 해체 후 결과</td><td><span class="tag t-ok">확정</span> 해체 가이드라인 2023.1 3.2·4.1–4.3 (구속력 없음, 3.2.7)</td></tr>
+  <tr><td>순서 경고</td><td>검측요청 전 공시체, 감리확인 전 검측요청, 해체 전 감리확인, 결과보고 전 해체 기록이 있어야 함</td><td><span class="tag t-as">가정</span> 위 순서를 팀이 정리</td></tr>
+  <tr><td>파일 지문</td><td>SHA-256 (파일 내용이 한 글자라도 바뀌면 값이 달라짐)</td><td><span class="tag t-ok">확정</span> FIPS 180-4</td></tr>
+</table>
+<p>프로그램은 승인·해체를 지시하지 않습니다. 이 원장은 서류가 있었다는 색인일 뿐, 서류의 내용을 판단하지 않습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<table>
+  <tr><th>안내 문구</th><th>뜻과 해결</th></tr>
+  <tr><td>"기록할 구역을 먼저 고르세요."</td><td>검측 3D 뷰에서 구역이나 동바리를 고르거나 대시보드 칸을 누른 뒤 다시 누르세요.</td></tr>
+  <tr><td>"파일이 없습니다. 비우거나 있는 파일을 고르세요."</td><td>경로가 틀렸습니다. <span class="btn">찾아보기…</span> 로 다시 고르세요.</td></tr>
+  <tr><td>"경고: 해체(12-31) 전에 감리확인 기록 없음"</td><td>앞 단계 서류가 원장에 없거나 날짜가 뒤입니다. 빠진 서류를 넣거나 <a href="#CmdApprove">승인 기록</a> 을 확인하세요. 판정은 바뀌지 않습니다.</td></tr>
+</table>
+</section>
+
+<section class="cmd" id="CmdAuditLog">
+<h3>감사 기록 <code>CmdAuditLog</code></h3>
+<p class="meta">승인 패널 슬라이드아웃(패널 이름 옆 ▾) · 쓸 수 있을 때: 항상</p>
+<p class="tip"><b>툴팁</b>누가 언제 무엇을 바꿨는지 CSV 로 내보냅니다.</p>
+<h4>무엇을 하나요</h4><p>데이터 폴더의 <b>승인 기록</b>(approvals.csv)·<b>근거 원장</b>(evidence.csv)·<b>동바리 확인</b>(shore_checks.csv)·<b>판정 이력</b>(eval_log.csv)·<b>해체 후 점검</b>(after_check.csv)을 시각 순으로 합쳐 <code>감사기록_YYYYMMDD.csv</code> 한 장을 데이터 폴더에 쓰고 탐색기에서 보여 줍니다. 열: 시각 · 출처 · 구역 · 행위 · 입력자 · 세부 · 줄 해시(원본 줄의 SHA-256 앞 16자 — 원본을 고치면 달라짐). 승인 기록의 해시 사슬 끝은 세부의 "사슬 …" 입니다.</p>
+<h4>언제 쓰나요</h4><p>정기 보관, 감리·점검 대응, 사고 뒤 책임 추적. 사고 판결에서 현장 기록이 증거로 쓰였습니다(정의서 §3.8, 화정 1심).</p>
+<h4>순서</h4><ol><li><span class="btn">승인</span> 패널 이름 옆 ▾.</li><li><span class="btn">감사 기록</span> — 결과 창에 출처별 줄 수. 파일 위치는 결과 창 <span class="btn">폴더 열기</span>(이미 열린 탐색기 창이 있으면 그 창).</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 원본 파일은 읽기만 하고 CSV 한 장을 씁니다(같은 날짜면 덮어씀). 계산은 <code>shoring/audit_export.py</code> 와 같습니다.</p>
+<h4>판정 기준과 근거</h4><p>판정하지 않습니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>"데이터 폴더가 없습니다" — [프로젝트 설정]에서 데이터 폴더를 고르세요. 파일이 Excel 에 열려 있으면 닫고 다시 하세요.</p>
+</section>
+
+<!-- ============================================================ ⑥ 보고·공유 -->
+<h2>⑥ 보고·공유</h2>
+
+<section class="cmd" id="CmdReport">
+<h3>검측요청서 <code>CmdReport</code></h3>
+<p class="meta">보고·공유 패널 · 큰 버튼(맨 왼쪽) · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>해체 검측요청서 초안(HTML)을 데이터 폴더에 만들고 브라우저로 엽니다.</p>
+<h4>무엇을 하나요</h4>
+<p>마지막 판정 기준일 09:00 의 판정으로 <b>동바리 해체 검측요청서 (감리 검측요청 서식 준용)</b> 초안을 A4 4쪽 서식으로 만듭니다(<code>docs\templates\해체검측요청서_템플릿.docx</code> 배치): <b>1쪽</b> 검측요청서(공사명·요청일·위치·검측부위·도구 판정 "요청 가능 n / 존치 n"·마감 값) + 검측 결과 통보 칸(감리가 적음) · <b>2쪽</b> 요청 구역 근거표(타설일·재령·fck·현장양생 공시체(기준 근거)·센서 구역 최소(위치 근거)·규칙 게이트·근거 n/8·해시)·존치 구역 사유(층·사유·예측일이 같으면 한 줄)·감리 현장 확인 3가지·현장 경고·마감 값 · <b>3쪽</b> 가이드라인 4.1·4.2·4.3 검측 체크리스트(시공자·감리 합불 빈칸) · <b>4쪽</b> 공사 참여자 실명부(빈칸 18줄). 승인 기록 사슬 상태도 적습니다. 옅은 파란 칸이 입력란이고 <b>서명·결과·합불 칸은 비어 있습니다</b> — 감리·시공자가 적습니다. 쪽마다 바닥글 "본 문서는 계산 도구가 만든 초안이며 해체 승인이 아닙니다".</p>
+<p>요청 가능 구역마다 <b>감리가 현장에서 확인할 3가지</b> 표가 붙습니다: 근거 n/8 · ① 위 3개층(평면이 겹치는 구역) 동바리가 최근 24시간 안에 휴대폰 [동바리 확인] "예" 로 확인됐는지 <span class="tag t-as">가정</span>(없는 구역 이름 6개까지) · ② 작업계획서 · ③ 해체 전 체크리스트(가이드라인 4.1)의 <a href="#CmdEvidence">근거 원장</a> 날짜. ✕ 는 프로그램 기록에 없다는 뜻이라 현장에서 직접 확인합니다. 표 아래 <b>⑥ 이 층·바로 위 3개층 현장 경고</b>에는 요청 구역과 같은 층·위 3개층(층 단위 — 평면이 겹치지 않는 같은 층 다른 구역도) 구역의 무단 해체 관측·서명 전 해체 관측·해체 후 점검 미완이 나옵니다(없으면 "없음", 경고만 — 판정·마감 값에 넣지 않음). 1쪽 도구 판정 칸과 2쪽 맨 아래의 <b>마감 값</b>(8자)은 요청 구역 근거 해시·원장 날짜·승인 기록 끝 해시로 만든 값입니다 — 서명한 종이에 함께 적어 두면 나중에 근거 묶음이 바뀌었는지 대조할 수 있습니다(바꾸기를 막지는 못하고 드러낼 뿐, 동바리 확인은 들어가지 않음).</p>
+<h4>언제 쓰나요</h4>
+<p>해체 승인 요청 가능 구역이 생겨 감리에게 요청할 때, 정기 보고 때.</p>
+<h4>순서</h4>
+<ol><li><span class="btn">검측요청서</span>. 데이터 폴더에 <code>해체검측요청서_YYYYMMDD.html</code> 을 쓰고 브라우저로 엽니다.</li><li>브라우저에서 인쇄(Ctrl+P) → PDF 로 저장하거나 출력합니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 데이터 폴더에 HTML 파일 하나를 씁니다(같은 날짜면 덮어씀).</p>
+<h4>판정 기준과 근거</h4>
+<p>법령에 "해체 승인 요청서" 제출 조문은 없습니다. 강제 조항은 산업안전보건기준에 관한 규칙 제334조 4호(양생기간 준수)·제333조 1항·제35조 별표2 제8호(관리감독자)이고, 서면 검측요청과 감리 확인은 고시·시방서·가이드라인의 절차입니다 <span class="tag t-ok">확정</span> law.go.kr 원문. 이 문서는 그 검측요청에 붙이는 근거 자료(서식 준용)이고, 해체 작업계획서·해체 전 체크리스트(가이드라인 4.1)·해체 후 결과보고(4.3)는 따로 냅니다. 설치 검측 체크리스트는 규칙 제331–332조의2, 고시 2025-78. 감리 서식 번호는 <a href="#CmdApprove">승인 기록</a> 의 표.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>"판정 기록이 없습니다" — <a href="#CmdEvaluate">해체 판정</a> 을 먼저 하세요. 요청서 아래 "승인 기록 사슬 손상" 줄이 보이면 <code>approvals.csv</code> 가 기록 뒤에 바뀐 것입니다(<a href="#CmdApprove">승인 기록</a> 참고).</p>
+</section>
+
+<section class="cmd" id="CmdPackage">
+<h3>검측 패키지 <code>CmdPackage</code></h3>
+<p class="meta">보고·공유 패널 · 작은 버튼(IFC 내보내기 위) · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>감리에게 넘길 검측 묶음 폴더(요청서·이력서·근거·감사 기록·파일 해시 목록)를 데이터 폴더에 만듭니다.</p>
+<h4>무엇을 하나요</h4>
+<p>마지막 판정 기준으로 데이터 폴더에 <code>검측패키지_YYYYMMDD</code> 폴더를 만들고 탐색기로 엽니다. 들어가는 것: <b>검측요청서.html</b> · <b>슬래브이력서.html</b>(요청 가능 구역만) · <b>감사기록.csv</b> · <b>근거원장.csv</b>(요청 구역의 근거 줄, 층 순) · <b>첨부</b>(근거 원장에 적은 파일 사본, <code>{구역}_{단계}_{이름}</code>) · 그날 <code>RevitOnSite_YYYYMMDD.ifc</code> 가 있으면 사본 · <b>목록.csv</b>와 <b>index.html</b>(파일마다 크기·SHA-256 — 받은 쪽이 다시 계산해 같으면 보낸 그대로).</p>
+<h4>언제 쓰나요</h4><p>해체 승인 요청 가능 구역이 생겨 감리에게 검측요청을 낼 때. 서류를 따로 보내지 않고 묶음 하나로 넘겨 대조 시간을 줄입니다.</p>
+<h4>순서</h4><ol><li>[판정] 뒤 (IFC 도 묶으려면 <a href="#CmdExportIfc">IFC 내보내기</a> 먼저) <span class="btn">보고·공유</span> 패널 › <span class="btn">검측 패키지</span>.</li><li>결과 창 <span class="btn">폴더 열기</span>(이미 열린 탐색기 창이 있으면 그 창을 앞으로) → 폴더를 압축하거나 그대로 전달합니다.</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 데이터 폴더에 폴더 하나를 씁니다 — 같은 날 다시 만들면 그 폴더를 지우고 새로 만듭니다(쌓이지 않음). 새로 계산하지 않고 기존 결과물을 모읍니다(<code>shoring/package.py</code> 와 같음).</p>
+<h4>판정 기준과 근거</h4><p>판정하지 않습니다. 프로그램은 승인하지 않으며, 해체 여부는 감리(책임기술인)가 확인·서명으로 결정합니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>"해체 승인 요청 가능 구역이 없습니다" — 요청 가능 구역이 있을 때만 만듭니다. 결과 창의 "[IFC 내보내기]를 먼저 하면 IFC 도 묶입니다" — 그날 IFC 가 데이터 폴더에 없을 때 나옵니다.</p>
+</section>
+
+<section class="cmd" id="CmdFloorSign">
+<h3>층 표지 <code>CmdFloorSign</code></h3>
+<p class="meta">보고·공유 패널 · 작은 버튼 · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>층마다 붙일 A4 표지(HTML)를 데이터 폴더에 만들고 브라우저로 엽니다.</p>
+<h4>무엇을 하나요</h4>
+<p>마지막 판정 기준으로 층마다 한 장을 만듭니다(데이터 폴더 <code>층표지_YYYYMMDD.html</code>, 인쇄하면 층마다 한 쪽). 위에 큰 층 이름(B1·PH 처럼 구역 이름 앞부분)과 상태 한 줄:</p>
+<ul>
+  <li>그 층에 존치·공시체 시험 필요·타설 전·재받침 구역이 하나라도 있으면 <b>동바리 해체 금지 — 존치 n구역 …</b> (빨강)</li>
+  <li>모두 해체 승인 요청 가능이면 <b>해체 금지 — 감리 확인 전 (해체 승인 요청 가능)</b> (노랑)</li>
+  <li>모두 감리 승인 기록이 있으면 <b>감리 확인 기록 있음 — n구역</b>, 모두 해체 완료 기록이면 <b>해체 완료 기록 있음</b> (초록)</li>
+</ul>
+<p>그 아래 구역별 표(결론 · 예측 해체 가능일 · 근거 n/8 · 최근 동바리 확인 시각), 판정 기준 시각, 요청 가능 구역이 있으면 <a href="#CmdReport">검측요청서</a>와 같은 <b>마감 값</b>. <a href="#CmdFieldInput">현장 입력</a>이 이 데이터 폴더로 켜져 있으면 그 층의 <b>읽기 전용 층 화면</b>으로 가는 휴대폰 QR 이 붙고, 꺼져 있으면 "현장 입력을 켜면 QR 이 나옵니다".</p>
+<p><b>읽기 전용 층 화면</b>(반장·협력업체용): QR 을 찍으면 그 층 구역마다 큰 글자 한 줄 — "해체 금지 — 존치"(공시체 시험 필요·타설 전·재받침도 '해체 금지'), "해체 금지 — 감리 확인 전 (해체 승인 요청 가능)", "감리 확인 기록 있음", "해체 완료 기록 있음" — 과 무단 해체 의심(빨강)이 보이고, 아래 층 단추로 다른 층을 봅니다. 입력 칸이 없고 1분마다 새로 읽습니다. 이 QR 은 <b>보기 토큰</b>(데이터 폴더 <code>view_token.txt</code>, 만료 없음 — 붙여 둔 표지가 서버를 다시 켜도 열림)만 담고 있어 입력·저장은 할 수 없습니다. 입력 주소(토큰)는 품질·안전관리자용 현장 입력 창 QR 에만 있습니다. 보기 주소를 바꾸려면 <code>view_token.txt</code> 를 지우고 표지를 다시 뽑습니다. 해체한 반장이 그 자리에서 신고하는 주소는 따로 있습니다 — <a href="#CmdFieldInput">현장 입력</a> 창의 협력업체 해체 신고 QR.</p>
+<p>층마다 상태 줄 아래에 "해체 중: 가이드라인 4.2 체크리스트(해체 순서·추락 방지·보호구) — 관리감독자 현장 확인" 안내가 붙습니다(검측요청서 3쪽 체크리스트 아래에도 같은 줄). 승인 기록 없이 동바리 없음이 관측된 구역이 있으면 상태 줄이 빨강 "무단 해체 의심 — 확인 필요: 구역" 으로 바뀝니다.</p>
+<h4>언제 쓰나요</h4>
+<p>판정할 때마다 층 입구·계단실에 붙여, 작업자가 그 층 동바리를 지금 빼면 안 되는지 한눈에 보게 할 때. QR 로 안전관리자가 그 층 동바리 확인을 바로 넣을 때.</p>
+<h4>순서</h4>
+<ol><li>[판정] 을 한 뒤 (QR 이 필요하면 [서버 연동] 또는 [현장 입력] 을 켠 뒤 — 서버 연동 중이면 QR = 서버 층 보기 주소라 어디서나 열림, 아니면 같은 와이파이 주소) <span class="btn">보고·공유</span> 패널 › <span class="btn">층 표지</span>.</li><li>브라우저에서 인쇄(Ctrl+P) — 층마다 한 쪽씩 나옵니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 판정·승인 기록·근거 원장·동바리 확인 기록을 옮겨 적을 뿐 새로 계산하지 않습니다. 프로그램은 해체를 지시하지 않습니다 — 해체 여부는 감리(책임기술인) 확인을 거쳐 현장 책임자가 정합니다.</p>
+</section>
+
+<section class="cmd" id="CmdResultReport">
+<h3>해체 결과보고 <code>CmdResultReport</code></h3>
+<p class="meta">보고·공유 패널 › 펼침 · 큰 버튼 · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>해체를 마친 구역마다 해체 결과보고 한 장(HTML)을 만들고 근거 원장 8단계에 남깁니다.</p>
+<h4>무엇을 하나요</h4>
+<p><a href="#CmdApprove">승인 기록</a>에 해체 완료(7)가 있고 해체 후 점검 5항목이 모두 들어온 구역마다 A4 한 장 <code>해체결과보고_구역_YYYYMMDD.html</code> 을 만듭니다. 해체 일시, 점검 결과, 침하 계측(지점별 mm, 첫날과 같은 지점인지), 사진 목록이 들어갑니다. 만든 파일의 SHA-256 을 <a href="#CmdEvidence">근거 원장</a> 8 결과보고 줄로 남깁니다(가이드라인 3.2.13). 같은 날 다시 만들면 <code>_2</code> 로 새 파일을 만들고 앞 파일은 그대로 둡니다. 모델은 바꾸지 않습니다.</p>
+</section>
+
+<section class="cmd" id="CmdSlabRecord">
+<h3>슬래브 이력서 <code>CmdSlabRecord</code></h3>
+<p class="meta">보고·공유 패널 · 작은 버튼 · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>구역마다 슬래브 품질 기록 한 장(HTML·CSV)을 데이터 폴더에 만들고 브라우저로 엽니다.</p>
+<h4>무엇을 하나요</h4>
+<p>마지막 판정 기준으로 타설 구역마다 A4 한 쪽(데이터 폴더 <code>슬래브이력서_YYYYMMDD.html</code>, 같은 이름 <code>.csv</code> 는 구역마다 한 줄 요약)을 만듭니다. 한 쪽에 들어가는 것:</p>
+<ul>
+  <li>타설일·시각·배합·fck, <b>설치 검측</b>(install_inspection.csv 마지막 날짜와 OK 가 아닌 항목), 기온 근거(기상 기록 출처 또는 센서 근거)</li>
+  <li>그 시각의 판정·사유·공시체·구역 최소 추정·규칙 게이트·예측 도달일</li>
+  <li><a href="#CmdEvidence">근거 원장</a> n/8 과 날짜, 경고(순서 누락·무단 해체 관측·해체 후 점검 미완 등)</li>
+  <li>공시체 시험 줄과 채취 정보(타설 번호·채취 시각·레미콘 회사·보관 위치)</li>
+  <li><b>현장 사진</b>(있을 때만): 동바리 확인·해체 후 점검·해체 신고 사진의 시각·종류·경로·SHA-256 앞 12자 — <a href="#CmdFieldInput">현장 입력</a>에서 올린 사진</li>
+  <li><a href="#CmdApprove">승인 기록</a>의 요청 제출·감리 승인 기록·해체 완료·재받침 (감리 성명·서명 일시·줄 해시) — 기록 사슬이 손상됐으면 승인 줄은 싣지 않습니다</li>
+  <li>최근 판정 이력 5줄(<code>eval_log.csv</code>)과 이 장 내용의 <b>지문</b>(12자) — 기록이 하나라도 바뀌면 지문이 바뀝니다</li>
+</ul>
+<h4>언제 쓰나요</h4>
+<p>공정이 끝나 양생·해체 기록이 흩어지기 전에, 준공 때 발주처·관리 주체에 넘기는 구역별 슬래브 품질 기록으로. 하자·분쟁 때 "그 슬래브가 언제 타설돼 어떤 근거로 동바리를 뺐나"를 보여 주는 기록이며, 원인을 단정하지 않습니다.</p>
+<h4>순서</h4>
+<ol><li>[판정] 을 한 뒤 <span class="btn">보고·공유</span> 패널 › <span class="btn">슬래브 이력서</span>.</li><li>브라우저에서 인쇄(Ctrl+P) — 구역마다 한 쪽씩 나옵니다.</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 데이터 폴더에 HTML·CSV 두 파일을 씁니다(같은 날짜면 덮어씀). 새로 계산하지 않고 기존 판정·근거 원장·승인 기록을 모읍니다. 문서 머리에 "이 문서는 품질 기록이며 해체·사용 승인이 아닙니다" 가 붙습니다.</p>
+</section>
+
+<section class="cmd" id="CmdQualityLedger">
+<h3>품질 대장 (28일 · 참고) <code>CmdQualityLedger</code></h3>
+<p class="meta">보고·공유 패널 · 작은 버튼 · 쓸 수 있을 때: 구역과 pours.csv 있음</p>
+<p class="tip"><b>툴팁</b>28일 품질 대장(표준양생 공시체) HTML 한 장을 데이터 폴더에 만들고 브라우저로 엽니다.</p>
+<h4>무엇을 하나요</h4>
+<p>cylinders.csv 중 양생 <b>표준양생</b>·재령 28일(시험일 − 타설일) 줄만 모아 타설 구역마다 공시체 수·평균·최소(1회 = 공시체 3개 평균, MPa)와 결과를 적은 표 한 장(데이터 폴더 <code>품질대장_YYYYMMDD.html</code>)을 만듭니다. 표 머리: "참고 — 기준 적용 [부분 확인], 품질관리자 확인용".</p>
+<ul>
+  <li><b>합격</b>: 연속 3회 평균 최저 ≥ Fcq, 1회 ≥ Fcq − 3.5 MPa (Fcq ≤ 35), 공시체 9개 이상 — KCS 14 20 10 표 3.5-7 <span class="tag t-part">부분 확인</span> · 최소 9개 <span class="tag t-ok">확정</span></li>
+  <li><b>불합격</b>: 1회 기준 또는 연속 3회 평균 미달 · <b>확인 필요</b>: 9개 미만, 또는 Fcq &gt; 35 MPa(1회 기준 [미확인]) · <b>시험 없음</b>: 표준양생 28일 줄 없음</li>
+  <li>Fcq = pours.csv 의 fck <span class="tag t-as">가정</span> (품질기준강도 입력 열 없음)</li>
+</ul>
+<h4>언제 쓰나요</h4><p>28일 시험 결과가 들어온 뒤 품질관리자가 타설 단위 합격 여부를 확인할 때. 해체 판정(현장양생 공시체)과 별개입니다.</p>
+<h4>순서</h4><ol><li><span class="btn">보고·공유</span> 패널 › <span class="btn">품질 대장</span> — 브라우저에서 인쇄(Ctrl+P).</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 데이터 폴더에 HTML 한 장을 씁니다(같은 날짜면 덮어씀). 판정·대시보드에는 올리지 않습니다.</p>
+</section>
+
+<section class="cmd" id="CmdExportIfc">
+<h3>IFC 내보내기 <code>CmdExportIfc</code></h3>
+<p class="meta">보고·공유 패널 · 작은 버튼 · 쓸 수 있을 때: 판정 있음</p>
+<p class="tip"><b>툴팁</b>감리가 Revit 없이 보는 IFC 파일(구역별 판정 속성 세트)을 데이터 폴더에 만듭니다.</p>
+<h4>무엇을 하나요</h4><p>마지막 판정 기준일로 IFC4(Reference View) 파일 <code>RevitOnSite_YYYYMMDD.ifc</code> 를 데이터 폴더에 씁니다. 구역 상자마다 속성 세트 <b>Pset_RevitOnSite_Zone</b>(구역 ID·층·결론·사유·상태·예측 해체일·타설일·배합·fck·공시체·구역 최소 추정·필요 존치 층수), 동바리에는 <b>Pset_RevitOnSite_Shore</b>(형식·검측일·검측 결과)가 붙습니다 — 모두 판정·설치 검측이 모델에 쓴 SHR_ 매개변수 값입니다(날짜는 20261231 같은 정수). 매개변수가 아닌 값(근거 n/8·마감 값·판정 시각·무단 해체 의심 등 경고)은 내보낸 뒤 같은 IFC 안 구역마다 <b>Pset_RevitOnSite_Evidence</b>(EvidenceStage·Seal·EvalAt·Warnings, 값 있는 것만)로 덧붙이고 같은 이름 <code>_근거.csv</code>(<code>RevitOnSite_YYYYMMDD_근거.csv</code>) 에도 남기며, 어떤 매개변수가 어떤 속성으로 갔는지는 <code>_Pset.txt</code> 로 같이 남깁니다.</p>
+<h4>언제 쓰나요</h4><p>감리·발주처가 Revit 없이 무료 IFC 뷰어(BIMvision 등)로 구역을 눌러 판정을 확인할 때. 검측요청서·층 표지와 같은 판정 기준일로 맞춰 보냅니다.</p>
+<h4>순서</h4><ol><li>대시보드에서 기준일을 고르고 <span class="btn">판정</span>.</li><li><span class="btn">보고·공유</span> 패널 › <span class="btn">IFC 내보내기</span>.</li><li>결과 창의 경로에서 .ifc·.csv 를 함께 전달합니다.</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. IFC 내보내기는 Revit 이 잠깐 문서를 고칠 수 있어 그 작업을 되돌립니다(실행 취소 목록에 남지 않음). 파일만 씁니다.</p>
+<h4>판정 기준과 근거</h4><p>판정하지 않습니다. 마지막 판정이 모델에 쓴 값을 옮깁니다. 확인: <code>python tools\check_ifc.py RevitOnSite_YYYYMMDD.ifc [구역 ID]</code> — 속성 세트 이름과 구역별 결론을 풀어 보여 줍니다(IFC 안 한글은 \X2\ 부호라 그냥 찾기로는 안 보임).</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>"IFC 내보내기에 실패했습니다" — Revit 의 IFC 내보내기(IFC for Revit)가 켜져 있는지 확인. "속성 세트 파일이 없습니다" — <code>revit\ifc\Pset_RevitOnSite.txt</code> 가 있어야 합니다.</p>
+</section>
+
+<section class="cmd" id="CmdExportWeb">
+<h3>웹 공유판 <code>CmdExportWeb</code></h3>
+<p class="meta">보고·공유 패널 · 작은 버튼(IFC 내보내기 아래) · 쓸 수 있을 때: 설정·구역 있음 (타설 기록이 있어야 내보냄)</p>
+<p class="tip"><b>툴팁</b>Revit 없이 볼 수 있는 웹 파일(HTML)로 내보냅니다 — 강도 예측 타임라인·날짜별 판정.</p>
+<h4>무엇을 하나요</h4><p>부재 형상·층별 추정 강도 곡선(참고)·공시체 실측·날짜별 판정(첫 타설일 ~ 마지막 기록일, 기록만)을 HTML 파일 하나로 저장합니다(형식 <code>web/onsite_4d_schema.md</code> v2.0). Revit 이 없는 감리·발주처도 웹 브라우저로 날짜를 움직이며 구역 색(추정 강도)과 그날 판정 근거를 볼 수 있습니다. 예전(v1.x, 시공 순서) 파일은 새 뷰어가 열지 않으니 다시 내보내세요.</p>
+<h4>언제 쓰나요</h4><p>감리·발주처 공유, 주간 보고.</p>
+<h4>순서</h4><ol><li><span class="btn">웹 공유판</span>.</li><li>저장 위치를 고르고 <span class="btn">확인</span>.</li><li>만든 HTML 파일을 전달합니다.</li></ol>
+<h4>모델을 바꾸나요</h4><p>아니요. 파일만 만듭니다.</p>
+<h4>판정 기준과 근거</h4><p>새로 판정하지 않습니다. 날짜별 판정은 <a href="#CmdEvaluate">해체 판정</a> 과 같은 계산(그날 09:00, 그날까지의 기록만)이고, 추정 강도는 참고입니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4><p>전용 안내 문구가 아직 정해지지 않았습니다.</p>
+</section>
+
+<!-- ============================================================ ⑦ 타임라인 -->
+<h2>⑦ 타임라인</h2>
+
+<section class="cmd" id="CmdTimeline">
+<h3>강도 타임라인 <code>CmdTimeline</code></h3>
+<p class="meta">가끔 패널(펼침) · 큰 버튼 · 쓸 수 있을 때: 설정·구역 있음 (타설 기록이 있어야 시작)</p>
+<p class="tip"><b>툴팁</b>날짜를 움직여 층별 추정 강도를 봅니다 (참고 · 판정에 안 씀).</p>
+<h4>무엇을 하나요</h4>
+<p>대시보드 아래 날짜 슬라이더를 움직이거나 ▶ 재생하면 "Revit On-Site 강도 타임라인" 3D 뷰의 <b>구역 상자</b>가 그날 추정 강도 색(추정 ÷ 그 층 fck — 40·60·80·100 % 구간, [표시: 강도]와 같은 색 <span class="tag t-as">가정</span>)으로 바뀌고, 타설 전 구역은 흐린 회색입니다. 동바리·벽 등 나머지 부재는 모델 그대로이고(해체 애니메이션 없음), 그 층 실제 슬래브만 구역 상자가 대신 보여 줍니다. 예전 '4D 미리보기' 뷰(시공 순서용)는 활성 뷰가 아니면 지워집니다.</p>
+<p><b>강도 예측 그림</b>(막대 아래): 회색 선 = 층별 추정 강도(그 층에서 그날까지 타설된 구역 중 가장 낮은 값), 가로 파선 = 기준선 5 MPa 측면 거푸집 · 14 MPa 지지 슬래브 · fck <span class="tag t-ok">확정</span>, 빨간 세로선 = 지금 날짜, 점 = 위 4개층의 그날 값, ◆ = 그날까지의 <b>현장양생 공시체 실측</b>(초록 = fck 이상, 누르면 그날로). 위 한 줄 = "추정 강도 (참고 · 판정에 안 씀) 12F 8.3 · 11F 15.2 … MPa — 그날 사건". <span class="btn">|◀ 사건</span> <span class="btn">사건 ▶|</span> = 층 첫 타설 · 층 추정이 14 MPa·fck 에 처음 닿는 날(그 층 구역이 다 타설된 뒤, 참고) · 공시체 시험 날.</p>
+<p><b>추정은 참고입니다.</b> 판정의 예측 해체 가능일과 같은 식(타설일부터 날마다, 기온 = 데이터 폴더 기상 자료 또는 평년 <span class="tag t-as">가정</span>, 양생 하한·층 높이 보정 = [프로젝트 설정])이고, 기간 = 첫 타설 ~ 마지막 타설 + 56일 <span class="tag t-as">가정</span>. 해체 판정은 현장양생 공시체와 구역 3 m 안 센서 <b>실측</b>으로만 합니다(<a href="#CmdEvaluate">해체 판정</a>). 계산은 <code>shoring/strength_timeline.py</code> (C# 바이트 동일). <a href="#CmdExportWeb">웹 공유판</a> 도 같은 곡선·색을 씁니다.</p>
+<p>막대 아래 <b>색</b> 을 <b>근거 단계 (1–8)</b> 로 바꾸면 타설된 구역 색이 <a href="#CmdEvidence">근거 원장</a> 의 갖춘 단계로 바뀝니다: 1 설치검측부터 빈칸 없이 갖춘 마지막 단계, 회색 0 → 진녹색 8. 그날 넣은 서류는 다음 날부터 셉니다. 웹 공유판의 [색] 과 같은 규칙입니다.</p>
+<p><b>색</b> 을 <b>동바리 상태 (검측 뷰)</b> 로 바꾸면 "Revit On-Site 검측" 3D 뷰가 열리고, 뷰에 보이는 동바리가 마지막 판정 시각의 <b>기록 기준</b> 상태로 칠해집니다(화면 덧그림 — 모델·뷰 설정·실행 취소 목록은 그대로): 진회색 = 서 있어야 함(존치·공시체 시험 필요·타설 전) · 노랑 = 해체 승인 요청 가능 · 초록 = 감리 승인 기록 · 회색 윤곽 = 해체됨(해체 완료 기록·협력업체 해체 신고) · <b>빨강 굵게 + 깜빡임</b> = 무단 해체 의심(승인 기록 없이 동바리 없음 관측). 구역 테두리 주황 = 설치 검측 필요(기록 없음)·빨강 = 설치 검측 NG, 점선 = 다음 타설 층 아래 확인 대상인데 최근 24 h 동바리 확인 없음 <span class="tag t-as">가정</span> 색. 타임라인 재생 중엔 깜빡임을 멈춥니다. 판정·결론은 바꾸지 않습니다. 계산은 <code>shoring/shore_status.py</code> (C# 바이트 동일).</p>
+<h4>언제 쓰나요</h4>
+<p>겨울철 양생 검토(언제쯤 14 MPa·fck 에 닿을지), 공시체 시험 날짜 잡기, 감리·발주처 설명, 구역별 해체 서류 진행 점검(근거 단계 색).</p>
+<h4>순서</h4>
+<ol><li><span class="btn">강도 타임라인</span>. 대시보드 아래 막대가 켜지고 마지막 판정일을 보여 줍니다.</li><li>슬라이더를 끌거나 ▶ 를 누릅니다. 속도는 1일/초 또는 1주/초.</li><li>❚❚ 로 멈춥니다 ([멈추거나 닫으면 재생 전 뷰로] 를 켜 두면 원래 뷰로).</li></ol>
+<h4>모델을 바꾸나요</h4>
+<p>아니요. 처음 한 번 전용 뷰를 만들고(실행 취소 1건), 그 뒤는 화면에만 그립니다.</p>
+<h4>판정 기준과 근거</h4>
+<p>판정하지 않습니다. 추정 강도는 참고이고, 해체 승인 요청 가능 여부는 <a href="#CmdEvaluate">해체 판정</a> 이 공시체·3 m 안 센서 실측으로 정합니다.</p>
+<h4>자주 나오는 안내 문구와 해결</h4>
+<p>"타설 기록이 없습니다" — <a href="#CmdPour">타설 등록</a> 이나 휴대폰으로 타설일을 먼저 넣으세요. "데이터 폴더가 없습니다" — <a href="#CmdProjectSetup">프로젝트 설정</a> 에서 데이터 폴더를 고르세요. 버튼이 회색이면 프로젝트 설정·구역이 없습니다.</p>
+</section>
+
+
+<!-- ============================================================ 상황별 탭 -->
+<h2>선택하면 나타나는 탭</h2>
+<p>Revit 의 "수정 | 바닥" 탭처럼, 구역 상자나 동바리를 고를 때만 나타납니다. 탭이 나타나지 않으면 같은 명령을 우클릭 메뉴에서 찾으세요.</p>
+
+<section class="cmd" id="ctx-zone">
+<h3>수정 | 동바리 구역</h3>
+<p class="meta">구역 상자를 선택했을 때</p>
+<table>
+  <tr><th>패널</th><th>버튼</th><th>하는 일</th></tr>
+  <tr><td rowspan="6">구역</td><td id="ctx-zone_info">구역 정보</td><td>고른 구역 하나의 보기 + 입력 한 창 — 기본(구역·층·면적·슬래브 두께·동바리 본수·높이, 읽기) · 동바리 사양(이 구역 줄, 없으면 층 줄 표시) · 타설 · 공시체(현장양생) · 센서(구역 3 m 안 = 위치 근거) · 설치 검측·메모. 입력은 휴대폰·리본 창과 같은 검사·같은 문구. 맨 위에 마지막 판정 한 줄과 [판정 근거]. 기록하면 판정 기준일로 판정을 다시 계산합니다(사양은 판정에 안 씀). 우클릭 메뉴 첫 줄에도 있음</td></tr>
+  <tr><td id="ctx-reason">판정 근거</td><td><a href="#CmdReason">판정 근거</a> 와 같음</td></tr>
+  <tr><td id="ctx-same_floor">같은 층 보기</td><td>고른 구역의 층만 검측 3D 에 남겨(단면 상자) 같은 층 구역끼리 비교 — 다른 구역은 흐리게, 고른 구역은 강조. 되돌리기는 대시보드 [전체 층]. 모델은 바꾸지 않음(뷰 표시만)</td></tr>
+  <tr><td id="ctx-pour">타설 등록(선택 구역)</td><td><a href="#CmdPour">타설 등록</a> 을 고른 구역에 바로</td></tr>
+  <tr><td id="ctx-cylinder">공시체 입력</td><td><a href="#CmdImportCylinders">공시체 결과</a> 를 고른 구역에 직접 입력</td></tr>
+  <tr><td id="ctx-approve">승인 기록</td><td><a href="#CmdApprove">승인 기록</a> 과 같음</td></tr>
+</table>
+<p id="ctx-split_zone"><span id="ctx-merge_zone"></span><span id="ctx-replace_shores"></span>구역을 다시 나누려면 <a href="#CmdZoneSplit">구역 나누기</a>(처음 한 번 패널 — 동바리는 그대로, 구역 번호만 위치로). 합치기·동바리 다시 배치 버튼(준비 중)은 57차에 뺐습니다 — 동바리 간격까지 바꾸려면 <a href="#CmdGenerate">예시로 채우기</a> 을 그 층만 골라 다시 실행합니다(그 층 구역·동바리를 새로 만듦).</p>
+</section>
+
+<section class="cmd" id="ctx-shore">
+<h3>동바리를 골랐을 때</h3>
+<p class="meta">전용 탭은 없습니다 (준비 중 버튼 3개를 57차에 뺌) — 같은 일을 이렇게 합니다:</p>
+<table>
+  <tr><th>하려던 일</th><th>지금 방법</th></tr>
+  <tr><td id="ctx-fit_height">높이 맞추기</td><td>Revit 속성 창의 동바리 '높이'를 고치거나, <a href="#CmdGenerate">예시로 채우기</a> 을 그 층만 다시 (위아래 슬래브 사이로 새로 놓음)</td></tr>
+  <tr><td id="ctx-inspect_record">검측 결과 기록</td><td>휴대폰 <a href="#CmdFieldInput">동바리 점검</a> (설치 검측·일상·해체 전·해체 후, 문제 동바리를 평면에서 고름) · 자동 검사는 <a href="#CmdInstallCheck">설치 검측</a></td></tr>
+  <tr><td id="ctx-splice_count">이음 수 입력</td><td>Revit 속성 창의 <code>SHR_Splices</code> 칸 → <a href="#CmdInstallCheck">설치 검측</a> 다시 (기준은 <a href="#CmdCheckHeight">높이·이음</a>)</td></tr>
+</table>
+</section>
+
+<!-- ============================================================ 근거 -->
+<h2 id="sources" class="anchor">근거 문서와 표시 뜻</h2>
+<p>기준값 옆 표시는 그 값이 어디서 왔는지를 알려 줍니다.</p>
+<table>
+  <tr><th>표시</th><th>뜻</th></tr>
+  <tr><td><span class="tag t-ok">확정</span></td><td>규정·표준 원문을 직접 확인한 값</td></tr>
+  <tr><td><span class="tag t-part">부분 확인</span></td><td>전재본·2차 자료로만 확인한 값</td></tr>
+  <tr><td><span class="tag t-as">가정</span></td><td>출처 없이 개발팀이 정한 값. 현장 상황에 맞는지 검토가 필요합니다</td></tr>
+  <tr><td><span class="tag t-in">입력</span></td><td>현장·제품마다 다른 값이라 사용자가 넣는 값</td></tr>
+</table>
+<table>
+  <tr><th>문서</th><th>이 도움말에서 쓴 곳</th></tr>
+  <tr><td>KDS 21 50 00:2024 거푸집 및 동바리 설계기준 (2024-09-27, KCSC)</td><td>설계 하중 §1.6, 압축성능 표 2.6-1, 안전율 표 1.8-1, 허용압축력 §3.2.1(3)</td></tr>
+  <tr><td>KCS 14 20 12:2024 거푸집 및 동바리 (2024-12-30, KCSC)</td><td>해체 강도 표 3.3-1, 존치 층수 3.3.2(2), 공시체·승인 3.3.1, 성적서 1.6.3(9)</td></tr>
+  <tr><td>KCS 21 50 05:2023 거푸집 및 동바리공사 일반사항 (2023-01-31, KCSC)</td><td>승인 3.9.1(6), 강도 확인 3.9.2(2), 재설치 위치 3.9.3(2)</td></tr>
+  <tr><td>KCS 14 20 40:2024 한중 콘크리트 (KCSC)</td><td>적용 조건 1.1(2), 혼화재 상한 2.1(6) 표 2.1-1</td></tr>
+  <tr><td>KDS 14 20 10 (콘크리트 강도 발현식)</td><td>강도 추정식</td></tr>
+  <tr><td>국토교통부 「거푸집 및 동바리 해체 가이드라인」 2023.1 (작성 한국콘크리트학회·국가건설기준센터, 원문 PDF 사본, 구속력 없음 3.2.7)</td><td>우선순위 1.1(1), 하중비교법 2.1.2(2)·(3), 승인 절차 3.2, 캔틸레버 등 3.2 ⑥, 보조판 3.2.8(1)⑥, 체크리스트 4.1–4.3</td></tr>
+  <tr><td>산업안전보건기준에 관한 규칙 제35조 별표2 제8호·제331·332·332조의2·333조 1항·334조 4호, 고시 2025-78 (제9·12조)</td><td>설치 검측, 해체(양생기간 준수·관리감독자)</td></tr>
+  <tr><td>건설기술 진흥법 시행령 제101조의2</td><td>높이 5 m 이상 구조계산</td></tr>
+  <tr><td>주택건설공사 감리업무 세부기준 제17조, 별지 제5·6호 (law.go.kr)</td><td>공동주택 감리 검측 서식</td></tr>
+  <tr><td>건설공사 사업관리방식 검토기준 및 업무수행지침(고시 제2026-360호) 제56·86조, 별지 제36호 (law.go.kr)</td><td>공공공사 검측 서식</td></tr>
+  <tr><td>고시 제2024-879호 · 국토부 보도자료 2024-12-17 (전재본) <span class="tag t-part">부분 확인</span></td><td>현장양생 공시체 시험 의무 (2025.1.1 적용은 강우·한중 조항)</td></tr>
+  <tr><td>LH 주택건설공사 공사기간 산정지침, 국토부 공동주택 공사기간 산정 실무가이드 (2차 인용) <span class="tag t-part">부분 확인</span></td><td>타설 사이클 참고값</td></tr>
+</table>
+<p>아직 원문을 확인하지 못한 항목: KS F 8001:2022 본문(파이프서포트 종별 사용길이·성능표, 유료), 해체 승인 소요일, LH 검측 체크리스트 공개본. 이 항목들은 기준값으로 쓰지 않습니다.</p>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">II. 문제인식 · 해체 기준</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-06/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">II · 문제인식</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">II. 동바리 해체 판단 기준</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">기준은 이미 정해져 있지만, 시방서 · 가이드라인 · 설계기준에 나뉘어 있습니다</text>
+  </g>
+  <g id="criteria-table" data-pptx-bounds="56 164 1168 430">
+    <rect x="56" y="168" width="1168" height="48" fill="#1D3557" />
+    <g font-size="20" font-weight="bold" fill="#FFFFFF"><text x="80" y="199">항목</text><text x="436" y="199">기준</text><text x="876" y="199">근거</text></g>
+    <g fill="#E8EDF2"><rect x="56" y="278" width="1168" height="62" /><rect x="56" y="402" width="1168" height="62" /><rect x="56" y="526" width="1168" height="62" /></g>
+    <g fill="#2E6DB4"><rect x="56" y="216" width="6" height="62" /><rect x="56" y="402" width="6" height="62" /><rect x="56" y="464" width="6" height="62" /></g>
+    <g stroke="#C5CDD6" stroke-width="1"><line x1="56" y1="278" x2="1224" y2="278" /><line x1="56" y1="340" x2="1224" y2="340" /><line x1="56" y1="402" x2="1224" y2="402" /><line x1="56" y1="464" x2="1224" y2="464" /><line x1="56" y1="526" x2="1224" y2="526" /></g>
+    <line x1="56" y1="588" x2="1224" y2="588" stroke="#1D3557" stroke-width="1.5" />
+    <g font-size="20" font-weight="bold" fill="#1D3557"><text x="80" y="254">다층 슬래브 동바리 해체</text><text x="80" y="316">필러 동바리 사용</text><text x="80" y="378">해체 후 하중 &gt; 설계하중</text><text x="80" y="440">존치 층수</text><text x="80" y="502">지지층 강도</text><text x="80" y="564">설계 연직하중</text></g>
+    <g font-size="20" fill="#1E2329"><text x="436" y="254">설계기준압축강도 이상</text><text x="436" y="316">구조계산 시 단축 가능 (최소 14 MPa)</text><text x="436" y="378">구조계산 확인 → 승인</text><text x="436" y="440">타설층 포함 최소 3개 층</text><text x="436" y="502">최소 14 MPa</text><text x="436" y="564">최소 5.0 kN/m²</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="17" fill="#1D3557"><text x="876" y="254">KCS 14 20 12 3.3.1</text><text x="876" y="316">KCS 14 20 12 3.3.1</text><text x="876" y="378">KCS 14 20 12 3.3.1(6)</text><text x="876" y="440">가이드라인 2.1.2(1)④</text><text x="876" y="502">가이드라인 2.1.2(2)⑧</text><text x="876" y="564">KDS 21 50 00 1.6.2(5)</text></g>
+  </g>
+  <g id="table-notes" data-pptx-bounds="56 600 760 56">
+    <text x="56" y="620" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">※ KCS 14 20 12 3.3.2(2): 타설층 포함 최소 3개 층 존치</text>
+    <rect x="56" y="636" width="10" height="10" fill="#2E6DB4" />
+    <text x="74" y="646" font-size="15" fill="#2E6DB4">Revit On-Site가 구역마다 확인하는 판정 항목</text>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">II. 문제인식 · 사고 사례 1</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-08/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">II · 문제인식 · 해체 단계 대표 사고</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">II. 사고 사례: 해체 단계 (광주 화정)</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">동바리 조기 철거가 가장 큰 원인이었습니다</text>
+  </g>
+  <g id="accident-facts" data-pptx-bounds="56 164 660 470">
+    <text x="56" y="186" font-family="Consolas, Malgun Gothic, monospace" font-size="17" fill="#5B6673">2022.1.11 · 39층 타설 중 연쇄 붕괴 · 6명 사망, 1명 부상</text>
+    <g fill="#E8EDF2"><rect x="56" y="204" width="660" height="128" rx="4" /><rect x="56" y="346" width="660" height="128" rx="4" /><rect x="56" y="488" width="660" height="128" rx="4" /></g>
+    <rect x="56" y="204" width="6" height="128" fill="#B23A2E" />
+    <g font-size="36" font-weight="bold"><text x="84" y="282" fill="#B23A2E">38층</text><text x="84" y="424" fill="#1D3557">2.24배</text><text x="84" y="566" fill="#1D3557">15/17층</text></g>
+    <g font-size="20" fill="#1E2329"><text x="264" y="276">PIT층 아래 동바리 조기 철거 → 1차 붕괴</text><text x="264" y="404">동바리 → 콘크리트 가벽 무단 변경</text><text x="264" y="434">하중 증가 · 사고조사위 주요 원인</text><text x="264" y="560">시험체 설계기준강도 85% 미달 층</text></g>
+  </g>
+  <g id="collapse-section" data-pptx-bounds="740 164 484 470">
+    <text x="760" y="186" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">DWG · 붕괴 개념 단면</text>
+    <g stroke="#B23A2E" stroke-width="3" stroke-dasharray="6,4">
+      <line x1="790" y1="232" x2="790" y2="330" /><line x1="842" y1="232" x2="842" y2="330" /><line x1="894" y1="232" x2="894" y2="330" /><line x1="946" y1="232" x2="946" y2="330" /><line x1="998" y1="232" x2="998" y2="330" /><line x1="1050" y1="232" x2="1050" y2="330" />
+      <line x1="790" y1="342" x2="790" y2="440" /><line x1="842" y1="342" x2="842" y2="440" /><line x1="894" y1="342" x2="894" y2="440" /><line x1="946" y1="342" x2="946" y2="440" /><line x1="998" y1="342" x2="998" y2="440" /><line x1="1050" y1="342" x2="1050" y2="440" />
+      <line x1="790" y1="452" x2="790" y2="550" /><line x1="842" y1="452" x2="842" y2="550" /><line x1="894" y1="452" x2="894" y2="550" /><line x1="946" y1="452" x2="946" y2="550" /><line x1="998" y1="452" x2="998" y2="550" /><line x1="1050" y1="452" x2="1050" y2="550" />
+    </g>
+    <rect x="770" y="220" width="300" height="12" fill="#E07A1F" />
+    <g fill="#1D3557"><rect x="770" y="330" width="300" height="12" /><rect x="770" y="440" width="300" height="12" /><rect x="770" y="550" width="300" height="12" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#1D3557">
+      <text x="1084" y="226" fill="#E07A1F" font-weight="bold">PIT층</text><text x="1084" y="246" font-size="12" fill="#5B6673">(39층 바닥)</text>
+      <text x="1084" y="341">38층</text><text x="1084" y="451">37층</text><text x="1084" y="561">36층</text>
+    </g>
+    <line x1="770" y1="590" x2="800" y2="590" stroke="#B23A2E" stroke-width="3" stroke-dasharray="6,4" />
+    <text x="810" y="595" font-size="15" fill="#B23A2E">점선: 조기 철거된 동바리</text>
+    <text x="760" y="624" font-size="15" fill="#5B6673">그림 4. 건설사고조사위원회 발표를 바탕으로 한 붕괴 개념도</text>
+  </g>
+  <g id="source-note" data-pptx-bounds="56 640 400 22">
+    <text x="56" y="656" font-size="12" fill="#5B6673">출처: 참고문헌 [11] [12]</text>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- 웹 공유판 일치 시험: 애드인 WebExport.cs 의 Revit 없는 부분만 (WEBEXPORT_CHECK) 컴파일해 shoring/export_4d.py JSON 과 대조. 불일치면 종료 코드 1 -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <DefineConstants>$(DefineConstants);WEBEXPORT_CHECK</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RevitOnSite.Engine\RevitOnSite.Engine.csproj" />
+    <Compile Include="..\RevitOnSite\WebExport.cs" Link="WebExport.cs" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+__pycache__/
+review_out/
+*.[0-9][0-9][0-9][0-9].rvt
+*.[0-9][0-9][0-9][0-9].rfa
+chat_out/
+runs/
+
+# 환경·빌드 산출물
+.venv/
+**/node_modules/
+**/bin/
+**/obj/
+**/.vs/
+*.pyc
+dist/
+~$*
+
+# 외부 시험 모델 (100 MB 초과·제3자 모델)
+revit/test_models/
+# 점검용 사본·발표 작업 백업
+revit/shoring_demo_check8.rvt
+presentation/*/backup/
+
+# 비밀값: 접속 토큰·배포 연결 정보·실제 QR 화면
+revit/onsite_data_demo/*token*.txt
+server/vercel/.vercel/
+revit/onsite_data_demo/층표지_*.html
+docs/presentation/guide_shots/12_서버연동_QR.png
+docs/presentation/guide_shots/19_층표지.png
+docs/presentation/guide_shots/27_층표지_인쇄시각.png
+revit/screens/*QR*

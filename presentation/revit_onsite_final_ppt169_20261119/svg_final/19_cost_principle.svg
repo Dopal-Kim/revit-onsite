@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">V. 기대효과 · 자재·비용 (1/2)</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-19/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">V · 기대효과 ③ · 조건부</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">V. 기대효과: 자재 · 비용 (1/2)</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">동바리는 빌려서 층마다 옮겨 쓰는 자재입니다</text>
+  </g>
+  <g id="set-section" data-pptx-bounds="56 164 440 480">
+    <g stroke="#2E6DB4" stroke-width="5"><line x1="104" y1="212" x2="104" y2="300" /><line x1="164" y1="212" x2="164" y2="300" /><line x1="224" y1="212" x2="224" y2="300" /><line x1="284" y1="212" x2="284" y2="300" /><line x1="344" y1="212" x2="344" y2="300" /><line x1="104" y1="312" x2="104" y2="400" /><line x1="164" y1="312" x2="164" y2="400" /><line x1="224" y1="312" x2="224" y2="400" /><line x1="284" y1="312" x2="284" y2="400" /><line x1="344" y1="312" x2="344" y2="400" /><line x1="104" y1="412" x2="104" y2="500" /><line x1="164" y1="412" x2="164" y2="500" /><line x1="224" y1="412" x2="224" y2="500" /><line x1="284" y1="412" x2="284" y2="500" /><line x1="344" y1="412" x2="344" y2="500" /></g>
+    <g stroke="#E07A1F" stroke-width="3" stroke-dasharray="6,4"><line x1="104" y1="512" x2="104" y2="600" /><line x1="164" y1="512" x2="164" y2="600" /><line x1="224" y1="512" x2="224" y2="600" /><line x1="284" y1="512" x2="284" y2="600" /><line x1="344" y1="512" x2="344" y2="600" /></g>
+    <rect x="80" y="200" width="290" height="12" fill="#E07A1F" />
+    <g fill="#1D3557"><rect x="80" y="300" width="290" height="12" /><rect x="80" y="400" width="290" height="12" /><rect x="80" y="500" width="290" height="12" /></g>
+    <rect x="80" y="600" width="290" height="12" fill="#5B6673" />
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="18" font-weight="bold" fill="#2E6DB4"><text x="388" y="262">세트 1</text><text x="388" y="362">세트 2</text><text x="388" y="462">세트 3</text><text x="388" y="562" fill="#E07A1F">세트 4?</text></g>
+  </g>
+  <g id="set-logic" data-pptx-bounds="520 164 704 380">
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="36" font-weight="bold" fill="#2E6DB4"><text x="520" y="214">1</text><text x="520" y="330">2</text><text x="520" y="446">3</text></g>
+    <g font-size="22" font-weight="bold" fill="#1D3557"><text x="572" y="206">한 층을 받치는 동바리 = 세트 하나</text><text x="572" y="322">빌려야 할 양 = 받치는 층 수</text><text x="572" y="438">"3개 층으로 충분한가"가 핵심</text></g>
+    <g font-size="18" fill="#5B6673"><text x="572" y="240">다 굳은 맨 아래층 세트를 빼서 새로 부을 층 밑으로 올립니다</text><text x="572" y="356">4개 층을 받치면 4세트, 3개 층이면 3세트를 계속 빌려 둡니다</text><text x="572" y="472">불안해서 4번째 층을 남기는 대신, 프로그램이 하중비</text><text x="572" y="500">(아래 3개 층이 견디는가)를 구역마다 보여 줍니다</text></g>
+  </g>
+  <g id="set-takeaway" data-pptx-bounds="520 552 704 92">
+    <rect x="520" y="556" width="704" height="84" rx="4" fill="#2E6DB4" fill-opacity="0.12" />
+    <text fill="#1D3557" font-size="20" x="544" y="590">세트 하나를 덜 빌리면 이론상 4분의 1,</text><text fill="#1D3557" font-size="20" x="544" y="620"><tspan>실제 연구에서는 동바리 · 띠장 비용이 <tspan font-weight="bold" fill="#2E6DB4">20%</tspan> 줄었습니다</tspan></text></g>
+</svg>

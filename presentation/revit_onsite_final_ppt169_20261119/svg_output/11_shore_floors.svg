@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">III. 기술 현황 · 존치 층수</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-11/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">III · 기술 현황 및 적용 필요성</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">III. 동바리를 몇 개 층에 남길지 정하는 방법</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">타설층 하중 vs 아래층 여유 하중 → 존치 층수를 정합니다</text>
+  </g>
+  <g id="load-compare-cards" data-pptx-bounds="56 164 660 480">
+    <rect x="56" y="172" width="300" height="160" rx="4" fill="#E8EDF2" />
+    <text x="206" y="206" font-size="18" fill="#5B6673" text-anchor="middle">타설층 하중</text>
+    <text x="206" y="280" font-family="Consolas, Malgun Gothic, monospace" font-size="60" font-weight="bold" fill="#E07A1F" text-anchor="middle">12.33</text>
+    <text x="206" y="314" font-size="15" fill="#5B6673" text-anchor="middle">kN/m²</text>
+    <text x="380" y="276" font-family="Consolas, Malgun Gothic, monospace" font-size="60" font-weight="bold" fill="#1D3557" text-anchor="middle">&lt;</text>
+    <rect x="404" y="172" width="312" height="160" rx="4" fill="#E8EDF2" />
+    <text x="560" y="206" font-size="18" fill="#5B6673" text-anchor="middle">아래 3개 층 여유 하중</text>
+    <text x="560" y="280" font-family="Consolas, Malgun Gothic, monospace" font-size="60" font-weight="bold" fill="#1D3557" text-anchor="middle">15.50</text>
+    <text x="560" y="314" font-size="15" fill="#5B6673" text-anchor="middle">kN/m²</text>
+    <g id="p11-arrow" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="downArrow" data-pptx-frame="366 346 28 28" fill="#C5CDD6" stroke="none">
+<path d="M 366 360 L 373 360 L 373 346 L 387 346 L 387 360 L 394 360 L 380 374 Z" />
+</g>
+    <rect x="200" y="384" width="360" height="52" rx="26" fill="#2E6DB4" />
+    <text x="380" y="418" font-size="22" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3개 층 유지로 충분</text>
+    <text x="380" y="462" font-size="15" fill="#5B6673" text-anchor="middle">국토부 해체 가이드라인 계산 예시 · 슬래브 210 mm</text>
+    <rect x="56" y="482" width="660" height="64" rx="4" fill="#FFFFFF" stroke="#B23A2E" stroke-width="1.5" />
+    <use data-icon="tabler-outline/alert-triangle" x="74" y="498" width="32" height="32" fill="#B23A2E" stroke-width="2" />
+    <text x="118" y="521" font-size="20" fill="#1E2329">동바리를 빼거나 다시 세운 구역 → <tspan font-weight="bold" fill="#B23A2E">상세 구조 계산 필요</tspan></text>
+    <text x="56" y="594" font-size="20" font-weight="bold" fill="#2E6DB4">→ Revit On-Site는 이 하중 비교를 구역마다 보여 줍니다</text>
+    <text x="56" y="626" font-size="15" fill="#5B6673">어느 층 동바리를 언제 뺄지 판단하는 근거</text>
+  </g>
+  <g id="load-compare" data-pptx-bounds="740 164 484 476">
+    <text x="980" y="196" font-size="18" font-weight="bold" fill="#1D3557" text-anchor="middle">하중 비교 (kN/m²)</text>
+    <g id="load-compare-chartArea">
+      <g stroke="#C5CDD6" stroke-width="1"><line x1="790" y1="240" x2="1200" y2="240" /><line x1="790" y1="346.67" x2="1200" y2="346.67" /><line x1="790" y1="453.33" x2="1200" y2="453.33" /></g>
+      <line x1="790" y1="560" x2="1200" y2="560" stroke="#1D3557" stroke-width="1.5" />
+      <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end"><text x="780" y="565">0</text><text x="780" y="458">6</text><text x="780" y="352">12</text><text x="780" y="245">18</text></g>
+      <!-- chart-plot-area: object=load-compare | 790,240,1200,560 -->
+      <rect x="840" y="340.77" width="120" height="219.23" fill="#E07A1F" />
+      <rect x="1030" y="284.44" width="120" height="275.56" fill="#1D3557" />
+      <g font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#1D3557" text-anchor="middle"><text x="900" y="328">12.33</text><text x="1090" y="272">15.50</text></g>
+    </g>
+    <g font-size="18" fill="#1E2329" text-anchor="middle"><text x="900" y="590">새로 타설한 층</text><text x="1090" y="590">아래 3개 층의 여유</text></g>
+    <text x="760" y="628" font-size="15" fill="#5B6673">그림 3. 국토부 해체 가이드라인의 계산 예시를 그래프로 정리</text>
+  </g>
+</svg>

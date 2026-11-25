@@ -1,0 +1,348 @@
+{
+  "schema": "ppt-master.pptx-postflight-report.v1",
+  "status": "passed-with-warnings",
+  "output": {
+    "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\exports\\revit_onsite_final_20261119_191357.pptx",
+    "bytes": 530296
+  },
+  "source": {
+    "svg_slide_count": 26,
+    "layout_definition_count": 0,
+    "fingerprint": {
+      "algorithm": "sha256",
+      "digest": "21bf4119d7c906af66112cd10d8360391df38d34f0e607b40d461b996176a5dc",
+      "file_count": 26,
+      "files": [
+        {
+          "file": "01_cover.svg",
+          "sha256": "17b61b5394a104fde2991647f4ebc3e242216771956c52426a6db84907676144"
+        },
+        {
+          "file": "02_contents.svg",
+          "sha256": "98abb5561e1fc0a516f945a1372e59ecead4135e96b42923eaece998417967c1"
+        },
+        {
+          "file": "03_overview.svg",
+          "sha256": "60ffb6daf165f602b6ef8ee812f19394db7b7236181f6832703e680f00a180b4"
+        },
+        {
+          "file": "04_system.svg",
+          "sha256": "0de361364a533beb15c64657e667fdb7ae09b734ff534f766999db5bb808d6c1"
+        },
+        {
+          "file": "05_process.svg",
+          "sha256": "1a26b9b2890b52c5bbe5935bf618b248c91e463e0d666f44d3ec4776ab68baa3"
+        },
+        {
+          "file": "06_criteria.svg",
+          "sha256": "762af3521c70e903a6ea952ccfddebaaa898ce9fe2f83e01dc8bcd95cf776db6"
+        },
+        {
+          "file": "07_problem.svg",
+          "sha256": "bf4b6fba06ba9c644148f05b7126f081189191954e42fad12fe10fcde7c18f4f"
+        },
+        {
+          "file": "08_hwajeong.svg",
+          "sha256": "36f78678a875a1d8b4553127c10ee656f320dc378e671b8980de80ba34868421"
+        },
+        {
+          "file": "09_install_accidents.svg",
+          "sha256": "a95be4fcd02b1471cf2cc416055097331d2ebcef84c9a82d8c55d0cc86218d87"
+        },
+        {
+          "file": "10_prior_research.svg",
+          "sha256": "f9e24fc8a14a3af4ffb295cff88c4b92186f9baa2514cc20f8664ae29ddcd856"
+        },
+        {
+          "file": "11_shore_floors.svg",
+          "sha256": "19dd1ca7704226389e0510989ecae90266ac6371a48f36a18c96f4b88de2338c"
+        },
+        {
+          "file": "12_spain_study.svg",
+          "sha256": "77a02a29cc0638adc525b6d51774eb57110e2af4ae8a0264364f6d466cd58e33"
+        },
+        {
+          "file": "13_beta_result.svg",
+          "sha256": "16cf7d955dd43047efcf8a7c9515bd73d6c3e596e8937bb6257f61596329113f"
+        },
+        {
+          "file": "14_applicability.svg",
+          "sha256": "5226b358015b37b095b6b2b29cd50f8a172ce004dfe66743b5c21c5d44354cc7"
+        },
+        {
+          "file": "15_demo.svg",
+          "sha256": "ca02390d98680aaf570c474b1962cd2a5297130c6eafc6ed3bf4ee90dfa9a4b8"
+        },
+        {
+          "file": "16_effects.svg",
+          "sha256": "43289e1d9e057218c6bbbe416aed6aa357b43a924cfbd8b0bbfca2086cf5e77a"
+        },
+        {
+          "file": "17_safety.svg",
+          "sha256": "c9044df991b0c0a313852a310c47d8c1e98075bf14bbc037966f2f4880ea826f"
+        },
+        {
+          "file": "18_records.svg",
+          "sha256": "e78a5e48a367d95d4de1c7c3d18fb6a0d4d3567bd56438096271442d12454712"
+        },
+        {
+          "file": "19_cost_principle.svg",
+          "sha256": "0b4457fa80896ade6f7473acec1372f1a5c34cf0abe7378ae33346982a61fb17"
+        },
+        {
+          "file": "20_cost_numbers.svg",
+          "sha256": "ec60a3a940268575ee3f3d0a2ed65a87df2a5f9d6d0860efa900a943d08307a1"
+        },
+        {
+          "file": "21_stakeholders.svg",
+          "sha256": "9c7dfadd2e3d67a5983d8e59eb18c3cd1f83ec20dbf89b6d79419f7a7a85e130"
+        },
+        {
+          "file": "22_limits.svg",
+          "sha256": "7c3deb40012a7a8015f9d79fbd841f4e4a2eb2e66ddd4bce4118d2a88fa2503a"
+        },
+        {
+          "file": "23_conclusion.svg",
+          "sha256": "bb8021a73b9b382cca205417afe152e3e202f1ebfee7c5e52f48aff918579ec5"
+        },
+        {
+          "file": "24_references_1.svg",
+          "sha256": "9bfe5eea051158aef62f8bbec33aacb86405d1e690f7e25595251568d1bcee60"
+        },
+        {
+          "file": "25_references_2.svg",
+          "sha256": "072695cec1f7b16ce3c66c38881d53c95238b4c4df0994e45b3eb119ed59870b"
+        },
+        {
+          "file": "26_qa.svg",
+          "sha256": "6573c9e7f419c7cda838b3e6006ec1c1cc70c8b2cb6b66142e7cca551845909c"
+        }
+      ]
+    },
+    "authoring_roundtrip": null
+  },
+  "package": {
+    "zip_integrity": "passed",
+    "corrupt_member": null,
+    "slides": 26,
+    "notes": 26,
+    "masters": 1,
+    "layouts": 1
+  },
+  "checks": {
+    "zip_integrity": "passed",
+    "slide_count": "passed",
+    "internal_relationships": "enforced-at-build",
+    "structured_package": "not-applicable",
+    "transitions": "enforced-at-build",
+    "animations": "enforced-at-build",
+    "project_svg_contract": "enforced-at-build",
+    "compatibility_normalization": "not-applicable",
+    "authoring_roundtrip": "not-applicable",
+    "quality_gate": "passed",
+    "quality_warnings": "warning",
+    "template_tokens": "passed",
+    "external_images": "passed",
+    "font_portability": "passed"
+  },
+  "quality": {
+    "status": "loaded",
+    "path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\validation\\svg_quality_report.json",
+    "schema": "ppt-master.svg-quality-report.v1",
+    "stage": "final",
+    "source_match": "passed",
+    "source_fingerprint": {
+      "algorithm": "sha256",
+      "digest": "21bf4119d7c906af66112cd10d8360391df38d34f0e607b40d461b996176a5dc",
+      "file_count": 26,
+      "files": [
+        {
+          "file": "01_cover.svg",
+          "sha256": "17b61b5394a104fde2991647f4ebc3e242216771956c52426a6db84907676144"
+        },
+        {
+          "file": "02_contents.svg",
+          "sha256": "98abb5561e1fc0a516f945a1372e59ecead4135e96b42923eaece998417967c1"
+        },
+        {
+          "file": "03_overview.svg",
+          "sha256": "60ffb6daf165f602b6ef8ee812f19394db7b7236181f6832703e680f00a180b4"
+        },
+        {
+          "file": "04_system.svg",
+          "sha256": "0de361364a533beb15c64657e667fdb7ae09b734ff534f766999db5bb808d6c1"
+        },
+        {
+          "file": "05_process.svg",
+          "sha256": "1a26b9b2890b52c5bbe5935bf618b248c91e463e0d666f44d3ec4776ab68baa3"
+        },
+        {
+          "file": "06_criteria.svg",
+          "sha256": "762af3521c70e903a6ea952ccfddebaaa898ce9fe2f83e01dc8bcd95cf776db6"
+        },
+        {
+          "file": "07_problem.svg",
+          "sha256": "bf4b6fba06ba9c644148f05b7126f081189191954e42fad12fe10fcde7c18f4f"
+        },
+        {
+          "file": "08_hwajeong.svg",
+          "sha256": "36f78678a875a1d8b4553127c10ee656f320dc378e671b8980de80ba34868421"
+        },
+        {
+          "file": "09_install_accidents.svg",
+          "sha256": "a95be4fcd02b1471cf2cc416055097331d2ebcef84c9a82d8c55d0cc86218d87"
+        },
+        {
+          "file": "10_prior_research.svg",
+          "sha256": "f9e24fc8a14a3af4ffb295cff88c4b92186f9baa2514cc20f8664ae29ddcd856"
+        },
+        {
+          "file": "11_shore_floors.svg",
+          "sha256": "19dd1ca7704226389e0510989ecae90266ac6371a48f36a18c96f4b88de2338c"
+        },
+        {
+          "file": "12_spain_study.svg",
+          "sha256": "77a02a29cc0638adc525b6d51774eb57110e2af4ae8a0264364f6d466cd58e33"
+        },
+        {
+          "file": "13_beta_result.svg",
+          "sha256": "16cf7d955dd43047efcf8a7c9515bd73d6c3e596e8937bb6257f61596329113f"
+        },
+        {
+          "file": "14_applicability.svg",
+          "sha256": "5226b358015b37b095b6b2b29cd50f8a172ce004dfe66743b5c21c5d44354cc7"
+        },
+        {
+          "file": "15_demo.svg",
+          "sha256": "ca02390d98680aaf570c474b1962cd2a5297130c6eafc6ed3bf4ee90dfa9a4b8"
+        },
+        {
+          "file": "16_effects.svg",
+          "sha256": "43289e1d9e057218c6bbbe416aed6aa357b43a924cfbd8b0bbfca2086cf5e77a"
+        },
+        {
+          "file": "17_safety.svg",
+          "sha256": "c9044df991b0c0a313852a310c47d8c1e98075bf14bbc037966f2f4880ea826f"
+        },
+        {
+          "file": "18_records.svg",
+          "sha256": "e78a5e48a367d95d4de1c7c3d18fb6a0d4d3567bd56438096271442d12454712"
+        },
+        {
+          "file": "19_cost_principle.svg",
+          "sha256": "0b4457fa80896ade6f7473acec1372f1a5c34cf0abe7378ae33346982a61fb17"
+        },
+        {
+          "file": "20_cost_numbers.svg",
+          "sha256": "ec60a3a940268575ee3f3d0a2ed65a87df2a5f9d6d0860efa900a943d08307a1"
+        },
+        {
+          "file": "21_stakeholders.svg",
+          "sha256": "9c7dfadd2e3d67a5983d8e59eb18c3cd1f83ec20dbf89b6d79419f7a7a85e130"
+        },
+        {
+          "file": "22_limits.svg",
+          "sha256": "7c3deb40012a7a8015f9d79fbd841f4e4a2eb2e66ddd4bce4118d2a88fa2503a"
+        },
+        {
+          "file": "23_conclusion.svg",
+          "sha256": "bb8021a73b9b382cca205417afe152e3e202f1ebfee7c5e52f48aff918579ec5"
+        },
+        {
+          "file": "24_references_1.svg",
+          "sha256": "9bfe5eea051158aef62f8bbec33aacb86405d1e690f7e25595251568d1bcee60"
+        },
+        {
+          "file": "25_references_2.svg",
+          "sha256": "072695cec1f7b16ce3c66c38881d53c95238b4c4df0994e45b3eb119ed59870b"
+        },
+        {
+          "file": "26_qa.svg",
+          "sha256": "6573c9e7f419c7cda838b3e6006ec1c1cc70c8b2cb6b66142e7cca551845909c"
+        }
+      ]
+    },
+    "summary": {
+      "total": 26,
+      "passed": 25,
+      "warnings": 1,
+      "errors": 0
+    },
+    "categories": {
+      "blocking": {
+        "count": 0,
+        "issues": []
+      },
+      "introduced": {
+        "count": 1,
+        "issues": [
+          {
+            "file": "25_references_2.svg",
+            "message": "Detected 2 paragraph-like line run(s) split across sibling <text> elements (<g id=\"refs\"> x=56.0, y=186.0..246.0, 3 lines; <g id=\"refs\"> x=56.0, y=336.0..366.0, 2 lines). If each run is one prose paragraph, combine it into one <text>: keep its first line as direct text and use direct <tspan> children with the parent x and positive relative dy values for later lines. An all-<tspan> form may start with dy=\"0\". Keep semantically independent text frames separate."
+          }
+        ]
+      },
+      "inherited": {
+        "count": 0,
+        "issues": []
+      },
+      "source-import": {
+        "count": 0,
+        "summary": {
+          "warning_count": 0,
+          "by_code": {}
+        }
+      }
+    }
+  },
+  "resources": {
+    "unresolved_template_tokens": [],
+    "fonts": {
+      "stacks": [
+        "Consolas, Malgun Gothic, monospace",
+        "Malgun Gothic, Segoe UI, sans-serif"
+      ],
+      "generic_only_stacks": [],
+      "unsafe_exported_faces": []
+    },
+    "images": {
+      "data_uri": 0,
+      "local": 6,
+      "external": 0,
+      "external_references": []
+    }
+  },
+  "export_policy": {
+    "project_svg_contract": "strict",
+    "dangerous_normalization_count": 0
+  },
+  "deck_motion": {
+    "transition": {
+      "effect": "fade",
+      "effect_options": {},
+      "duration": 0.4,
+      "auto_advance": null,
+      "sound": null
+    },
+    "animation": {
+      "effect": "none",
+      "effect_request": null,
+      "duration": 0.4,
+      "stagger": 0.5,
+      "trigger": "after-previous"
+    },
+    "cli_overrides": {
+      "transition": false,
+      "transition_duration": false,
+      "auto_advance": false,
+      "transition_sound": false,
+      "animation": false,
+      "animation_duration": false,
+      "animation_stagger": false,
+      "animation_trigger": false
+    },
+    "narration_timings": false
+  },
+  "backup_path": "C:\\Users\\admin\\Desktop\\시스템2\\build-up-2\\presentation\\revit_onsite_final_ppt169_20261119\\backup\\20261119_191357\\svg_output",
+  "conversion_trace_path": null
+}

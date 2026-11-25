@@ -1,0 +1,84 @@
+<!--
+  승인 기록 대화상자 — 고른 구역에 사람이 한 행위(요청 제출·감리 승인 기록·해체 완료·재받침)를 approvals.csv 에 남긴다 (Engine.Approval, approval.py 와 같은 해시 사슬).
+  프로그램은 승인하지 않는다: 이 창은 감리가 이미 한 승인·현장이 한 해체를 '기록'만 한다.
+-->
+<Window x:Class="RevitOnSite.ApproveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="승인 기록" WindowStartupLocation="CenterOwner" Style="{DynamicResource OnSite.DialogWindow}" Language="ko-KR">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RevitOnSite;component/Wpf/OnSiteDialog.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="Row" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+            <Style x:Key="Error" TargetType="TextBlock" BasedOn="{StaticResource OnSite.ValidationText}">
+                <Setter Property="Margin" Value="118,-1,0,3"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="Help" Executed="Help"/>
+    </Window.CommandBindings>
+
+    <Border Background="{DynamicResource OnSite.Brush.Background}" Padding="12">
+        <StackPanel Width="440">
+            <GroupBox Header="고른 구역 (판정 기준 시각의 결론)">
+                <StackPanel>
+                    <TextBlock x:Name="ZonesText" TextWrapping="Wrap" Margin="4,2"/>
+                    <TextBlock x:Name="AtText" Style="{StaticResource OnSite.HintText}" Margin="4,2,0,0"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="기록할 행위" Margin="0,8,0,0">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="행위(_A):" Target="{Binding ElementName=Action}"/>
+                        <ComboBox x:Name="Action" Width="200" SelectionChanged="Changed"/>
+                    </StackPanel>
+                    <TextBlock x:Name="ActionHint" Style="{StaticResource OnSite.HintText}" Margin="118,0,0,3" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Left"/>
+                    <!-- 감리 승인 기록일 때만: 종이 서명의 근거 = 근거 원장 6 감리확인 (승인 기록 형식·해시 사슬은 그대로) -->
+                    <StackPanel x:Name="SignPanel" Margin="118,2,0,4" Visibility="Collapsed">
+                        <!-- 종이에 서명한 감리 성명·일시 (approvals.csv approver·signed_at, 비워도 됨 — 값이 있으면 해시에 묶임) -->
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
+                            <Label Content="감리 성명(_V):" Target="{Binding ElementName=Approver}" Padding="0,0,6,0" Width="86" VerticalAlignment="Center"/>
+                            <TextBox x:Name="Approver" Width="140" MaxLength="20" TextChanged="Changed"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,2">
+                            <Label Content="서명 일시(_D):" Target="{Binding ElementName=SignedAt}" Padding="0,0,6,0" Width="86" VerticalAlignment="Center"/>
+                            <TextBox x:Name="SignedAt" Width="140" MaxLength="16" TextChanged="Changed"
+                                     ToolTip="종이에 서명한 날짜·시각: YYYY-MM-DD 또는 YYYY-MM-DD HH:MM (비워도 됨). 이보다 앞선 '동바리 없음' 관측은 '서명 전 해체 관측' 경고가 됩니다."/>
+                        </StackPanel>
+                        <TextBlock x:Name="SignedError" Style="{StaticResource OnSite.ValidationText}" Margin="0,0,0,2" Text="서명 일시는 YYYY-MM-DD 또는 YYYY-MM-DD HH:MM 로 적어 주세요." Visibility="Collapsed"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Left"
+                                   Text="서명한 종이 스캔을 근거 원장 6 감리확인 파일로 남기세요 — [근거 원장]"/>
+                        <Button x:Name="SignButton" Content="근거 원장 열기(_E)…" HorizontalAlignment="Left" Margin="0,4,0,0" Click="OpenEvidence"
+                                ToolTip="같은 구역·단계 6 감리확인·판정 기준일 날짜로 근거 원장 창을 엽니다. 서명한 종이 스캔(PDF 등)을 파일로 고르면 SHA-256 이 남습니다."/>
+                        <TextBlock x:Name="SignResult" Style="{StaticResource OnSite.HintText}" TextWrapping="Wrap" MaxWidth="300" HorizontalAlignment="Left" Margin="0,3,0,0" Visibility="Collapsed"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="입력자(_N):" Target="{Binding ElementName=Actor}"/>
+                        <TextBox x:Name="Actor" Width="200" MaxLength="20" TextChanged="Changed"/>
+                    </StackPanel>
+                    <TextBlock x:Name="ActorError" Style="{StaticResource Error}" Text="입력자 이름을 넣으세요."/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="메모(_M):" Target="{Binding ElementName=Note}"/>
+                        <TextBox x:Name="Note" Width="300" MaxLength="200"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <TextBlock Style="{StaticResource OnSite.HintText}" Margin="0,8,0,0" TextWrapping="Wrap"
+                       Text="프로그램은 승인하지 않습니다. 감리가 승인한 것·현장이 한 일을 기록만 합니다. 기록은 데이터 폴더 approvals.csv 에 이어 쓰고, 고치거나 지우면 다음 기록 때 드러납니다."/>
+
+            <DockPanel Margin="0,12,0,0" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Style="{StaticResource OnSite.HelpButton}" Command="Help"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="취소" IsCancel="True"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="기록" IsDefault="True" x:Name="OkButton" Click="Ok"/>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>감리 확인 · Revit On-Site</title>
+<!-- 감리 직접 확인 (v6.2 S3 → v6.3 1-2). 가이드라인 표 3.2.1 의 두 승인을 나눔: ⓐ 작업계획서 확인(3단계) → ⓑ 구역 최종 확인(6단계, 현장 확인 3가지), 그리고 보완 요청(3.2.3).
+     자료: GET /api/supervisor?s= (요청 제출 구역 = Revit 스냅숏) → POST /api/supervise?s= {action: plan|final|reject} → Revit 동기화(pull route "supervise")가
+     그 시점 판정·근거 원장을 다시 검사해 받아들이거나 거절(이유는 이 화면 '보낸 기록'에). 서버는 판정하지 않음. API: server/vercel/API.md §9.2 -->
+<style>
+:root{--bg:#fff;--ink:#16181C;--sub:#3f444c;--line:#c9ced6;--hold:#8b0018;--ok:#0b4f1e;--acc:#0a3f7a;--warn:#6b4500;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:720px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+:focus-visible{outline:4px solid #ffbf00;outline-offset:2px}
+button,a,input,textarea,summary{touch-action:manipulation}
+h1{font-size:26px;margin:4px 0}
+h2{font-size:18px;margin:12px 0 4px}
+.sub{color:var(--sub);font-size:16px}
+.syncage{border-radius:10px;padding:8px 12px;font-weight:700;margin:8px 0;background:#e6e9ee}.syncage.old{background:var(--hold);color:#fff}
+.card{border:2px solid var(--line);border-radius:12px;padding:12px;margin:14px 0}
+.zid{font-size:22px;font-weight:800}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:16px;margin:6px 0}
+.kv dt{color:var(--sub)}.kv dd{margin:0;font-weight:600}
+.ev{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;padding:0;list-style:none}
+.ev li{border:2px solid var(--line);border-radius:8px;padding:2px 8px;font-size:15px}
+.ev li.y{border-color:var(--ok);color:var(--ok);font-weight:700}.ev li.n{border-style:dashed;color:var(--sub)}
+.step{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
+label.ck{display:flex;gap:10px;align-items:flex-start;min-height:48px;padding:8px 0;font-size:17px}
+label.ck input{width:26px;height:26px;flex:none;margin-top:1px}
+input[type=text],textarea{width:100%;min-height:48px;font:inherit;border:2px solid #555;border-radius:10px;padding:8px 12px}
+textarea{min-height:72px;resize:vertical}
+button{min-height:48px;padding:0 18px;border-radius:24px;border:2px solid #555;background:#fff;color:var(--ink);font:inherit;font-weight:800}
+button.pri{background:var(--acc);border-color:var(--acc);color:#fff;width:100%;margin-top:8px}
+button.bad{border-color:var(--hold);color:var(--hold);width:100%;margin-top:8px}
+button:disabled{opacity:.45}
+button:active:not(:disabled){filter:brightness(.85)}
+.hint{color:var(--sub);font-size:15px;margin:4px 0 0}
+.why{color:var(--hold);font-weight:700;margin-top:6px}
+.done{color:var(--ok);font-weight:700;margin-top:6px}
+details summary{min-height:48px;display:flex;align-items:center;font-weight:700;cursor:pointer}
+.hist{margin:6px 0 0;padding-left:18px;font-size:15px}.hist .x{color:var(--hold);font-weight:700}.hist .y{color:var(--ok);font-weight:700}
+.msg{border-radius:10px;padding:10px 12px;font-weight:700;margin:8px 0}.msg.o{background:#e6f4ea;color:var(--ok)}.msg.e{background:var(--hold);color:#fff}
+.msg.e button{display:block;margin-top:8px}
+#notify{margin:10px 0}#notify button{min-height:48px}
+fieldset.c3{border:2px solid var(--line);border-radius:10px;margin:6px 0;padding:4px 10px}fieldset.c3 legend{font-weight:700;padding:0 4px}
+.c3g{font-weight:700;margin:8px 0 0;color:var(--sub)}
+.ph{display:flex;flex-wrap:wrap;gap:8px}.ph a{display:flex;flex-direction:column;gap:2px;color:var(--ink);text-decoration:none;font-size:15px}
+.ph img{width:120px;height:120px;object-fit:cover;border:2px solid var(--line);border-radius:8px;background:#e6e9ee}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">감리 확인</h1>
+  <div id="syncage" class="syncage" role="status" hidden></div>
+  <p class="sub">시공자가 요청 제출한 구역입니다. 가이드라인 순서대로 <b>ⓐ 작업계획서 확인</b> → <b>ⓑ 구역 최종 확인</b>(현장 확인 3가지)을 남기고, 모자란 점이 있으면 <b>보완 요청</b>을 보냅니다.
+    기록은 다음 Revit 동기화 때 그 시점 판정·근거 원장을 다시 확인한 뒤 들어가고, 결과는 구역마다 '보낸 기록'에 나옵니다.</p>
+  <label for="nm"><b>감리 이름</b> <span class="sub">(처음 한 번만 넣으면 이 기기가 기억)</span></label>
+  <input id="nm" type="text" maxlength="20" autocomplete="name">
+  <div id="msg" role="status" aria-live="polite"></div>
+  <div id="list"><p class="sub">불러오는 중…</p></div>
+  <div id="notify" hidden></div>
+  <p class="sub" id="meta"></p>
+</main>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+// 0-7 (v6.3·v6.4) 열쇠: 주소의 t·v·r·s 를 기기에 옮기고 주소창에서 지움 — 화면은 열쇠 없이 열리고 자료 API 만 열쇠로 (server/vercel/API.md §9.1).
+// 역할마다 하나(onsite.tok.t …), 화면마다 마지막에 쓴 역할(onsite.tok.last/경로).
+function takeToken(keys) {
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem("onsite.tok." + k); localStorage.setItem("onsite.tok." + k, v); } catch (_) {} return null; };
+  const u = new URL(location.href), k = keys.find(x => u.searchParams.get(x));
+  if (k) { ls(k, u.searchParams.get(k)); ls("last" + location.pathname, k); }
+  if (keys.some(x => u.searchParams.has(x))) {   // v6.4: Wi-Fi 서버(field_server·C#)도 화면을 열쇠 없이 내서 어디서나 지움
+    keys.forEach(x => u.searchParams.delete(x)); history.replaceState(history.state, "", u.pathname + u.search + u.hash);
+  }
+  const use = k || [ls("last" + location.pathname), ...keys].find(x => x && keys.includes(x) && ls(x));
+  return {k: use || keys[0], v: (use && ls(use)) || ""};
+}
+// 0-5 (v6.3) "마지막 Revit 동기화 n분 전" — Vercel 서버만 (답에 synced_at). 60분 넘으면 빨강. synced_at = PC 한국 시각
+function syncAge(syncedAt) {
+  if (!syncedAt) return null;
+  const min = Math.max(0, Math.round((Date.now() - Date.parse(String(syncedAt).slice(0, 19) + "+09:00")) / 6e4));
+  const t = min < 1 ? "방금" : min < 120 ? `${min}분 전` : min < 2880 ? `${Math.round(min / 60)}시간 전` : `${Math.round(min / 1440)}일 전`;
+  return min > 60 ? {old: true, text: `PC 동기화가 멈췄습니다. 담당자에게 알려 주세요 (마지막 동기화 ${t})`} : {old: false, text: `마지막 Revit 동기화 ${t}`};
+}
+const TK = takeToken(["s"]), S = "s=" + encodeURIComponent(TK.v);
+const LS = {get: k => { try { return localStorage.getItem("sup." + k) || ""; } catch (_) { return ""; } }, set: (k, v) => { try { localStorage.setItem("sup." + k, v); } catch (_) {} }};
+const say = (t, ok) => { $("#msg").innerHTML = t ? `<div class="msg ${ok ? "o" : "e"}">${esc(t)}</div>` : ""; };
+const ACT = {plan: "ⓐ 작업계획서 확인", final: "ⓑ 최종 확인", reject: "보완 요청"};
+$("#nm").value = LS.get("name");
+$("#nm").onchange = () => LS.set("name", $("#nm").value.trim());
+let D = null, lastSig = "";
+function cid() { const a = new Uint8Array(8); crypto.getRandomValues(a); return "sup-" + Array.from(a, b => b.toString(16).padStart(2, "0")).join("") + "-" + Date.now().toString(36); }
+function loadErr(t) {
+  lastSig = "";
+  $("#list").innerHTML = `<div class="msg e" role="alert">${esc(t)}<button type="button" id="retry">다시 시도</button></div>`;
+  $("#retry").onclick = () => { $("#list").innerHTML = `<p class="sub">불러오는 중…</p>`; load(); };
+}
+async function load() {
+  let r, j;
+  try { r = await fetch("/api/supervisor?" + S, {cache: "no-store"}); j = await r.json(); }
+  catch (_) { return loadErr("서버에 닿지 않았습니다. 휴대폰 인터넷을 확인하고 [다시 시도]를 누르세요"); }
+  if (r.status === 403) return loadErr("감리 주소가 맞지 않습니다. 현장 담당자에게 감리 확인 주소(QR)를 다시 받으세요");
+  if (!j || !j.ok) return loadErr((j && j.error) || "자료를 읽지 못했습니다. [다시 시도]를 누르세요");
+  D = j;
+  const sa = syncAge(j.synced_at), sb = $("#syncage");
+  sb.hidden = !sa; if (sa) { sb.textContent = sa.text; sb.classList.toggle("old", sa.old); }
+  $("#title").textContent = `${j.project || ""} · 감리 확인`;
+  $("#meta").textContent = (j.synced_at ? `마지막 Revit 동기화 ${String(j.synced_at).replace("T", " ")}` : "Revit 동기화 기록 없음") + (j.fixed_now ? ` · 판정 기준 ${j.now.replace("T", " ")} (시연 고정)` : "");
+  const sig = JSON.stringify(j.zones);
+  if (sig === lastSig) return;   // 1분 새로 고침 — 바뀐 것이 없으면 다시 그리지 않음 (체크해 둔 칸 유지)
+  lastSig = sig;
+  render();
+}
+function evHTML(z) {
+  if (!z.evidence) return `<dt>근거 원장</dt><dd>${esc(z.evidence_stage)}/8</dd>`;
+  return `<dt>근거 원장</dt><dd><ul class="ev" aria-label="근거 원장 단계">${z.evidence.map(e => `<li class="${e.date ? "y" : "n"}">${e.date ? "✓" : "✕"} ${e.n} ${esc(e.name)}${e.date ? " " + esc(e.date.slice(5)) : ""}${e.by ? ` <small>${esc(e.by)}</small>` : ""}</li>`).join("")}</ul></dd>`;
+}
+// v6.4 2-4 ③ 펼침 — 가이드라인 4.1 작업준비·작업자·작업허가 (항목을 모두 체크해야 ③), 원장 4 해체 전 점검은 읽기 전용
+function check3HTML(z, title) {
+  const e4 = z.evidence ? z.evidence.find(e => e.n === 4) : null;
+  return `<fieldset class="c3"><legend>${esc(title)}</legend>` +
+    `<p class="hint">시공자 해체 전 점검(근거 원장 4): ${e4 ? (e4.date ? "기록 " + esc(e4.date) : "기록 없음") : "자료 없음"}. 아래는 감리가 현장에서 직접 확인합니다</p>` +
+    D.check3.map(g => `<p class="c3g">${esc(g.group)}</p>` + g.items.map(t => `<label class="ck"><input type="checkbox" data-k="2"> ${esc(t)}</label>`).join("")).join("") + `</fieldset>`;
+}
+function photosHTML(z) {   // v6.4 2-4 휴대폰 공시체 사진 (감리 열쇠로만 열림)
+  if (!z.photos || !z.photos.length) return "";
+  return `<h2>공시체 사진</h2><div class="ph">${z.photos.map(p => `<a href="/api/photo?${S}&id=${encodeURIComponent(p.id)}" target="_blank" rel="noopener">` +
+    `<img src="/api/photo?${S}&id=${encodeURIComponent(p.id)}" alt="공시체 사진 ${esc(p.test_date)} ${esc(p.curing)}" loading="lazy"><span>${esc(p.test_date)}${p.lot ? " · 타설 " + esc(p.lot) : ""}</span></a>`).join("")}</div>`;
+}
+function histHTML(z) {
+  if (!z.history || !z.history.length) return "";
+  return `<h2>보낸 기록</h2><ul class="hist">${z.history.map(h => `<li>${esc(ACT[h.action] || h.action)} · ${esc(h.name)} · ${esc(String(h.at).slice(5, 16).replace("T", " "))} · ` +
+    (h.state === "거절" ? `<span class="x">거절: ${esc(h.error)}</span>` : h.state === "기록됨" ? `<span class="y">기록됨</span>` : "Revit 동기화 대기") +
+    (h.reason ? ` · 사유 "${esc(h.reason)}"` : "") + `</li>`).join("")}</ul>`;
+}
+function render() {
+  if (!D.zones.length) { $("#list").innerHTML = `<div class="card">요청 제출된 구역이 없습니다. 시공자가 Revit [요청서]로 요청을 제출하면 여기에 나옵니다.</div>`; return; }
+  const kv = (k, v) => v === "" || v == null ? "" : `<dt>${k}</dt><dd>${esc(v)}</dd>`;
+  $("#list").innerHTML = D.zones.map((z, i) => `<div class="card" data-i="${i}">
+    <div class="zid">${esc(z.zone_id)}</div>
+    <dl class="kv">${kv("Revit 판정", z.decision)}${kv("사유", z.reason)}${kv("공시체 평균", z.f_cyl !== "" ? z.f_cyl + " MPa (" + (z.cyl_test_date || "") + ")" + (z.cyl_entered_by ? ` · 입력 ${z.cyl_entered_by}${z.cyl_entered_at ? " " + String(z.cyl_entered_at).slice(5, 16).replace("T", " ") : ""}` : "") : "")}${kv("기준", z.threshold !== "" ? z.threshold + " MPa" : "")}
+      ${kv("구역 최소 추정", z.f_est_min !== "" ? z.f_est_min + " MPa (참고)" : "")}${kv("층수 조건", z.level_gate)}${evHTML(z)}${kv("요청 제출", String(z.requested_at).slice(0, 16).replace("T", " ") + " · " + z.requested_by)}</dl>
+    <div class="step"><h2>ⓐ 작업계획서 확인</h2>
+      ${z.can_plan ? `<p class="hint">해체 작업계획서(순서·방법·안전계획)를 검토했으면 기록합니다.</p><button type="button" class="pri" data-a="plan">ⓐ 작업계획서 확인 기록</button>`
+        : `<div class="${z.plan_confirmed_at ? "done" : "why"}">${esc(z.why_plan)}</div>`}</div>
+    <div class="step"><h2>ⓑ 구역 최종 확인</h2>
+      ${z.can_final ? D.checks.map((c, k) => k === 2 && D.check3 ? check3HTML(z, c) : `<label class="ck"><input type="checkbox" data-k="${k}"> ${esc(c)}</label>`).join("") +
+        `<button type="button" class="pri" data-a="final" disabled>ⓑ 현장 확인 · 승인 기록</button><p class="hint" data-hint>모든 확인 칸을 체크하면 눌러집니다</p>`
+        : `<div class="why">${esc(z.why_final)}</div>`}</div>
+    ${z.can_reject ? `<details class="step"><summary>보완 요청 보내기</summary>
+      <label for="rs${i}" class="sub">무엇을 보완해야 하나요 (100자 이내. 시공자 '오늘 볼 것'에 그대로 뜸)</label>
+      <textarea id="rs${i}" maxlength="100" data-reason></textarea>
+      <button type="button" class="bad" data-a="reject">보완 요청 보내기</button></details>` : ""}
+    ${photosHTML(z)}${histHTML(z)}
+  </div>`).join("");
+  for (const card of document.querySelectorAll(".card[data-i]")) {
+    const z = D.zones[Number(card.dataset.i)], boxes = [...card.querySelectorAll("input[type=checkbox]")], fin = card.querySelector('[data-a="final"]'), hint = card.querySelector("[data-hint]");
+    const upd = () => { const left = boxes.filter(b => !b.checked).length; if (fin) fin.disabled = left > 0; if (hint) hint.textContent = left ? `모든 확인 칸을 체크하면 눌러집니다 (남은 칸 ${left}개)` : "모두 체크했습니다"; };
+    boxes.forEach(b => b.onchange = upd);
+    for (const btn of card.querySelectorAll("[data-a]")) btn.onclick = () => send(z, btn.dataset.a, btn, card);
+  }
+}
+async function send(z, action, btn, card) {
+  const name = $("#nm").value.trim();
+  if (!name) { say("감리 이름을 적어 주세요 (기록에 남습니다)"); $("#nm").focus(); return; }
+  const body = {client_id: cid(), zone_id: z.zone_id, name, action};
+  if (action === "final") body.checks = [true, true, true];
+  if (action === "reject") {
+    const t = card.querySelector("[data-reason]").value.trim();
+    if (!t) { say("보완할 내용을 적어 주세요"); card.querySelector("[data-reason]").focus(); return; }
+    body.reason = t;
+  }
+  const q = {plan: `${z.zone_id} 작업계획서 확인을 기록할까요?`, final: `${z.zone_id} 현장 확인을 마치고 승인 기록을 남길까요?\n(다음 Revit 동기화 때 판정·근거 원장을 다시 확인한 뒤 기록됩니다)`,
+             reject: `${z.zone_id} 보완 요청을 보낼까요?\n"${body.reason || ""}"`}[action];
+  if (!confirm(q)) return;
+  LS.set("name", name);
+  const label = btn.textContent; btn.disabled = true; btn.textContent = "보내는 중…";
+  try {
+    const r = await fetch("/api/supervise?" + S, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.error);
+    say(`${z.zone_id}: ${j.message}`, true);
+    lastSig = ""; await load();
+  } catch (x) {
+    say((x && x.message && !(x instanceof TypeError)) ? x.message : "보내지 못했습니다. 연결을 확인하고 다시 누르세요");
+  } finally {
+    if (document.body.contains(btn)) { btn.textContent = label; btn.disabled = action === "final" ? [...card.querySelectorAll("input[type=checkbox]")].some(b => !b.checked) : false; }
+  }
+}
+load();
+setInterval(load, 60000);
+</script>
+<script src="/notify.js" defer></script>
+</body>
+</html>

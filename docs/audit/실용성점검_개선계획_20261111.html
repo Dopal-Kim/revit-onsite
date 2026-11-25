@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>실용성 점검 평가와 개선 계획</title>
+<style>
+@page { size: A4; margin: 14mm 14mm 14mm 14mm; }
+* { box-sizing: border-box; }
+body { font-family: "Malgun Gothic", "Noto Sans KR", sans-serif; color: #1B2A41; font-size: 10.2pt; line-height: 1.55; margin: 0; }
+h1 { font-size: 26pt; margin: 0 0 6mm; line-height: 1.2; }
+h2 { font-size: 15pt; margin: 0 0 3mm; padding: 0 0 2mm; border-bottom: 2.5px solid #1F5FA8; break-after: avoid; }
+h3 { font-size: 11.5pt; margin: 5mm 0 2mm; color: #1F5FA8; break-after: avoid; }
+p { margin: 0 0 2.2mm; }
+.page { break-before: page; }
+.lead { font-size: 11pt; color: #34465F; }
+.muted { color: #5C6E86; }
+.small { font-size: 8.8pt; }
+table { width: 100%; table-layout: fixed; border-collapse: collapse; margin: 1.5mm 0 3mm; font-size: 9pt; }
+th, td { border: 1px solid #C9D4E3; padding: 1.4mm 2mm; vertical-align: top; text-align: left; }
+th { background: #EAF0F8; font-weight: 700; }
+tr { break-inside: avoid; }
+td:first-child { white-space: nowrap; }
+td.id { white-space: nowrap; font-weight: 700; color: #1F5FA8; }
+td.btn { font-weight: 700; }
+td.m { text-align: center; }
+.yes { color: #B85C0E; font-weight: 700; }
+.no { color: #2E7D4F; }
+.tag { display: inline-block; font-size: 7.6pt; padding: 0 1.4mm; border-radius: 2px; border: 1px solid; margin: 0 0.6mm; vertical-align: 1px; }
+.t-ok { color: #2E7D4F; border-color: #2E7D4F; }
+.t-as { color: #B85C0E; border-color: #B85C0E; }
+.t-in { color: #1F5FA8; border-color: #1F5FA8; }
+.box { border: 1.5px solid #C9D4E3; border-radius: 3px; padding: 2.5mm 3mm; background: #F7F9FC; break-inside: avoid; margin: 0 0 3mm; }
+.box.warn { border-color: #E3B58C; background: #FFF8F1; }
+.box.key { border-color: #1F5FA8; background: #F1F6FC; }
+.box b.h { display: block; margin-bottom: 1mm; }
+/* 흐름도 */
+.flow { display: grid; grid-template-columns: 1fr 9mm 1fr 9mm 1fr; align-items: stretch; margin: 2mm 0 4mm; break-inside: avoid; }
+.flow .col { display: flex; flex-direction: column; gap: 2mm; }
+.flow .arrow { display: flex; align-items: center; justify-content: center; font-size: 16pt; color: #1F5FA8; }
+.node { border: 1.5px solid #1F5FA8; border-radius: 3px; padding: 2mm 2.5mm; background: #fff; font-size: 9pt; }
+.node b { display: block; font-size: 9.8pt; }
+.node.core { background: #1F5FA8; color: #fff; border-color: #1F5FA8; }
+.node.core b { color: #fff; }
+.node.grey { border-color: #9AA9BD; color: #34465F; }
+.colhead { font-size: 8.6pt; font-weight: 700; color: #5C6E86; text-align: center; }
+/* 판정 단계 */
+.gates { counter-reset: g; margin: 2mm 0 3mm; }
+.gate { font-size: 9.4pt; display: grid; grid-template-columns: 9mm 1fr 47mm; gap: 2.5mm; align-items: center; border: 1px solid #C9D4E3; border-left: 5px solid #1F5FA8; padding: 1.6mm 2.5mm; margin-bottom: 1.3mm; break-inside: avoid; background: #fff; }
+.gate .n { font-size: 14pt; font-weight: 800; color: #1F5FA8; text-align: center; }
+.gate .q b { display: block; }
+.gate .fail { font-size: 8.8pt; color: #B85C0E; border-left: 1px dashed #C9D4E3; padding-left: 2.5mm; }
+.gate.pass { border-left-color: #6BBF59; background: #F2FAEF; }
+.sw { display: inline-block; width: 4mm; height: 4mm; border-radius: 1px; vertical-align: -0.6mm; margin-right: 1.2mm; border: 1px solid rgba(0,0,0,.2); }
+.cover { height: 255mm; display: flex; flex-direction: column; justify-content: space-between; }
+.cover .band { border-left: 8px solid #1F5FA8; padding-left: 6mm; }
+.toc { columns: 2; column-gap: 8mm; font-size: 10pt; }
+.toc div { break-inside: avoid; padding: 0.8mm 0; border-bottom: 1px dotted #C9D4E3; }
+.qa { width: 100%; }
+.qa td { height: 11mm; }
+.legend-row td:first-child { width: 9mm; text-align: center; font-weight: 700; }
+</style>
+</head>
+<body>
+<section class="cover" style="height:auto;display:block">
+  <p class="muted">Revit On-Site · Build Up · 2026-11-11 · 89차 기준 · 발표 11-18</p>
+  <div class="band" style="margin:10mm 0 8mm">
+    <h1>실용성 점검 평가와 일괄 개선 계획</h1>
+    <p class="lead">가이드라인 2023.1 기준으로 다섯 갈래 점검(지적 약 145건)을 합쳐, <b>시공자</b>와 <b>감리</b>가 실제로 쓰고 서명할 수 있는지 평가하고, 겹치는 지적을 묶어 착수 순서(0–3차)와 세션 역할을 정했습니다.</p>
+  </div>
+  <table>
+    <colgroup><col style="width:40mm"><col><col style="width:22mm"><col style="width:58mm"></colgroup>
+    <tr><th>점검</th><th>범위 · 기준</th><th>지적</th><th>파일 (docs/audit/)</th></tr>
+    <tr><td>가이드라인 대조</td><td>판정 규칙·서류 ↔ 가이드라인 원문 73쪽</td><td>19 (높음 5)</td><td>guideline_audit_20261111.md</td></tr>
+    <tr><td>Revit 화면</td><td>입력 창·리본·대시보드·서류 6종 (revit-ui, check8 저장 안 함)</td><td>25 (높음 6)</td><td>revit_ui_audit_20261111.md</td></tr>
+    <tr><td>현장 웹 1차</td><td>휴대폰·반장·감리 화면 (vercel-server)</td><td>22 (높음 6)</td><td>field_web_audit_20261111.md</td></tr>
+    <tr><td>현장 입력 QR 화면</td><td>UI UX Pro Max 규칙, 375 px 실측</td><td>19 (높음 3)</td><td>field_input_uiux_20261111.md</td></tr>
+    <tr><td>통합 HTML 뷰</td><td>Vercel Web Interface Guidelines, A4 인쇄 쪽수 실측</td><td>약 60</td><td>integrated_html_vercel_20261111.md</td></tr>
+  </table>
+  <p class="small muted">스킬은 설치하지 않고 규칙 원문만 tools/ui_skills/ 에 고정본으로 둠(SOURCE.txt). 모든 점검은 읽기·화면 확인만 — 코드 변경·재배포 없음. 실제 휴대폰·장갑·감리 사용 시험은 아직 안 함.</p>
+</section>
+
+<section class="page">
+<h2>1. 평가 — 시공자와 감리는 지금 이걸 쓸까</h2>
+<table>
+<colgroup><col style="width:30mm"><col style="width:18mm"><col><col></colgroup>
+<tr><th>영역</th><th>지금</th><th>시공자(공무·안전·반장) 입장</th><th>감리 입장</th></tr>
+<tr><td><b>판정 기준</b></td><td class="m">B</td><td>근거 창의 비교 줄("공시체 25.1 ≥ 24 ✓ · 하중비 0.83 ≤ 1.00 ✓")을 그대로 말로 설명할 수 있음.</td><td>강도·3개층·14 MPa 수치는 원문과 맞음. 그러나 <b>하중값이 예제 가정치</b>(G1), <b>지지층 강도를 추정값으로</b>(G2), 재받침 층에도 단순식(G3) → "우리 건물 값이 아니면 서명 못 함".</td></tr>
+<tr><td><b>해체 절차</b></td><td class="m">C</td><td>요청서가 버튼 하나로 나와 편함.</td><td>계획서 승인 → 해체 전 점검 → 최종 승인 순서를 구분하지 않음. <b>현장 확인 3가지가 전부 ✕인데도 요청서가 '요청 가능'</b>(Revit #2). 감리 화면은 승인만 있고 <b>보완 요청 길이 없음</b>(웹 #11·#12).</td></tr>
+<tr><td><b>서류</b></td><td class="m">C+</td><td>별지 6호 모양이라 익숙함.</td><td><b>같은 날 '요청 가능' 숫자가 화면 4 · 요청서 6 · 이력서 31</b>(Revit #1) — 대조하는 순간 신뢰가 깨짐. 요청서가 4쪽 설계인데 <b>5쪽 인쇄</b>(88차 회귀). 공사명이 파일 이름, [가정]·내부 메모 번호 노출.</td></tr>
+<tr><td><b>입력 부담</b></td><td class="m">C+</td><td>휴대폰 입력은 장갑·햇빛을 고려함. 그러나 <b>잘못 넣으면 CSV를 엑셀로 고쳐야</b>(Revit #6), 타설 전 확인 <b>18건 따로</b>(웹 #5), 지하에서 화면 안 열림(웹 #8), 뒤로 가면 강도 값 사라짐(U9), 입력자가 "admin".</td><td>입력자가 실명이 아니면 기록의 책임 주체가 불분명.</td></tr>
+<tr><td><b>반장 화면</b></td><td class="m">C</td><td>신고는 짧고 좋음. 그러나 <b>"해체 승인 요청 가능"이 '빼도 된다'로 읽힘</b>(웹 #1).</td><td>무단 해체 의심 경고는 강점.</td></tr>
+<tr><td><b>화면 구성</b></td><td class="m">B−</td><td>대시보드 첫 화면을 참고용 강도 그림이 차지, 리본 43개 중 매일 쓰는 건 6개, "시험 필요 19" vs "0구역" 혼동.</td><td>—</td></tr>
+<tr><td><b>기록·책임</b></td><td class="m">A−</td><td>무단 해체 의심·해체 후 점검으로 현장 사실이 남음.</td><td>해시 사슬·패키지 SHA-256·서명란 빈칸·"승인 아님" 원칙은 원문(3.2.7·3.3.3)과 맞음 — 가장 강한 부분.</td></tr>
+</table>
+<div class="box key"><b class="h">한 줄 평가</b>
+<b>기록·책임 체계는 감리가 인정할 수준</b>이지만, <b>(1) 서류끼리 숫자가 다르고 (2) 해체 절차 단계를 건너뛴 요청서가 나오고 (3) 하중이 가정치</b>라서, 지금 그대로는 감리가 서명하기 어렵습니다. 세 가지 모두 판정 엔진을 갈아엎지 않고 고칠 수 있는 크기(S–M)입니다.</div>
+
+<h3>점검끼리 겹친 지적 (같은 문제를 여러 갈래가 발견 → 신뢰도 높음)</h3>
+<table>
+<colgroup><col style="width:58mm"><col></colgroup>
+<tr><th>묶음</th><th>겹친 지적</th></tr>
+<tr><td>해체 절차 단계 구분</td><td>가이드라인 G5·G8 · Revit #2·#15 · 웹 #11·#12·#13·#14</td></tr>
+<tr><td>요청서 인쇄 5쪽</td><td>통합 HTML (report_style.py:4 원인) · Revit #19</td></tr>
+<tr><td>특수 부위(캔틸레버·차양) 표시 없음</td><td>가이드라인 G4 · Revit #24</td></tr>
+<tr><td>성적서 값을 넣을 곳 없음</td><td>가이드라인 G1 (하중) · Revit #10 (동바리 허용하중) · #9 (공시체 성적서) · 웹 #7 (공시체 사진)</td></tr>
+<tr><td>요청서 근거표가 감리에게 부족</td><td>가이드라인 G7·G19 · Revit #16·#17·#18·#22</td></tr>
+<tr><td>오프라인·입력 유실</td><td>웹 #8 = U15 · U9</td></tr>
+</table>
+</section>
+
+<section>
+<h2 style="margin-top:7mm">2. 일괄 개선 계획 (착수 순서)</h2>
+<p>원칙: <b>판정 결과를 바꾸는 일은 감리 협의 뒤</b>, 발표 전에는 <b>신뢰를 깨는 것·절차·서류</b>부터. Python 엔진 ↔ C# 은 지금처럼 같은 결과(바이트 대조)를 유지하고, 묶음마다 run_all_checks 통과 → 사용자 승인 → 배포.</p>
+
+<h3>0차 — 오늘·내일 (발표 전 필수, 모두 S)</h3>
+<table>
+<colgroup><col style="width:11mm"><col><col style="width:40mm"><col style="width:22mm"></colgroup>
+<tr><th>#</th><th>할 일</th><th>근거 지적</th><th>맡을 곳</th></tr>
+<tr><td>0-1</td><td>공통 서류 스타일의 줄 간격·테두리를 화면 전용으로 → 요청서 4쪽 복구 (py·C# 같은 글자)</td><td>통합 1 · Revit #19</td><td>총괄</td></tr>
+<tr><td>0-2</td><td>'요청 가능·존치' 요약 숫자를 한 함수로 → 대시보드·요청서·패키지·이력서·층 표지가 같은 숫자</td><td>Revit #1</td><td>총괄</td></tr>
+<tr><td>0-3</td><td>"시험 필요"를 "공시체 미입력(예측일 지남)"으로 이름 구분</td><td>Revit #3</td><td>총괄</td></tr>
+<tr><td>0-4</td><td>반장 화면 문구를 행동 먼저로: "빼지 마세요 — 감리 확인 전" / 6 "현장 책임자 지시 후 해체"</td><td>웹 #1·#2</td><td>vercel-server</td></tr>
+<tr><td>0-5</td><td>다크 모드 [알림 받기]·타임라인 링크 대비·높이, 입력·층 보기·감리 화면에 "마지막 Revit 동기화 n분 전"</td><td>U1–U3 · 웹 #9</td><td>vercel-server</td></tr>
+<tr><td>0-6</td><td>서류 문구: 공사명·시공사·감리단 칸(설정) → 머리에, 해체 면적 자동, 센서 없으면 "센서 없음"만, [가정]·내부 메모 번호 → 말과 조항 번호로</td><td>Revit #12·#16·#17·#22 · G19</td><td>총괄</td></tr>
+<tr><td>0-7</td><td>주소창에서 열쇠(토큰) 지우기 (첫 접속 뒤 기기 저장)</td><td>웹 #22</td><td>vercel-server</td></tr>
+</table>
+
+<h3>1차 — 발표 전 (가이드라인 정합, S–M)</h3>
+<table>
+<colgroup><col style="width:11mm"><col><col style="width:40mm"><col style="width:22mm"></colgroup>
+<tr><th>#</th><th>할 일</th><th>근거 지적</th><th>맡을 곳</th></tr>
+<tr><td>1-1</td><td><b>해체 절차 순서</b>: 근거 원장 5단계 앞에 2(계획서)·3(감리 계획서 확인)·4(해체 전 점검) 요구, 요청서 1쪽에 "현장 확인 미비 n구역" 굵게, 미비면 요청서·요청 제출 때 사유 입력 창</td><td>G5 · Revit #2</td><td>총괄</td></tr>
+<tr><td>1-2</td><td><b>감리 화면 두 단계 + 보완 요청</b>: ⓐ 작업계획서 확인 ⓑ 구역 최종 확인, [보완 요청 + 사유] → Revit 오늘 볼 것 (supervise_rejects 재사용), 보냄→기록됨/거절 상태</td><td>웹 #11·#12·#14·#16</td><td>vercel-server + 총괄(엔진)</td></tr>
+<tr><td>1-3</td><td><b>성적서 값 입력</b>: 설정에 구조계산서 마감하중·설계활하중(비면 "가정치 사용" 경고), 동바리 사양에 제품 허용하중 kN(성적서) → 설치 검측이 그 값 사용</td><td>G1 · Revit #10</td><td>총괄</td></tr>
+<tr><td>1-4</td><td><b>특수 부위·재받침·최상층 예외 표시</b>: 구역 정보에 '특수 부위' 체크 → 요청서 "fck 100% 확인 필요", 재받침 기록 구역 "정밀해석 필요(범위 밖)", 최상층 예외 구역 "감리 협의"</td><td>G3·G4·G14 · Revit #24</td><td>총괄</td></tr>
+<tr><td>1-5</td><td><b>요청서 근거표 보강</b>: 지지층 층별 MPa·하중비·하중 출처 열, 4.2 해체 중 항목을 원문대로 빈 체크 행, 서명표 쪽 갈림 방지·표 머리 반복·인쇄 색, package·quality A4</td><td>G7 · Revit #18 · 통합 2·3</td><td>총괄</td></tr>
+<tr><td>1-6</td><td><b>현장 입력 화면 UI UX 1차 10개</b>: 누름 표시, 16 px 글자, 접힘 줄 48 px, [지우기] 빨강, 하단 막대 가림, 대비, 진동, 뒤로 가도 입력값 유지(U9)</td><td>U4–U11·U16</td><td>vercel-server</td></tr>
+<tr><td>1-7</td><td><b>통합 뷰 Vercel 1차</b>: 세 화면 공통 CSS(safe-area·focus-visible·touch-action·color-scheme), 오류에 다음 할 일·다시 시도, 1분 새로 고침 부분 교체, 타임라인 잘림·대비</td><td>통합 5–9</td><td>vercel-server</td></tr>
+<tr><td>1-8</td><td>입력자 실명(처음 한 번), 공시체 목록 = 공시체 없는 최근 타설 순, 구역 정보 [기록] 버튼 이름 구분</td><td>Revit #8·#13·#23</td><td>총괄</td></tr>
+<tr><td>1-9</td><td>서류 자체 시험에 Chrome 인쇄 쪽수 검사(요청서 4·검토서 1·층 표지 층당 1)</td><td>통합 4</td><td>총괄</td></tr>
+</table>
+<p class="small muted">1차 끝나면 revit-ui 가 회귀 2회 + 시뮬레이션 9F-B1 10단계 다시 → 그 뒤 시뮬레이션 PDF (기존 방침: 안정화 뒤).</p>
+</section>
+
+<section>
+<h3>2차 — 발표 직후 (현장 부담, M)</h3>
+<table>
+<colgroup><col style="width:11mm"><col><col style="width:40mm"><col style="width:22mm"></colgroup>
+<tr><th>#</th><th>할 일</th><th>근거 지적</th><th>맡을 곳</th></tr>
+<tr><td>2-1</td><td>잘못 넣은 기록을 창 안에서 정정 ('이 기록 취소 + 사유' 줄 추가 — 추가만 원칙 유지)</td><td>Revit #6</td><td>총괄</td></tr>
+<tr><td>2-2</td><td>타설 전 동바리 일괄 확인 (아래 3개층 목록 한 화면, 예외만 아니오)</td><td>웹 #5</td><td>vercel-server + 총괄</td></tr>
+<tr><td>2-3</td><td>오프라인 열기 (서비스 워커가 화면·마지막 모델 캐시, "오프라인 — n건 대기")</td><td>웹 #8 · U15</td><td>vercel-server</td></tr>
+<tr><td>2-4</td><td>근거 원장 한 창에서 여러 단계, 공시체 성적서 파일·사진, 감리 화면 4.1 항목 펼침</td><td>Revit #9·#15 · 웹 #7·#13 · G8</td><td>총괄 + vercel</td></tr>
+<tr><td>2-5</td><td>대시보드 첫 화면 순서(오늘 볼 것 → 칩 → 층×구역, 강도 그림 접힘), 범례가 활성 뷰 색 따라가기, 리본 매일/가끔 정리, 설정 창 접기</td><td>Revit #4·#5·#11·#14</td><td>총괄 (WPF: ui-ux-pro-max wpf.csv 규칙)</td></tr>
+<tr><td>2-6</td><td>패키지가 IFC 함께 생성·근거 원장 HTML 표, 층 표지 기본 = 동바리 서 있는 층만, 타설 입회자 칸, 해체 후 침하량 mm 반복·결과보고 1쪽</td><td>Revit #7·#20·#21 · G9·G10</td><td>총괄</td></tr>
+<tr><td>2-7</td><td>NG 동바리 행·열 입력 대안, 웹 공유판 접근성·주소에 날짜·구역</td><td>U13 · 웹 #6 · 통합 10</td><td>vercel / 총괄</td></tr>
+</table>
+
+<h3>3차 — 감리 협의 뒤 (판정 결과가 바뀌는 것)</h3>
+<table>
+<colgroup><col style="width:11mm"><col><col style="width:40mm"></colgroup>
+<tr><th>#</th><th>할 일</th><th>근거 지적</th></tr>
+<tr><td>3-1</td><td><b>지지층 14 MPa 도 공시체 실측으로</b> — 추정뿐이면 "지지층 공시체 필요" 존치, 보정 안 된 추정은 차단하지 않고 경고 (실측 원칙과 한 방향으로)</td><td>G2 · G11</td></tr>
+<tr><td>3-2</td><td>3개층 존치 해석("타설층 포함 N, N-1, N-2")을 감리 협의값으로 설정</td><td>G6</td></tr>
+<tr><td>3-3</td><td>타설 방식(카트 3.75 kN/㎡ 등) → 활하중, 공시체 양생 조건·로트 공유 제한, 조기 탈형 10 ℃ 판정을 센서 기준으로</td><td>G12 · G13 · G16</td></tr>
+<tr><td>3-4</td><td>해체계획서 순서도 초안(모델에서), 보·전이보 밑면 별도, 한중 경고 요청서 필수</td><td>G15 · G17 · G18</td></tr>
+</table>
+
+<h3>운영 결정 (사용자)</h3>
+<table>
+<colgroup><col style="width:11mm"><col><col style="width:40mm"></colgroup>
+<tr><td>D1</td><td>3-1 지지층 실측 원칙을 발표 전에 넣을지 — 넣으면 데모 판정 숫자가 바뀌고 시연 자료·영상과 달라짐</td><td>G2·G11</td></tr>
+<tr><td>D2</td><td>감리 개인 PIN 또는 서명 사진 (지금은 감리 주소만 알면 누구 이름으로든 기록)</td><td>웹 #15</td></tr>
+<tr><td>D3</td><td>협력업체 신고 열쇠 교체 주기 (업체 바뀔 때 층 표지 재인쇄와 묶기)</td><td>웹 #17</td></tr>
+</table>
+
+<h2 style="margin-top:7mm">3. 세션 역할</h2>
+<table>
+<colgroup><col style="width:30mm"><col><col style="width:46mm"></colgroup>
+<tr><th>세션</th><th>맡는 것</th><th>건드리지 않는 것</th></tr>
+<tr><td><b>총괄 (이 세션)</b></td><td>Python 엔진 ↔ C# 엔진·애드인 창·서류 생성 (같은 결과 유지), run_all_checks, 배포(사용자 승인 뒤), 묶음별 HANDOFF</td><td>web/field·server/vercel 화면 파일</td></tr>
+<tr><td><b>vercel-server</b></td><td>web/field/index.html(= Vercel·Wi-Fi·C# FieldServer 공용 화면)·view·supervisor·timeline, server API route 추가(API.md), test_server_sync</td><td>shoring/·revit/ 엔진 코드. 재배포는 사용자 직접 승인 뒤</td></tr>
+<tr><td><b>revit-ui</b></td><td>묶음 배포마다 Revit 화면·서류 인쇄 확인, 회귀 2회, 시뮬레이션 다시 · check8 저장 안 함</td><td>코드 수정</td></tr>
+</table>
+<p class="small muted">겹치는 곳: 1-2 감리 두 단계는 서버 route(vercel) ↔ approval·근거 원장(총괄)이 같이 바뀜 → API.md 에 action 이름을 먼저 정하고 각자 구현. 0-4 반장 문구는 field_server VIEW_LINE(Python) 이 원본이라 총괄이 엔진 문구를 바꾸고 vercel 이 화면 반영.</p>
+</section>
+
+</body>
+</html>

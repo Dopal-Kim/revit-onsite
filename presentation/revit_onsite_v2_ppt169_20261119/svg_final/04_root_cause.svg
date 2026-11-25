@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF" />
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1" />
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 건설사고조사위원회 2022·2023, 국토부 고시 제2024-879호</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">04 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8" />
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">01 · 질문 · 왜 위험한가</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">두 사고 모두 타설·양생 단계의 강도가 문제였습니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">그런데 현장은 아직 날짜 사이클로 동바리를 뺍니다</text>
+  </g>
+  <g id="hero-stat" data-pptx-bounds="64 196 500 456">
+    <text x="64" y="232" font-size="15" font-weight="bold" fill="#5E6B7A">광주 화정 아파트 (2022)</text>
+    <text x="64" y="330" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="64" font-weight="bold" fill="#E8613C">15 / 17층</text>
+    <text x="64" y="370" font-size="20" fill="#1E2633">시험체 강도 미달 층 · 최저 <tspan font-weight="bold">9.8 MPa</tspan></text>
+    <line x1="64" y1="404" x2="540" y2="404" stroke="#D5DCE4" stroke-width="1" />
+    <text fill="#1B2A41" font-size="24" font-weight="bold" x="64" y="448">동바리 조기 철거</text><text fill="#1B2A41" font-size="24" font-weight="bold" x="64" y="484">+ 동절기 양생 미흡</text><text fill="#5E6B7A" font-size="18" x="64" y="548">국토부도 표준시방서를 개정하며</text><text fill="#5E6B7A" font-size="18" x="64" y="576">강도 부족을 아파트 사고의</text><text fill="#5E6B7A" font-size="18" x="64" y="604">주요 원인 중 하나로 들었습니다</text></g>
+  <g id="evidence-cards" data-pptx-bounds="600 196 616 456">
+    <rect x="600" y="200" width="616" height="132" rx="6" fill="#EEF3F9" />
+    <text x="628" y="236" font-size="15" font-weight="bold" fill="#5E6B7A">검단 아파트 (2023)</text>
+    <text x="628" y="274" font-size="22" font-weight="bold" fill="#1B2A41">표준양생 공시체는 합격, 실제 구간 강도는 미달</text>
+    <text x="628" y="308" font-size="18" fill="#1E2633">공시체 값이 위치 · 판단과 연결되지 않았습니다</text>
+    <rect x="600" y="348" width="616" height="132" rx="6" fill="#EEF3F9" />
+    <text x="628" y="384" font-size="15" font-weight="bold" fill="#5E6B7A">제도 · 2025-01-01</text>
+    <text x="628" y="422" font-size="22" font-weight="bold" fill="#1B2A41">현장양생 공시체 의무화</text>
+    <text x="628" y="456" font-size="18" fill="#1E2633">1일 1회 · 층 · 구획마다 (국토부 고시 제2024-879호)</text>
+    <rect x="600" y="496" width="616" height="152" rx="6" fill="#1B2A41" />
+    <text x="628" y="532" font-size="15" font-weight="bold" fill="#D5DCE4">검단 사고조사위원회 권고</text>
+    <text x="628" y="580" font-size="22" font-weight="bold" fill="#FFFFFF">"검측 자료 디지털화 · BIM 활용 기반 마련"</text>
+    <text x="628" y="620" font-size="18" fill="#D5DCE4">이 도구를 만든 이유 중 하나입니다</text>
+  </g>
+</svg>

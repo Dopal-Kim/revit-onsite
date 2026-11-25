@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="toc" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">목차 · 도면 목록</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-02/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">DRAWING LIST · 목차</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">Contents</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">문제에서 시작해 근거 · 도구 · 효과 · 한계 순으로 갑니다</text>
+  </g>
+  <g id="toc-1" data-pptx-bounds="56 170 564 98">
+    <text x="56" y="198" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">I</text>
+    <text x="104" y="198" font-size="22" font-weight="bold" fill="#1D3557">Revit On-Site 소개</text>
+    <line x1="56" y1="210" x2="616" y2="210" stroke="#C5CDD6" stroke-width="1" />
+    <g font-size="18" fill="#1E2329"><text x="104" y="234">개요</text><text x="104" y="262">시스템 구성과 판정 흐름</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end"><text x="616" y="234">S-03</text><text x="616" y="262">S-04</text></g>
+  </g>
+  <g id="toc-2" data-pptx-bounds="56 278 564 126">
+    <text x="56" y="306" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">II</text>
+    <text x="104" y="306" font-size="22" font-weight="bold" fill="#1D3557">문제인식</text>
+    <line x1="56" y1="318" x2="616" y2="318" stroke="#C5CDD6" stroke-width="1" />
+    <g font-size="18" fill="#1E2329"><text x="104" y="342">동바리 공사 과정과 해체 기준</text><text x="104" y="370">현행 해체 판단 방식의 문제점</text><text x="104" y="398">사고 사례 분석</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end"><text x="616" y="342">S-05~06</text><text x="616" y="370">S-07</text><text x="616" y="398">S-08~09</text></g>
+  </g>
+  <g id="toc-3" data-pptx-bounds="56 414 564 154">
+    <text x="56" y="442" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">III</text>
+    <text x="104" y="442" font-size="22" font-weight="bold" fill="#1D3557">기술 현황 및 적용 필요성</text>
+    <line x1="56" y1="454" x2="616" y2="454" stroke="#C5CDD6" stroke-width="1" />
+    <g font-size="18" fill="#1E2329"><text x="104" y="478">기술 현황: 선행 연구</text><text x="104" y="506">존치 층수 결정 방법</text><text x="104" y="534">판정이 존치 계획을 바꾸는 이유</text><text x="104" y="562">적용 가능성</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end"><text x="616" y="478">S-10</text><text x="616" y="506">S-11</text><text x="616" y="534">S-12~13</text><text x="616" y="562">S-14</text></g>
+  </g>
+  <g id="toc-4" data-pptx-bounds="56 578 564 70">
+    <text x="56" y="606" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">IV</text>
+    <text x="104" y="606" font-size="22" font-weight="bold" fill="#1D3557">시연</text>
+    <line x1="56" y1="618" x2="616" y2="618" stroke="#C5CDD6" stroke-width="1" />
+    <text x="104" y="642" font-size="18" fill="#1E2329">시연 영상</text>
+    <text x="616" y="642" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end">S-15</text>
+  </g>
+  <g id="toc-5" data-pptx-bounds="660 170 564 182">
+    <text x="660" y="198" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">V</text>
+    <text x="720" y="198" font-size="22" font-weight="bold" fill="#1D3557">기술 적용의 기대효과</text>
+    <line x1="660" y1="210" x2="1220" y2="210" stroke="#C5CDD6" stroke-width="1" />
+    <g font-size="18" fill="#1E2329"><text x="720" y="234">기대효과 한눈에</text><text x="720" y="262">안전</text><text x="720" y="290">기록 · 책임</text><text x="720" y="318">자재 · 비용</text><text x="720" y="346">누가 무엇을 받나</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end"><text x="1220" y="234">S-16</text><text x="1220" y="262">S-17</text><text x="1220" y="290">S-18</text><text x="1220" y="318">S-19~20</text><text x="1220" y="346">S-21</text></g>
+  </g>
+  <g id="toc-6" data-pptx-bounds="660 362 564 70">
+    <text x="660" y="390" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">VI</text>
+    <text x="720" y="390" font-size="22" font-weight="bold" fill="#1D3557">기술의 보완방안</text>
+    <line x1="660" y1="402" x2="1220" y2="402" stroke="#C5CDD6" stroke-width="1" />
+    <text x="720" y="426" font-size="18" fill="#1E2329">현재 한계와 보완 계획</text>
+    <text x="1220" y="426" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end">S-22</text>
+  </g>
+  <g id="toc-7" data-pptx-bounds="660 442 564 98">
+    <text x="660" y="470" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">VII</text>
+    <text x="720" y="470" font-size="22" font-weight="bold" fill="#1D3557">결론 및 참고문헌</text>
+    <line x1="660" y1="482" x2="1220" y2="482" stroke="#C5CDD6" stroke-width="1" />
+    <g font-size="18" fill="#1E2329"><text x="720" y="506">결론</text><text x="720" y="534">참고문헌</text></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end"><text x="1220" y="506">S-23</text><text x="1220" y="534">S-24~25</text></g>
+  </g>
+  <g id="toc-8" data-pptx-bounds="660 550 564 42">
+    <text x="660" y="578" font-family="Consolas, Malgun Gothic, monospace" font-size="22" font-weight="bold" fill="#2E6DB4">VIII</text>
+    <text x="720" y="578" font-size="22" font-weight="bold" fill="#1D3557">Q&amp;A</text>
+    <text x="1220" y="578" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673" text-anchor="end">S-26</text>
+  </g>
+</svg>

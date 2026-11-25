@@ -1,0 +1,25 @@
+No,Filename,Width,Height,AspectRatio,PixelAspectRatio,SourceDisplayRatio,RatioSource,Format,HasTransparentPixels,UsageCount,DisplayRatioVariants,AssetKind,SvgRenderable,PptxNativeSupported,SizeKB,Category
+1,cover_view.png,620,720,0.86,0.86,,native,PNG,False,1,,bitmap,True,True,150.8,Near square
+2,dept_logo.png,142,160,0.89,0.89,,native,PNG,True,1,,bitmap,True,True,26.2,Near square
+3,khu_crest.png,335,255,1.31,1.31,,native,PNG,True,1,,bitmap,True,True,126.5,Standard landscape
+4,shot_01.png,1920,1029,1.87,1.87,,native,PNG,False,1,,bitmap,True,True,217.9,Wide landscape
+5,shot_01_ribbon.png,1920,160,12.00,12.00,,native,PNG,False,1,,bitmap,True,True,44.5,Ultra-wide
+6,shot_03.png,653,597,1.09,1.09,,native,PNG,False,1,,bitmap,True,True,39.4,Near square
+7,shot_08.png,623,584,1.07,1.07,,native,PNG,False,1,,bitmap,True,True,31.6,Near square
+8,shot_09.png,578,577,1.00,1.00,,native,PNG,False,1,,bitmap,True,True,34.0,Near square
+9,shot_14.png,1920,1029,1.87,1.87,,native,PNG,False,1,,bitmap,True,True,194.8,Wide landscape
+10,shot_14_view.png,1575,767,2.05,2.05,,native,PNG,False,1,,bitmap,True,True,134.0,Ultra-wide
+11,shot_15.png,695,544,1.28,1.28,,native,PNG,False,1,,bitmap,True,True,30.9,Standard landscape
+12,shot_15_lines.png,490,212,2.31,2.31,,native,PNG,False,1,,bitmap,True,True,14.7,Ultra-wide
+13,shot_17.png,598,514,1.16,1.16,,native,PNG,False,1,,bitmap,True,True,28.6,Near square
+14,shot_18.png,1240,1754,0.71,0.71,,native,PNG,False,1,,bitmap,True,True,189.8,Portrait
+15,shot_18_top.png,1240,880,1.41,1.41,,native,PNG,False,1,,bitmap,True,True,83.5,Standard landscape
+16,shot_19.png,1240,1754,0.71,0.71,,native,PNG,False,1,,bitmap,True,True,105.7,Portrait
+17,shot_20.png,1920,1029,1.87,1.87,,native,PNG,False,1,,bitmap,True,True,258.9,Wide landscape
+18,shot_20_alerts.png,385,248,1.55,1.55,,native,PNG,False,1,,bitmap,True,True,17.8,Wide landscape
+19,shot_20_view.png,1575,767,2.05,2.05,,native,PNG,False,1,,bitmap,True,True,183.1,Ultra-wide
+20,shot_21.png,1600,1000,1.60,1.60,,native,PNG,False,1,,bitmap,True,True,287.0,Wide landscape
+21,shot_22.png,1240,1754,0.71,0.71,,native,PNG,False,1,,bitmap,True,True,73.2,Portrait
+22,shot_23.png,725,384,1.89,1.89,,native,PNG,False,1,,bitmap,True,True,40.1,Wide landscape
+23,shot_26.png,695,484,1.44,1.44,,native,PNG,False,1,,bitmap,True,True,29.2,Standard landscape
+24,shot_27.png,1100,520,2.12,2.12,,native,PNG,False,1,,bitmap,True,True,26.4,Ultra-wide

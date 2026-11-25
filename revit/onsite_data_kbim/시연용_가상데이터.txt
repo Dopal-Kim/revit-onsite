@@ -1,0 +1,2 @@
+이 폴더의 pours·cylinders·install_inspection 은 make_demo_data.py --from-zones 가 만든 가상(시연용) 기록입니다.
+첫 타설 2026-10-01 · 7일 사이클 · 보통 fck 24 · 판정 시각 2026-12-10 09:00 · 만든 시각 2026-11-04 18:33

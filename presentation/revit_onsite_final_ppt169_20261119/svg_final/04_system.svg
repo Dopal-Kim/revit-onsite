@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><polygon points="0,0 10,5 0,10" fill="#2E6DB4" /></marker>
+  </defs>
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#F6F7F5" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#1D3557" stroke-width="1.5" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#C5CDD6" stroke-width="1" />
+  </g>
+  <g id="title-block" data-pptx-role="footer" data-pptx-bounds="824 668 432 28">
+    <rect x="824" y="668" width="432" height="28" fill="#E8EDF2" stroke="#1D3557" stroke-width="1" />
+    <line x1="964" y1="668" x2="964" y2="696" stroke="#1D3557" stroke-width="1" />
+    <line x1="1176" y1="668" x2="1176" y2="696" stroke="#1D3557" stroke-width="1" />
+    <text x="836" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673">REVIT ON-SITE</text>
+    <text x="976" y="687" font-size="12" fill="#1D3557">I. 소개 · 시스템 구성</text>
+    <text x="1216" y="687" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#1D3557" text-anchor="middle">S-04/26</text>
+  </g>
+  <g id="header" data-pptx-bounds="56 40 1168 112">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#2E6DB4">I · Revit On-Site 소개</text>
+    <text x="56" y="104" font-size="34" font-weight="bold" fill="#1D3557">I. 시스템 구성과 판정 흐름</text>
+    <text x="56" y="140" font-size="22" fill="#5B6673">Revit 한 곳에서 판정하고, 현장은 휴대폰으로 실측값을 넣습니다</text>
+  </g>
+  <g id="ribbon-panels" data-pptx-bounds="56 160 1168 60">
+    <g id="p04-panel-1" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="56 166 172 44" fill="#1D3557" stroke="none">
+<path d="M 56 166 L 206 166 L 228 188 L 206 210 L 56 210 L 78 188 Z" />
+</g>
+    <g id="p04-panel-2" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="212 166 172 44" fill="#1D3557" stroke="none">
+<path d="M 212 166 L 362 166 L 384 188 L 362 210 L 212 210 L 234 188 Z" />
+</g>
+    <g id="p04-panel-3" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="368 166 172 44" fill="#2E6DB4" stroke="none">
+<path d="M 368 166 L 518 166 L 540 188 L 518 210 L 368 210 L 390 188 Z" />
+</g>
+    <g id="p04-panel-4" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="524 166 172 44" fill="#E07A1F" stroke="none">
+<path d="M 524 166 L 674 166 L 696 188 L 674 210 L 524 210 L 546 188 Z" />
+</g>
+    <g id="p04-panel-5" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="680 166 172 44" fill="#1D3557" stroke="none">
+<path d="M 680 166 L 830 166 L 852 188 L 830 210 L 680 210 L 702 188 Z" />
+</g>
+    <g id="p04-panel-6" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="836 166 172 44" fill="#1D3557" stroke="none">
+<path d="M 836 166 L 986 166 L 1008 188 L 986 210 L 836 210 L 858 188 Z" />
+</g>
+    <g id="p04-panel-7" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="chevron" data-pptx-frame="992 166 172 44" fill="#5B6673" stroke="none">
+<path d="M 992 166 L 1142 166 L 1164 188 L 1142 210 L 992 210 L 1014 188 Z" />
+</g>
+    <g font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+      <text x="146" y="193">① 준비</text><text x="302" y="193">② 설치 검측</text><text x="458" y="193">③ 타설·데이터</text><text x="614" y="193">④ 판정</text><text x="770" y="193">⑤ 승인</text><text x="926" y="193">⑥ 보고·공유</text><text x="1082" y="193">⑦ 타임라인</text>
+    </g>
+  </g>
+  <g id="field-users" data-pptx-bounds="56 232 388 300">
+    <g stroke="#2E6DB4" stroke-width="2"><line x1="428" y1="327" x2="444" y2="327" /><line x1="428" y1="465" x2="440" y2="465" /><line x1="440" y1="327" x2="440" y2="465" /></g>
+    <text x="56" y="252" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">휴대폰 · 현장 (QR)</text>
+    <rect x="56" y="266" width="372" height="122" rx="4" fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1" />
+    <!-- icon: tabler-outline/device-mobile -->
+  <g transform="translate(72, 282) scale(1.33333)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14" />
+    <path d="M11 4h2" />
+    <path d="M12 17v.01" />
+  </g>
+    <text x="116" y="306" font-size="20" font-weight="bold" fill="#1D3557">품질 · 안전관리자</text>
+    <g font-size="18" fill="#1E2329"><text x="116" y="340">QR → 공시체 · 센서 · 반발경도</text><text x="116" y="368">동바리 확인 · 점검, 사진 1장</text></g>
+    <rect x="56" y="404" width="372" height="122" rx="4" fill="#FFFFFF" stroke="#C5CDD6" stroke-width="1" />
+    <!-- icon: tabler-outline/qrcode -->
+  <g transform="translate(72, 420) scale(1.33333)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+    <path d="M7 17l0 .01" />
+    <path d="M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+    <path d="M7 7l0 .01" />
+    <path d="M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+    <path d="M17 7l0 .01" />
+    <path d="M14 14l3 0" />
+    <path d="M20 14l0 .01" />
+    <path d="M14 14l0 3" />
+    <path d="M14 20l3 0" />
+    <path d="M17 17l3 0" />
+    <path d="M20 17l0 3" />
+  </g>
+    <text x="116" y="444" font-size="20" font-weight="bold" fill="#1D3557">협력업체 반장</text>
+    <g font-size="18" fill="#1E2329"><text x="116" y="478">층 QR → '뺐음' · '다시 세움'</text><text x="116" y="506">해체 신고, 사진 1장</text></g>
+  </g>
+  <g id="server" data-pptx-bounds="446 236 370 140">
+    <line x1="446" y1="327" x2="522" y2="304" stroke="#2E6DB4" stroke-width="2" marker-end="url(#arrowBlue)" />
+    <g id="p04-server" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="cloud" data-pptx-frame="520 248 248 100" fill="#E8EDF2" stroke="#2E6DB4" stroke-width="1.5">
+<path d="M 542.39 281.26 A 38.77 21.27 0 0 1 600.4 260.04 A 30.62 16.82 0 0 1 648.91 255.94 A 25.06 13.76 0 0 1 691.26 253.74 A 27.88 15.27 0 0 1 739.97 260.91 A 30.62 16.84 0 0 1 760.07 283.79 A 38.89 21.34 0 0 1 734.73 317.91 A 33.21 18.21 0 0 1 683.93 333.22 A 38.76 21.33 0 0 1 614.61 338.89 A 44.32 24.41 0 0 1 553.32 330.11 A 25.03 13.7 0 0 1 532.13 307.14 A 24.94 13.76 0 0 1 542.18 281.58 Z" />
+<path d="M 546.94 308.59 A 24.94 13.76 0 0 1 532.4 306.75 M 559.77 328.78 A 25.03 13.7 0 0 1 553.41 329.67 M 614.6 338.49 A 38.76 21.33 0 0 1 610.76 334.46 M 685.49 328.44 A 38.76 21.33 0 0 1 683.96 332.86 M 715.93 301.13 A 33.21 18.21 0 0 1 734.59 317.65 M 759.95 283.54 A 30.62 16.84 0 0 1 751.64 289.74 M 740.01 260.56 A 27.88 15.27 0 0 1 740.45 263.49 M 686.93 257.15 A 27.88 15.27 0 0 1 691.19 253.42 M 647.11 258.93 A 25.06 13.76 0 0 1 649.17 255.71 M 600.37 260.02 A 38.77 21.27 0 0 1 607.83 263.14 M 543.69 284.55 A 38.77 21.27 0 0 1 542.39 281.26" fill="none" />
+</g>
+    <text x="644" y="296" font-size="18" font-weight="bold" fill="#1D3557" text-anchor="middle">현장 서버 (인터넷)</text>
+    <text x="644" y="318" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#5B6673" text-anchor="middle">revit-onsite-field.vercel.app</text>
+    <text x="644" y="368" font-size="15" fill="#5B6673" text-anchor="middle">휴대폰 입력이 모임 · 열쇠는 QR로만</text>
+  </g>
+  <g id="sync" data-pptx-bounds="476 380 350 50">
+    <g id="p04-sync" data-pptx-authoring="preset" data-pptx-object="shape" data-pptx-prst="upDownArrow" data-pptx-frame="628 384 28 44" fill="#2E6DB4" stroke="none">
+<path d="M 628 398 L 642 384 L 656 398 L 649 398 L 649 414 L 656 414 L 642 428 L 628 414 L 635 414 L 635 398 Z" />
+</g>
+    <text x="668" y="404" font-size="15" font-weight="bold" fill="#2E6DB4">5분마다 동기화</text>
+    <text x="668" y="424" font-size="12" fill="#5B6673">가져와 판정 → 결과를 올림</text>
+  </g>
+  <g id="revit-core" data-pptx-bounds="476 434 340 176">
+    <rect x="476" y="438" width="340" height="168" rx="4" fill="#1D3557" />
+    <!-- icon: tabler-outline/cube -->
+  <g transform="translate(494, 454) scale(1.33333)" fill="none" stroke="#FFFFFF" stroke-width="2">
+    <path d="M21 16.008v-8.018a1.98 1.98 0 0 0 -1 -1.717l-7 -4.008a2.016 2.016 0 0 0 -2 0l-7 4.008c-.619 .355 -1 1.01 -1 1.718v8.018c0 .709 .381 1.363 1 1.717l7 4.008a2.016 2.016 0 0 0 2 0l7 -4.008c.619 -.355 1 -1.01 1 -1.718" />
+    <path d="M12 22v-10" />
+    <path d="M12 12l8.73 -5.04" />
+    <path d="M3.27 6.96l8.73 5.04" />
+  </g>
+    <text x="536" y="478" font-size="20" font-weight="bold" fill="#FFFFFF">Revit · 공무·BIM 담당</text>
+    <g font-size="18" fill="#E8EDF2"><text x="500" y="514">하루 1회 아침 판정</text><text x="500" y="540">구역마다 판정 다시 계산</text><text x="500" y="566">검측요청서 · 승인 기록 작성</text><text x="500" y="592">7개 패널 = 현장 업무 순서</text></g>
+  </g>
+  <g id="edge-output" data-pptx-bounds="818 500 40 40">
+    <line x1="820" y1="520" x2="854" y2="520" stroke="#2E6DB4" stroke-width="2" marker-end="url(#arrowBlue)" />
+  </g>
+  <g id="outputs" data-pptx-bounds="860 232 364 378">
+    <text x="860" y="252" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#5B6673">결과물 · 데이터 폴더</text>
+    <g>
+      <!-- icon: tabler-outline/chart-bar -->
+  <g transform="translate(860, 272) scale(1.16667)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+    <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+    <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+    <path d="M4 20h14" />
+  </g>
+      <!-- icon: tabler-outline/file-text -->
+  <g transform="translate(860, 318) scale(1.16667)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" />
+    <path d="M9 9l1 0" />
+    <path d="M9 13l6 0" />
+    <path d="M9 17l6 0" />
+  </g>
+      <!-- icon: tabler-outline/lock -->
+  <g transform="translate(860, 364) scale(1.16667)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6" />
+    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+    <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+  </g>
+      <!-- icon: tabler-outline/database -->
+  <g transform="translate(860, 410) scale(1.16667)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M4 6a8 3 0 1 0 16 0a8 3 0 1 0 -16 0" />
+    <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+    <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+  </g>
+      <!-- icon: tabler-outline/qrcode -->
+  <g transform="translate(860, 456) scale(1.16667)" fill="none" stroke="#2E6DB4" stroke-width="2">
+    <path d="M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+    <path d="M7 17l0 .01" />
+    <path d="M14 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+    <path d="M7 7l0 .01" />
+    <path d="M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+    <path d="M17 7l0 .01" />
+    <path d="M14 14l3 0" />
+    <path d="M20 14l0 .01" />
+    <path d="M14 14l0 3" />
+    <path d="M14 20l3 0" />
+    <path d="M17 17l3 0" />
+    <path d="M20 17l0 3" />
+  </g>
+    </g>
+    <g font-size="18" fill="#1E2329"><text x="900" y="293">판정표 · 대시보드</text><text x="900" y="339">검측요청서 (서명란은 비워 둠)</text><text x="900" y="385">승인 기록 (해시 사슬)</text><text x="900" y="431">근거 원장 (8단계)</text><text x="900" y="477">층 표지 QR · 슬래브 이력서</text></g>
+    <g stroke="#C5CDD6" stroke-width="1"><line x1="860" y1="308" x2="1224" y2="308" /><line x1="860" y1="354" x2="1224" y2="354" /><line x1="860" y1="400" x2="1224" y2="400" /><line x1="860" y1="446" x2="1224" y2="446" /><line x1="860" y1="492" x2="1224" y2="492" /></g>
+    <rect x="860" y="514" width="364" height="92" rx="4" fill="#E8EDF2" />
+    <text x="880" y="544" font-size="15" fill="#5B6673">결론 문구는 두 가지뿐</text>
+    <text x="880" y="582" font-size="20" font-weight="bold" fill="#2E6DB4">'해체 승인 요청 가능' / '존치'</text>
+  </g>
+  <g id="takeaway" data-pptx-bounds="56 618 760 40">
+    <text x="56" y="644" font-size="20" font-weight="bold" fill="#1D3557">판정은 프로그램이, 결정은 감리가 합니다</text>
+  </g>
+</svg>

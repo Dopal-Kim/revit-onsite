@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 기능 · 결과물 지도(impact_map) #4 · #17 · #18 · #23 · #30</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">23 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">05 · 기대효과 ② 기록 · 책임 · 확실</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">사고나 분쟁 때, 그때 남긴 기록을 그대로 꺼냅니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">16장의 원장과 승인 기록이 현장에서 바꾸는 네 가지</text>
+  </g>
+  <g id="before-after" data-pptx-bounds="64 184 744 392">
+    <rect x="496" y="188" width="312" height="384" rx="6" fill="#EEF3F9"/>
+    <g font-size="15" font-weight="bold"><text x="84" y="214" fill="#5E6B7A">항목</text><text x="236" y="214" fill="#5E6B7A">지금</text><text x="516" y="214" fill="#1F5FA8">Revit On-Site</text></g>
+    <line x1="64" y1="228" x2="808" y2="228" stroke="#1B2A41" stroke-width="1.5"/>
+    <g stroke="#D5DCE4" stroke-width="1"><line x1="64" y1="314" x2="808" y2="314"/><line x1="64" y1="400" x2="808" y2="400"/><line x1="64" y1="486" x2="808" y2="486"/></g>
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="84" y="274">해체 사실</text><text x="84" y="360">감리 확인</text><text x="84" y="446">판정 근거</text><text x="84" y="532">감리 제출</text></g>
+    <g font-size="18" fill="#5E6B7A">
+      <text x="236" y="262">뺀 반장만 압니다</text>
+      <text x="236" y="348">시공사가 종이 서명을<tspan x="236" dy="26">옮겨 적습니다</tspan></text>
+      <text x="236" y="434">일이 끝난 뒤<tspan x="236" dy="26">모아서 정리합니다</tspan></text>
+      <text x="236" y="520">파일을 따로따로<tspan x="236" dy="26">보냅니다</tspan></text>
+    </g>
+    <g font-size="18" fill="#1E2633">
+      <text x="516" y="262">층 QR로 그 자리에서,<tspan x="516" dy="26">사진 1장과 해시까지</tspan></text>
+      <text x="516" y="348">감리가 휴대폰으로 직접<tspan x="516" dy="26" font-weight="bold">입력자 = 승인자</tspan></text>
+      <text x="516" y="434">단계마다 원장에 쌓이고<tspan x="516" dy="26" font-weight="bold">고치면 드러남</tspan></text>
+      <text x="516" y="520">검측 패키지 한 묶음,<tspan x="516" dy="26">목록 해시로 빠짐 확인</tspan></text>
+    </g>
+  </g>
+  <g id="who-gains" data-pptx-bounds="832 184 384 392">
+    <rect x="832" y="188" width="384" height="186" rx="6" fill="#1B2A41"/>
+    <text x="856" y="222" font-size="15" font-weight="bold" fill="#D5DCE4">감리</text>
+    <text x="856" y="258" font-size="20" font-weight="bold" fill="#FFFFFF">무엇을 보고 승인했는지</text>
+    <text x="856" y="292" font-size="15" fill="#EEF3F9">승인한 그 시점의 판정과 근거,<tspan x="856" dy="24">현장에서 체크한 세 가지가</tspan><tspan x="856" dy="24">승인 기록에 같이 남습니다</tspan></text>
+    <rect x="832" y="386" width="384" height="186" rx="6" fill="#FFFFFF" stroke="#1F5FA8" stroke-width="1.5"/>
+    <text x="856" y="420" font-size="15" font-weight="bold" fill="#1F5FA8">발주처 · LH · 조합</text>
+    <text x="856" y="456" font-size="20" font-weight="bold" fill="#1B2A41">준공 때 슬래브 이력서</text>
+    <text x="856" y="490" font-size="15" fill="#1E2633">구역마다 타설 · 공시체 · 판정 ·<tspan x="856" dy="24">해체 · 감리 서명을 한 장에 모아</tspan><tspan x="856" dy="24">하자 분쟁 때 근거로 냅니다</tspan></text>
+  </g>
+  <g id="record-metrics" data-pptx-bounds="64 588 1152 72">
+    <rect x="64" y="592" width="1152" height="64" rx="6" fill="#EEF3F9"/>
+    <text x="88" y="630" font-size="15" font-weight="bold" fill="#5E6B7A">잴 수 있는 지표</text>
+    <text x="232" y="630" font-size="18" fill="#1E2633">구역별 근거 갖춤 n/8 · 사슬 손상 0 · 패키지 누락 0 · 감리 직접 기록 비율 · 요청에서 서명까지 시간</text>
+  </g>
+</svg>

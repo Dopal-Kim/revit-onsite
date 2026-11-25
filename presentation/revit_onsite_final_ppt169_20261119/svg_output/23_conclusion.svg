@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="ending" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#1D3557" />
+  <g id="sheet-frame" data-pptx-role="decoration" data-pptx-bounds="16 16 1248 688" fill="none">
+    <rect x="16" y="16" width="1248" height="688" stroke="#C5CDD6" stroke-width="1.5" stroke-opacity="0.6" />
+    <rect x="24" y="24" width="1232" height="672" stroke="#2E6DB4" stroke-width="1" />
+  </g>
+  <g id="header" data-pptx-bounds="56 40 860 60">
+    <text x="56" y="62" font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#C5CDD6">VII · 결론 · S-23/26</text>
+    <text x="56" y="92" font-size="22" fill="#E8EDF2">VII. 결론</text>
+  </g>
+  <g id="core-message" data-pptx-bounds="56 160 860 200">
+    <text x="56" y="232" font-size="60" font-weight="bold" fill="#FFFFFF">날짜가 아닌 기준으로<tspan x="56" dy="80">판단하고, 근거를 기록합니다</tspan></text>
+  </g>
+  <g id="closing-section" data-pptx-bounds="940 120 284 250">
+    <g stroke="#2E6DB4" stroke-width="4"><line x1="980" y1="162" x2="980" y2="226" /><line x1="1030" y1="162" x2="1030" y2="226" /><line x1="1080" y1="162" x2="1080" y2="226" /><line x1="1130" y1="162" x2="1130" y2="226" /><line x1="980" y1="236" x2="980" y2="300" /><line x1="1030" y1="236" x2="1030" y2="300" /><line x1="1080" y1="236" x2="1080" y2="300" /><line x1="1130" y1="236" x2="1130" y2="300" /><line x1="980" y1="310" x2="980" y2="350" /><line x1="1030" y1="310" x2="1030" y2="350" /><line x1="1080" y1="310" x2="1080" y2="350" /><line x1="1130" y1="310" x2="1130" y2="350" /></g>
+    <rect x="960" y="152" width="190" height="10" fill="#E07A1F" />
+    <g fill="#E8EDF2"><rect x="960" y="226" width="190" height="10" /><rect x="960" y="300" width="190" height="10" /></g>
+    <rect x="960" y="350" width="190" height="10" fill="#5B6673" />
+    <text x="1162" y="162" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#E07A1F">타설층</text>
+    <text x="1162" y="300" font-family="Consolas, Malgun Gothic, monospace" font-size="12" fill="#C5CDD6">3개 층</text>
+  </g>
+  <g id="summary-cells" data-pptx-bounds="56 400 1168 210">
+    <g fill="#FFFFFF" fill-opacity="0.06" stroke="#2E6DB4" stroke-width="1"><rect x="56" y="404" width="280" height="200" rx="4" /><rect x="352" y="404" width="280" height="200" rx="4" /><rect x="648" y="404" width="280" height="200" rx="4" /><rect x="944" y="404" width="280" height="200" rx="4" /></g>
+    <g font-family="Consolas, Malgun Gothic, monospace" font-size="15" fill="#C5CDD6"><text x="80" y="438">01</text><text x="376" y="438">02</text><text x="672" y="438">03</text><text x="968" y="438">04</text></g>
+    <g font-size="24" font-weight="bold" fill="#FFFFFF"><text x="80" y="476">문제</text><text x="376" y="476">기준</text><text x="672" y="476">이점</text><text x="968" y="476">역할</text></g>
+    <g font-size="18" fill="#E8EDF2">
+      <text x="80" y="516">사고는 설치 · 해체 단계,<tspan x="80" dy="28">모두 타설 중</tspan></text>
+      <text x="376" y="516">강도 · 존치 층수 ·<tspan x="376" dy="28">지지층 강도 · 하중 비교</tspan></text>
+      <text x="672" y="516">기준 판정 → 해체 시점 단축,<tspan x="672" dy="28">동바리 · 비용 절감</tspan><tspan x="672" dy="28" font-size="15" fill="#C5CDD6">(선행 연구)</tspan></text>
+      <text x="968" y="516">구역별 판정 · 근거 기록,<tspan x="968" dy="28">결정은 감리</tspan></text>
+    </g>
+  </g>
+  <g id="closing-line" data-pptx-bounds="56 618 1168 44">
+    <text x="56" y="646" font-size="22" font-weight="bold" fill="#E07A1F">판정은 프로그램이, 결정은 감리가 — Revit On-Site</text>
+  </g>
+</svg>

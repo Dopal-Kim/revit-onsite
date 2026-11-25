@@ -1,0 +1,62 @@
+<!--
+  해체 판정 대화상자 — ui_spec §7 규칙 (GenerateWindow 와 같은 모양). 기준일·시각을 고르고, 계산은 Engine.Evaluator (EvaluateCommand).
+-->
+<Window x:Class="RevitOnSite.EvaluateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="해체 판정" WindowStartupLocation="CenterOwner" Style="{DynamicResource OnSite.DialogWindow}" Language="ko-KR">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/RevitOnSite;component/Wpf/OnSiteDialog.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="Row" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+                <Setter Property="Margin" Value="0,3"/>
+            </Style>
+            <Style x:Key="Error" TargetType="TextBlock" BasedOn="{StaticResource OnSite.ValidationText}">
+                <Setter Property="Margin" Value="118,-1,0,3"/>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="Help" Executed="Help"/>
+    </Window.CommandBindings>
+
+    <Border Background="{DynamicResource OnSite.Brush.Background}" Padding="12">
+        <StackPanel>
+            <GroupBox Header="판정 기준">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="기준일(_D):" Target="{Binding ElementName=Day}"/>
+                        <DatePicker x:Name="Day" SelectedDateChanged="Changed"/>
+                        <TextBox x:Name="Time" Style="{StaticResource OnSite.NumberBox}" Margin="8,0,0,0" TextChanged="Changed"/>
+                        <TextBlock Style="{StaticResource OnSite.HintText}" Text="시:분"/>
+                    </StackPanel>
+                    <TextBlock x:Name="DayError" Style="{StaticResource Error}" Text="기준일을 고르고 시각은 09:00 처럼 입력하세요."/>
+                    <TextBlock x:Name="BaseHint" Style="{StaticResource OnSite.HintText}" Visibility="Collapsed"/>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="데이터 폴더:"/>
+                        <TextBlock x:Name="Folder" VerticalAlignment="Center" MaxWidth="380" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource Row}">
+                        <Label Style="{StaticResource OnSite.FieldLabel}" Content="양생 최저 온도:"/>
+                        <TextBlock x:Name="Cure" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource OnSite.HintText}" Margin="118,3,0,0" Text="폴더·온도는 [프로젝트 설정]에서 바꿉니다."/>
+                    <CheckBox x:Name="Colors" Margin="118,6,0,0" IsChecked="True" Content="'Revit On-Site 검측' 3D 뷰에 상태 색 보이기"/>
+                </StackPanel>
+            </GroupBox>
+
+            <TextBlock Style="{StaticResource OnSite.HintText}" Margin="0,8,0,0"
+                       Text="결과는 '해체 승인 요청 가능' 또는 '존치'까지입니다. 해체는 감리 승인 후에 합니다."/>
+
+            <DockPanel Margin="0,12,0,0" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Style="{StaticResource OnSite.HelpButton}" Command="Help"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="취소" IsCancel="True"/>
+                <Button DockPanel.Dock="Right" Style="{StaticResource OnSite.DialogButton}" Content="확인" IsDefault="True" x:Name="OkButton" Click="Ok"/>
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>

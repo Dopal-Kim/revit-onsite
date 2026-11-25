@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF"/>
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1"/>
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 기능 · 결과물 지도 #9 · #25 · #28, 시나리오 검증표 S0 · S6 · S11, Hamooni 외(2020) [7]</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">25 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8"/>
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#5E6B7A">05 · 기대효과 ④ 공정 · 가능성</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">강도가 난 구역부터, 판넬은 먼저 뗄 수 있습니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">층 전체를 기다리지 않아도 되지만, 효과는 공시체 시험 일정에 달려 있습니다</text>
+  </g>
+  <g id="schedule-levers" data-pptx-bounds="64 184 1152 300">
+    <g fill="#EEF3F9"><rect x="64" y="188" width="368" height="292" rx="6"/><rect x="456" y="188" width="368" height="292" rx="6"/><rect x="848" y="188" width="368" height="292" rx="6"/></g>
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#1F5FA8"><text x="88" y="236">구역 단위</text><text x="480" y="236">판넬 먼저</text><text x="872" y="236">타설 묶음</text></g>
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="88" y="274">된 구역부터 요청</text><text x="480" y="274">조기 탈형 검토서</text><text x="872" y="274">공시체를 타설 회차로</text></g>
+    <g font-size="15" fill="#1E2633">
+      <text x="88" y="310">13장의 9층에서 늦은 곳은<tspan x="88" dy="24">그늘진 두 구역뿐이었습니다</tspan><tspan x="88" dy="36">층 전체가 끝나기를 기다리지 않고</tspan><tspan x="88" dy="24">나머지 네 구역부터</tspan><tspan x="88" dy="24">감리에게 요청합니다</tspan></text>
+      <text x="480" y="310">판넬 단계 4조건을 확인합니다<tspan x="480" dy="24">① 14 MPa ② 10 °C 이상 4일</tspan><tspan x="480" dy="24">③ 위층 하중비 ≤ 1.0 ④ 구조검토서</tspan><tspan x="480" dy="36">통과하면 필러 동바리는 남기고</tspan><tspan x="480" dy="24">판넬만 먼저 떼는 검토서 초안을</tspan><tspan x="480" dy="24">만듭니다 (서명란은 빈칸)</tspan></text>
+      <text x="872" y="310">구역마다 공시체를 뜨지 않아도<tspan x="872" dy="24">한 번 타설한 구역 전부의 근거로</tspan><tspan x="872" dy="24">같은 공시체를 씁니다</tspan><tspan x="872" dy="36">'시험 필요'로 멈춰 있던 구역이</tspan><tspan x="872" dy="24">줄고, 놓친 시험은 '오늘 볼 것'</tspan><tspan x="872" dy="24">맨 위로 올라옵니다</tspan></text>
+    </g>
+  </g>
+  <g id="schedule-conditions" data-pptx-bounds="64 496 1152 164">
+    <rect x="64" y="500" width="564" height="156" rx="6" fill="#FFFFFF" stroke="#D5DCE4" stroke-width="1.5"/>
+    <text x="88" y="532" font-size="15" font-weight="bold" fill="#5E6B7A">왜 '가능성'인가</text>
+    <text x="88" y="568" font-size="18" fill="#1E2633">공시체 결과가 없으면 요청 가능이 나오지 않습니다<tspan x="88" dy="28">20장처럼 공시체가 없으면 모두 '시험 필요'</tspan><tspan x="88" dy="28">시험을 언제 하느냐가 공기를 정합니다</tspan></text>
+    <rect x="652" y="500" width="564" height="156" rx="6" fill="#1B2A41"/>
+    <text x="676" y="532" font-size="15" font-weight="bold" fill="#D5DCE4">참고 수치</text>
+    <text x="676" y="568" font-size="18" fill="#FFFFFF">강도 기준으로 보 해체 <tspan font-weight="bold" fill="#8FC46A">14일 → 9.6일</tspan> (Hamooni 2020)<tspan x="676" dy="28">겨울 fck 도달: 보온 5 °C 24–29일,</tspan><tspan x="676" dy="28">가열 15 °C 18일 (S0)</tspan></text>
+  </g>
+</svg>

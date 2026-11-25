@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" data-pptx-page-role="content" font-family="Malgun Gothic, Segoe UI, sans-serif">
+  <rect id="bg" data-pptx-role="background" x="0" y="0" width="1280" height="720" fill="#FFFFFF" />
+  <g id="footer" data-pptx-role="footer" data-pptx-bounds="64 680 1152 24">
+    <line x1="64" y1="684" x2="1216" y2="684" stroke="#D5DCE4" stroke-width="1" />
+    <text x="64" y="700" font-size="12" fill="#5E6B7A">Revit On-Site · Build Up · 출처: 참고문헌 [11]–[19]</text>
+    <text x="1216" y="700" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="12" fill="#5E6B7A" text-anchor="end">05 / 30</text>
+  </g>
+  <g id="header" data-pptx-bounds="64 44 1152 124">
+    <rect x="64" y="56" width="10" height="10" fill="#1F5FA8" />
+    <text x="84" y="66" font-size="15" font-weight="bold" fill="#1F5FA8">01 · 질문 · 사고 사례</text>
+    <text x="64" y="118" font-size="36" font-weight="bold" fill="#1B2A41">다섯 건 모두 콘크리트를 타설하는 도중이었습니다</text>
+    <text x="64" y="156" font-size="22" fill="#5E6B7A">설치 단계에서 4건, 해체 단계에서 1건이 일어났습니다</text>
+  </g>
+  <g id="accident-line" data-pptx-bounds="64 184 1152 476">
+    <line x1="64" y1="214" x2="1216" y2="214" stroke="#D5DCE4" stroke-width="2" />
+    <g fill="#1F5FA8"><circle cx="172" cy="214" r="8" /><circle cx="406" cy="214" r="8" /><circle cx="874" cy="214" r="8" /><circle cx="1108" cy="214" r="8" /></g>
+    <circle cx="640" cy="214" r="10" fill="#E8613C" />
+    <g fill="#EEF3F9"><rect x="64" y="236" width="216" height="408" rx="6" /><rect x="298" y="236" width="216" height="408" rx="6" /><rect x="766" y="236" width="216" height="408" rx="6" /><rect x="1000" y="236" width="216" height="408" rx="6" /></g>
+    <rect x="532" y="236" width="216" height="408" rx="6" fill="#1B2A41" />
+    <g font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#1F5FA8"><text x="84" y="282">2015.2</text><text x="318" y="282">2015.3</text><text x="786" y="282">2022.10</text><text x="1020" y="282">2023.8</text></g>
+    <text x="552" y="282" font-family="Segoe UI, Malgun Gothic, sans-serif" font-size="28" font-weight="bold" fill="#FFFFFF">2022.1</text>
+    <g><rect x="84" y="298" width="48" height="24" rx="12" fill="#1F5FA8" /><rect x="318" y="298" width="48" height="24" rx="12" fill="#1F5FA8" /><rect x="786" y="298" width="48" height="24" rx="12" fill="#1F5FA8" /><rect x="1020" y="298" width="48" height="24" rx="12" fill="#1F5FA8" /><rect x="552" y="298" width="48" height="24" rx="12" fill="#E8613C" /></g>
+    <g font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle"><text x="108" y="315">설치</text><text x="342" y="315">설치</text><text x="810" y="315">설치</text><text x="1044" y="315">설치</text><text x="576" y="315">해체</text></g>
+    <g font-size="18" font-weight="bold" fill="#1B2A41"><text x="84" y="356">서울</text><text x="84" y="380">사당종합체육관</text><text x="318" y="356">용인</text><text x="318" y="380">냉수물천교</text><text x="786" y="356">안성</text><text x="786" y="380">저온물류창고</text><text x="1020" y="356">안성</text><text x="1020" y="380">근린생활시설</text></g>
+    <text fill="#FFFFFF" font-size="18" font-weight="bold" x="552" y="356">광주</text><text fill="#FFFFFF" font-size="18" font-weight="bold" x="552" y="380">화정 아파트</text><g font-size="15" font-weight="bold" fill="#E8613C"><text x="84" y="420">11명 매몰 · 부상</text><text x="318" y="420">1명 사망 · 8명 부상</text><text x="786" y="420">3명 사망 · 2명 중상</text><text x="1020" y="420">2명 사망 · 4명 부상</text><text x="552" y="420">6명 사망 · 1명 부상</text></g>
+    <g stroke="#D5DCE4" stroke-width="1"><line x1="84" y1="440" x2="260" y2="440" /><line x1="318" y1="440" x2="494" y2="440" /><line x1="786" y1="440" x2="962" y2="440" /><line x1="1020" y1="440" x2="1196" y2="440" /></g>
+    <line x1="552" y1="440" x2="728" y2="440" stroke="#5E6B7A" stroke-width="1" />
+    <g font-size="15" fill="#1E2633">
+      <text x="84" y="472">지지 가설재 없이</text><text x="84" y="496">타설 강행</text><text x="318" y="472">설계보다 넓은</text><text x="318" y="496">120 cm 간격 수평재,</text><text x="318" y="520">옹벽 · 상판 동시 타설</text><text x="786" y="472">조립도 미작성,</text><text x="786" y="496">층고 12.8 m에</text><text x="786" y="520">10 m · 3 m 잭서포트</text><text x="786" y="544">볼트 연결</text><text x="1020" y="472">거푸집 · 동바리 붕괴</text><text x="1020" y="496">(추정)</text></g>
+    <text fill="#EEF3F9" font-size="15" x="552" y="472">PIT층 아래 동바리</text><text fill="#EEF3F9" font-size="15" x="552" y="496">조기 철거 → 1차 붕괴</text><text fill="#EEF3F9" font-size="15" x="552" y="520">가벽 무단 변경,</text><text fill="#EEF3F9" font-size="15" x="552" y="544">하중 2.24배</text><text fill="#EEF3F9" font-size="15" x="552" y="568">15/17층 강도 미달</text><text x="552" y="620" font-size="13" fill="#D5DCE4">39층 타설 중 연쇄 붕괴</text>
+  </g>
+</svg>

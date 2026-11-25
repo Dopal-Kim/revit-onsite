@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  시뮬레이션 보고서 틀 (총괄 60차 지시) — 숫자·파일·캡처는 시뮬레이션 뒤에 채움. PDF: powershell -ExecutionPolicy Bypass -File tools\make_pdf.ps1 <html> <pdf>
+  자리 규칙: {{이름}} = 글 (넣을 때 HTML 이스케이프), {{이름:html}} = HTML 조각 그대로 (표 줄·목록 줄).
+  2절 단계 n 의 자리: {{n.날}} {{n.누가}} {{n.누름}} {{n.시간}} {{n.파일}} {{n.숫자}} {{n.결과}} (n = 1–10, 덧 = 덧붙임)
+  3절 줄 형식: <tr><td>파일</td><td class="r">크기</td><td><code>SHA-256 앞 16자</code></td><td>단계</td></tr>
+  4절 값은 shoring\kpi.py 로 잰 값 (시연 자료 = 가상 데이터 [입력]) — 현장 효과라고 쓰지 않음.
+  디자인 = docs\help\quickstart.html 과 같은 글꼴·색.
+-->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{제목}} — 시뮬레이션 보고서</title>
+<style>
+:root { color-scheme: light; --tx: #111; --sub: #555; --line: #bbb; --head: #eef1f4; --acc: #1f5c99; }
+@page { size: A4; margin: 10mm 11mm; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #fff; color: var(--tx); font: 9.3pt/1.4 "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+.page { max-width: 188mm; margin: 0 auto; padding: 2mm 0; }
+h1 { font-size: 16pt; margin: 0 0 1mm; }
+h1 small { font-size: 9.5pt; color: var(--sub); font-weight: 400; }
+h2 { font-size: 11.5pt; margin: 4mm 0 1.5mm; padding: 1mm 2mm; background: var(--acc); color: #fff; border-radius: 1.5mm; break-after: avoid; }
+h3 { font-size: 10pt; margin: 2.4mm 0 1mm; break-after: avoid; }
+p, ol, ul { margin: 0 0 1.2mm; }
+ol, ul { padding-left: 5mm; }
+li { margin: 0 0 .5mm; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 1.5mm; }
+tr { break-inside: avoid; }
+th, td { border: 1px solid var(--line); padding: .8mm 1.4mm; text-align: left; vertical-align: top; }
+th { background: var(--head); white-space: nowrap; }
+td.r, th.r { text-align: right; }
+tfoot td { font-weight: 700; background: #f7f7f7; }
+code { font: 8.4pt Consolas, "D2Coding", monospace; background: #f3f3f3; padding: 0 .6mm; border-radius: .6mm; }
+.note { color: var(--sub); font-size: 8.4pt; }
+.rule { border: 1px solid #c9a227; background: #fff8e1; border-radius: 1.5mm; padding: 1.2mm 2mm; margin: 1.5mm 0; font-size: 8.8pt; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+@media screen { body { background: #e9ecef; } .page { background: #fff; padding: 8mm 10mm; margin: 4mm auto; box-shadow: 0 1px 4px rgba(0,0,0,.2); } }
+@media screen and (max-width: 640px) { .two { grid-template-columns: 1fr; } .page { padding: 4mm 16px; } th { white-space: normal; } table { display: block; overflow-x: auto; } }
+</style>
+</head>
+<body>
+<section class="page">
+<h1>{{제목}} <small>시뮬레이션 보고서 · {{실행일}} · 작성 {{작성}}</small></h1>
+<p>{{요약}}</p>
+<div class="rule">프로그램 결론은 <b>"해체 승인 요청 가능" / "존치"</b>, <b>"타설 요청 가능" / "타설 보류"</b>까지입니다. 이 보고서의 숫자는 시연 자료(가상 데이터)로 잰 값이며 실제 현장 효과가 아닙니다.</div>
+
+<h2>1. 개요</h2>
+<div class="two">
+<table>
+<tr><th>모델</th><td>{{모델}}</td></tr>
+<tr><th>데이터 폴더</th><td>{{데이터}}</td></tr>
+<tr><th>주인공 구역</th><td>{{구역}}</td></tr>
+<tr><th>시연 날짜</th><td>{{기간}}</td></tr>
+<tr><th>실행일</th><td>{{실행일}}</td></tr>
+<tr><th>빌드</th><td>{{빌드}}</td></tr>
+<tr><th>안정화 관문</th><td>{{관문}}</td></tr>
+</table>
+<table>
+<tr><th>역할</th><th>맡은 사람</th></tr>
+<tr><td>공무·BIM 담당</td><td>{{역할1.이름}}</td></tr>
+<tr><td>안전관리자</td><td>{{역할2.이름}}</td></tr>
+<tr><td>품질관리자</td><td>{{역할3.이름}}</td></tr>
+<tr><td>협력업체 반장</td><td>{{역할4.이름}}</td></tr>
+<tr><td>감리</td><td>{{역할5.이름}}</td></tr>
+</table>
+</div>
+
+<h2>2. 단계별 결과</h2>
+<table>
+<thead><tr><th>#</th><th>날</th><th>누가</th><th class="r">누름</th><th class="r">걸린 시간</th><th>결과 파일</th><th>숫자</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>{{1.날}}</td><td>{{1.누가}}</td><td class="r">{{1.누름}}</td><td class="r">{{1.시간}}</td><td>{{1.파일}}</td><td>{{1.숫자}}</td><td>{{1.결과}}</td></tr>
+<tr><td>2</td><td>{{2.날}}</td><td>{{2.누가}}</td><td class="r">{{2.누름}}</td><td class="r">{{2.시간}}</td><td>{{2.파일}}</td><td>{{2.숫자}}</td><td>{{2.결과}}</td></tr>
+<tr><td>3</td><td>{{3.날}}</td><td>{{3.누가}}</td><td class="r">{{3.누름}}</td><td class="r">{{3.시간}}</td><td>{{3.파일}}</td><td>{{3.숫자}}</td><td>{{3.결과}}</td></tr>
+<tr><td>4</td><td>{{4.날}}</td><td>{{4.누가}}</td><td class="r">{{4.누름}}</td><td class="r">{{4.시간}}</td><td>{{4.파일}}</td><td>{{4.숫자}}</td><td>{{4.결과}}</td></tr>
+<tr><td>5</td><td>{{5.날}}</td><td>{{5.누가}}</td><td class="r">{{5.누름}}</td><td class="r">{{5.시간}}</td><td>{{5.파일}}</td><td>{{5.숫자}}</td><td>{{5.결과}}</td></tr>
+<tr><td>6</td><td>{{6.날}}</td><td>{{6.누가}}</td><td class="r">{{6.누름}}</td><td class="r">{{6.시간}}</td><td>{{6.파일}}</td><td>{{6.숫자}}</td><td>{{6.결과}}</td></tr>
+<tr><td>7</td><td>{{7.날}}</td><td>{{7.누가}}</td><td class="r">{{7.누름}}</td><td class="r">{{7.시간}}</td><td>{{7.파일}}</td><td>{{7.숫자}}</td><td>{{7.결과}}</td></tr>
+<tr><td>8</td><td>{{8.날}}</td><td>{{8.누가}}</td><td class="r">{{8.누름}}</td><td class="r">{{8.시간}}</td><td>{{8.파일}}</td><td>{{8.숫자}}</td><td>{{8.결과}}</td></tr>
+<tr><td>9</td><td>{{9.날}}</td><td>{{9.누가}}</td><td class="r">{{9.누름}}</td><td class="r">{{9.시간}}</td><td>{{9.파일}}</td><td>{{9.숫자}}</td><td>{{9.결과}}</td></tr>
+<tr><td>10</td><td>{{10.날}}</td><td>{{10.누가}}</td><td class="r">{{10.누름}}</td><td class="r">{{10.시간}}</td><td>{{10.파일}}</td><td>{{10.숫자}}</td><td>{{10.결과}}</td></tr>
+<tr><td>덧</td><td>{{덧.날}}</td><td>{{덧.누가}}</td><td class="r">{{덧.누름}}</td><td class="r">{{덧.시간}}</td><td>{{덧.파일}}</td><td>{{덧.숫자}}</td><td>{{덧.결과}}</td></tr>
+</tbody>
+<tfoot><tr><td colspan="3">합계</td><td class="r">{{합계.누름}}</td><td class="r">{{합계.시간}}</td><td colspan="3">{{합계.비고}}</td></tr></tfoot>
+</table>
+<p class="note">누름 = 버튼·메뉴·휴대폰 눌림 수 (글 입력 제외) · 걸린 시간 = 첫 누름부터 결과가 보일 때까지 · 덧 = 덧붙임(선택).</p>
+
+<h2>3. 결과물 목록</h2>
+<table>
+<thead><tr><th>파일</th><th class="r">크기</th><th>SHA-256 (앞 16자)</th><th>단계</th></tr></thead>
+<tbody>
+{{결과물_행:html}}
+</tbody>
+</table>
+<p class="note">{{결과물_끝}}</p>
+
+<h2>4. 확인된 파장 (지표)</h2>
+<table>
+<thead><tr><th>지표</th><th class="r">값</th><th>잰 방법</th><th>impact_map</th></tr></thead>
+<tbody>
+<tr><td>타설 전 확인 비율</td><td class="r">{{지표.타설전확인}}</td><td>다음 층 타설 전 대상 구역 중 최근 24 h '예' 확인 비율 (kpi.py shore_check_rate)</td><td>#2</td></tr>
+<tr><td>무단 해체 의심</td><td class="r">{{지표.무단해체의심}}</td><td>무단 해체 의심 구역 수 (kpi.py removal_suspect)</td><td>#3</td></tr>
+<tr><td>근거 원장 평균</td><td class="r">{{지표.근거평균}}</td><td>요청 가능 구역의 근거 원장 평균 단계 n/8 (kpi.py evidence_full)</td><td>#4</td></tr>
+<tr><td>감리 확인 시간</td><td class="r">{{지표.감리확인시간}}</td><td>요청 제출 → 감리 승인 기록(서명 일시) 중앙값 (kpi.py review_hours)</td><td>#5</td></tr>
+<tr><td>전용 세트</td><td class="r">{{지표.전용세트}}</td><td>판넬·동바리 전용 계획 ⓐ/ⓑ 세트 수 (전용계획 HTML)</td><td>#26</td></tr>
+</tbody>
+</table>
+<p class="note">값의 출처: <b>[입력]</b> 시연 자료 기록에서 잰 값 · 판정 시각 {{지표.시각}}. {{지표.끝}}</p>
+
+<h2>5. 한계·남은 일</h2>
+<h3>막힌 곳 → 고친 곳</h3>
+<table>
+<thead><tr><th>단계</th><th>막힌 곳</th><th>고친 곳</th></tr></thead>
+<tbody>
+{{막힘_행:html}}
+</tbody>
+</table>
+<h3>한계</h3>
+<ul>{{한계:html}}</ul>
+<h3>남은 일</h3>
+<ul>{{남은일:html}}</ul>
+</section>
+</body>
+</html>

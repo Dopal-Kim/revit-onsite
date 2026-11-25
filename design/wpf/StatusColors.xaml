@@ -1,0 +1,41 @@
+﻿<!--
+  StatusColors.xaml — Revit On-Site 상태 색 (ui_spec §6). 뷰 필터·대시보드·웹 공유판과 같은 RGB.
+  테마와 무관하게 항상 같은 색이다 (라이트/다크 공통).
+
+  병합:
+    <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="/RevitOnSite;component/Wpf/StatusColors.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+  키 규칙: OnSite.Status.<이름>      = 칸·칩 배경
+           OnSite.Status.<이름>.Fg   = 그 위 글자색 (명암비가 더 큰 쪽: 검정 또는 흰색)
+  SHR_Status 값 → 키:
+    0 Unchecked(미검측)  1 Defect(결함)  3 Curing(양생 중)  4 NeedsCylinder(공시체 시험 필요)
+    5 ReadyToRequest(해체 승인 요청 가능)  6 Approved(감리 승인 기록)  8 Extended(존치 연장)
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="OnSite.Status.Unchecked"      Color="#A0A0A0"/> <!-- 0  160,160,160 -->
+    <SolidColorBrush x:Key="OnSite.Status.Defect"         Color="#D73027"/> <!-- 2  215,48,39  설치 결함 (정의서 §3.5) -->
+    <SolidColorBrush x:Key="OnSite.Status.Curing"         Color="#4575B4"/> <!-- 3  69,117,180  -->
+    <SolidColorBrush x:Key="OnSite.Status.NeedsCylinder"  Color="#FEE08B"/> <!-- 4  254,224,139 -->
+    <SolidColorBrush x:Key="OnSite.Status.ReadyToRequest" Color="#91CF60"/> <!-- 5  145,207,96  -->
+    <SolidColorBrush x:Key="OnSite.Status.Approved"       Color="#1A9850"/> <!-- 6  26,152,80   -->
+    <SolidColorBrush x:Key="OnSite.Status.Extended"       Color="#F46D43"/> <!-- 9  244,109,67  존치 연장 경고 -->
+    <SolidColorBrush x:Key="OnSite.Status.Passed"         Color="#ABBED1"/> <!-- 1  171,190,209 설치 검측 합격 -->
+    <SolidColorBrush x:Key="OnSite.Status.Removed"        Color="#737373"/> <!-- 7  115,115,115 해체 완료 -->
+    <SolidColorBrush x:Key="OnSite.Status.Reshored"       Color="#8064A2"/> <!-- 8  128,100,162 재받침 -->
+
+    <SolidColorBrush x:Key="OnSite.Status.Unchecked.Fg"      Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Status.Defect.Fg"         Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="OnSite.Status.Curing.Fg"         Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="OnSite.Status.NeedsCylinder.Fg"  Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Status.ReadyToRequest.Fg" Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Status.Approved.Fg"       Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Status.Extended.Fg"       Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Status.Passed.Fg"         Color="#000000"/>
+    <SolidColorBrush x:Key="OnSite.Status.Removed.Fg"        Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="OnSite.Status.Reshored.Fg"       Color="#FFFFFF"/>
+
+</ResourceDictionary>

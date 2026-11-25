@@ -1,0 +1,1665 @@
+{
+ "file": "revit\\test_models\\rava3pro\\RAVA3PRO-RAK-Kerrostalo-2023-09-27.ifc",
+ "statements": 11844,
+ "entities": 11844,
+ "type_counts": {
+  "IFCSHAPEREPRESENTATION": 1850,
+  "IFCCARTESIANPOINT": 1080,
+  "IFCLOCALPLACEMENT": 1029,
+  "IFCPRODUCTDEFINITIONSHAPE": 1026,
+  "IFCAXIS2PLACEMENT3D": 799,
+  "IFCINDEXEDPOLYGONALFACE": 577,
+  "IFCQUANTITYAREA": 505,
+  "IFCQUANTITYVOLUME": 466,
+  "IFCVOIDINGFEATURE": 421,
+  "IFCRELVOIDSELEMENT": 421,
+  "IFCSTYLEDITEM": 421,
+  "IFCQUANTITYWEIGHT": 356,
+  "IFCRELDEFINESBYPROPERTIES": 325,
+  "IFCELEMENTQUANTITY": 294,
+  "IFCCARTESIANPOINTLIST3D": 266,
+  "IFCWALL": 242,
+  "IFCQUANTITYLENGTH": 220,
+  "IFCPOLYGONALFACESET": 215,
+  "IFCEXTRUDEDAREASOLID": 206,
+  "IFCINDEXEDPOLYCURVE": 186,
+  "IFCARBITRARYCLOSEDPROFILEDEF": 181,
+  "IFCBEAM": 156,
+  "IFCCARTESIANPOINTLIST2D": 135,
+  "IFCPLATE": 94,
+  "IFCCOLUMN": 63,
+  "IFCPROPERTYSET": 31,
+  "IFCPROPERTYSINGLEVALUE": 29,
+  "IFCSLAB": 29,
+  "IFCSURFACESTYLE": 28,
+  "IFCPRESENTATIONLAYERASSIGNMENT": 26,
+  "IFCINDEXEDPOLYGONALFACEWITHVOIDS": 25,
+  "IFCFOOTING": 21,
+  "IFCDIRECTION": 17,
+  "IFCCOLOURRGB": 13,
+  "IFCSURFACESTYLERENDERING": 13,
+  "IFCMATERIAL": 10,
+  "IFCRELASSOCIATESMATERIAL": 10,
+  "IFCSIUNIT": 9,
+  "IFCBUILDINGSTOREY": 8,
+  "IFCRELCONTAINEDINSPATIALSTRUCTURE": 8,
+  "IFCARBITRARYPROFILEDEFWITHVOIDS": 6,
+  "IFCMEASUREWITHUNIT": 4,
+  "IFCDIMENSIONALEXPONENTS": 4,
+  "IFCCONVERSIONBASEDUNIT": 4,
+  "IFCGEOMETRICREPRESENTATIONSUBCONTEXT": 4,
+  "IFCRELAGGREGATES": 3,
+  "IFCUNITASSIGNMENT": 1,
+  "IFCGEOMETRICREPRESENTATIONCONTEXT": 1,
+  "IFCPROJECTEDCRS": 1,
+  "IFCPROJECT": 1,
+  "IFCPOSTALADDRESS": 1,
+  "IFCSITE": 1,
+  "IFCBUILDING": 1,
+  "IFCPROPERTYENUMERATEDVALUE": 1
+ },
+ "units": {
+  "assigned": [
+   {
+    "type": "LENGTHUNIT",
+    "prefix": "MILLI",
+    "name": "METRE"
+   },
+   {
+    "type": "AREAUNIT",
+    "prefix": null,
+    "name": "SQUARE_METRE"
+   },
+   {
+    "type": "VOLUMEUNIT",
+    "prefix": null,
+    "name": "CUBIC_METRE"
+   },
+   {
+    "type": "MASSUNIT",
+    "prefix": "KILO",
+    "name": "GRAM"
+   },
+   {
+    "type": "TIMEUNIT",
+    "prefix": null,
+    "name": "SECOND"
+   },
+   {
+    "type": "PLANEANGLEUNIT",
+    "prefix": null,
+    "name": "RADIAN"
+   },
+   {
+    "type": "SOLIDANGLEUNIT",
+    "prefix": null,
+    "name": "STERADIAN"
+   },
+   {
+    "type": "THERMODYNAMICTEMPERATUREUNIT",
+    "prefix": null,
+    "name": "DEGREE_CELSIUS"
+   },
+   {
+    "type": "LUMINOUSINTENSITYUNIT",
+    "prefix": null,
+    "name": "LUMEN"
+   }
+  ],
+  "length_to_m": 0.001,
+  "angle_parameters_in_degrees": false
+ },
+ "project": [
+  {
+   "id": 30,
+   "name": "TYÖNRO",
+   "description": null,
+   "long_name": null,
+   "phase": null
+  }
+ ],
+ "site": [
+  {
+   "id": 36,
+   "name": "Default",
+   "description": null,
+   "long_name": null,
+   "ref_lat": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ref_lon": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "ref_elev": 0.0,
+   "placement_world": [
+    -2273.92738,
+    24480.12138,
+    3e-05
+   ]
+  }
+ ],
+ "building": [
+  {
+   "id": 41,
+   "name": "Kotikutonen",
+   "description": null,
+   "long_name": null,
+   "placement_world": [
+    -2273.92738,
+    24480.12138,
+    3e-05
+   ]
+  }
+ ],
+ "contexts": [
+  {
+   "id": 28,
+   "type": "Model",
+   "true_north": [
+    -0.1514272970057755,
+    0.9884683979377007,
+    0.0
+   ]
+  }
+ ],
+ "unassigned_to_storey": {},
+ "wall_types_top": [
+  [
+   "None | conc=True",
+   167
+  ],
+  [
+   "None | conc=False",
+   75
+  ]
+ ],
+ "wall_materials_top": [
+  [
+   "Concrete_Undefined",
+   167
+  ],
+  [
+   "EPS",
+   48
+  ],
+  [
+   "Timber_Undefined",
+   25
+  ],
+  [
+   "KEVYTSORABETONI",
+   2
+  ]
+ ],
+ "columns_types_top": [
+  [
+   "None | conc=False",
+   51
+  ],
+  [
+   "None | conc=True",
+   12
+  ]
+ ],
+ "beams_types_top": [
+  [
+   "None | conc=True",
+   130
+  ],
+  [
+   "None | conc=False",
+   26
+  ]
+ ],
+ "slab_geometry_methods": {
+  "other": 29
+ },
+ "slab_types_top": [
+  [
+   "NOTDEFINED | None | thk=2200.0 | conc=True",
+   8
+  ],
+  [
+   "NOTDEFINED | None | thk=1670.0 | conc=True",
+   3
+  ],
+  [
+   "NOTDEFINED | None | thk=6340.0 | conc=True",
+   3
+  ],
+  [
+   "NOTDEFINED | None | thk=1430.0 | conc=True",
+   2
+  ],
+  [
+   "NOTDEFINED | None | thk=6340.0 | conc=False",
+   2
+  ],
+  [
+   "NOTDEFINED | None | thk=5120.0 | conc=False",
+   2
+  ],
+  [
+   "NOTDEFINED | None | thk=1650.0 | conc=True",
+   2
+  ],
+  [
+   "NOTDEFINED | None | thk=2760.0 | conc=True",
+   1
+  ],
+  [
+   "NOTDEFINED | None | thk=1410.0 | conc=True",
+   1
+  ],
+  [
+   "NOTDEFINED | None | thk=7420.0 | conc=False",
+   1
+  ],
+  [
+   "NOTDEFINED | None | thk=4630.0 | conc=False",
+   1
+  ],
+  [
+   "NOTDEFINED | None | thk=7420.0 | conc=True",
+   1
+  ],
+  [
+   "NOTDEFINED | None | thk=12200.0 | conc=False",
+   1
+  ],
+  [
+   "NOTDEFINED | None | thk=7270.0 | conc=False",
+   1
+  ]
+ ],
+ "thickness_source_agreement": {
+  "layers_vs_extrusion_equal": 0,
+  "layers_vs_extrusion_differ": 0,
+  "has_layers": 0,
+  "has_quantity": 29,
+  "has_extrusion": 29
+ },
+ "slab_storey_mismatch_by_top": 29,
+ "slabs": [
+  {
+   "id": 1687,
+   "guid": "2Av4t$AZP0HAM89z_akIK9",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 1707,
+   "guid": "0b1kMvrsrBqfrSG$buUWwE",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 2171,
+   "guid": "2YSIIOm7H7lOQglpKiEu3S",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1430.0,
+   "thk_extrusion_mm": 300.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 3.95,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 2199,
+   "guid": "0QW$_rcpT8y9_hUqZQA3nE",
+   "name": "KERROSTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1670.0,
+   "thk_extrusion_mm": 395.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 4.61,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 2253,
+   "guid": "3BBBLAV2TDc9z79BRzhfkP",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 6340.0,
+   "thk_extrusion_mm": 80.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 129.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 7,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 2319,
+   "guid": "1nrlUp5u1AcPV1fED8_CU3",
+   "name": "LIITTOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 6340.0,
+   "thk_extrusion_mm": 165.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "T",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 129.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 7,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 2379,
+   "guid": "2k__x2CKj8SRbd8oFi5xyO",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "03.KERROS",
+   "storey_id": 751,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 5120.0,
+   "thk_extrusion_mm": 80.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 98.4,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 1,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 3344,
+   "guid": "3mhw_5b_15APLy$ufKfBvV",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "04.KERROS",
+   "storey_id": 3322,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 3351,
+   "guid": "3S8Khc63zF6OK2cIndppR7",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "04.KERROS",
+   "storey_id": 3322,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 3818,
+   "guid": "2NLRczXYzB89vTQqGp_1cI",
+   "name": "HISSIKATTO",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "04.KERROS",
+   "storey_id": 3322,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1650.0,
+   "thk_extrusion_mm": 200.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 2.97,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 4058,
+   "guid": "0AtV93eLT4S8ZVlcAGi05H",
+   "name": "LIITTOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "04.KERROS",
+   "storey_id": 3322,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2760.0,
+   "thk_extrusion_mm": 165.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 14.1,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 1,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 4277,
+   "guid": "077ZeZscn4vfJ8yJRNBiLj",
+   "name": "LIITTOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "04.KERROS",
+   "storey_id": 3322,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 6340.0,
+   "thk_extrusion_mm": 165.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 129.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 9,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 6216,
+   "guid": "03rRDZ3P10$9MjDhw0VUOL",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 6223,
+   "guid": "0vXXwzYrP9zQqm4IwZMtEQ",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 6443,
+   "guid": "1KjOQU$y9A4xPj9iGmf$Nn",
+   "name": "KERROSTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1670.0,
+   "thk_extrusion_mm": 395.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 4.61,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 6450,
+   "guid": "1lkUKjJg12yOdWc0r6MpcZ",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1430.0,
+   "thk_extrusion_mm": 300.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 3.95,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 7005,
+   "guid": "2P_QWNVcX5TecZSNuZHt8m",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 6340.0,
+   "thk_extrusion_mm": 80.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 129.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 7,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 7128,
+   "guid": "30Fj4WwYn28wHr50zo_jqF",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 5120.0,
+   "thk_extrusion_mm": 80.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 98.4,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 1,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 7665,
+   "guid": "07Rf0cdCz6bgCwRHXLAlCA",
+   "name": "LIITTOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "02.KERROS",
+   "storey_id": 6209,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 6340.0,
+   "thk_extrusion_mm": 165.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 129.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 7,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8166,
+   "guid": "09tJhBdrLEU85Ck6hbxIpI",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8173,
+   "guid": "3DYzkbxQD2T9s7KqQzlwmB",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 2200.0,
+   "thk_extrusion_mm": 265.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 13.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8180,
+   "guid": "2EaSd_cG1DYhtdXZcAoa9Z",
+   "name": "KERROSTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1670.0,
+   "thk_extrusion_mm": 395.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 4.61,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8193,
+   "guid": "3Llnlk3BfBZuOo_gcLSDkq",
+   "name": "LEPOTASOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1410.0,
+   "thk_extrusion_mm": 260.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 3.72,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8217,
+   "guid": "1xYgQTNcjB2vdvUwEgtHJt",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 7420.0,
+   "thk_extrusion_mm": 80.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 150.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 2,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8611,
+   "guid": "0_6ilRZV93nRTBlaK3zHrN",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 4630.0,
+   "thk_extrusion_mm": 80.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 88.8,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 1,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 8896,
+   "guid": "3SYA2Ryh9ANhT5DePw$IL0",
+   "name": "LIITTOLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "01.KERROS",
+   "storey_id": 8159,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 7420.0,
+   "thk_extrusion_mm": 165.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 150.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 2,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 10514,
+   "guid": "1Uth1wsdf5ded2UFOgAb6Q",
+   "name": "MAANVARAINENLAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "ALAPOHJA",
+   "storey_id": 10477,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 12200.0,
+   "thk_extrusion_mm": 200.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 249.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 10537,
+   "guid": "1$z0uLlWrBSe9KdD71Sbz$",
+   "name": "PINTALAATTA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "ALAPOHJA",
+   "storey_id": 10477,
+   "parent": null,
+   "materials": [
+    "C25/30"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 7270.0,
+   "thk_extrusion_mm": 90.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": false,
+   "load_bearing": "F",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 146.0,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  },
+  {
+   "id": 10598,
+   "guid": "2T6VLDlIL9XetFCfu7vAfa",
+   "name": "HISSIPOHJA",
+   "type": null,
+   "object_type": null,
+   "predefined": "NOTDEFINED",
+   "storey": "ALAPOHJA",
+   "storey_id": 10477,
+   "parent": null,
+   "materials": [
+    "Concrete_Undefined"
+   ],
+   "layers_mm": null,
+   "thk_layers_mm": null,
+   "thk_quantity_mm": 1650.0,
+   "thk_extrusion_mm": 250.0,
+   "thk_bbox_mm": null,
+   "thk_name_mm": null,
+   "concrete": true,
+   "load_bearing": "T",
+   "core_layer": null,
+   "bbox_mm": null,
+   "area_m2_profile": null,
+   "area_m2_quantity": 2.72,
+   "geometry": "other",
+   "clipped": false,
+   "n_openings": 0,
+   "nearest_storey_by_top": null,
+   "top_minus_storey_elev_mm": null,
+   "structural_candidate": false
+  }
+ ],
+ "grids": [],
+ "grid_axis_count": 0,
+ "column_clusters": {
+  "01.KERROS": {
+   "n": 12,
+   "x_lines": [
+    [
+     -7,
+     1
+    ],
+    [
+     2254,
+     1
+    ],
+    [
+     2939,
+     1
+    ],
+    [
+     5417,
+     1
+    ],
+    [
+     6102,
+     1
+    ],
+    [
+     8580,
+     1
+    ],
+    [
+     9265,
+     1
+    ],
+    [
+     11743,
+     1
+    ],
+    [
+     12428,
+     1
+    ],
+    [
+     14906,
+     1
+    ],
+    [
+     15591,
+     1
+    ],
+    [
+     18537,
+     1
+    ]
+   ],
+   "y_lines": [
+    [
+     29446,
+     1
+    ],
+    [
+     29930,
+     1
+    ],
+    [
+     30415,
+     1
+    ],
+    [
+     30900,
+     1
+    ],
+    [
+     31384,
+     1
+    ],
+    [
+     33467,
+     1
+    ],
+    [
+     33919,
+     1
+    ],
+    [
+     34403,
+     1
+    ],
+    [
+     34888,
+     1
+    ],
+    [
+     35372,
+     1
+    ],
+    [
+     35857,
+     1
+    ],
+    [
+     36308,
+     1
+    ]
+   ]
+  }
+ },
+ "space_names_top": [],
+ "storeys": [
+  {
+   "id": 44,
+   "name": "VESIKATTO",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 0,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCWALL": 25,
+    "IFCPLATE": 1
+   },
+   "walls": {
+    "total": 25,
+    "concrete": 0,
+    "load_bearing_true": 0,
+    "concrete_thickness_mm": {}
+   },
+   "columns": {
+    "total": 0,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 0,
+    "concrete": 0
+   },
+   "slabs": {
+    "total": 0,
+    "by_predefined": {},
+    "thickness_mm": {},
+    "types": {},
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 751,
+   "name": "03.KERROS",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 1,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCSLAB": 7,
+    "IFCWALL": 50,
+    "IFCBEAM": 38,
+    "IFCPLATE": 4
+   },
+   "walls": {
+    "total": 50,
+    "concrete": 37,
+    "load_bearing_true": 23,
+    "concrete_thickness_mm": {
+     "null": 37
+    }
+   },
+   "columns": {
+    "total": 0,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 38,
+    "concrete": 30
+   },
+   "slabs": {
+    "total": 7,
+    "by_predefined": {
+     "NOTDEFINED": 7
+    },
+    "thickness_mm": {
+     "2200.0": 2,
+     "6340.0": 2,
+     "1430.0": 1,
+     "1670.0": 1,
+     "5120.0": 1
+    },
+    "types": {
+     "null": 7
+    },
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 3322,
+   "name": "04.KERROS",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 2,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCSLAB": 5,
+    "IFCWALL": 54,
+    "IFCBEAM": 44,
+    "IFCPLATE": 20
+   },
+   "walls": {
+    "total": 54,
+    "concrete": 41,
+    "load_bearing_true": 23,
+    "concrete_thickness_mm": {
+     "null": 41
+    }
+   },
+   "columns": {
+    "total": 0,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 44,
+    "concrete": 36
+   },
+   "slabs": {
+    "total": 5,
+    "by_predefined": {
+     "NOTDEFINED": 5
+    },
+    "thickness_mm": {
+     "2200.0": 2,
+     "1650.0": 1,
+     "2760.0": 1,
+     "6340.0": 1
+    },
+    "types": {
+     "null": 5
+    },
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 5402,
+   "name": "PERUSTUS",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 3,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCCOLUMN": 50,
+    "IFCFOOTING": 21
+   },
+   "walls": {
+    "total": 0,
+    "concrete": 0,
+    "load_bearing_true": 0,
+    "concrete_thickness_mm": {}
+   },
+   "columns": {
+    "total": 50,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 0,
+    "concrete": 0
+   },
+   "slabs": {
+    "total": 0,
+    "by_predefined": {},
+    "thickness_mm": {},
+    "types": {},
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 6209,
+   "name": "02.KERROS",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 4,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCSLAB": 7,
+    "IFCWALL": 50,
+    "IFCBEAM": 40,
+    "IFCPLATE": 34
+   },
+   "walls": {
+    "total": 50,
+    "concrete": 38,
+    "load_bearing_true": 23,
+    "concrete_thickness_mm": {
+     "null": 38
+    }
+   },
+   "columns": {
+    "total": 0,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 40,
+    "concrete": 32
+   },
+   "slabs": {
+    "total": 7,
+    "by_predefined": {
+     "NOTDEFINED": 7
+    },
+    "thickness_mm": {
+     "2200.0": 2,
+     "6340.0": 2,
+     "1670.0": 1,
+     "1430.0": 1,
+     "5120.0": 1
+    },
+    "types": {
+     "null": 7
+    },
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 8159,
+   "name": "01.KERROS",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 5,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCSLAB": 7,
+    "IFCWALL": 59,
+    "IFCCOLUMN": 12,
+    "IFCBEAM": 34,
+    "IFCPLATE": 34
+   },
+   "walls": {
+    "total": 59,
+    "concrete": 47,
+    "load_bearing_true": 25,
+    "concrete_thickness_mm": {
+     "null": 47
+    }
+   },
+   "columns": {
+    "total": 12,
+    "concrete": 12
+   },
+   "beams": {
+    "total": 34,
+    "concrete": 32
+   },
+   "slabs": {
+    "total": 7,
+    "by_predefined": {
+     "NOTDEFINED": 7
+    },
+    "thickness_mm": {
+     "2200.0": 2,
+     "7420.0": 2,
+     "1670.0": 1,
+     "1410.0": 1,
+     "4630.0": 1
+    },
+    "types": {
+     "null": 7
+    },
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 10477,
+   "name": "ALAPOHJA",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 6,
+   "height_to_next_mm": 0.0,
+   "counts": {
+    "IFCSLAB": 3,
+    "IFCWALL": 4,
+    "IFCPLATE": 1
+   },
+   "walls": {
+    "total": 4,
+    "concrete": 4,
+    "load_bearing_true": 4,
+    "concrete_thickness_mm": {
+     "null": 4
+    }
+   },
+   "columns": {
+    "total": 0,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 0,
+    "concrete": 0
+   },
+   "slabs": {
+    "total": 3,
+    "by_predefined": {
+     "NOTDEFINED": 3
+    },
+    "thickness_mm": {
+     "12200.0": 1,
+     "7270.0": 1,
+     "1650.0": 1
+    },
+    "types": {
+     "null": 3
+    },
+    "structural_candidates": 0
+   }
+  },
+  {
+   "id": 10611,
+   "name": "KOHDISTUSKUUTIO",
+   "long_name": null,
+   "elevation_mm": 0.0,
+   "placement_z_mm": 3e-05,
+   "order": 7,
+   "height_to_next_mm": null,
+   "counts": {
+    "IFCCOLUMN": 1
+   },
+   "walls": {
+    "total": 0,
+    "concrete": 0,
+    "load_bearing_true": 0,
+    "concrete_thickness_mm": {}
+   },
+   "columns": {
+    "total": 1,
+    "concrete": 0
+   },
+   "beams": {
+    "total": 0,
+    "concrete": 0
+   },
+   "slabs": {
+    "total": 0,
+    "by_predefined": {},
+    "thickness_mm": {},
+    "types": {},
+    "structural_candidates": 0
+   }
+  }
+ ]
+}
